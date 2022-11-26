@@ -1,7 +1,7 @@
 ---
 name: 🐛 Bug Report
 about: Create a new ticket for a bug
-title: '[BUG] - <title>'
+title: ''
 labels: 'bug'
 assignees: ''
 ---

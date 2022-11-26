@@ -1,7 +1,7 @@
 ---
 name: 💡 Feature Request
 about: Create a new ticket for a new feature request
-title: '[REQUEST] - <title>'
+title: ''
 labels: 'enhancement'
 assignees: ''
 ---
