@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Discuss Ideas
+    url: https://github.com/IEEE-NITK/corpus/discussions/categories/ideas
+    about: Discuss ideas for the application or ask questions about the application!
