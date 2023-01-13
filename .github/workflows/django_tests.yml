@@ -1,0 +1,10 @@
+name: django_tests
+on: [pull_request, push]
+jobs:
+  run_tests:
+    runs-ons: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - run: pip install -r corpus/requirements.txt
+      - run: python corpus/manage.py test
