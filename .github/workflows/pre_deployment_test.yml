@@ -9,4 +9,5 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+      - run: pip install -r corpus/requirements.txt
       - run: python corpus/deploy_test.py
