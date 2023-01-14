@@ -10,5 +10,7 @@ RUN pip install --upgrade pip
 COPY . .
 RUN pip install -r requirements.txt
 
+RUN mv env.example .env
+
 RUN python manage.py makemigrations
 RUN python manage.py collectstatic

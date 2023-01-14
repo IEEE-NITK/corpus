@@ -1,8 +1,8 @@
 name: pre-deployment-test
 run-name: ${{ github.actor }} is running Pre Deployment Test
-on: [push, pull_request]
+on: [push]
 jobs:
-  run-django-tests:
+  pre-deployment-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
