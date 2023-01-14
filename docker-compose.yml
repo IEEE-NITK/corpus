@@ -1,14 +1,18 @@
 services:
+
   web:
     build: corpus
-    command: gunicorn --pythonpath './corpus' --bind 0.0.0.0:8000 --workers 4 corpus.wsgi
+    command: /bin/sh -c "python manage.py migrate && gunicorn --pythonpath '.' --bind 0.0.0.0:8000 --workers 4 corpus.wsgi"
     expose:
       - "8000"
     networks:
       - web_nginx_net
+      - web_db_net
     volumes:
       - ./corpus/:/usr/src/app
       - static_files:/usr/src/app/static
+    depends_on:
+      - db
 
   nginx:
     build: nginx
@@ -22,8 +26,24 @@ services:
     volumes:
       - static_files:/etc/nginx/staticfiles
 
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=corpus
+      - MYSQL_DATABASE=corpus
+      - MYSQL_USER=corpus
+      - MYSQL_PASSWORD=corpus
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - web_db_net
+    expose:
+      - "3306"
+
 networks:
   web_nginx_net:
+  web_db_net:
 
 volumes:
   static_files:
+  mariadb_data:
