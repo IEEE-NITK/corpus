@@ -5,12 +5,12 @@ WORKDIR /usr/src/app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apk add --no-cache mariadb-connector-c-dev g++ make
+RUN apk add --no-cache mariadb-connector-c-dev g++ make bash
+COPY requirements.txt .
+COPY start.sh .
+
 RUN pip install --upgrade pip
-COPY . .
 RUN pip install -r requirements.txt
 
-RUN mv env.example .env
-
-RUN python manage.py makemigrations
-RUN python manage.py collectstatic
+RUN chmod +x ./start.sh
+CMD [ "/usr/src/app/start.sh" ]

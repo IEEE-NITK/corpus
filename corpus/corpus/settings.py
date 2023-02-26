@@ -29,8 +29,10 @@ SECRET_KEY = os.environ["DJANGO_SECRET"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["DEBUG"] == "True"
 
-ALLOWED_HOSTS = ["*"]
-
+if DEBUG:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+else:
+    ALLOWED_HOSTS = ["ieee.nitk.ac.in"]
 
 # Application definition
 
@@ -80,11 +82,11 @@ WSGI_APPLICATION = "corpus.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "corpus",
-        "USER": "corpus",
-        "PASSWORD": "corpus",
-        "HOST": "db",
-        "PORT": 3306,
+        "NAME": os.environ["DB_NAME"],
+        "USER": os.environ["DB_USER"],
+        "PASSWORD": os.environ["DB_PASSWORD"],
+        "HOST": os.environ["DB_HOST"],
+        "PORT": os.environ["DB_PORT"],
         "OPTIONS": {
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES', innodb_strict_mode=1",
         },
