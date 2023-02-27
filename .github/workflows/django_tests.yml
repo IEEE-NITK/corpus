@@ -9,6 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Copy config files
+        run: cp django.env.example django.env && cp mariadb.env.example mariadb.env
+
       - name: Start Containers
         run: docker compose -f "docker-compose.yml" up -d --build
 
