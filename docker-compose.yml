@@ -1,0 +1,49 @@
+services:
+
+  web:
+    build: corpus
+    command: /usr/src/app/start.sh
+    expose:
+      - "8000"
+    networks:
+      - web_nginx_net
+      - web_db_net
+    volumes:
+      - ./corpus:/usr/src/app
+      - static_files:/usr/src/app/static
+    depends_on:
+      - db
+    env_file:
+      - django.env
+
+  nginx:
+    build: nginx
+    restart: always
+    depends_on:
+      - web
+      - db
+    networks:
+      - web_nginx_net
+    ports:
+      - "80:80"
+    volumes:
+      - static_files:/etc/nginx/staticfiles
+
+  db:
+    image: mariadb
+    env_file:
+      - mariadb.env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - web_db_net
+    expose:
+      - "3306"
+
+networks:
+  web_nginx_net:
+  web_db_net:
+
+volumes:
+  static_files:
+  mariadb_data:

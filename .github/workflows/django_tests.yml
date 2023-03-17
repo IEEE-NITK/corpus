@@ -1,0 +1,23 @@
+name: django-tests
+
+run-name: ${{ github.actor }} is running Django Tests
+on: [pull_request]
+jobs:
+  run-django-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Copy config files
+        run: cp django.env.example django.env && cp mariadb.env.example mariadb.env
+
+      - name: Start Containers
+        run: docker compose -f "docker-compose.yml" up -d --build
+
+      - name: Run Tests
+        run: docker compose exec web python manage.py test
+
+      - name: Stop Containers
+        if: always()
+        run: docker compose -f "docker-compose.yml" down -v
