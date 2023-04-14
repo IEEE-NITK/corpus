@@ -30,7 +30,7 @@ SECRET_KEY = os.environ["DJANGO_SECRET"]
 DEBUG = os.environ["DEBUG"] == "True"
 
 if DEBUG:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "wpad"]
 else:
     ALLOWED_HOSTS = ["ieee.nitk.ac.in"]
 

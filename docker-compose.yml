@@ -12,9 +12,10 @@ services:
       - ./corpus:/usr/src/app
       - static_files:/usr/src/app/static
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     env_file:
-      - django.env
+      - .env
 
   nginx:
     build: nginx
@@ -32,13 +33,15 @@ services:
   db:
     image: mariadb
     env_file:
-      - mariadb.env
+      - .env
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
       - web_db_net
     expose:
       - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u${MYSQL_USER}", "-p${MYSQL_ROOT_PASSWORD}"]
 
 networks:
   web_nginx_net:
