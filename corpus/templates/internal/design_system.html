@@ -1,0 +1,22 @@
+{% extends 'base_layouts/base.html' %}
+
+{% block title %}
+Design System
+{% endblock %}
+
+{% block content %}
+<article class="prose prose-xl max-w-none">
+    <h1>Welcome to the Design System</h1>
+    <p>
+        This is a brief about the design system used in Corpus. It is powered by <a
+            href="https://daisyui.com/">DaisyUI</a>, which is built on top of <a href="https://tailwindcss.com">Tailwind
+            CSS</a>.
+    </p>
+    <p>
+        While developing interfaces for Corpus, remember to first consult this document. Most of the instructions about
+        acceptable typography, colors and other styles will be provided here. There might be cases where your use-case
+        has not been documented on this page. In that case, first refer to the DaisyUI component documentation, before
+        working directly with the Tailwind CSS classes.
+    </p>
+</article>
+{% endblock %}

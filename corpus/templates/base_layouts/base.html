@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock %} | Corpus, IEEE NITK
+    </title>
+
+    <!-- daisyUI files -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.52.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+
+    <!-- Tailwind and daisyUI configs -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ieeeblue: '#00629B',
+                    }
+                }
+            },
+            daisyui: {
+                themes: [
+                    "dark",
+                    "light",
+                ]
+            }
+        }
+    </script>
+
+    <!-- if custom CSS is needed globally, add it after this -->
+</head>
+
+<body>
+
+    {% include 'base_layouts/navbar.html' %}
+
+    <div class="my-5 mx-10">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% include 'base_layouts/footer.html' %}
+
+</body>
+
+</html>
