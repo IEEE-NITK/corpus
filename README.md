@@ -7,7 +7,7 @@ A Django based web application to manage all things IEEE NITK.
 1. Run the following command to create a copy of the environment file.
 
 ```sh
-cp .env.example .env
+cp env.example .env
 ```
 
 2. Run docker compose
