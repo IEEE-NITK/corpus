@@ -1,52 +1,80 @@
-services:
+version: '3.1'
 
-  web:
-    build: corpus
-    command: /usr/src/app/start.sh
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    env_file:
+      - .env
     expose:
-      - "8000"
+      - ${POSTGRES_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U corpus"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
     networks:
-      - web_nginx_net
-      - web_db_net
+      - corpus_network
     volumes:
-      - ./corpus:/usr/src/app
-      - static_files:/usr/src/app/static
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - ${ADMINER_PORT}
+    env_file:
+      - .env
+    networks:
+      - corpus_network
+
+  backend:
+    build: backend
+    command: /corpus/start.sh
+    restart: always
+    expose:
+      - ${DJANGO_BACKEND_PORT}
+    networks:
+      - corpus_network
+    volumes:
+      - static_files:/corpus/static
     depends_on:
-      db:
+      postgres:
         condition: service_healthy
     env_file:
       - .env
+
+  frontend:
+    build: frontend
+    restart: always
+    command: node build
+    networks:
+      - corpus_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "3000"
 
   nginx:
     build: nginx
     restart: always
     depends_on:
-      - web
-      - db
+      - backend
+      - postgres
     networks:
-      - web_nginx_net
+      - corpus_network
     ports:
       - "80:80"
     volumes:
       - static_files:/etc/nginx/staticfiles
-
-  db:
-    image: mariadb
     env_file:
       - .env
-    volumes:
-      - mariadb_data:/var/lib/mysql
-    networks:
-      - web_db_net
-    expose:
-      - "3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-u${MYSQL_USER}", "-p${MYSQL_ROOT_PASSWORD}"]
 
 networks:
-  web_nginx_net:
-  web_db_net:
+  corpus_network:
 
 volumes:
   static_files:
-  mariadb_data:
+  postgres_data:
