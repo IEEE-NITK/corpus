@@ -2,6 +2,11 @@
 	import '../../../app.postcss';
 </script>
 
+<svelte:head>
+    <title>Design System | Internal | Corpus</title> 
+</svelte:head>
+
+
 <div class="container prose mx-auto">
 	<h1>Design System</h1>
 	<p>

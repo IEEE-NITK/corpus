@@ -5,6 +5,9 @@ module.exports = {
 		extend: {
 			colors: {
 				ieeeblue: '#00629B'
+			},
+			fontFamily: {
+				roboto: ["Roboto"]
 			}
 		}
 	},
