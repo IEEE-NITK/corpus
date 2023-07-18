@@ -1,0 +1,83 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - ${POSTGRES_PORT}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-U corpus"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - corpus_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - ${ADMINER_PORT}
+    env_file:
+      - .env
+    networks:
+      - corpus_network
+
+  backend:
+    build: backend
+    command: /corpus/start.sh
+    restart: always
+    expose:
+      - ${DJANGO_BACKEND_PORT}
+    networks:
+      - corpus_network
+    volumes:
+      - static_files:/corpus/static
+      - ./backend:/corpus
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+
+  frontend:
+    build: frontend
+    restart: always
+    command: npm run dev -- --port 3000
+    networks:
+      - corpus_network
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "3000"
+
+  nginx:
+    build: nginx
+    restart: always
+    depends_on:
+      - backend
+      - postgres
+    networks:
+      - corpus_network
+    ports:
+      - "80:80"
+    volumes:
+      - static_files:/etc/nginx/staticfiles
+    env_file:
+      - .env
+
+networks:
+  corpus_network:
+
+volumes:
+  static_files:
+  postgres_data:

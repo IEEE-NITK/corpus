@@ -38,6 +38,25 @@ Versions for all the languages used in the project can be found in the `.tool-ve
 
 If you do not have access to a Unix machine, Docker is the recommended way for development.
 
+### Docker Development
+
+This is the preferred way for development. All modern editors allow you to open code in Docker containers remotely. If that is not possible, all code is mounted to Docker containers, so you can make changes that can be checked live.
+
+For development, use the development Docker Compose file.
+
+```shell
+docker compose -f dev-docker-compose.yml up --build
+```
+
+This Compose file will mount your codebase and add automatic reloading to the frontend code.
+
+If you still choose to go ahead and work on development on individual folders, instructions are given below. However, before development, make sure you source the `.env` file so that all necessary environment variables are picked up.
+
+```shell
+set -a
+source .env
+```
+
 ### Frontend
 To work on the frontend, make sure you have Nodejs installed on your system. Once you have done that, you can install dependencies and run the server.
 
@@ -53,7 +72,7 @@ The backend is a Django Rest Framework application. The recommended approach is 
 
 ```sh
 python -m venv venv
-source venv/bin/activate (on Windows venv\Scripts\activate)
+source venv/bin/activate (on Windows: venv\Scripts\activate)
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
