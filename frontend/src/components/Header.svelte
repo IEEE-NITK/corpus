@@ -1,5 +1,5 @@
 <script>
-    import NavbarDropdown from "./navbarDropdown.svelte";
+    import NavbarDropdown from "./NavbarDropdown.svelte";
 </script>
 
 <div class="navbar mb-10 bg-ieeeblue text-primary-content">

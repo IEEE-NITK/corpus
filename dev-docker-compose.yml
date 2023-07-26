@@ -63,6 +63,21 @@ services:
     expose:
       - "3000"
 
+  storybook:
+    image: node:18.16.0-alpine
+    working_dir: /app
+    restart: always
+    command: npm run storybook
+    networks:
+      - corpus_network
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "6006:6006"
+
   nginx:
     build: nginx
     restart: always
