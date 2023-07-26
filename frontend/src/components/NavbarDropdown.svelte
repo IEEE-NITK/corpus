@@ -3,13 +3,13 @@
     <li>
       <h2 class="text-lg text-secondary">General</h2>
       <ul>
-        <li><a href="/">Home</a></li>
+        <li><a href="/" class="text-white">Home</a></li>
       </ul>
     </li>
     <li>
         <h2 class="text-lg text-secondary">Internal</h2>
         <ul>
-          <li><a href="/internal/design_system">Design System</a></li>
+          <li><a href="/internal/design_system" class="text-white">Design System</a></li>
         </ul>
       </li>
   </ul>

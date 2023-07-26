@@ -2,7 +2,7 @@
     import NavbarDropdown from "./NavbarDropdown.svelte";
 </script>
 
-<div class="navbar mb-10 bg-ieeeblue text-primary-content">
+<div class="navbar mb-10 bg-ieeeblue text-white">
     <div class="navbar-start">
         <div class="dropdown">
             <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
