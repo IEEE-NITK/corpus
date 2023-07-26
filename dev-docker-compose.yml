@@ -34,7 +34,7 @@ services:
       context: backend
       dockerfile: dev-Dockerfile
     working_dir: /corpus
-    command: bash -c "python manage.py migrate && python manage.py runserver"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
     expose:
       - ${DJANGO_BACKEND_PORT}
