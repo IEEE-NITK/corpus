@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Design System | Internal | Corpus</title> 
+    <title>Design System | Internal | Corpus</title>
 </svelte:head>
 
 

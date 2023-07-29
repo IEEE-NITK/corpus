@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>Home | Corpus</title> 
+    <title>Home | Corpus</title>
 </svelte:head>
 
 <div class="container prose mx-auto">

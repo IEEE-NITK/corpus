@@ -1,18 +1,4 @@
 {
-  "name": "frontend",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "prettier --plugin-search-dir . --check . && eslint .",
-    "format": "prettier --plugin-search-dir . --write .",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
-  },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.1.1",
     "@storybook/addon-interactions": "^7.1.1",
@@ -52,5 +38,19 @@
     "typescript": "^5.0.0",
     "vite": "^4.3.6"
   },
-  "type": "module"
+  "name": "frontend",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "build-storybook": "storybook build",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "dev": "vite dev",
+    "format": "prettier --plugin-search-dir . --write .",
+    "lint": "prettier --plugin-search-dir . --check . && eslint .",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006"
+  },
+  "type": "module",
+  "version": "0.0.1"
 }

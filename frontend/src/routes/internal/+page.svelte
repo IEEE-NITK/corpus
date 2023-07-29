@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-    <title>Internal | Corpus</title> 
+    <title>Internal | Corpus</title>
 </svelte:head>
 
 <article class="container prose mx-auto">
