@@ -30,15 +30,18 @@ services:
       - corpus_network
 
   backend:
-    build: backend
-    command: /corpus/start.sh
+    build:
+      context: backend
+      dockerfile: dev-Dockerfile
+    working_dir: /corpus
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
     expose:
       - ${DJANGO_BACKEND_PORT}
     networks:
       - corpus_network
     volumes:
-      - static_files:/corpus/static
+      - ./backend:/corpus
     depends_on:
       postgres:
         condition: service_healthy
@@ -46,16 +49,34 @@ services:
       - .env
 
   frontend:
-    build: frontend
+    image: node:18.16.0-alpine
+    working_dir: /app
     restart: always
-    command: node build
+    command: sh -c "npm install && npm run dev -- --port 3000"
     networks:
       - corpus_network
+    volumes:
+      - ./frontend:/app
     depends_on:
       postgres:
         condition: service_healthy
     expose:
       - "3000"
+
+  storybook:
+    image: node:18.16.0-alpine
+    working_dir: /app
+    restart: always
+    command: sh -c "npm install && npm run storybook"
+    networks:
+      - corpus_network
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "6006:6006"
 
   nginx:
     build: nginx
@@ -67,8 +88,6 @@ services:
       - corpus_network
     ports:
       - "80:80"
-    volumes:
-      - static_files:/etc/nginx/staticfiles
     env_file:
       - .env
 

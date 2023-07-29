@@ -10,4 +10,4 @@ python manage.py migrate --no-input
 python manage.py collectstatic --no-input
 
 # Start server
-gunicorn --bind 0.0.0.0:8000 --workers 4 corpus.wsgi
+gunicorn --bind 0.0.0.0:$DJANGO_BACKEND_PORT --workers 4 corpus.wsgi
