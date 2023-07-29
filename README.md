@@ -4,7 +4,7 @@ A Django based web application to manage all things IEEE NITK.
 
 ## Setup Instructions
 
-1. Run the following command to create a copy of the environment file.
+1. Run the following command to create a copy of the environment file. Change the environment variables as necessary in the copied file.
 
 ```sh
 cp env.example .env
@@ -45,6 +45,10 @@ This is the preferred way for development. All modern editors allow you to open 
 For development, use the development Docker Compose file.
 
 ```shell
+cp env.example .env
+
+# Make required changes to the .env file
+
 docker compose -f dev-docker-compose.yml up --build
 ```
 
@@ -58,6 +62,7 @@ source .env
 ```
 
 ### Frontend
+
 To work on the frontend, make sure you have Nodejs installed on your system. Once you have done that, you can install dependencies and run the server.
 
 ```sh
@@ -68,6 +73,7 @@ npm run dev
 Make sure you properly mark any unnecessary and script generated files in `.gitignore` and `.dockerignore` files.
 
 ### Backend
+
 The backend is a Django Rest Framework application. The recommended approach is to create a Python virtual environment, and setup the project.
 
 ```sh
