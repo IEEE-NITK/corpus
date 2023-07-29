@@ -52,7 +52,7 @@ services:
     image: node:18.16.0-alpine
     working_dir: /app
     restart: always
-    command: npm run dev -- --port 3000
+    command: sh -c "npm install && npm run dev -- --port 3000"
     networks:
       - corpus_network
     volumes:
@@ -67,7 +67,7 @@ services:
     image: node:18.16.0-alpine
     working_dir: /app
     restart: always
-    command: npm run storybook
+    command: sh -c "npm install && npm run storybook"
     networks:
       - corpus_network
     volumes:
