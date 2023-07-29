@@ -38,6 +38,20 @@ Versions for all the languages used in the project can be found in the `.tool-ve
 
 If you do not have access to a Unix machine, Docker is the recommended way for development.
 
+### Pre Commit Hooks
+
+We maintain code quality using pre-commit hooks (defined in [.pre-commit-config.yaml](.pre-commit-config.yaml)). All developers are requested to install all the pre-commit hooks before making any contributions to the codebase. Read more about pre-commit hooks [here](https://pre-commit.com/).
+
+To install pre-commit hooks, run the following commands:
+
+```shell
+# Install the pre-commit framework
+pip install pre-commit
+
+# Install the pre-commit hooks
+pre-commit install
+```
+
 ### Docker Development
 
 This is the preferred way for development. All modern editors allow you to open code in Docker containers remotely. If that is not possible, all code is mounted to Docker containers, so you can make changes that can be checked live.
