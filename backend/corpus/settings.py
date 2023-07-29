@@ -25,7 +25,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ["ENVIRONMENT"] == "DEVELOPMENT"
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
 
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "corpus.urls"
+ROOT_URLCONF = "corpus.base_url"
 
 TEMPLATES = [
     {
