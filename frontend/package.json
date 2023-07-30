@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "winston": "^3.10.0"
+  },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.1.1",
     "@storybook/addon-interactions": "^7.1.1",
