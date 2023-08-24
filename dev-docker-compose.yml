@@ -29,9 +29,9 @@ services:
     networks:
       - corpus_network
 
-  backend:
+  corpus:
     build:
-      context: backend
+      context: corpus
       dockerfile: dev-Dockerfile
     working_dir: /corpus
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
@@ -41,48 +41,18 @@ services:
     networks:
       - corpus_network
     volumes:
-      - ./backend:/corpus
+      - ./corpus:/corpus
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
       - .env
 
-  frontend:
-    image: node:18.16.0-alpine
-    working_dir: /app
-    restart: always
-    command: sh -c "npm install && npm run dev -- --port 3000"
-    networks:
-      - corpus_network
-    volumes:
-      - ./frontend:/app
-    depends_on:
-      postgres:
-        condition: service_healthy
-    expose:
-      - "3000"
-
-  storybook:
-    image: node:18.16.0-alpine
-    working_dir: /app
-    restart: always
-    command: sh -c "npm install && npm run storybook"
-    networks:
-      - corpus_network
-    volumes:
-      - ./frontend:/app
-    depends_on:
-      postgres:
-        condition: service_healthy
-    ports:
-      - "6006:6006"
-
   nginx:
     build: nginx
     restart: always
     depends_on:
-      - backend
+      - corpus
       - postgres
     networks:
       - corpus_network

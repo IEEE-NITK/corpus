@@ -29,8 +29,8 @@ services:
     networks:
       - corpus_network
 
-  backend:
-    build: backend
+  corpus:
+    build: corpus
     command: /corpus/start.sh
     restart: always
     expose:
@@ -45,23 +45,11 @@ services:
     env_file:
       - .env
 
-  frontend:
-    build: frontend
-    restart: always
-    command: node build
-    networks:
-      - corpus_network
-    depends_on:
-      postgres:
-        condition: service_healthy
-    expose:
-      - "3000"
-
   nginx:
     build: nginx
     restart: always
     depends_on:
-      - backend
+      - corpus
       - postgres
     networks:
       - corpus_network
