@@ -30,23 +30,22 @@ services:
       - corpus_network
 
   corpus:
-    build:
-      context: corpus
-      dockerfile: dev-Dockerfile
-    working_dir: /corpus
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    build: corpus
+    command: /corpus/start.sh
     restart: always
     expose:
       - ${DJANGO_BACKEND_PORT}
     networks:
       - corpus_network
     volumes:
-      - ./corpus:/corpus
+      - static_files:/corpus/static
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
       - .env
+    environment:
+      - ENVIRONMENT=PRODUCTION
 
   nginx:
     build: nginx
@@ -58,6 +57,8 @@ services:
       - corpus_network
     ports:
       - "80:80"
+    volumes:
+      - static_files:/etc/nginx/staticfiles
     env_file:
       - .env
 

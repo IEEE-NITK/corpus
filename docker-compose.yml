@@ -22,43 +22,33 @@ services:
   adminer:
     image: adminer
     restart: always
-    expose:
-      - ${ADMINER_PORT}
+    ports:
+      - "8080:8080"
     env_file:
       - .env
     networks:
       - corpus_network
 
   corpus:
-    build: corpus
-    command: /corpus/start.sh
+    build:
+      context: corpus
+      dockerfile: dev-Dockerfile
+    working_dir: /corpus
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     restart: always
-    expose:
-      - ${DJANGO_BACKEND_PORT}
+    ports:
+      - "8000:8000"
     networks:
       - corpus_network
     volumes:
-      - static_files:/corpus/static
+      - ./corpus:/corpus
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
       - .env
-
-  nginx:
-    build: nginx
-    restart: always
-    depends_on:
-      - corpus
-      - postgres
-    networks:
-      - corpus_network
-    ports:
-      - "80:80"
-    volumes:
-      - static_files:/etc/nginx/staticfiles
-    env_file:
-      - .env
+    environment:
+      - ENVIRONMENT=DEVELOPMENT
 
 networks:
   corpus_network:
