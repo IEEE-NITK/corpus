@@ -1,0 +1,51 @@
+name: 💡 Feature Request
+description: Create a new ticket for a new feature request
+title: '[FEATURE]: '
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to request a new feature! Please fill in the information below to help us understand your request.
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the feature you would like to see?
+      description: Mention what the feature is, and why you would like to see it. Be as detailed as possible!
+      placeholder: Tell us what you would like to see.
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: How important do you think this feature is?
+      description: |
+        - **Low:** This feature is not very important, and can be implemented at any point.
+        - **Medium:** This feature is important, but not critical.
+        - **High:** This feature is critical, and should be implemented as soon as possible.
+      multiple: false
+      options:
+        - "Low"
+        - "Medium"
+        - "High"
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details (optional)
+      description: |
+        How can we get in touch with you if we need more info?
+
+        Please do not put your phone number here. This is a public forum, and we do not want your phone number to be misused.
+      placeholder: email@example.com
+    validations:
+      required: false
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Anything else?
+      description: |
+        Links? References? Anything that will help us better understand your requirements!
+
+        Tip: You can attach images by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
