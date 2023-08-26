@@ -1,0 +1,22 @@
+<button class="btn btn-ghost btn-outline btn-circle fixed bottom-10 right-10" onclick="toggleTheme()">
+    <span class="material-symbols-outlined" id="dark-mode-toggle">
+    </span>
+</button>
+
+<script>
+    $(document).ready(() => {
+        const theme = localStorage.getItem("corpusTheme") || "winter";
+        const icon = theme == "winter" ? "dark_mode" : "light_mode";
+        document.documentElement.setAttribute("data-theme", theme);
+        $("#dark-mode-toggle").html(icon);
+    })
+
+    const toggleTheme = () => {
+        let theme = localStorage.getItem("corpusTheme") || "winter";
+        theme = theme == "winter" ? "night" : "winter";
+        const icon = theme == "winter" ? "dark_mode" : "light_mode";
+        document.documentElement.setAttribute("data-theme", theme);
+        $("#dark-mode-toggle").html(icon);
+        localStorage.setItem("corpusTheme", theme);
+    }
+</script>

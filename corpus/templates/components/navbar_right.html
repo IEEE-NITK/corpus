@@ -1,0 +1,17 @@
+{% if user.is_authenticated %}
+    <div class="dropdown dropdown-end">
+        <div tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+        </div>
+        {% include "components/navbar_profile_dropdown.html" %}
+    </div>
+{% else %}
+    <a href="/" class="btn btn-ghost">
+        Login
+        <span class="material-symbols-outlined">
+            login
+        </span>
+    </a>
+{% endif %}
