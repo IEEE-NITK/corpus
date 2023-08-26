@@ -1,0 +1,7 @@
+<div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+    {% include "components/general_dropdown.html" %}
+
+    {% if user.is_authenticated %}
+        {% include "components/internal_dropdown.html" %}
+    {% endif %}
+</div>
