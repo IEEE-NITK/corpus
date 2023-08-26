@@ -13,7 +13,7 @@
 
     const toggleTheme = () => {
         let theme = localStorage.getItem("corpusTheme") || "winter";
-        theme = theme == "winter" ? "dark" : "winter";
+        theme = theme == "winter" ? "night" : "winter";
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
