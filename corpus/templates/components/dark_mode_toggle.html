@@ -5,10 +5,11 @@
 
 <script>
     $(document).ready(() => {
-        const theme = localStorage.getItem("corpusTheme") || "winter";
+        const theme = localStorage.getItem("corpusTheme") || (window.matchMedia('(prefers-color-scheme: light)').matches ? "winter" : "night");
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateIndex(theme);
     })
 
     const toggleTheme = () => {
@@ -17,6 +18,17 @@
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateIndex(theme);
         localStorage.setItem("corpusTheme", theme);
+    }
+
+    // TODO: Move to index.js and add an event listener to HTML attribute change instead
+    // TODO: Verify that updating attributes in JS doesn't work
+    const updateIndex = (theme) => {
+        if (theme == "winter") {
+            particlesJS.load('particles-js', '/static/js/particles.json');
+        } else {
+            particlesJS.load('particles-js', '/static/js/particles-dark.json');
+        }
     }
 </script>
