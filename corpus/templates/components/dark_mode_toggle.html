@@ -22,13 +22,17 @@
         localStorage.setItem("corpusTheme", theme);
     }
 
-    // TODO: Move to index.js and add an event listener to HTML attribute change instead
-    // TODO: Verify that updating attributes in JS doesn't work
+    {% if request.get_full_path == "/" %}
     const updateIndex = (theme) => {
         if (theme == "winter") {
             particlesJS.load('particles-js', '/static/js/particles.json');
+            $("#ieee-blue").show();
+            $("#ieee-white").hide();
         } else {
             particlesJS.load('particles-js', '/static/js/particles-dark.json');
+            $("#ieee-blue").hide();
+            $("#ieee-white").show();
         }
     }
+    {% endif %}
 </script>

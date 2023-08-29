@@ -12,9 +12,10 @@ Home
             <h1 class="text-3xl lg:text-6xl font-extrabold">Advancing Technology for <span id="typewriter"></span></h1>
 
 
-            <!-- TODO: Add conditional logic to display only one based on theme -->
-            <img src="{% static 'img/ieee-blue.png' %}" id="ieee-blue" alt="IEEE Logo">
-            <img src="{% static 'img/ieee-white.png' %}" id="ieee-white" alt="IEEE Logo">
+            <a class="my-5" href="https://www.ieee.org/">
+                <img style="display: none ;" src="{% static 'img/ieee-blue.png' %}" id="ieee-blue" alt="IEEE Logo">
+                <img style="display: none;" src="{% static 'img/ieee-white.png' %}" id="ieee-white" alt="IEEE Logo">
+            </a>
         </div>
     </div>
 {% endblock %}
