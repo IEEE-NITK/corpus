@@ -6,7 +6,7 @@ Home
 {% endblock %}
 
 {% block content %}
-    <div class="hero min-h-screen min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <section class="hero min-h-screen min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
         <div id="particles-js" class="h-screen w-screen"></div>
         <div class="hero-content text-center flex-col">
             <h1 class="text-3xl lg:text-6xl font-extrabold">Advancing Technology for <span id="typewriter"></span></h1>
@@ -17,7 +17,19 @@ Home
                 <img style="display: none;" src="{% static 'img/ieee-white.png' %}" id="ieee-white" alt="IEEE Logo">
             </a>
         </div>
-    </div>
+    </section>
+    <section class="base-100 text-center prose px-10 lg:px-60 py-10 min-w-full">
+        <h1 class="text-4xl lg:text-5xl">About IEEE NITK</h1>
+        <p class="text-justify">
+            IEEE is the world's largest professional association advancing innovation and technological
+            excellence for the benefit of humanity. IEEE and its members inspire a global community to
+            innovate for a better tomorrow through its highly-cited publications, conferences, technology
+            standards, and professional and educational activities. IEEE is the trusted "voice" for engineering,
+            computing and technology information around the globe. We, IEEE NITK, belong to Region 10 of
+            IEEE and under the Bangalore section. Founded in 1988, we are an award-winning student branch
+            and one of the biggest worldwide.
+        </p>
+    </section>
 {% endblock %}
 
 {% block script %}
