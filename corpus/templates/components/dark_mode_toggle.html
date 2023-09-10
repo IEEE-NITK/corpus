@@ -26,12 +26,18 @@
     const updateIndex = (theme) => {
         if (theme == "winter") {
             particlesJS.load('particles-js', '/static/js/particles.json');
-            $("#ieee-blue").show();
             $("#ieee-white").hide();
+            $("#ieee-blue").show();
+
+            $(".dark-logo").hide();
+            $(".light-logo").show();
         } else {
             particlesJS.load('particles-js', '/static/js/particles-dark.json');
             $("#ieee-blue").hide();
             $("#ieee-white").show();
+
+            $(".light-logo").hide();
+            $(".dark-logo").show();
         }
     }
     {% endif %}

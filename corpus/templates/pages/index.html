@@ -5,6 +5,10 @@
 Home
 {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %}
+
 {% block content %}
 <section
     class="hero min-h-screen min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
@@ -91,7 +95,37 @@ Home
             </div>
         </div>
     </div>
-
+</section>
+<section class="bg-base-100 prose py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl text-center">Societies</h1>
+    <div class="flex whitespace-nowrap overflow-x-hidden">
+        <div class="relative">
+            <div class="space-x-2 animate-[smallmarquee_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee_25s_linear_infinite]">
+            {% for society in societies %}
+                {% if society.dark_image %}
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;" alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline"/></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline"/></a>
+                {% else %}
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo" class="h-14 lg:h-24 inline" /></a>
+                {% endif %}
+            {% empty %}
+                <p>There should be some societies here. Did you import the DB dump using <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;</p>
+            {% endfor %}
+            </div>
+            <div class="absolute top-0 space-x-2 animate-[smallmarquee2_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee2_25s_linear_infinite]">
+            {% for society in societies %}
+                {% if society.dark_image %}
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;" alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline"/></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline"/></a>
+                {% else %}
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo" class="h-14 lg:h-24 inline" /></a>
+                {% endif %}
+            {% empty %}
+            <p>There should be some societies here. Did you import the DB dump using <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;</p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
 </section>
 {% endblock %}
 
