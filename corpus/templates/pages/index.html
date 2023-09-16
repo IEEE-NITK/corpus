@@ -100,29 +100,92 @@ Home
     <h1 class="text-4xl lg:text-5xl text-center">Societies</h1>
     <div class="flex whitespace-nowrap overflow-x-hidden">
         <div class="relative">
-            <div class="space-x-2 animate-[smallmarquee_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee_25s_linear_infinite]">
-            {% for society in societies %}
+            <div
+                class="space-x-2 animate-[smallmarquee_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee_25s_linear_infinite]">
+                {% for society in societies %}
                 {% if society.dark_image %}
-                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;" alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline"/></a>
-                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline"/></a>
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
                 {% else %}
-                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo" class="h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
+                        class="h-14 lg:h-24 inline" /></a>
                 {% endif %}
-            {% empty %}
-                <p>There should be some societies here. Did you import the DB dump using <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;</p>
-            {% endfor %}
+                {% empty %}
+                <p>There should be some societies here. Did you import the DB dump using
+                    <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;
+                </p>
+                {% endfor %}
             </div>
-            <div class="absolute top-0 space-x-2 animate-[smallmarquee2_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee2_25s_linear_infinite]">
-            {% for society in societies %}
+            <div
+                class="absolute top-0 space-x-2 animate-[smallmarquee2_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee2_25s_linear_infinite]">
+                {% for society in societies %}
                 {% if society.dark_image %}
-                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;" alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline"/></a>
-                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline"/></a>
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
                 {% else %}
-                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo" class="h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
+                        class="h-14 lg:h-24 inline" /></a>
                 {% endif %}
-            {% empty %}
-            <p>There should be some societies here. Did you import the DB dump using <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;</p>
-            {% endfor %}
+                {% empty %}
+                <p>There should be some societies here. Did you import the DB dump using
+                    <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="bg-base-200 py-10 prose min-w-full text-center">
+    <h1 class="text-4xl lg:text-5xl text-center">Stats</h1>
+    <div class="stats stats-vertical lg:stats-horizontal not-prose shadow">
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path fill-rule="evenodd"
+                        d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
+                        clip-rule="evenodd" />
+                    <path
+                        d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
+                </svg>
+            </div>
+            <div class="stat-title">Members</div>
+            <div class="stat-value text-secondary">179</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-secondary">View Members</a>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-figure text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path
+                        d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01-.231 1.337 49.949 49.949 0 00-9.902 3.912l-.003.002-.34.18a.75.75 0 01-.707 0A50.009 50.009 0 007.5 12.174v-.224c0-.131.067-.248.172-.311a54.614 54.614 0 014.653-2.52.75.75 0 00-.65-1.352 56.129 56.129 0 00-4.78 2.589 1.858 1.858 0 00-.859 1.228 49.803 49.803 0 00-4.634-1.527.75.75 0 01-.231-1.337A60.653 60.653 0 0111.7 2.805z" />
+                    <path
+                        d="M13.06 15.473a48.45 48.45 0 017.666-3.282c.134 1.414.22 2.843.255 4.285a.75.75 0 01-.46.71 47.878 47.878 0 00-8.105 4.342.75.75 0 01-.832 0 47.877 47.877 0 00-8.104-4.342.75.75 0 01-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 016 13.18v1.27a1.5 1.5 0 00-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.661a6.729 6.729 0 00.551-1.608 1.5 1.5 0 00.14-2.67v-.645a48.549 48.549 0 013.44 1.668 2.25 2.25 0 002.12 0z" />
+                    <path
+                        d="M4.462 19.462c.42-.419.753-.89 1-1.394.453.213.902.434 1.347.661a6.743 6.743 0 01-1.286 1.794.75.75 0 11-1.06-1.06z" />
+                </svg>
+            </div>
+            <div class="stat-title">Alumni</div>
+            <div class="stat-value text-primary">146</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-primary">View Alumni</a>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path
+                        d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z" />
+                </svg>
+            </div>
+            <div class="stat-title">Publications</div>
+            <div class="stat-value text-accent">22</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-accent">View Publications</a>
             </div>
         </div>
     </div>
