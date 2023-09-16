@@ -8,7 +8,7 @@
         {% include "components/navbar_profile_dropdown.html" %}
     </div>
 {% else %}
-    <a href="/" class="btn btn-ghost">
+    <a href="{% url 'accounts_signin' %}" class="btn btn-ghost">
         Login
         <span class="material-symbols-outlined">
             login

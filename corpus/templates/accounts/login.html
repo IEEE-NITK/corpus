@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+<div class="card w-1/2 mx-auto my-10 bg-base-100 glass shadow-xl prose">
+    <div class="card-body">
+      <h2 class="card-title">Login</h2>
+      
+        <form method="post">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {{ form.non_field_errors }}
+            {% endif %}
+
+            <div class="grid grid-cols-1 gap-6">
+                {% for field in form %}
+                    <label class="block">
+                        <span class="text-base-700">{{ field.label_tag }}</span>
+                        {{ field }}
+                        <p class="text-sm text-error">{{ form.errors.field.errors }}</p>
+                    </label>
+                {% endfor %}
+            </div>
+
+            <div class="card-actions justify-end mt-5">
+                <button class="btn btn-primary">Login</button>
+              </div>
+        </form>
+        <p class="text-center">If you don't have an account, <a href="{% url 'accounts_signup' %}">register here</a>.</p>
+    </div>
+  </div>
+{% endblock %}

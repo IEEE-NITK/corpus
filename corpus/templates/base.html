@@ -58,6 +58,14 @@
         </div>
     </div>
 
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} w-3/4 mx-auto my-5">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
