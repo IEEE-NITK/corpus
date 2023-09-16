@@ -101,7 +101,7 @@ Home
     <div class="flex whitespace-nowrap overflow-x-hidden">
         <div class="relative">
             <div
-                class="space-x-2 animate-[smallmarquee_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee_25s_linear_infinite]">
+                class="w-max space-x-5 animate-[marquee_10s_linear_infinite] lg:animate-[marquee_25s_linear_infinite]">
                 {% for society in societies %}
                 {% if society.dark_image %}
                 <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
@@ -119,7 +119,7 @@ Home
                 {% endfor %}
             </div>
             <div
-                class="absolute top-0 space-x-2 animate-[smallmarquee2_10s_linear_infinite] lg:flex lg:space-x-6 lg:animate-[marquee2_25s_linear_infinite]">
+                class="absolute top-0 w-max space-x-5 animate-[marquee2_10s_linear_infinite] lg:animate-[marquee2_25s_linear_infinite]">
                 {% for society in societies %}
                 {% if society.dark_image %}
                 <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
