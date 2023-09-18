@@ -1,0 +1,82 @@
+[
+  {
+    "fields": {
+      "dark_image": "img/logo/compsoc-dark.png",
+      "image": "img/logo/compsoc-light.png",
+      "name": "CS",
+      "url": "https://www.computer.org/"
+    },
+    "model": "config.society",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "image": "img/logo/sps.png",
+      "name": "SPS",
+      "url": "https://signalprocessingsociety.org/"
+    },
+    "model": "config.society",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/cass-dark.png",
+      "image": "img/logo/cass-light.png",
+      "name": "CASS",
+      "url": "https://ieee-cas.org/"
+    },
+    "model": "config.society",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/ias-dark.png",
+      "image": "img/logo/ias-light.png",
+      "name": "IAS",
+      "url": "https://ias.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "image": "img/logo/photonics.png",
+      "name": "PHO",
+      "url": "https://www.photonicssociety.org/"
+    },
+    "model": "config.society",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "image": "img/logo/ras.png",
+      "name": "RAS",
+      "url": "https://www.ieee-ras.org/"
+    },
+    "model": "config.society",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/grss-dark.png",
+      "image": "img/logo/grss-light.png",
+      "name": "GRSS",
+      "url": "https://www.grss-ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/cis-dark.png",
+      "image": "img/logo/cis-light.png",
+      "name": "CIS",
+      "url": "https://cis.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 8
+  }
+]

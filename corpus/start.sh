@@ -6,6 +6,9 @@ echo "started setup"
 python manage.py makemigrations
 python manage.py migrate --no-input
 
+# Import Config data
+python manage.py loaddata config_db.json
+
 # Collect static files
 python manage.py collectstatic --no-input
 

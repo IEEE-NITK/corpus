@@ -1,0 +1,110 @@
+{
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onclick": {
+        "enable": false,
+        "mode": "push"
+      },
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "resize": true
+    },
+    "modes": {
+      "bubble": {
+        "distance": 400,
+        "duration": 2,
+        "opacity": 8,
+        "size": 40,
+        "speed": 3
+      },
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      },
+      "repulse": {
+        "distance": 200,
+        "duration": 0.4
+      }
+    }
+  },
+  "particles": {
+    "color": {
+      "value": "#000"
+    },
+    "line_linked": {
+      "color": "#000",
+      "distance": 150,
+      "enable": true,
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      },
+      "bounce": false,
+      "direction": "none",
+      "enable": true,
+      "out_mode": "out",
+      "random": false,
+      "speed": 6,
+      "straight": false
+    },
+    "number": {
+      "density": {
+        "enable": true,
+        "value_area": 1000
+      },
+      "value": 90
+    },
+    "opacity": {
+      "anim": {
+        "enable": false,
+        "opacity_min": 0.1,
+        "speed": 1,
+        "sync": false
+      },
+      "random": true,
+      "value": 0.5
+    },
+    "shape": {
+      "image": {
+        "height": 100,
+        "src": "img/github.svg",
+        "width": 100
+      },
+      "polygon": {
+        "nb_sides": 5
+      },
+      "stroke": {
+        "color": "#000",
+        "width": 1
+      },
+      "type": "triangle"
+    },
+    "size": {
+      "anim": {
+        "enable": true,
+        "size_min": 0.1,
+        "speed": 2.4298777771478104,
+        "sync": false
+      },
+      "random": true,
+      "value": 3
+    }
+  },
+  "retina_detect": true
+}

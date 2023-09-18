@@ -33,6 +33,7 @@ repos:
     rev: 6.0.0
     hooks:
       - id: flake8
+        exclude: migrations/
         args:
           - --max-line-length=88
 

@@ -1,12 +1,208 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
 Home
 {% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock %}
+
 {% block content %}
-    <div class="container prose mx-auto px-5 my-10">
-        <h1>Welcome to Corpus!</h1>
-        <p>Corpus is IEEE NITK's tool to manage all internal and external activities of the club.</p>
+<!-- Hero Section -->
+<!-- TODO: Add action button -->
+<section
+    class="hero min-h-screen min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-screen w-full"></div>
+    <div class="hero-content text-center flex-col">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Advancing Technology for <span
+                id="typewriter"></span></h1>
+
+
+        <a class="my-5" href="https://www.ieee.org/">
+            <img class="w-40 md:w-max" style="display: none ;" src="{% static 'img/ieee-blue.png' %}" id="ieee-blue"
+                alt="IEEE Logo">
+            <img class="w-40 md:w-max" style="display: none;" src="{% static 'img/ieee-white.png' %}" id="ieee-white"
+                alt="IEEE Logo">
+        </a>
     </div>
+</section>
+<!-- About Section -->
+<section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">About IEEE NITK</h1>
+    <p class="text-justify">
+        IEEE is the world's largest professional association advancing innovation and technological
+        excellence for the benefit of humanity. IEEE and its members inspire a global community to
+        innovate for a better tomorrow through its highly-cited publications, conferences, technology
+        standards, and professional and educational activities. IEEE is the trusted "voice" for engineering,
+        computing and technology information around the globe. We, IEEE NITK, belong to Region 10 of
+        IEEE and under the Bangalore section. Founded in 1988, we are an award-winning student branch
+        and one of the biggest worldwide.
+    </p>
+    <p class="font-bold">NITK Student Branch: STB98631</p>
+</section>
+<!-- SIG Section -->
+<!-- TODO: Add SIG Links -->
+<section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">Special Interest Groups</h1>
+    <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
+        <div class="card bg-base-100 shadow-xl basis-1/3">
+            <div class="card-body items-center text-center">
+                <figure class="mt-3 mb-0 text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-12">
+                        <path fill-rule="evenodd"
+                            d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </figure>
+                <h2 class="card-title my-4 text-3xl">CompSoc</h2>
+                <p>A conglomeration of students with a passion for Computer Science, Information Technology and
+                    Artificial Intelligence</p>
+                <div class="card-actions mt-3">
+                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl basis-1/3">
+            <div class="card-body items-center text-center">
+                <figure class="mt-3 mb-0 text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-12">
+                        <path
+                            d="M11.983 1.907a.75.75 0 00-1.292-.657l-8.5 9.5A.75.75 0 002.75 12h6.572l-1.305 6.093a.75.75 0 001.292.657l8.5-9.5A.75.75 0 0017.25 8h-6.572l1.305-6.093z" />
+                    </svg>
+                </figure>
+                <h2 class="card-title my-4 text-3xl">Diode</h2>
+                <p>A special interest group with a strong interest in the field of Electronics and Electrical Science
+                </p>
+                <div class="card-actions mt-3">
+                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-base-100 shadow-xl basis-1/3">
+            <div class="card-body items-center text-center">
+                <figure class="mt-3 mb-0 text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-12">
+                        <path
+                            d="M13.024 9.25c.47 0 .827-.433.637-.863a4 4 0 00-4.094-2.364c-.468.05-.665.576-.43.984l1.08 1.868a.75.75 0 00.649.375h2.158zM7.84 7.758c-.236-.408-.79-.5-1.068-.12A3.982 3.982 0 006 10c0 .884.287 1.7.772 2.363.278.38.832.287 1.068-.12l1.078-1.868a.75.75 0 000-.75L7.839 7.758zM9.138 12.993c-.235.408-.039.934.43.984a4 4 0 004.094-2.364c.19-.43-.168-.863-.638-.863h-2.158a.75.75 0 00-.65.375l-1.078 1.868z" />
+                        <path fill-rule="evenodd"
+                            d="M14.13 4.347l.644-1.117a.75.75 0 00-1.299-.75l-.644 1.116a6.954 6.954 0 00-2.081-.556V1.75a.75.75 0 00-1.5 0v1.29a6.954 6.954 0 00-2.081.556L6.525 2.48a.75.75 0 10-1.3.75l.645 1.117A7.04 7.04 0 004.347 5.87L3.23 5.225a.75.75 0 10-.75 1.3l1.116.644A6.954 6.954 0 003.04 9.25H1.75a.75.75 0 000 1.5h1.29c.078.733.27 1.433.556 2.081l-1.116.645a.75.75 0 10.75 1.298l1.117-.644a7.04 7.04 0 001.523 1.523l-.645 1.117a.75.75 0 101.3.75l.644-1.116a6.954 6.954 0 002.081.556v1.29a.75.75 0 001.5 0v-1.29a6.954 6.954 0 002.081-.556l.645 1.116a.75.75 0 001.299-.75l-.645-1.117a7.042 7.042 0 001.523-1.523l1.117.644a.75.75 0 00.75-1.298l-1.116-.645a6.954 6.954 0 00.556-2.081h1.29a.75.75 0 000-1.5h-1.29a6.954 6.954 0 00-.556-2.081l1.116-.644a.75.75 0 00-.75-1.3l-1.117.645a7.04 7.04 0 00-1.524-1.523zM10 4.5a5.475 5.475 0 00-2.781.754A5.527 5.527 0 005.22 7.277 5.475 5.475 0 004.5 10a5.475 5.475 0 00.752 2.777 5.527 5.527 0 002.028 2.004c.802.458 1.73.719 2.72.719a5.474 5.474 0 002.78-.753 5.527 5.527 0 002.001-2.027c.458-.802.719-1.73.719-2.72a5.475 5.475 0 00-.753-2.78 5.528 5.528 0 00-2.028-2.002A5.475 5.475 0 0010 4.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </figure>
+                <h2 class="card-title my-4 text-3xl">Piston</h2>
+                <p>A team dedicated to the engineering applications of Mechanical, Automation, Civil, Chemical and
+                    Material Sciences</p>
+                <div class="card-actions mt-3">
+                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Societies Section -->
+<section class="bg-base-100 prose py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl text-center">Societies</h1>
+    <div class="flex whitespace-nowrap overflow-x-hidden">
+        <div class="relative">
+            <div class="w-max space-x-5 animate-[marquee_15s_linear_infinite]">
+                {% for society in societies %}
+                {% if society.dark_image %}
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
+                {% else %}
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
+                        class="h-14 lg:h-24 inline" /></a>
+                {% endif %}
+                {% empty %}
+                <p>There should be some societies here. Did you import the DB dump using
+                    <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;
+                </p>
+                {% endfor %}
+            </div>
+            <div class="absolute top-0 w-max space-x-5 animate-[marquee2_15s_linear_infinite]">
+                {% for society in societies %}
+                {% if society.dark_image %}
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
+                {% else %}
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
+                        class="h-14 lg:h-24 inline" /></a>
+                {% endif %}
+                {% empty %}
+                <p>There should be some societies here. Did you import the DB dump using
+                    <code>python manage.py loaddata config_db.json</code>? &nbsp; &nbsp;
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Stats Section -->
+<!-- TODO: Add links to stats sections -->
+<section class="bg-base-200 py-10 prose min-w-full text-center">
+    <h1 class="text-4xl lg:text-5xl text-center">Stats</h1>
+    <div class="stats stats-vertical lg:stats-horizontal not-prose shadow">
+        <div class="stat">
+            <div class="stat-figure text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path fill-rule="evenodd"
+                        d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z"
+                        clip-rule="evenodd" />
+                    <path
+                        d="M5.082 14.254a8.287 8.287 0 00-1.308 5.135 9.687 9.687 0 01-1.764-.44l-.115-.04a.563.563 0 01-.373-.487l-.01-.121a3.75 3.75 0 013.57-4.047zM20.226 19.389a8.287 8.287 0 00-1.308-5.135 3.75 3.75 0 013.57 4.047l-.01.121a.563.563 0 01-.373.486l-.115.04c-.567.2-1.156.349-1.764.441z" />
+                </svg>
+            </div>
+            <div class="stat-title">Members</div>
+            <div class="stat-value text-secondary">179</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-secondary">View Members</a>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-figure text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path
+                        d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01-.231 1.337 49.949 49.949 0 00-9.902 3.912l-.003.002-.34.18a.75.75 0 01-.707 0A50.009 50.009 0 007.5 12.174v-.224c0-.131.067-.248.172-.311a54.614 54.614 0 014.653-2.52.75.75 0 00-.65-1.352 56.129 56.129 0 00-4.78 2.589 1.858 1.858 0 00-.859 1.228 49.803 49.803 0 00-4.634-1.527.75.75 0 01-.231-1.337A60.653 60.653 0 0111.7 2.805z" />
+                    <path
+                        d="M13.06 15.473a48.45 48.45 0 017.666-3.282c.134 1.414.22 2.843.255 4.285a.75.75 0 01-.46.71 47.878 47.878 0 00-8.105 4.342.75.75 0 01-.832 0 47.877 47.877 0 00-8.104-4.342.75.75 0 01-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 016 13.18v1.27a1.5 1.5 0 00-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.661a6.729 6.729 0 00.551-1.608 1.5 1.5 0 00.14-2.67v-.645a48.549 48.549 0 013.44 1.668 2.25 2.25 0 002.12 0z" />
+                    <path
+                        d="M4.462 19.462c.42-.419.753-.89 1-1.394.453.213.902.434 1.347.661a6.743 6.743 0 01-1.286 1.794.75.75 0 11-1.06-1.06z" />
+                </svg>
+            </div>
+            <div class="stat-title">Alumni</div>
+            <div class="stat-value text-primary">146</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-primary">View Alumni</a>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-figure text-accent">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-10">
+                    <path
+                        d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
+                    <path fill-rule="evenodd"
+                        d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="stat-title">Events</div>
+            <div class="stat-value text-accent">34</div>
+            <div class="stat-actions">
+                <a role="button" href="#" class="btn btn-sm btn-accent">View Events</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/typeit"></script>
+<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}

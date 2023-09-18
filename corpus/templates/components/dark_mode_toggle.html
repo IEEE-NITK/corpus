@@ -5,10 +5,11 @@
 
 <script>
     $(document).ready(() => {
-        const theme = localStorage.getItem("corpusTheme") || "winter";
+        const theme = localStorage.getItem("corpusTheme") || (window.matchMedia('(prefers-color-scheme: light)').matches ? "winter" : "night");
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateIndex(theme);
     })
 
     const toggleTheme = () => {
@@ -17,6 +18,27 @@
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateIndex(theme);
         localStorage.setItem("corpusTheme", theme);
     }
+
+    {% if request.get_full_path == "/" %}
+    const updateIndex = (theme) => {
+        if (theme == "winter") {
+            particlesJS.load('particles-js', '/static/js/particles.json');
+            $("#ieee-white").hide();
+            $("#ieee-blue").show();
+
+            $(".dark-logo").hide();
+            $(".light-logo").show();
+        } else {
+            particlesJS.load('particles-js', '/static/js/particles-dark.json');
+            $("#ieee-blue").hide();
+            $("#ieee-white").show();
+
+            $(".light-logo").hide();
+            $(".dark-logo").show();
+        }
+    }
+    {% endif %}
 </script>
