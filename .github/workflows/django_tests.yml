@@ -16,7 +16,7 @@ jobs:
         run: docker compose -f "docker-compose.yml" up -d --build
 
       - name: Run Tests
-        run: docker compose exec corpus python manage.py test
+        run: docker compose -f "docker-compose.yml" exec corpus python manage.py test
 
       - name: Stop Containers
         if: always()
