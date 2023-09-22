@@ -29,6 +29,8 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
 
+if os.environ["LIVECYCLE"]:
+    ALLOWED_HOSTS.append("*")
 
 # Application definition
 
@@ -87,6 +89,14 @@ DATABASES = {
         "PORT": os.environ["POSTGRES_PORT"],
     }
 }
+
+if os.environ["LIVECYCLE"]:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "corpus.db",
+        }
+    }
 
 
 # Password validation
