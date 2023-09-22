@@ -17,6 +17,7 @@ RUN apt update && apt install -y gcc libpq-dev sqlite3
 COPY corpus/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+RUN pip install python-dotenv==1.0.0
 
 # Set environment variables
 ENV LIVECYCLE 1
@@ -25,10 +26,7 @@ COPY env.example .env
 # Copy the application
 COPY corpus/ .
 
-# Run the application
-RUN python manage.py collectstatic --noinput
-RUN python manage.py migrate --no-input
-RUN python manage.py loaddata config_db.json
+RUN chmod +x start_livecycle.sh
 
 EXPOSE 8000
-ENTRYPOINT [ "gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "corpus.wsgi" ]
+ENTRYPOINT [ "/corpus/start_livecycle.sh" ]

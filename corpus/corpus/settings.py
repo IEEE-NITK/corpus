@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+if os.getenv("LIVECYCLE"):
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +34,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
 
-if os.environ["LIVECYCLE"]:
+if os.getenv("LIVECYCLE"):
     ALLOWED_HOSTS.append("*")
 
 # Application definition
@@ -90,7 +95,7 @@ DATABASES = {
     }
 }
 
-if os.environ["LIVECYCLE"]:
+if os.getenv("LIVECYCLE"):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
