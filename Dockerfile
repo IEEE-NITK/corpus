@@ -26,7 +26,7 @@ COPY env.example .env
 # Copy the application
 COPY corpus/ .
 
-RUN chmod +x start_livecycle.sh
+RUN chmod +x start_dev.sh
 
 EXPOSE 8000
-ENTRYPOINT [ "/corpus/start_livecycle.sh" ]
+ENTRYPOINT [ "/corpus/start_dev.sh" ]

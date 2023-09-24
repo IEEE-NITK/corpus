@@ -32,12 +32,16 @@ DEBUG = (os.environ["ENVIRONMENT"] == "DEVELOPMENT") or (
     os.getenv("LIVECYCLE") is not None
 )
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+# TODO: Stricter host policies
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
+    CSRF_TRUSTED_ORIGINS.append("https://ieee.nitk.ac.in")
 
 if os.getenv("LIVECYCLE"):
     ALLOWED_HOSTS.append("*")
+    CSRF_TRUSTED_ORIGINS.append("*")
 
 # Application definition
 
