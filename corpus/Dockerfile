@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 RUN chmod +x ./start.sh
-RUN chmod +x ./start_livecycle.sh
+RUN chmod +x ./start_dev.sh
