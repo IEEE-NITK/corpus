@@ -32,7 +32,7 @@ DEBUG = (os.environ["ENVIRONMENT"] == "DEVELOPMENT") or (
     os.getenv("LIVECYCLE") is not None
 )
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
 if os.environ["ENVIRONMENT"] == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
 
