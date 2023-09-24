@@ -40,8 +40,8 @@ if os.environ["ENVIRONMENT"] == "PRODUCTION":
     CSRF_TRUSTED_ORIGINS.append("https://ieee.nitk.ac.in")
 
 if os.getenv("LIVECYCLE"):
-    ALLOWED_HOSTS.append("*")
-    CSRF_TRUSTED_ORIGINS.append("*")
+    ALLOWED_HOSTS.append(".livecycle.dev")
+    CSRF_TRUSTED_ORIGINS.append("https://*.livecycle.dev")
 
 # Application definition
 
