@@ -41,7 +41,7 @@ if os.environ["ENVIRONMENT"] == "PRODUCTION":
 
 if os.getenv("LIVECYCLE"):
     ALLOWED_HOSTS.append("*")
-    CSRF_TRUSTED_ORIGINS.append("*")
+    CSRF_TRUSTED_ORIGINS.extend(["http://*", "https://*"])
 
 # Application definition
 
