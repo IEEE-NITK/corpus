@@ -1,23 +1,29 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .forms import CorpusCreationForm, CorpusLoginForm
+from django.contrib.auth import login
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.shortcuts import render
+
+from .forms import CorpusCreationForm
+from .forms import CorpusLoginForm
 
 # Create your views here.
+
 
 def signup(request):
     if request.method == "POST":
         form = CorpusCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "You have been successfully registered. Please sign in!")
+            messages.success(
+                request, "You have been successfully registered. Please sign in!"
+            )
             return redirect("accounts_signin")
     else:
         form = CorpusCreationForm()
-    args = {
-        "form": form
-    }
+    args = {"form": form}
     return render(request, "accounts/signup.html", args)
+
 
 def signin(request):
     if request.method == "POST":
@@ -30,10 +36,9 @@ def signin(request):
     else:
         form = CorpusLoginForm()
 
-    args = {
-        "form": form
-    }
+    args = {"form": form}
     return render(request, "accounts/login.html", args)
+
 
 def signout(request):
     logout(request)
