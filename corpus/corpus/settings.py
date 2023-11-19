@@ -25,17 +25,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = os.getenv("SECRET_KEY", "averysecretdjangokey")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ["ENVIRONMENT"] == "DEVELOPMENT") or (
+DEBUG = (os.getenv("ENVIRONMENT") == "DEVELOPMENT") or (
     os.getenv("LIVECYCLE") is not None
 )
 
 # TODO: Stricter host policies
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
-if os.environ["ENVIRONMENT"] == "PRODUCTION":
+if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
     CSRF_TRUSTED_ORIGINS.append("https://ieee.nitk.ac.in")
 
@@ -93,11 +93,11 @@ WSGI_APPLICATION = "corpus.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ["POSTGRES_DB"],
-        "USER": os.environ["POSTGRES_USER"],
-        "PASSWORD": os.environ["POSTGRES_PASSWORD"],
-        "HOST": os.environ["POSTGRES_HOST"],
-        "PORT": os.environ["POSTGRES_PORT"],
+        "NAME": os.getenv("POSTGRES_DB", "corpus"),
+        "USER": os.getenv("POSTGRES_USER", "corpus"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "corpus"),
+        "HOST": os.getenv("POSTGRES_HOST", "postgres"),
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
     }
 }
 
