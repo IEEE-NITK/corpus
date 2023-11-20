@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section
+    class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-[50vh] w-full"></div>
+    <div class="hero-content text-center flex-col">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">About Us</h1>
+    </div>
+</section>
+<!-- About IEEE -->
+<section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">About IEEE</h1>
+    <p class="text-justify">
+        IEEE is the world's largest technical professional organization dedicated to advancing technology for the
+        benefit of humanity. IEEE and its members inspire a global community through its highly cited publications,
+        conferences, technology standards, and professional and educational activities.
+    </p>
+    <p class="text-justify">Through its more than 427,000 members in more than 190 countries, widely referenced
+        publications, conferences, technological standards, and professional and educational events, IEEE and its
+        members encourage a worldwide community to create for a better tomorrow. IEEE is the world's most trusted
+        "voice" for engineering, computer, and technology news.
+    </p>
+</section>
+<!-- IEEE NITK Global View -->
+<section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">IEEE NITK Global View</h1>
+    <p class="text-justify">
+        The IEEE NITK Student Branch is one of the largest student branches in the IEEE Bangalore Section. The IEEE
+        Bangalore Section is governed by the IEEE India Council, which falls under Region 10 of the IEEE Global
+        Organization.
+    </p>
+    <ul class="not-prose steps steps-vertical">
+        <li data-content="" class="step step-neutral">
+            <a href="https://www.ieee.org/" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/ieee-blue.png' %}" alt="IEEE Logo"></a>
+        </li>
+        <li data-content="" class="step step-neutral">
+            <a href="https://www.ieeer10.org/" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/logo/ieee-r10.png' %}" alt="IEEE Logo"></a>
+        </li>
+        <li data-content="" class="step step-neutral">
+            <a href="https://ieeeindiacouncil.org/" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/logo/ieee-india-council.png' %}" alt="IEEE Logo"></a>
+        </li>
+        <li data-content="" class="step step-neutral">
+            <a href="https://ieeebangalore.org/" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/logo/ieee-bangalore-section.png' %}" alt="IEEE Logo"></a>
+        </li>
+        <li data-content="" class="step step-neutral">
+            <a href="https://ieee-mangalore.org/" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/logo/ieee-mss.png' %}" alt="IEEE Logo"></a>
+        </li>
+        <li data-content="" class="step step-neutral">
+            <a href="{% url 'index' %}" target="_blank"><img class="w-40 md:w-60 my-5"
+                    src="{% static 'img/ieee-nitk.png' %}" alt="IEEE Logo"></a>
+        </li>
+    </ul>
+</section>
+<!-- BS/MSS Section -->
+<section class="bg-base-100 prose py-10 min-w-full">
+    <div class="flex flex-col w-full lg:flex-row">
+        <div class="grid flex-grow mx-10 place-items-center">
+            <h2 class="text-3xl lg:text-4xl">IEEE Bangalore Section</h2>
+            <a href="https://ieeebangalore.org/" target="_blank"><img class="w-max my-5"
+                    src="{% static 'img/logo/ieee-bangalore-section.png' %}" alt="IEEE Logo"></a>
+            <p class="text-justify">IEEE Bangalore Section was established in 1977 and is one of the most vibrant and
+                dynamic IEEE sections across the globe. Over the years, the strength of the section has grown steadily,
+                and currently, the Section membership stands around 10,000. This membership is spread across various
+                sectors and is a nice blend of Industry, Academia, and Research organizations. Section Conducted 900+
+                Technical Activities in the year 2018, 1000+ Technical Activities in the year 2019, and 1400+ Technical
+                Activities in the year 2020, with the help of Student branches and society chapters. IEEE Bangalore
+                Section won the prestigious MGA Outstanding Large Section Award (2013 & 2019) and the R10 Distinguished
+                Large Section Award for the year 2013.
+            </p>
+        </div>
+        <div class="divider divider-horizontal"></div>
+        <div class="grid mx-10 flex-grow place-items-center">
+            <h2 class="text-3xl lg:text-4xl">IEEE Mangalore Subsection</h2>
+            <a href="https://ieee-mangalore.org/" target="_blank"><img class="w-max my-5"
+                    src="{% static 'img/logo/ieee-mss.png' %}" alt="IEEE Logo"></a>
+            <p class="text-justify">IEEE Mangalore Subsection (MSS) was established on July 10, 2013, under the aegis of
+                IEEE Bangalore Section. With a membership of over 1750 individuals, of which 80% are students, MSS is
+                dedicated to supporting the knowledge and training needs of its student members. Through regular events
+                such as distinguished lectures, project and paper competitions, workshops, monthly technology series,
+                and various educational activities, MSS strives to empower students with valuable learning
+                opportunities. MSS oversees 19 active student branches and several society chapters/affinity groups,
+                enabling students and professional members to stay updated in their respective domains of interest.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- Societies Section -->
+<section class="bg-base-200 py-10 prose min-w-full text-center">
+    <h1 class="text-4xl lg:text-5xl text-center mb-0">Societies</h1>
+    <div id="slider-div" class="hidden lg:block">
+        {% for society in socieites %}
+        <div class="px-5 mb-5">
+            <div class="card bg-base-100 shadow-xl lg:h-[40rem]">
+                <figure class="mb-0">
+                    {% if society.dark_image %}
+                    <img src="{% static society.dark_image %}" style="display: none;" alt="{{ society.name }} Logo"
+                        class="dark-logo h-14 lg:h-24 inline" />
+                    <img src="{% static society.image %}" style="display: none;" alt="{{ society.name }} Logo"
+                        class="light-logo h-14 lg:h-24 inline" />
+                    {% else %}
+                    <img src="{% static society.image %}" alt="{{ society.name }} Logo" class="h-14 lg:h-24 inline" />
+                    {% endif %}
+                </figure>
+                <div class="card-body pt-0 items-center">
+                    <h2 class="card-title text-xl lg:text5xl">{{ society.get_name_display }}</h2>
+                    <p class="text-justify">{{ society.description }}</p>
+                    <div class="card-actions mt-3 not-prose">
+                        <a role="button" href="{{ society.url }}" class="btn btn-outline btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="block lg:hidden">
+        {% for society in socieites %}
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="px-10 py-5 bg-base-200">
+            {% else %}
+            <div class="px-10 py-5 bg-base-100">
+                {% endif %}
+                {% if society.dark_image %}
+                <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="dark-logo h-24 inline" /></a>
+                <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
+                        alt="{{ society.name }} Logo" class="light-logo h-24 inline" /></a>
+                {% else %}
+                <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
+                        class="h-24 inline" /></a>
+                {% endif %}
+                <h2 class="text-xl lg:text5xl">{{ society.get_name_display }}</h2>
+                <p class="text-justify">{{ society.description }}</p>
+                <div class="mt-3 not-prose">
+                    <a role="button" href="{{ society.url }}" class="btn btn-outline btn-primary">Learn More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script>
+    var slider = tns({
+        "container": '#slider-div',
+        "items": 3,
+        "nav": true,
+        "controls": false,
+        "speed": 300,
+        "autoplay": true,
+        "autoplayText": [
+            " ",
+            " "
+        ],
+        "autoplayHoverPause": false,
+        "autoplayTimeout": 4000,
+        "swipeAngle": false,
+        "mouseDrag": true,
+
+    })
+</script>
+{% endblock %}

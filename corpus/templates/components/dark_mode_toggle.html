@@ -9,6 +9,7 @@
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateParticles(theme);
         updateIndex(theme);
     })
 
@@ -18,21 +19,27 @@
         const icon = theme == "winter" ? "dark_mode" : "light_mode";
         document.documentElement.setAttribute("data-theme", theme);
         $("#dark-mode-toggle").html(icon);
+        updateParticles(theme);
         updateIndex(theme);
         localStorage.setItem("corpusTheme", theme);
     }
 
-    {% if request.get_full_path == "/" %}
-    const updateIndex = (theme) => {
+    const updateParticles = (theme) => {
         if (theme == "winter") {
             particlesJS.load('particles-js', '/static/js/particles.json');
+        } else {
+            particlesJS.load('particles-js', '/static/js/particles-dark.json');
+        }
+    }
+
+    const updateIndex = (theme) => {
+        if (theme == "winter") {
             $("#ieee-white").hide();
             $("#ieee-blue").show();
 
             $(".dark-logo").hide();
             $(".light-logo").show();
         } else {
-            particlesJS.load('particles-js', '/static/js/particles-dark.json');
             $("#ieee-blue").hide();
             $("#ieee-white").show();
 
@@ -40,5 +47,4 @@
             $(".dark-logo").show();
         }
     }
-    {% endif %}
 </script>

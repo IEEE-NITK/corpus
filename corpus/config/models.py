@@ -47,6 +47,8 @@ class Society(models.Model):
         ("TEMS", "Technology and Engineering Management Society"),
         ("UFFCS", "Ultrasonics, Ferroelectrics, and Frequency Control Society"),
         ("VT", "Vehicular Technology Society"),
+        ("SIGHT", "Special Interest Group on Humanitarian Technology"),
+        ("WIE", "Women in Engineering"),
     ]
     name = models.CharField(
         verbose_name="Name", max_length=5, unique=True, choices=IEEE_SOCIETIES
@@ -56,6 +58,7 @@ class Society(models.Model):
     dark_image = models.ImageField(
         verbose_name="Dark Image", upload_to="img/logo/", blank=True, null=True
     )
+    description = models.TextField(verbose_name="Description")
 
     def __str__(self):
         return self.get_name_display()

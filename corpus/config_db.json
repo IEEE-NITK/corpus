@@ -2,6 +2,7 @@
   {
     "fields": {
       "dark_image": "img/logo/compsoc-dark.png",
+      "description": "The IEEE NITK Computer Society Chapter intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science in the form of three focus groups: Intelligence, Systems and Theoretical Computer Science.",
       "image": "img/logo/compsoc-light.png",
       "name": "CS",
       "url": "https://www.computer.org/"
@@ -12,6 +13,7 @@
   {
     "fields": {
       "dark_image": "",
+      "description": "The IEEE NITK Signal Processing Society Chapter focuses projects and research in areas of signal processing and machine learning. Projects undertaken here are oriented towards healthcare and solutions to humanitarian needs.",
       "image": "img/logo/sps.png",
       "name": "SPS",
       "url": "https://signalprocessingsociety.org/"
@@ -22,6 +24,7 @@
   {
     "fields": {
       "dark_image": "img/logo/cass-dark.png",
+      "description": "The IEEE NITK Circuits and Systems Society Chapter focuses on areas around electrical and electronic circuits with applications in healthcare, industry appliances, home appliances and electronics systems research.",
       "image": "img/logo/cass-light.png",
       "name": "CASS",
       "url": "https://ieee-cas.org/"
@@ -32,6 +35,7 @@
   {
     "fields": {
       "dark_image": "img/logo/ias-dark.png",
+      "description": "The IEEE IAS vision \u201cto be a world leader in the advancement of technology and dissemination of technical information to support professionals engaged in the applications of electrical and electronic engineering to industry\u201d has become possible with the professional connection of Industry Professionals in Electrical and Electronic Engineering.",
       "image": "img/logo/ias-light.png",
       "name": "IAS",
       "url": "https://ias.ieee.org/"
@@ -42,6 +46,7 @@
   {
     "fields": {
       "dark_image": "",
+      "description": "The IEEE Photonics Society forms the hub of a vibrant technical community dedicated to transforming breakthroughs in quantum physics into the devices, systems and products to revolutionize our daily lives. From ubiquitous and inexpensive global communications via fiber optics, to lasers for medical and other applications, to flat-screen displays, to photovoltaic devices for solar energy, to LEDs for energy-efficient illumination, there are myriad examples of the society's impact on the world around us.",
       "image": "img/logo/photonics.png",
       "name": "PHO",
       "url": "https://www.photonicssociety.org/"
@@ -52,6 +57,7 @@
   {
     "fields": {
       "dark_image": "",
+      "description": "The IEEE RAS Student Chapter focuses on the interdisciplinary nature of technology and engineering and strives to advance robotics and intelligent systems technology in various fields of biomedical engineering, security, industry and home automation through research and ingenuity.",
       "image": "img/logo/ras.png",
       "name": "RAS",
       "url": "https://www.ieee-ras.org/"
@@ -62,6 +68,7 @@
   {
     "fields": {
       "dark_image": "img/logo/grss-dark.png",
+      "description": "GRSS - The Geoscience and Remote Sensing Society (GRSS) is a technical Society of the Institute of Electrical and Electronics Engineers (IEEE). GRSS encourages its members to participate in science, engineering, applications, and education linked to the advancement of geoscience and remote sensing for the benefit of society.",
       "image": "img/logo/grss-light.png",
       "name": "GRSS",
       "url": "https://www.grss-ieee.org/"
@@ -72,11 +79,34 @@
   {
     "fields": {
       "dark_image": "img/logo/cis-dark.png",
+      "description": "The IEEE Computational Intelligence Society (CIS) is a vibrant community working towards a common goal - to unravel the mysteries of the ever-evolving field of computational intelligence with its focus on neural networks, fuzzy systems, and evolutionary computation. The society hosts conferences, publishes journals, and provides educational resources to foster learning and collaboration leading to the development of cutting-edge applications and forging the future of AI.",
       "image": "img/logo/cis-light.png",
       "name": "CIS",
       "url": "https://cis.ieee.org/"
     },
     "model": "config.society",
     "pk": 8
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "The IEEE NITK WIE is a professional organisation dedicated to promoting technical interests among women engineers and scientists. It was launched on February 18th 2009 by Prof Marimuthu, the R10 WIE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally.",
+      "image": "img/logo/wie.png",
+      "name": "WIE",
+      "url": "https://wie.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
+      "image": "img/logo/sight.png",
+      "name": "SIGHT",
+      "url": "https://sight.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 10
   }
 ]

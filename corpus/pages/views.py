@@ -13,3 +13,15 @@ def index(request):
             "societies": societies,
         },
     )
+
+
+def about_us(request):
+    societies = Society.objects.all()
+
+    return render(
+        request,
+        "pages/about_us.html",
+        {
+            "socieites": societies,
+        },
+    )
