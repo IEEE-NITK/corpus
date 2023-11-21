@@ -5,32 +5,57 @@ Login
 {% endblock %}
 
 {% block content %}
-<div class="card w-1/2 mx-auto my-10 bg-base-100 glass shadow-xl prose">
+ <div class="card w-3/4 md:w-2/5 mx-auto my-10 bg-neutral shadow-xl">
     <div class="card-body">
-      <h2 class="card-title">Login</h2>
+        <h1 class="card-title text-2xl">Login</h1>
 
-        <form method="post">
+        <form method="post" action="{% url 'accounts_signin' %}" class="py-5">
             {% csrf_token %}
 
             {% if form.non_field_errors %}
-                {{ form.non_field_errors }}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
             {% endif %}
 
-            <div class="grid grid-cols-1 gap-6">
-                {% for field in form %}
-                    <label class="block">
-                        <span class="text-base-700">{{ field.label_tag }}</span>
-                        {{ field }}
-                        <p class="text-sm text-error">{{ form.errors.field.errors }}</p>
-                    </label>
-                {% endfor %}
+            <div class="w-full my-2">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.username.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.password.errors }}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="card-actions justify-end mt-5">
-                <button class="btn btn-primary">Login</button>
-              </div>
+              <button class="btn btn-primary">Login</button>
+            </div>
         </form>
-        <p class="text-center">If you don't have an account, <a href="{% url 'accounts_signup' %}">register here</a>.</p>
+
+        <div class="flex flex-col w-full">
+            <div class="divider divider-primary">OR</div>
+        </div>
+
+        <div class="flex flex-col w-full">
+            <p>If you don't have an account, <a href="{% url 'accounts_signup' %}" class="underline underline-offset-2">create one here</a>.</p>
+        </div>
     </div>
-  </div>
+ </div>
 {% endblock %}

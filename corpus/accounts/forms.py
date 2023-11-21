@@ -8,8 +8,9 @@ from .models import User
 
 
 class CorpusCreationForm(UserCreationForm):
-    phone_no = forms.CharField(required=True)
+    phone_no = forms.CharField(required=True, max_length=10)
     gender = forms.ChoiceField(choices=GENDERS, required=True)
+    first_name = forms.CharField(max_length=30, required=True, help_text="Required.")
 
     error_css_class = "text-sm text-error"
 

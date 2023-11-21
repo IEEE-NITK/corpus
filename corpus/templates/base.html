@@ -60,9 +60,12 @@
 
     {% if messages %}
       {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} w-3/4 mx-auto my-5">
-          {{ message }}
-        </div>
+          <div class="toast toast-start message-fade-away">
+              <div class="alert alert-{{ message.tags }}">
+                  <span>{{ message }}</span>
+                  <span>{{ message.id }}</span>
+              </div>
+          </div>
       {% endfor %}
     {% endif %}
 
@@ -85,6 +88,33 @@
 
     {% block script %}
     {% endblock %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fadeDivs = document.querySelectorAll(".message-fade-away");
+            fadeDivs.forEach(function (fadeDiv) {
+             setTimeout(function () {
+                 fadeOut(fadeDiv);
+             }, 5000);
+            });
+        });
+
+        function fadeOut(element) {
+            let opacity = 1;
+            const intervalDuration = 50;
+            const intervalStep = 0.05;
+
+            let fadeInterval = setInterval(function () {
+                if (opacity > 0) {
+                    opacity -= intervalStep;
+                    element.style.opacity = opacity;
+                } else {
+                    clearInterval(fadeInterval);
+                    element.parentNode.removeChild(element);
+                }
+            }, intervalDuration);
+        }
+    </script>
   </body>
 
 </html>
