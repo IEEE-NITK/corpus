@@ -11,13 +11,13 @@ RUN mkdir /corpus
 WORKDIR /corpus
 
 # Install dependencies
-RUN apt update && apt install -y gcc libpq-dev sqlite3
+RUN apt-get update && apt-get install -y gcc libpq-dev sqlite3
 
 # Install Python dependencies
 COPY corpus/requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
-RUN pip install python-dotenv==1.0.0
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir python-dotenv==1.0.0
 
 # Set environment variables
 ENV LIVECYCLE 1
