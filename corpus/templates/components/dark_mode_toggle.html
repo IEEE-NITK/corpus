@@ -25,10 +25,15 @@
     }
 
     const updateParticles = (theme) => {
-        if (theme == "winter") {
-            particlesJS.load('particles-js', '/static/js/particles.json');
-        } else {
-            particlesJS.load('particles-js', '/static/js/particles-dark.json');
+        try {
+            if (theme == "winter") {
+                particlesJS.load('particles-js', '/static/js/particles.json');
+            } else {
+                particlesJS.load('particles-js', '/static/js/particles-dark.json');
+            }
+        }
+        catch (e) {
+            console.log(e);
         }
     }
 

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block content %}
+<div class="card w-3/4 md:w-1/2 mx-auto my-10 bg-base-200 shadow-xl">
+    <div class="card-body">
+        <h1 class="card-title text-2xl">Sign Up</h1>
+
+        <form method="post" action="{% url 'accounts_signup' %}" class="py-5">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full my-2 md:w-1/2 md:mr-2">
+                    <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.first_name.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2 md:w-1/2 md:ml-2">
+                    <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.last_name.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full my-2 md:w-1/2 md:mr-2">
+                    <label for="{{ form.phone_no.id_for_label }}">Phone Number</label>
+                    {{ form.phone_no }}
+                    {% if form.phone_no.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.phone_no.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2 md:w-1/2 md:ml-2">
+                    <label for="{{ form.gender.id_for_label }}">Gender</label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.gender.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.email.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <div class="w-full my-2 md:w-1/2 md:mr-2">
+                    <label for="{{ form.password1.id_for_label }}">Password</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.password1.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2 md:w-1/2 md:ml-2">
+                    <label for="{{ form.password2.id_for_label }}">Password Confirmation</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.password2.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-actions mt-5">
+              <button class="btn btn-primary btn-block">Sign up</button>
+            </div>
+        </form>
+
+        <div class="flex flex-col w-full">
+            <div class="divider divider-primary">OR</div>
+        </div>
+
+        <div class="flex flex-col w-full">
+            <p>If you already have an account, <a href="{% url 'accounts_signin' %}" class="underline underline-offset-2">login here</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
