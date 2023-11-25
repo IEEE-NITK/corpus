@@ -5,7 +5,7 @@ Signup
 {% endblock %}
 
 {% block content %}
-<div class="card w-3/4 md:w-1/2 mx-auto my-10 bg-neutral shadow-xl">
+<div class="card w-3/4 md:w-1/2 mx-auto my-10 bg-base-200 shadow-xl">
     <div class="card-body">
         <h1 class="card-title text-2xl">Sign Up</h1>
 
@@ -109,10 +109,18 @@ Signup
                     {% endif %}
                 </div>
             </div>
-            <div class="card-actions justify-end mt-5">
-              <button class="btn btn-primary">Sign up</button>
+            <div class="card-actions mt-5">
+              <button class="btn btn-primary btn-block">Sign up</button>
             </div>
         </form>
+
+        <div class="flex flex-col w-full">
+            <div class="divider divider-primary">OR</div>
+        </div>
+
+        <div class="flex flex-col w-full">
+            <p>If you already have an account, <a href="{% url 'accounts_signin' %}" class="underline underline-offset-2">login here</a>.</p>
+        </div>
     </div>
 </div>
 {% endblock %}
