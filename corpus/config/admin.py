@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .models import ModuleConfiguration
 from .models import Society
 
 
@@ -10,3 +11,4 @@ class SocietyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Society, SocietyAdmin)
+admin.site.register(ModuleConfiguration)
