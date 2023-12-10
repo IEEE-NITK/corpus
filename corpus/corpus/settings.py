@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     "config.apps.ConfigConfig",
     "accounts.apps.AccountsConfig",
+    "embedathon.apps.EmbedathonConfig",
 ]
 
 MIDDLEWARE = [

@@ -66,3 +66,12 @@ class Society(models.Model):
     class Meta:
         verbose_name = "Society"
         verbose_name_plural = "Societies"
+
+
+class ModuleConfiguration(models.Model):
+    module_name = models.CharField(max_length=200, blank=False, null=False)
+    module_enabled = models.BooleanField(default=False)
+    module_config = models.JSONField(blank=False, null=False)
+
+    def __str__(self):
+        return self.module_name
