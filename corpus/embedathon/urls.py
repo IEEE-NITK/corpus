@@ -1,5 +1,7 @@
 from django.urls import path
+from embedathon import views
 
-from .views import index
-
-urlpatterns = [path("", index, name="embedathon_index")]
+urlpatterns = [
+    path("", views.index, name="embedathon_index"),
+    path("register", views.register, name="embedathon_register"),
+]

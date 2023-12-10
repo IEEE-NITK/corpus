@@ -1,5 +1,7 @@
 from django.db import models
 
+DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
+
 
 class Society(models.Model):
     """
