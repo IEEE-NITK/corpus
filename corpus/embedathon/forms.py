@@ -1,4 +1,5 @@
 from embedathon.models import EmbedathonUser
+from embedathon.models import Team
 
 from corpus.forms import CorpusModelForm
 
@@ -16,3 +17,9 @@ class EmbedathonForm(CorpusModelForm):
             "ieee_membership_no",
             "cass_member",
         ]
+
+
+class TeamCreationForm(CorpusModelForm):
+    class Meta:
+        model = Team
+        fields = ["team_name"]

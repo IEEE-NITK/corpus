@@ -1,11 +1,65 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Embedathon
+    Embedathon
 {% endblock %}
 
 {% block content %}
-<div class="prose w-2/3 mx-auto my-10">
-    <h1>Welcome to Embedathon!</h1>
-</div>
+    <div class="prose w-2/3 mx-auto my-10">
+        <h1>Welcome to Embedathon!</h1>
+        <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+            <div>
+                <div class="card">
+                    <div class="card-body">
+                        {% if in_team %}
+                            <h2>You are already in a team.</h2>
+                        {% else %}
+                            <div>
+                                <h3>Current Invites</h3>
+                                {% if invites %}
+                                    <ul>
+                                        {% for invite in invites %}
+                                            <li>
+                                                <a href="#">
+                                                    {{ invite.team.name }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p>You have no invites.</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <div class="divider divider-primary">OR</div>
+                            </div>
+                            <div>
+                                <h3>Create a team</h3>
+                                <form method="post" action="{% url 'embedathon_create_team' %}">
+                                    {% csrf_token %}
+
+                                    <div class="w-full my-2">
+                                        <label for="{{ team_creation_form.team_name.id_for_label }}">Team Name</label>
+                                        {{ team_creation_form.team_name }}
+                                        {% if team_creation_form.team_name.errors %}
+                                            <div class="my-1">
+                                                <div role="alert" class="alert alert-error">
+                                                    {{ team_creation_form.team_name.errors }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-actions mt-5">
+                                        <button class="btn btn-primary btn-block">Create Team</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
 {% endblock %}
