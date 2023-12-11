@@ -1,3 +1,6 @@
-# from django.contrib import admin
-#
-# # Register your models here.
+from django.contrib import admin
+from embedathon.models import EmbedathonUser
+
+# Register your models here.
+
+admin.site.register(EmbedathonUser)
