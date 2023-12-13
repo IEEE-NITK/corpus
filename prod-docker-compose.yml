@@ -9,7 +9,7 @@ services:
     expose:
       - ${POSTGRES_PORT}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-U corpus"]
+      test: [ "CMD-SHELL", "pg_isready", "-U corpus" ]
       interval: 30s
       timeout: 30s
       retries: 5
@@ -57,10 +57,29 @@ services:
       - corpus_network
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - static_files:/etc/nginx/staticfiles
+      - certbot_etc:/etc/letsencrypt
+      - certbot_var:/var/lib/letsencrypt
+      - certbot_www:/var/www/certbot
     env_file:
       - .env
+
+  certbot:
+    image: certbot/certbot
+    environment:
+      - CERTBOT_EMAIL=anirudhprabhakaran3@gmail.com
+      - CERTBOT_AGREE=true
+    volumes:
+      - certbot_etc:/etc/letsencrypt
+      - certbot_var:/var/lib/letsencrypt
+      - certbot_www:/var/www/certbot
+    depends_on:
+      - nginx
+    networks:
+      - corpus_network
+    command: certonly --webroot --webroot-path=/var/www/certbot -d ieee.nitk.ac.in --agree-tos --email anirudhprabhakaran3@gmail.com  --non-interactive
 
 networks:
   corpus_network:
@@ -68,3 +87,6 @@ networks:
 volumes:
   static_files:
   postgres_data:
+  certbot_etc:
+  certbot_var:
+  certbot_www:
