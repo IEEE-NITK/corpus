@@ -3,118 +3,122 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-      {% block title %} {% endblock %} | Corpus
+        {% block title %} {% endblock %} | Corpus
     </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-      integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-      <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.6/dist/full.min.css" rel="stylesheet" type="text/css" />
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.6/dist/full.min.css" rel="stylesheet" type="text/css"/>
     {% block style %}
     {% endblock %}
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
     <script>
-      tailwind.config = {
-        daisyui: {
-          themes: ["winter", "night"]
-        },
-        darkMode: ['class', '[data-theme="night"]']
-      }
-    </script>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        font-family: 'Ubuntu', sans-serif;
-      }
-
-    </style>
-  </head>
-
-  <body>
-
-    <div class="navbar bg-primary text-primary-content sticky top-0 z-10">
-        <div class="navbar-start">
-          <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
-            </label>
-            {% include "components/navbar_dropdown.html" %}
-          </div>
-        </div>
-        <div class="navbar-center">
-          <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
-        </div>
-        <div class="navbar-end">
-          {% include "components/navbar_right.html" %}
-        </div>
-    </div>
-
-    {% if messages %}
-      {% for message in messages %}
-          <div class="toast toast-start message-fade-away z-40">
-              <div class="alert alert-{{ message.tags }}">
-                  <span>{{ message }}</span>
-                  <span>{{ message.id }}</span>
-              </div>
-          </div>
-      {% endfor %}
-    {% endif %}
-
-    {% block content %}
-    {% endblock %}
-
-    {% include "components/dark_mode_toggle.html" %}
-
-    {% include "components/general_footer.html" %}
-    <footer class="footer px-10 py-4 border-t bg-neutral text-neutral-content border-base-300">
-      <aside class="items-center">
-        <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="h-10">
-      </aside>
-      <div class="place-self-center justify-self-end">
-        <p>Copyright © 2023 All rights reserved | Made with ❤️ by IEEE NITK, <a href="https://daisyui.com/"
-            target="_blank" class="link link-hover">DaisyUI</a> and <a href="https://tailwindcss.com/" target="_blank"
-            class="link link-hover">Tailwind CSS</a></p>
-      </div>
-    </footer>
-
-    {% block script %}
-    {% endblock %}
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const fadeDivs = document.querySelectorAll(".message-fade-away");
-            fadeDivs.forEach(function (fadeDiv) {
-             setTimeout(function () {
-                 fadeOut(fadeDiv);
-             }, 5000);
-            });
-        });
-
-        function fadeOut(element) {
-            let opacity = 1;
-            const intervalDuration = 50;
-            const intervalStep = 0.05;
-
-            let fadeInterval = setInterval(function () {
-                if (opacity > 0) {
-                    opacity -= intervalStep;
-                    element.style.opacity = opacity;
-                } else {
-                    clearInterval(fadeInterval);
-                    element.parentNode.removeChild(element);
-                }
-            }, intervalDuration);
+        tailwind.config = {
+            daisyui: {
+                themes: ["winter", "night", "synthwave"]
+            },
+            darkMode: ['class', '[data-theme="night"]']
         }
     </script>
-  </body>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar bg-primary text-primary-content sticky top-0 z-10">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+            </label>
+            {% include "components/navbar_dropdown.html" %}
+        </div>
+    </div>
+    <div class="navbar-center">
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
+    </div>
+    <div class="navbar-end">
+        {% include "components/navbar_right.html" %}
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="toast toast-start message-fade-away z-40">
+            <div class="alert alert-{{ message.tags }}">
+                <span>{{ message }}</span>
+                <span>{{ message.id }}</span>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% block content %}
+{% endblock %}
+
+{% include "components/dark_mode_toggle.html" %}
+
+{% include "components/general_footer.html" %}
+<footer class="footer px-10 py-4 border-t bg-neutral text-neutral-content border-base-300">
+    <aside class="items-center">
+        <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="h-10">
+    </aside>
+    <div class="place-self-center justify-self-end">
+        <p>Copyright © 2023 All rights reserved | Made with ❤️ by IEEE NITK, <a href="https://daisyui.com/"
+                                                                                target="_blank" class="link link-hover">DaisyUI</a>
+            and <a href="https://tailwindcss.com/" target="_blank"
+                   class="link link-hover">Tailwind CSS</a></p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fadeDivs = document.querySelectorAll(".message-fade-away");
+        fadeDivs.forEach(function (fadeDiv) {
+            setTimeout(function () {
+                fadeOut(fadeDiv);
+            }, 5000);
+        });
+    });
+
+    function fadeOut(element) {
+        let opacity = 1;
+        const intervalDuration = 50;
+        const intervalStep = 0.05;
+
+        let fadeInterval = setInterval(function () {
+            if (opacity > 0) {
+                opacity -= intervalStep;
+                element.style.opacity = opacity;
+            } else {
+                clearInterval(fadeInterval);
+                element.parentNode.removeChild(element);
+            }
+        }, intervalDuration);
+    }
+</script>
+
+{% block script %}
+{% endblock %}
+</body>
 
 </html>
