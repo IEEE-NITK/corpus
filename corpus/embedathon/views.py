@@ -19,6 +19,10 @@ from corpus.decorators import module_enabled
 # Create your views here.
 
 
+def home(request):
+    return render(request, "embedathon/home.html")
+
+
 @login_required
 @module_enabled(module_name="embedathon")
 def index(request):

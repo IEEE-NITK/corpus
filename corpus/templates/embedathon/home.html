@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home | Embedathon
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none flex flex-row">
+        <div class="basis-1/6"></div>
+        <div class="basis-4/6">
+            <section id="hero" class="text-center py-5">
+                <h1>Embedathon</h1>
+                <h4>24-hr Embedded System Hackathon</h4>
+                <h2>2nd January - 21st January, 2024</h2>
+                <a role="button" href="{% url 'embedathon_index' %}" class="btn btn-wide btn-primary font-bold no-underline">Register</a>
+            </section>
+
+            <section id="about" class="py-10 px-5">
+                <h3>What is Embedathon?</h3>
+                <p>
+                    Embedathon is our flagship embedded systems task-based hackathon challenge hosted by IEEE NITK
+                    student branch
+                    in association with CAS Society. It presents you with interesting problem statements to ensure a
+                    fun-filled learning experience. This is the fifth edition of the event promising to be bigger and
+                    better.
+                    In addition to the problem statement resources, workshops and talks will also be conducted prior to
+                    the
+                    final event to enhance your experience with us! The expert talk will be open to everyone, even if
+                    you did
+                    not qualify the preliminary round.
+                </p>
+            </section>
+
+            <section id="prizes" class="py-5 px-5">
+                <h3>Prizes</h3>
+            </section>
+
+            <section id="speakers" class="py-5 px-5">
+                <h3>Speakers</h3>
+            </section>
+
+            <section id="schedule" class="px-5 py-5">
+                <h3>Schedule</h3>
+            </section>
+
+            <section id="faqs" class="px-5 py-5">
+                <h3>FAQs</h3>
+            </section>
+
+             <section id="contact" class="px-5 py-5">
+                <h3>Contact</h3>
+            </section>
+        </div>
+        <div class="basis-1/6"></div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const theme = "synthwave";
+            const currTheme = localStorage.getItem("corpusTheme");
+            const themeButton = document.getElementById("dark-mode-button");
+            themeButton.remove();
+            localStorage.setItem("corpusThemeArchive", currTheme);
+            localStorage.setItem("corpusTheme", theme);
+            document.documentElement.setAttribute("data-theme", theme);
+        });
+
+        window.addEventListener("beforeunload", function (event) {
+            const oldTheme = localStorage.getItem("corpusThemeArchive");
+            localStorage.setItem("corpusTheme", oldTheme);
+        })
+    </script>
+{% endblock %}

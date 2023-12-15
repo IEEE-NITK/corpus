@@ -129,28 +129,47 @@
 
 {% block script %}
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let nitkChackbox = document.getElementById("{{ form.from_nitk.id_for_label }}");
-        let collegeField = document.getElementById("college-name-field");
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkChackbox = document.getElementById("{{ form.from_nitk.id_for_label }}");
+            let collegeField = document.getElementById("college-name-field");
 
-        function toggleCollegeField() {
-            collegeField.style.display = nitkChackbox.checked ? "none" : "block";
-        }
+            function toggleCollegeField() {
+                collegeField.style.display = nitkChackbox.checked ? "none" : "block";
+            }
 
-        toggleCollegeField();
-        nitkChackbox.addEventListener("change", toggleCollegeField);
+            toggleCollegeField();
+            nitkChackbox.addEventListener("change", toggleCollegeField);
 
-        let ieeeCheckbox = document.getElementById("{{ form.ieee_member.id_for_label }}");
-        let membershipField = document.getElementById("ieee-membership-number-field");
-        let cassField = document.getElementById("cass-member-field");
+            let ieeeCheckbox = document.getElementById("{{ form.ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+            let cassField = document.getElementById("cass-member-field");
 
-        function toggleIEEE() {
-            membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
-            cassField.style.display = ieeeCheckbox.checked ? "block" : "none";
-        }
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+                cassField.style.display = ieeeCheckbox.checked ? "block" : "none";
+            }
 
-        toggleIEEE();
-        ieeeCheckbox.addEventListener("change", toggleIEEE);
-    })
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        })
+    </script>
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const theme = "synthwave";
+            const currTheme = localStorage.getItem("corpusTheme");
+            const themeButton = document.getElementById("dark-mode-button");
+            themeButton.remove();
+            localStorage.setItem("corpusThemeArchive", currTheme);
+            localStorage.setItem("corpusTheme", theme);
+            document.documentElement.setAttribute("data-theme", theme);
+        });
+
+        window.addEventListener("beforeunload", function(event) {
+            const oldTheme = localStorage.getItem("corpusThemeArchive");
+            localStorage.setItem("corpusTheme", oldTheme);
+        })
     </script>
 {% endblock %}
