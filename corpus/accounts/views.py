@@ -26,13 +26,17 @@ def signup(request):
 
 
 def signin(request):
+    next = request.GET.get("next", "")
     if request.method == "POST":
         form = CorpusLoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             messages.success(request, "Welcome back to Corpus!")
-            return redirect("index")
+            if next == "":
+                return redirect("index")
+            else:
+                return redirect(next)
     else:
         form = CorpusLoginForm()
 

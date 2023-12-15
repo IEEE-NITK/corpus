@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from accounts.models import User
 from config.models import DATETIME_FORMAT
 from config.models import ModuleConfiguration
 from django.contrib import messages
@@ -53,6 +54,23 @@ def index(request):
         invites = Invite.objects.filter(invite_email=embedathon_user.user.email)
         args["invites_for_user"] = invites
 
+    config = ModuleConfiguration.objects.get(module_name="embedathon").module_config
+
+    reg_start_datetime, reg_end_datetime = (
+        config["reg_start_datetime"],
+        config["reg_end_datetime"],
+    )
+
+    reg_start_datetime, reg_end_datetime = datetime.strptime(
+        reg_start_datetime, DATETIME_FORMAT
+    ), datetime.strptime(reg_end_datetime, DATETIME_FORMAT)
+
+    registration_active = (reg_start_datetime <= datetime.now()) and (
+        datetime.now() <= reg_end_datetime
+    )
+
+    args["registration_active"] = registration_active
+
     return render(request, "embedathon/index.html", args)
 
 
@@ -65,9 +83,11 @@ def register(request):
         config["reg_start_datetime"],
         config["reg_end_datetime"],
     )
+
     reg_start_datetime, reg_end_datetime = datetime.strptime(
         reg_start_datetime, DATETIME_FORMAT
     ), datetime.strptime(reg_end_datetime, DATETIME_FORMAT)
+
     registration_active = (reg_start_datetime <= datetime.now()) and (
         datetime.now() <= reg_end_datetime
     )
@@ -133,6 +153,15 @@ def create_invite(request):
                 return redirect("embedathon_index")
 
             try:
+                user = User.objects.get(email=form.cleaned_data["invite_email"])
+                invited_emb_user = EmbedathonUser.objects.get(user=user)
+                if invited_emb_user.team is not None:
+                    messages.error(request, "User is already in a team!")
+                    return redirect("embedathon_index")
+            except User.DoesNotExist:
+                pass
+
+            try:
                 invite = Invite.objects.get(
                     inviting_team=embedathon_user.team,
                     invite_email=form.cleaned_data["invite_email"],
@@ -145,11 +174,13 @@ def create_invite(request):
             invite_counts = Invite.objects.filter(
                 inviting_team=embedathon_user.team
             ).count()
-            team_members = EmbedathonUser.objects.get(team=embedathon_user.team).count
+            team_members = EmbedathonUser.objects.filter(
+                team=embedathon_user.team
+            ).count()
             config = ModuleConfiguration.objects.get(
                 module_name="embedathon"
             ).module_config
-            max_count = int(config["max_team_members"])
+            max_count = int(config["max_team_size"])
 
             if invite_counts >= max_count or team_members >= max_count:
                 messages.error(request, "Maximum team member limit reached!")
@@ -170,6 +201,15 @@ def create_invite(request):
 @module_enabled(module_name="embedathon")
 def accept_invite(request, pk):
     invite = Invite.objects.get(pk=pk)
+    team_members = EmbedathonUser.objects.filter(team=invite.inviting_team).count()
+    config = ModuleConfiguration.objects.get(module_name="embedathon").module_config
+    max_count = int(config["max_team_size"])
+
+    if team_members >= max_count:
+        invite.delete()
+        messages.error(request, "Maximum team member limit reached!")
+        return redirect("embedathon_index")
+
     if request.user.email != invite.invite_email:
         messages.error(request, "Illegal request")
         return redirect("embedathon_index")
