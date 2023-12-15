@@ -9,7 +9,7 @@
         <div class="card-body">
             <h1 class="card-title text-2xl">Login</h1>
 
-            <form method="post" action="{% url 'accounts_signin' %}" class="py-5">
+            <form method="post" action="{% url 'accounts_signin' %}?next={{ request.GET.next }}" class="py-5">
                 {% csrf_token %}
 
                 {% if request.GET.next %}
