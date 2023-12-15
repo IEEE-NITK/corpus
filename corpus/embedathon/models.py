@@ -29,7 +29,7 @@ class EmbedathonUser(models.Model):
 class Team(models.Model):
     team_name = models.CharField(max_length=200, blank=False, null=False)
     team_leader = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="leader"
+        EmbedathonUser, on_delete=models.CASCADE, related_name="leader"
     )
 
     def __str__(self):

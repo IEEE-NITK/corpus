@@ -1,4 +1,5 @@
 from embedathon.models import EmbedathonUser
+from embedathon.models import Invite
 from embedathon.models import Team
 
 from corpus.forms import CorpusModelForm
@@ -23,3 +24,9 @@ class TeamCreationForm(CorpusModelForm):
     class Meta:
         model = Team
         fields = ["team_name"]
+
+
+class InviteForm(CorpusModelForm):
+    class Meta:
+        model = Invite
+        fields = ["invite_email"]

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
 from embedathon.forms import EmbedathonForm
+from embedathon.forms import InviteForm
 from embedathon.forms import TeamCreationForm
 from embedathon.models import EmbedathonUser
 from embedathon.models import Invite
@@ -34,19 +35,23 @@ def index(request):
 
         team = embedathon_user.team
         members = EmbedathonUser.objects.filter(team=team)
-        invites = Invite.objects.filter(invite_email=embedathon_user.user.email)
 
         args["team"] = team
         args["members"] = members
-        args["invites"] = invites
 
         if team.team_leader == embedathon_user:
             args["is_leader"] = True
+            invites = Invite.objects.filter(inviting_team=team)
+            args["invites_from_team"] = invites
+            args["invite_form"] = InviteForm()
         else:
             args["is_leader"] = False
     else:
         args["in_team"] = False
+        args["is_leader"] = False
         args["team_creation_form"] = TeamCreationForm()
+        invites = Invite.objects.filter(invite_email=embedathon_user.user.email)
+        args["invites_for_user"] = invites
 
     return render(request, "embedathon/index.html", args)
 
@@ -102,10 +107,10 @@ def create_team(request):
         form = TeamCreationForm(request.POST)
         if form.is_valid():
             team = form.save(commit=False)
-            team.team_leader = request.user
+            embedathon_user = EmbedathonUser.objects.get(user=request.user)
+            team.team_leader = embedathon_user
             team.save()
 
-            embedathon_user = EmbedathonUser.objects.get(user=request.user)
             embedathon_user.team = team
             embedathon_user.save()
 
@@ -114,3 +119,63 @@ def create_team(request):
     else:
         messages.error(request, "Illegal Request")
         return redirect("embedathon_index")
+
+
+@login_required
+@module_enabled(module_name="embedathon")
+def create_invite(request):
+    embedathon_user = EmbedathonUser.objects.get(user=request.user)
+    if request.method == "POST":
+        form = InviteForm(request.POST)
+        if form.is_valid():
+            if request.user.email == form.cleaned_data["invite_email"]:
+                messages.error(request, "You cannot invite yourself!")
+                return redirect("embedathon_index")
+
+            try:
+                invite = Invite.objects.get(
+                    inviting_team=embedathon_user.team,
+                    invite_email=form.cleaned_data["invite_email"],
+                )
+                messages.error(request, "Invite has already been sent!")
+                return redirect("embedathon_index")
+            except Invite.DoesNotExist:
+                pass
+
+            invite = form.save(commit=False)
+            inviting_team = embedathon_user.team
+            invite.inviting_team = inviting_team
+            invite.save()
+
+            messages.success(request, "Invite sent!")
+            return redirect("embedathon_index")
+    messages.error(request, "Illegal Request")
+    return redirect("embedathon_index")
+
+
+@login_required
+@module_enabled(module_name="embedathon")
+def accept_invite(request, pk):
+    invite = Invite.objects.get(pk=pk)
+    if request.user.email != invite.invite_email:
+        messages.error(request, "Illegal request")
+        return redirect("embedathon_index")
+
+    embedathon_user = EmbedathonUser.objects.get(user=request.user)
+    embedathon_user.team = invite.inviting_team
+    embedathon_user.save()
+
+    Invite.objects.filter(invite_email=request.user.email).delete()
+
+    messages.success(request, "Invite accepted!")
+    return redirect("embedathon_index")
+
+
+@login_required
+@module_enabled(module_name="embedathon")
+def delete_invite(request, pk):
+    invite = Invite.objects.get(pk=pk)
+    invite.delete()
+
+    messages.success(request, "Invite deleted!")
+    return redirect("embedathon_index")
