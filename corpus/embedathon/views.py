@@ -142,6 +142,19 @@ def create_invite(request):
             except Invite.DoesNotExist:
                 pass
 
+            invite_counts = Invite.objects.filter(
+                inviting_team=embedathon_user.team
+            ).count()
+            team_members = EmbedathonUser.objects.get(team=embedathon_user.team).count
+            config = ModuleConfiguration.objects.get(
+                module_name="embedathon"
+            ).module_config
+            max_count = int(config["max_team_members"])
+
+            if invite_counts >= max_count or team_members >= max_count:
+                messages.error(request, "Maximum team member limit reached!")
+                return redirect("embedathon_index")
+
             invite = form.save(commit=False)
             inviting_team = embedathon_user.team
             invite.inviting_team = inviting_team
