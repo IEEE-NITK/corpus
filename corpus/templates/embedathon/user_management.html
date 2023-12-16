@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    User Management | Admin | Embedathon
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none mx-10 my-10">
+        <h1 class="text-center">User Management</h1>
+        <p><strong>Number of Users:</strong>{{ users.count }}</p>
+        <div class="overflow-x-auto my-5">
+            <table class="table table-zebra">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>From NITK?</th>
+                    <th>College Name</th>
+                    <th>Course</th>
+                    <th>Year</th>
+                    <th>Branch</th>
+                    <th>IEEE Member?</th>
+                    <th>IEEE Membership Number</th>
+                    <th>CASS Member?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.user }}</td>
+                    <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
+                    <td>{{ user.college_name }}</td>
+                    <td>{{ user.get_course_display }}</td>
+                    <td>{{ user.get_year_display }}</td>
+                    <td>{{ user.branch }}</td>
+                    <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
+                    <td>{{ user.ieee_membership_no }}</td>
+                    <td>{{ user.cass_member|yesno:"Yes,No" }}</td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'embedathon_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}

@@ -283,3 +283,13 @@ def mark_payment_complete(request, pk):
 
     messages.success(request, "Team payment status updated.")
     return redirect("embedathon_admin_team_page", pk=pk)
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def user_management(request):
+    users = EmbedathonUser.objects.all()
+
+    args = {"users": users}
+
+    return render(request, "embedathon/user_management.html", args)

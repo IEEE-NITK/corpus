@@ -21,4 +21,5 @@ urlpatterns = [
         views.mark_payment_complete,
         name="embedathon_admin_mark_payment_complete",
     ),
+    path("admin/users", views.user_management, name="embedathon_admin_users"),
 ]
