@@ -12,7 +12,9 @@ from embedathon.forms import InviteForm
 from embedathon.forms import TeamCreationForm
 from embedathon.models import EmbedathonUser
 from embedathon.models import Invite
+from embedathon.models import Team
 
+from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
 
@@ -245,3 +247,49 @@ def delete_invite(request, pk):
 
     messages.success(request, "Invite deleted!")
     return redirect("embedathon_index")
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def admin(request):
+    return render(request, "embedathon/admin.html")
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def team_management(request):
+    teams = Team.objects.all()
+    args = {"teams": teams}
+    return render(request, "embedathon/team_management.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def team_page(request, pk):
+    team = Team.objects.get(pk=pk)
+    members = EmbedathonUser.objects.filter(team=team)
+
+    args = {"team": team, "members": members}
+
+    return render(request, "embedathon/team_page.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def mark_payment_complete(request, pk):
+    team = Team.objects.get(pk=pk)
+    team.payment_status = "P"
+    team.save()
+
+    messages.success(request, "Team payment status updated.")
+    return redirect("embedathon_admin_team_page", pk=pk)
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def user_management(request):
+    users = EmbedathonUser.objects.all()
+
+    args = {"users": users}
+
+    return render(request, "embedathon/user_management.html", args)
