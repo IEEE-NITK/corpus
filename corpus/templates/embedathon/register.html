@@ -152,11 +152,7 @@
             toggleIEEE();
             ieeeCheckbox.addEventListener("change", toggleIEEE);
         })
-    </script>
-{% endblock %}
 
-{% block script %}
-    <script>
         document.addEventListener("DOMContentLoaded", function () {
             const theme = "synthwave";
             const currTheme = localStorage.getItem("corpusTheme");
@@ -167,7 +163,7 @@
             document.documentElement.setAttribute("data-theme", theme);
         });
 
-        window.addEventListener("beforeunload", function(event) {
+        window.addEventListener("beforeunload", function (event) {
             const oldTheme = localStorage.getItem("corpusThemeArchive");
             localStorage.setItem("corpusTheme", oldTheme);
         })

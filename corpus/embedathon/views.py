@@ -133,6 +133,10 @@ def create_team(request):
             team = form.save(commit=False)
             embedathon_user = EmbedathonUser.objects.get(user=request.user)
             team.team_leader = embedathon_user
+
+            if embedathon_user.from_nitk or embedathon_user.ieee_member:
+                team.payment_status = "E"
+
             team.save()
 
             embedathon_user.team = team
@@ -162,7 +166,7 @@ def create_invite(request):
                 if invited_emb_user.team is not None:
                     messages.error(request, "User is already in a team!")
                     return redirect("embedathon_index")
-            except User.DoesNotExist:
+            except (User.DoesNotExist, EmbedathonUser.DoesNotExist):
                 pass
 
             try:
@@ -221,6 +225,11 @@ def accept_invite(request, pk):
     embedathon_user = EmbedathonUser.objects.get(user=request.user)
     embedathon_user.team = invite.inviting_team
     embedathon_user.save()
+
+    if embedathon_user.from_nitk or embedathon_user.ieee_member:
+        inviting_team = invite.inviting_team
+        inviting_team.payment_status = "E"
+        inviting_team.save()
 
     Invite.objects.filter(invite_email=request.user.email).delete()
 

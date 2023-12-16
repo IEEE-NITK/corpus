@@ -3,7 +3,14 @@ from django.db import models
 
 # Create your models here.
 
-COURSES = [("B", "B.Tech."), ("M", "M.Tech."), ("P", "PhD")]
+COURSES = [
+    ("B", "B.Tech."),
+    ("E", "B.E."),
+    ("S", "B.Sc."),
+    ("O", "Other undergraduate degree"),
+]
+YEAR = [("1", "1st Year"), ("2", "2nd Year")]
+PAYMENT_STATUS = [("E", "Exempt"), ("U", "Fee Not Paid"), ("P", "Fee Paid")]
 
 
 class EmbedathonUser(models.Model):
@@ -12,8 +19,8 @@ class EmbedathonUser(models.Model):
     college_name = models.CharField(
         max_length=200, default="National Institute of Technology Karnataka"
     )
-    course = models.CharField(max_length=1, choices=COURSES)
-    year = models.IntegerField(blank=False, null=False)
+    course = models.CharField(max_length=1, choices=COURSES, blank=False, null=False)
+    year = models.CharField(max_length=1, choices=YEAR, blank=False, null=False)
     branch = models.CharField(max_length=200, blank=False, null=False)
     ieee_member = models.BooleanField(default=False)
     ieee_membership_no = models.BigIntegerField(blank=True, null=True)
@@ -30,6 +37,9 @@ class Team(models.Model):
     team_name = models.CharField(max_length=200, blank=False, null=False)
     team_leader = models.ForeignKey(
         EmbedathonUser, on_delete=models.CASCADE, related_name="leader"
+    )
+    payment_status = models.CharField(
+        max_length=1, choices=PAYMENT_STATUS, blank=False, null=False, default="U"
     )
 
     def __str__(self):
