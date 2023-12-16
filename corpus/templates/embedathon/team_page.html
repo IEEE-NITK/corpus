@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ team.team_name }} | Team Management | Embedathon
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none mx-10 my-10">
+        <h1>{{ team.team_name }}</h1>
+        <div>
+            <h3>Members</h3>
+            <div class="overflow-x-auto my-5">
+                <table class="table table-zebra">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>From NITK?</th>
+                        <th>College Name</th>
+                        <th>Course</th>
+                        <th>Year</th>
+                        <th>Branch</th>
+                        <th>IEEE Member?</th>
+                        <th>IEEE Membership Number</th>
+                        <th>CASS Member?</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in members %}
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ member.user }}</td>
+                        <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
+                        <td>{{ member.college_name }}</td>
+                        <td>{{ member.get_course_display }}</td>
+                        <td>{{ member.get_year_display }}</td>
+                        <td>{{ member.branch }}</td>
+                        <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
+                        <td>{{ member.ieee_membership_no }}</td>
+                        <td>{{ member.cass_member|yesno:"Yes,No" }}</td>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p><strong>Payment status:</strong> {{ team.get_payment_status_display }}</p>
+        {% if team.payment_status == "U" %}
+            <a href="{% url 'embedathon_admin_mark_payment_complete' pk=team.pk %}"
+               class="btn btn-success text-black font-bold no-underline">Mark Payment as Complete</a>
+        {% endif %}
+        <a href="{% url 'embedathon_admin_teams' %}"
+           class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}

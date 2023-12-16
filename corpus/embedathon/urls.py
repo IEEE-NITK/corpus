@@ -13,4 +13,12 @@ urlpatterns = [
     path(
         "delete_invite/<int:pk>", views.delete_invite, name="embedathon_delete_invite"
     ),
+    path("admin", views.admin, name="embedathon_admin"),
+    path("admin/teams", views.team_management, name="embedathon_admin_teams"),
+    path("admin/team/<int:pk>", views.team_page, name="embedathon_admin_team_page"),
+    path(
+        "admin/team/<int:pk>/mark_payment_complete",
+        views.mark_payment_complete,
+        name="embedathon_admin_mark_payment_complete",
+    ),
 ]
