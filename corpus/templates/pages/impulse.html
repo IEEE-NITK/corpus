@@ -6,9 +6,6 @@
 
 {% block style %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
-
-{% comment %} <link rel="stylesheet" href="{% static 'css/impulse.css' %}"> {% endcomment %}
-
 <style>
     .hero {
         background-color: rgba(0, 0, 0, 0.5);
@@ -44,8 +41,19 @@
             max-width: 50%;
         }
     }
-</style>
 
+    .tick {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+    }
+
+    .arrowdown {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -61,37 +69,30 @@
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
             <a href="#" target="" class="btn btn-primary mt-8 mb-0">Registrations Opening soon</a>
             <br>
-        <a href="#about" class="color-white text-2xl mt-10">
-            {% comment %} Down Arrow {% endcomment %}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 animate-bounce" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M10 3a1 1 0 011 1v7.586l3.293-3.293a.999.999 0 111.414 1.414l-5 5a.999.999 0
-                    01-1.414 0l-5-5a.999.999 0 111.414-1.414L9 11.586V4a1 1 0 011-1z"
-                    clip-rule="evenodd" />
-            </svg>
-        </a>
+        <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
+            <div class="arrowdown h-10 w-10 m-0 p-0"></div>
+        </button>
         </div>
-    </section>
+    </section>  
 
     {% comment %} About Section {% endcomment %}
     <section id="about" 
         class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class="about-content text-center flex-col ">
-            <div class="row about-container">
+            <div class="about-container">
 
-                <div class="col content">
+                <div class="content">
                 <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">WHAT IS IMPULSE?</h2>
                 <p class="text-md md:text-lg lg:text-xl">
                     Impulse is a first of its kind, 24-hour signal processing hackathon conducted by IEEE NITK student branch in association with IEEE NITK SPS student chapter. It presents you with interesting problem statements to ensure a fun-filled learning experience. In addition to the hackathon, a workshop will also be conducted prior to the final event to enhance your experience with us! <br>
-                <strong>Open to 1st and 2nd year B.Tech students from all over India!</strong>
+                <p class="text-md md:text-lg lg:text-xl"><strong>Open to 1st and 2nd year B.Tech students from all over India!</strong></p>
                 <br>
                 </p>
                 </div>  
             </div>
         </div>
         <br>
-        <br>
-        <div class="row about-container">
+        <div class="about-container">
             <div class="col content text-center">
                 <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">SPEAKERS</h2>
                 <!-- <div class="row">
@@ -124,7 +125,7 @@
     </section>
 
     {% comment %} Prizes Section {% endcomment %}
-    <section id="facts" 
+      <section id="prizes" 
         class="facts bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class=" pt-10">
             <div class="section-header">
@@ -169,38 +170,61 @@
 
     {% comment %} Schedule Section {% endcomment %}
     <section id="schedule"
-        class="schedule bg-base-100 text-center prose px-10 lg:px-40 py-10 mx-auto"> 
+        class="schedule bg-base-100 text-center prose px-10 lg:px-40 py-10 mx-auto">
         <div class="section-header">
             <br>
             <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold ">SCHEDULE</h3>
             <p class="section-description"></p>
         </div>
-        
-        <br>
-
-            <div class="table text-md md:text-lg lg:text-xl mx-auto">
-                <table>
-                    <tbody class="text-center">
-                    <tr>
-                        <td>10<sup>th</sup> Jan, 2024</td>
-                        <td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>11<sup>th</sup> Jan, 2024</td>
-                        <td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>12<sup>th</sup> Jan, 2024</td>
-                        <td>TBD</td>
-                    </tr>
-                    <tr>
-                        <td>13<sup>th</sup> Jan, 2024</td>
-                        <td>TBD</td>
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
-
+        <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical text-sm md:text-md lg:text-lg">
+            <li>
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
+                <div class="text-md md:text-lg lg:text-xl font-black">TBD</div>
+                
+              </div>
+              <hr/>
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">TBD</div>
+                
+              </div>
+              <hr />
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">12<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">TBD</div>
+                
+              </div>
+              <hr />
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">13<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">TBD</div>
+                
+              </div>
+              <hr />
+            </li>
+          </ul>
     </section>
 
     {% comment %} FAQ Section {% endcomment %}
@@ -219,7 +243,7 @@
         openFaq10: false,
         }
         "
-        class="relative z-20 overflow-hidden bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
+        class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
         <div class="container mx-auto">
         <div class="flex flex-wrap -mx-4">
             <div class="w-full px-4">
@@ -243,25 +267,13 @@
                     class="w-full p-4 mb-8 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] bg-base-100 sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
-                    class="flex w-full text-left faq-btn"
+                    class="flex w-full text-left faq-btn "
                     @click="openFaq1 = !openFaq1"
                     >
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq1 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq1 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -279,6 +291,7 @@
                     </p>
                     </div>
                 </div>
+
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)]  sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -289,19 +302,7 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq2 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq2 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -323,6 +324,7 @@
                     </p>
                     </div>
                 </div>
+
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -333,19 +335,7 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq3 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq3 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -363,92 +353,38 @@
                     </p>
                     </div>
                 </div>
-            
 
-            <div
-                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                >
-                <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq7 = !openFaq7"
-                    >
-                    <div
-                    class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                    >
-                    <svg
-                        :class="openFaq7 && 'rotate-180'"
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        >
-                        <path
-                            d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                            fill="currentColor"
-                            />
-                    </svg>
-                    </div>
-                    <div class="w-full">
-                    <h4
-                        class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                        >
-                        How can we prepare for the event?
-                    </h4>
-                    </div>
-                </button>
-                <div x-show="openFaq7" class="faq-content pl-[62px]">
-                    <p
-                    class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                    >
-                    Brush up on your knowledge of Linear Algebra, Signals and Systems, aptitude and the basics of Python.
-                    </p>
-                </div>
-            </div>
-            </div>
-
-            
-            <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq4 = !openFaq4"
-                    >
-                    <div
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq4 = !openFaq4"
+                        >
+                        <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq4 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
-                    </div>
-                    <div class="w-full">
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            The preliminary test is on Hackerearth. Is it a competitive coding test?
+                            How can we prepare for the event?
                         </h4>
-                    </div>
+                        </div>
                     </button>
                     <div x-show="openFaq4" class="faq-content pl-[62px]">
-                    <p
+                        <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Aptitude and some Python coding. It will not have any competitive coding style questions.
-                    </p>
+                        Brush up on your knowledge of Linear Algebra, Signals and Systems, aptitude and the basics of Python.
+                        </p>
                     </div>
                 </div>
+            </div>
+     
+            <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -459,25 +395,13 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq5 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            How many members in a team?
+                            The preliminary test is on Hackerearth. Is it a competitive coding test?
                         </h4>
                     </div>
                     </button>
@@ -485,10 +409,11 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        A maximum of two members are allowed per team.
+                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Aptitude and some Python coding. It will not have any competitive coding style questions.
                     </p>
                     </div>
                 </div>
+
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -499,19 +424,36 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <svg
-                            :class="openFaq6 && 'rotate-180'"
-                            width="22"
-                            height="22"
-                            viewBox="0 0 22 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            <path
-                                d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                                fill="currentColor"
-                                />
-                        </svg>
+                            How many members in a team?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq6" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        A maximum of two members are allowed per team.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq7 = !openFaq7"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq7 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -521,7 +463,7 @@
                         </h4>
                     </div>
                     </button>
-                    <div x-show="openFaq6" class="faq-content pl-[62px]">
+                    <div x-show="openFaq7" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -529,47 +471,36 @@
                     </p>
                     </div>
                 </div>
+
                 <div
-                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                >
-                <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq8 = !openFaq8"
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
-                    <div
-                    class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                    >
-                    <svg
-                        :class="openFaq8 && 'rotate-180'"
-                        width="22"
-                        height="22"
-                        viewBox="0 0 22 22"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq8 = !openFaq8"
                         >
-                        <path
-                            d="M11 15.675C10.7937 15.675 10.6219 15.6062 10.45 15.4687L2.54374 7.69998C2.23436 7.3906 2.23436 6.90935 2.54374 6.59998C2.85311 6.2906 3.33436 6.2906 3.64374 6.59998L11 13.7844L18.3562 6.53123C18.6656 6.22185 19.1469 6.22185 19.4562 6.53123C19.7656 6.8406 19.7656 7.32185 19.4562 7.63123L11.55 15.4C11.3781 15.5719 11.2062 15.675 11 15.675Z"
-                            fill="currentColor"
-                            />
-                    </svg>
-                    </div>
-                    <div class="w-full">
-                    <h4
-                        class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        Should I clear the preliminary round to attend workshops and talks? 
-                    </h4>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Should I clear the preliminary round to attend workshops and talks? 
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No, the workshop and talks are open for everyone who registers for the Hackathon.
+                        </p>
                     </div>
-                </button>
-                <div x-show="openFaq8" class="faq-content pl-[62px]">
-                    <p
-                    class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                    >
-                    No, the workshop and talks are open for everyone who registers for the Hackathon.
-                    </p>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 
@@ -620,4 +551,16 @@
 {% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    function smoothScroll(target) {
+        const targetElement = document.querySelector(target);
+
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    }
+</script>
 {% endblock %}
