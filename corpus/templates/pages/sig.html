@@ -26,36 +26,32 @@ Home
 </section>
 <!-- About SIG Section -->
 <section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
-    {% for sig in sigs %}
-        <h1 class="text-4xl lg:text-5xl">About {{sig.name}}</h1>
-        <p class="text-justify">
-            {{sig.about}}
-        </p>
-    {% endfor %}
+    <h1 class="text-4xl lg:text-5xl">About {{ sig.name }}</h1>
+    <p class="text-justify">
+        {{sig.about}}
+    </p>
 </section>
 <!-- SIG Section -->
 <!-- TODO: Add SIG Links -->
 <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
     <h1 class="text-4xl lg:text-5xl">What We Do</h1>
     <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
-        {% for sig in sigs %}
-            <div class="card bg-base-100 shadow-xl basis-1/3">
-                <div class="card-body items-center text-center">
-                    <figure class="mt-3 mb-0 text-secondary">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-12">
-                            <path fill-rule="evenodd"
-                                d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </figure>
-                    <h2 class="card-title my-4 text-3xl">CompSoc</h2>
-                    <p>{{sig.what_we_do}}</p>
-                    <div class="card-actions mt-3">
-                        <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
-                    </div>
+        <div class="card bg-base-100 shadow-xl basis-1/3">
+            <div class="card-body items-center text-center">
+                <figure class="mt-3 mb-0 text-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-12">
+                        <path fill-rule="evenodd"
+                            d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </figure>
+                <h2 class="card-title my-4 text-3xl">CompSoc</h2>
+                <p>{{sig.what_we_do}}</p>
+                <div class="card-actions mt-3">
+                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
                 </div>
             </div>
-        {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock %}
