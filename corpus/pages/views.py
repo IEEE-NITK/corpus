@@ -1,3 +1,4 @@
+from config.models import SIG
 from config.models import Society
 from django.shortcuts import render
 
@@ -31,4 +32,15 @@ def impulse(request):
     return render(
         request,
         "pages/impulse.html",
+    )
+
+def compsoc(request):
+    sigs = SIG.objects.all()
+
+    return render(
+        request,
+        "pages/sig.html",
+        {
+            "sigs": sigs,
+        },
     )
