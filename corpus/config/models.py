@@ -77,8 +77,8 @@ class SIG(models.Model):
     """
 
     name = models.CharField(verbose_name="Name", max_length=10, unique=True)
-    about = models.CharField(verbose_name="About Us", default="")
-    what_we_do = models.CharField(verbose_name="What We Do", default="")
+    about = models.TextField(verbose_name="About Us", default="")
+    what_we_do = models.TextField(verbose_name="What We Do", default="")
 
     def __str__(self):
         return self.name

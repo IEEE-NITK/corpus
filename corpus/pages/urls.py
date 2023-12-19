@@ -1,11 +1,11 @@
 from django.urls import path
 
 from .views import about_us
-from .views import compsoc
 from .views import index
+from .views import sig
 
 urlpatterns = [
     path("", index, name="index"),
     path("about_us/", about_us, name="about_us"),
-    path("compsoc/", compsoc, name="compsoc"),
+    path("<str:sig_name>/", sig, name="sig"),
 ]

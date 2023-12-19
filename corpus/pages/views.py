@@ -1,5 +1,6 @@
 from config.models import SIG
 from config.models import Society
+from django.shortcuts import redirect
 from django.shortcuts import render
 
 
@@ -28,13 +29,15 @@ def about_us(request):
     )
 
 
-def compsoc(request):
-    sigs = SIG.objects.all()
-
+def sig(request, sig_name):
+    try:
+        sig = SIG.objects.get(name=sig_name)
+    except SIG.DoesNotExist:
+        return redirect("index")
     return render(
         request,
         "pages/sig.html",
         {
-            "sigs": sigs,
+            "sig": sig,
         },
     )
