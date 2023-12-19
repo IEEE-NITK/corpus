@@ -69,24 +69,24 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
+
 class SIG(models.Model):
-    IEEE_SIGs=[
-        ("CompSoc","CompSoc"),
-        ("Diode","Diode"),
-        ("Piston","Piston"),
-        ("WiE","WiE"),
-        ("SIGHT","SIGHT"),
-    ]
-    name = models.CharField(verbose_name="Name", max_length=10, unique=True, choices=IEEE_SIGs)
-    aboutus=models.CharField(verbose_name="AboutUs")
-    whatwedo=models.CharField(verbose_name="WhatWeDo")
+    """
+    SIG Model.
+    Defines all sigs that are part of IEEE NITK SB.
+    """
+
+    name = models.CharField(verbose_name="Name", max_length=10, unique=True)
+    about = models.CharField(verbose_name="About Us", default="")
+    what_we_do = models.CharField(verbose_name="What We Do", default="")
 
     def __str__(self):
-        return self.get_name_display()
+        return self.name
 
     class Meta:
         verbose_name = "SIG"
         verbose_name_plural = "SIGs"
+
 
 class ModuleConfiguration(models.Model):
     module_name = models.CharField(max_length=200, blank=False, null=False)

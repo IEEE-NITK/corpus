@@ -1,3 +1,4 @@
+from config.models import SIG
 from config.models import Society
 from django.shortcuts import render
 
@@ -23,5 +24,17 @@ def about_us(request):
         "pages/about_us.html",
         {
             "socieites": societies,
+        },
+    )
+
+
+def compsoc(request):
+    sigs = SIG.objects.all()
+
+    return render(
+        request,
+        "pages/sig.html",
+        {
+            "sigs": sigs,
         },
     )
