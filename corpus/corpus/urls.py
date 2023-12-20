@@ -20,7 +20,10 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("pages.urls")),
     path("accounts/", include("accounts.urls")),
     path("embedathon/", include("embedathon.urls")),
+    path(
+        "", include("pages.urls")
+    ),  # This is after other urls so that "<str:sig_name>/""
+    # doesn't prevent other urls such as embedathon from loading
 ]
