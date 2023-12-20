@@ -1,4 +1,5 @@
 {% extends 'embedathon/base.html' %}
+{% load static %}
 
 {% block title %}
     Home
@@ -17,7 +18,7 @@
                    class="btn btn-wide btn-primary font-bold no-underline">Register</a>
             </section>
 
-            <section id="about" class="py-10 px-5">
+            <section id="about" class="py-5 px-5">
                 <h2>What is Embedathon?</h2>
                 <p>
                     Embedathon is our flagship task-based Hackathon challenge hosted by IEEE NITK student branch in
@@ -30,10 +31,54 @@
 
             <section id="prizes" class="py-5 px-5">
                 <h2>Prizes</h2>
+                <p>
+                    Prizes for the winners will include exciting hardware components and circuits, with the specific
+                    kits chosen in accordance with the prize distribution.
+                </p>
+                <ol>
+                    <li>The winning team will receive a kit worth <strong>Rs. 5000</strong>.</li>
+                    <li>The 1st runner-up will receive a kit worth <strong>Rs. 3000</strong>.</li>
+                    <li>The 2nd runner-up will receive a kit worth <strong>Rs. 2000</strong>.</li>
+                </ol>
+                <p>
+                    These hardware kits serve as both recognition for the participants' achievements and valuable tools
+                    to further enhance their skills in the field of Embedded Systems.
+                </p>
             </section>
 
             <section id="speakers" class="py-5 px-5">
                 <h2>Speakers</h2>
+                <div class="flex flex-col md:flex-row justify-between content-center gap-4">
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/embedathon/P_V_Ananda_Mohan.jpg' %}" alt="P.V. Ananda Mohan"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Light Weight Cryptography for IoT</h2>
+                            <span>By P.V. Ananda Mohan</span>
+                            <span>Technology Advisor at Center for Development of Advanced Computing (CDAC)</span>
+                            <div class="card-actions">
+                                <strong>3rd Jan, 2024 at 5:00PM</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/embedathon/Surinder_Sood.jpg' %}" alt="Surinder Sood"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Design and Validation of Hybrid Systems</h2>
+                            <span>By Surinder Sood</span>
+                            <span>Principal Engineer at ARM</span>
+                            <span>PhD in Cyber Physical Systems, University of Auckland</span>
+                            <div class="card-actions">
+                                <strong>5th Jan, 2024 at 6:00PM</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <section id="schedule" class="px-5 py-5">
