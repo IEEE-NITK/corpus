@@ -27,16 +27,18 @@
                 </thead>
                 <tbody>
                 {% for user in users %}
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ user.user }}</td>
-                    <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
-                    <td>{{ user.college_name }}</td>
-                    <td>{{ user.get_course_display }}</td>
-                    <td>{{ user.get_year_display }}</td>
-                    <td>{{ user.branch }}</td>
-                    <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
-                    <td>{{ user.ieee_membership_no }}</td>
-                    <td>{{ user.cass_member|yesno:"Yes,No" }}</td>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ user.user }}</td>
+                        <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
+                        <td>{{ user.college_name }}</td>
+                        <td>{{ user.get_course_display }}</td>
+                        <td>{{ user.get_year_display }}</td>
+                        <td>{{ user.branch }}</td>
+                        <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
+                        <td>{{ user.ieee_membership_no }}</td>
+                        <td>{{ user.cass_member|yesno:"Yes,No" }}</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
