@@ -7,9 +7,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
+from embedathon.forms import AnnouncementForm
 from embedathon.forms import EmbedathonForm
 from embedathon.forms import InviteForm
 from embedathon.forms import TeamCreationForm
+from embedathon.models import Announcement
 from embedathon.models import EmbedathonUser
 from embedathon.models import Invite
 from embedathon.models import Team
@@ -76,6 +78,7 @@ def index(request):
     )
 
     args["registration_active"] = registration_active
+    args["announcements"] = Announcement.objects.all().order_by("-pk")
 
     return render(request, "embedathon/index.html", args)
 
@@ -293,3 +296,21 @@ def user_management(request):
     args = {"users": users}
 
     return render(request, "embedathon/user_management.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["embedathon_admin"])
+def announcements_management(request):
+    if request.method == "POST":
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Added announcements.")
+            return redirect("embedathon_announcements")
+    else:
+        form = AnnouncementForm()
+        announcements = Announcement.objects.all().order_by("-pk")
+
+        args = {"form": form, "announcements": announcements}
+
+        return render(request, "embedathon/announcements_management.html", args)

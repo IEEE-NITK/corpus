@@ -163,7 +163,20 @@
             <div class="{% if registration_active %} basis-2/4 {% else %} basis-3/4 {% endif %} border border-slate-500">
                 <h2 class="text-center my-3">Announcements</h2>
                 <div class="p-3">
-                    <p>You have no announcements as of now.</p>
+                    {% if announcements %}
+                        <ul>
+                            {% for announcement in announcements %}
+                                <li>
+                                    {{ announcement.content }}
+                                    {% if announcement.url_link %}
+                                        <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have no announcements as of now.</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
