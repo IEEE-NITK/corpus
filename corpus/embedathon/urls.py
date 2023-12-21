@@ -22,4 +22,9 @@ urlpatterns = [
         name="embedathon_admin_mark_payment_complete",
     ),
     path("admin/users", views.user_management, name="embedathon_admin_users"),
+    path(
+        "admins/announcements",
+        views.announcements_management,
+        name="embedathon_announcements",
+    ),
 ]
