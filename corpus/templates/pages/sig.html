@@ -15,13 +15,18 @@ Home
 <section
     class="hero min-h-screen min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
     <div id="particles-js" class="h-screen w-full"></div>
-    <div class="hero-content text-center flex-col">
-        <a class="my-5" href="https://www.computer.org/">
-            <img class="w-40 md:w-max" style="display: none ;" src="{% static 'img/logo/compsoc-light.png' %}" id="ieee-blue"
-                alt="CompSoc Logo">
-            <img class="w-40 md:w-max" style="display: none;" src="{% static 'img/logo/compsoc-dark.png' %}" id="ieee-white"
-                alt="CompSoc Logo">
+    <div style="gap: 20px; justify-content: space-between; margin: auto;">
+    {% for society in society_linked_to_sig %}
+        <a class="my-5" href="{{society.url}}">
+            {% if society.dark_image %}
+                <img src="{% static '/' %}{{ society.image }}" style="display: none; padding: 10px; height: 250px; width: auto;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" >
+                <img src="{% static '/' %}{{ society.dark_image }}" style="display: none; padding: 10px; height: 250px; width: auto;" alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline">
+            {% else %}
+                <img src="{% static '/' %}{{ society.image }}" style="display: none; padding: 10px; height:250px; width: auto;" alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" >
+            {% endif %}
         </a>
+        {% empty %}
+    {% endfor %}
     </div>
 </section>
 <!-- About SIG Section -->

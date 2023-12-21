@@ -12,7 +12,7 @@ class SocietyAdmin(admin.ModelAdmin):
 
 
 class SIGAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "about", "what_we_do")
+    list_display = ("id", "name")
     list_display_links = ("name",)
 
 
