@@ -78,6 +78,7 @@ def index(request):
     )
 
     args["registration_active"] = registration_active
+    args["announcements"] = Announcement.objects.all().order_by("-pk")
 
     return render(request, "embedathon/index.html", args)
 
