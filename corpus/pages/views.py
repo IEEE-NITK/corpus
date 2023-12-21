@@ -28,7 +28,6 @@ def about_us(request):
         },
     )
 
-
 def sig(request, sig_name):
     sig = get_object_or_404(SIG, name=sig_name)
     return render(
@@ -41,3 +40,10 @@ def sig(request, sig_name):
 
 def embedathon(request):
     return render(request, "templates/embedathon/home.html")
+
+def impulse(request):
+
+    return render(
+        request,
+        "pages/impulse.html",
+    )
