@@ -1,4 +1,5 @@
 from django.contrib import admin
+from embedathon.models import Announcement
 from embedathon.models import EmbedathonUser
 from embedathon.models import Invite
 from embedathon.models import Team
@@ -8,3 +9,4 @@ from embedathon.models import Team
 admin.site.register(EmbedathonUser)
 admin.site.register(Team)
 admin.site.register(Invite)
+admin.site.register(Announcement)
