@@ -1,3 +1,4 @@
+from embedathon.models import Announcement
 from embedathon.models import EmbedathonUser
 from embedathon.models import Invite
 from embedathon.models import Team
@@ -30,3 +31,9 @@ class InviteForm(CorpusModelForm):
     class Meta:
         model = Invite
         fields = ["invite_email"]
+
+
+class AnnouncementForm(CorpusModelForm):
+    class Meta:
+        model = Announcement
+        fields = ["content", "url_link", "url_link_text"]
