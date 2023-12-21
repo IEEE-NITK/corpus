@@ -29,6 +29,14 @@ def about_us(request):
     )
 
 
+def impulse(request):
+
+    return render(
+        request,
+        "pages/impulse.html",
+    )
+
+
 def sig(request, sig_name):
     sig = get_object_or_404(SIG, name=sig_name)
     return render(

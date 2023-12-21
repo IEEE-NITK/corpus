@@ -1,11 +1,9 @@
 from django.urls import path
-
-from .views import about_us
-from .views import index
-from .views import sig
+from pages import views
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("about_us/", about_us, name="about_us"),
-    path("<str:sig_name>/", sig, name="sig"),
+    path("", views.index, name="index"),
+    path("about_us/", views.about_us, name="about_us"),
+    path("impulse", views.impulse, name="impulse"),
+    path("sig/<str:sig_name>/", views.sig, name="sig"),
 ]
