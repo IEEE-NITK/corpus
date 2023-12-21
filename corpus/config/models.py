@@ -69,6 +69,17 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
+class SIG(models.Model):
+    IEEE_SIGs=[
+        ("CompSoc","CompSoc"),
+        ("Diode","Diode"),
+        ("Piston","Piston"),
+        ("WiE","WiE"),
+        ("SIGHT","SIGHT"),
+    ]
+    name = models.CharField(verbose_name="Name", max_length=10, unique=True, choices=IEEE_SIGs)
+    aboutus=models.CharField(verbose_name="AboutUs")
+    whatwedo=models.CharField(verbose_name="WhatWeDo")
 
 class SIG(models.Model):
     """

@@ -38,3 +38,6 @@ def sig(request, sig_name):
             "sig": sig,
         },
     )
+
+def embedathon(request):
+    return render(request, "templates/embedathon/home.html")

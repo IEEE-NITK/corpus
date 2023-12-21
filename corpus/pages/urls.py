@@ -3,6 +3,7 @@ from django.urls import path
 from .views import about_us
 from .views import index
 from .views import sig
+from .views import embedathon
 
 urlpatterns = [
     path("", index, name="index"),
