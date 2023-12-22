@@ -12,6 +12,7 @@ class SIG(models.Model):
     name = models.CharField(verbose_name="Name", max_length=10, unique=True)
     about = models.TextField(verbose_name="About Us", default="")
     what_we_do = models.TextField(verbose_name="What We Do", default="")
+    slug = models.SlugField(unique=True, null=True)  # Added SlugField for url access
 
     def __str__(self):
         return self.name
@@ -79,7 +80,7 @@ class Society(models.Model):
         verbose_name="Dark Image", upload_to="img/logo/", blank=True, null=True
     )
     description = models.TextField(verbose_name="Description")
-    sig = models.IntegerField(verbose_name="SIG ID", default=-1, null=True)
+    sigs = models.ManyToManyField(SIG, related_name="societies")
 
     def __str__(self):
         return self.get_name_display()

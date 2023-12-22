@@ -37,18 +37,15 @@ def impulse(request):
     )
 
 
-def sig(request, sig_name):
-    sig_data = get_object_or_404(SIG, name=sig_name)
+def sig(request, sig_slug):
+    sig_data = get_object_or_404(SIG, slug=sig_slug)
 
     # Retrieve the related society details using the SIG instance
-    society_linked_to_sig = Society.objects.filter(sig=sig_data.id)
+    societies_linked_to_sig = sig_data.societies.all()
 
-    return render(
-        request,
-        "pages/sig.html",
-        {
-            "sig": sig_data,
-            # Pass the society details to the SIG
-            "society_linked_to_sig": society_linked_to_sig,
-        },
-    )
+    args = {
+        "sig": sig_data,
+        "societies_linked_to_sig": societies_linked_to_sig,
+    }
+
+    return render(request, "pages/sig.html", args)
