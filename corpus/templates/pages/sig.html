@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-Home
+{{sig.name}}
 {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<!-- <link rel="stylesheet" href="{% static 'css/index.css' %}" /> -->
 {% endblock %}
 
 {% block content %}
@@ -37,7 +37,6 @@ Home
     </p>
 </section>
 <!-- SIG Section -->
-<!-- TODO: Add SIG Links -->
 <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
     <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
         <div class="card bg-base-100 shadow-xl basis-2/3">

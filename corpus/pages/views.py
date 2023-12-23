@@ -43,9 +43,11 @@ def sig(request, sig_slug):
     # Retrieve the related society details using the SIG instance
     societies_linked_to_sig = sig_data.societies.all()
 
-    args = {
-        "sig": sig_data,
-        "societies_linked_to_sig": societies_linked_to_sig,
-    }
-
-    return render(request, "pages/sig.html", args)
+    return render(
+        request,
+        "pages/sig.html",
+        {
+            "sig": sig_data,
+            "societies_linked_to_sig": societies_linked_to_sig,
+        },
+    )
