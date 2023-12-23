@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "config.apps.ConfigConfig",
     "accounts.apps.AccountsConfig",
     "embedathon.apps.EmbedathonConfig",
+    "impulse.apps.ImpulseConfig",
 ]
 
 MIDDLEWARE = [
