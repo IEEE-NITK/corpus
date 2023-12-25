@@ -19,15 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.6/dist/full.min.css" rel="stylesheet" type="text/css"/>
     {% block style %}
     {% endblock %}
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
-    <script>
-        tailwind.config = {
-            daisyui: {
-                themes: ["winter", "night", "synthwave"]
-            },
-            darkMode: ['class', '[data-theme="night"]']
-        }
-    </script>
+    <link rel="stylesheet" href="{% static 'css/tailwind-min.css' %}" />
     <style>
         body,
         html {
