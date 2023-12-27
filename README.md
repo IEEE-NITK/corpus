@@ -20,10 +20,10 @@ cp env.example .env
 ```shell
 cd corpus/
 npm install
-npx tailwindcss -i ./templates/static/css/tailwind.css -o ./templates/static/css/tailwind-min.css --minify
+npx tailwindcss -i ./templates/static/css/tailwind.css -o ./templates/static/css/tailwind-min.css --watch
 ```
 
-3. Run docker compose
+3. In another terminal window, run docker compose
 
 ```sh
 docker compose up
@@ -52,6 +52,7 @@ For more guidance, refer to the [Docker Compose](https://docs.docker.com/compose
 For production setup, use the production docker compose file.
 
 ```sh
+npx tailwindcss -i ./templates/static/css/tailwind.css -o ./templates/static/css/tailwind-min.css --minify
 docker compose -f prod-docker-compose.yml up --build
 ```
 
