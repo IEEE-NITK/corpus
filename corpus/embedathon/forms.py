@@ -26,12 +26,11 @@ class EmbedathonForm(CorpusModelForm):
 
     def clean(self):
         data = self.cleaned_data
-        if data.get("from_nitk", None) and data.get("nitk_roll_number", None):
-            return data
-        else:
+        if data.get("from_nitk", None) and not data.get("nitk_roll_number", None):
             raise forms.ValidationError(
                 "Enter your NITK Roll Number for verification that you are from NITK."
             )
+        return data
 
 
 class TeamCreationForm(CorpusModelForm):
