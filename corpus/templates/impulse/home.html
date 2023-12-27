@@ -1,59 +1,59 @@
-{% extends "base.html" %}
+{% extends "impulse/base.html" %}
 
 {% load static %}
 
 {% block title %} Impulse {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
-<style>
-    .hero {
-        background-color: rgba(0, 0, 0, 0.5);
-        background-image: url("{% static 'img/ieee-impulse.png' %}");
-        background-size: cover;
-        background-position: center;
-        background-blend-mode: overlay;
-    }
-    /* Small screens (default full width) */
-    @media (min-width: 640px) {
-        #schedule {
-            max-width: 70%;
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <style>
+        .hero {
+            background-color: rgba(0, 0, 0, 0.5);
+            background-image: url("{% static 'img/ieee-impulse.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
         }
-    }
-    
-    /* Medium screens */
-    @media (min-width: 768px) {
-        #schedule {
-            max-width: 80%;
+        /* Small screens (default full width) */
+        @media (min-width: 640px) {
+            #schedule {
+                max-width: 70%;
+            }
         }
-    }
-    
-    /* Large screens */
-    @media (min-width: 1024px) {
-        #schedule {
-            max-width: 50%;
+        
+        /* Medium screens */
+        @media (min-width: 768px) {
+            #schedule {
+                max-width: 80%;
+            }
         }
-    }
-    
-    /* Extra-large screens */
-    @media (min-width: 1280px) {
-        #schedule {
-            max-width: 50%;
+        
+        /* Large screens */
+        @media (min-width: 1024px) {
+            #schedule {
+                max-width: 50%;
+            }
         }
-    }
+        
+        /* Extra-large screens */
+        @media (min-width: 1280px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
 
-    .tick {
-        background-color: currentColor;
-        -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-        mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-    }
+        .tick {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        }
 
-    .arrowdown {
-        background-color: currentColor;
-        -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-        mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-    }
-</style>
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -64,10 +64,13 @@
         <div class="hero-content text-center flex-col pb-20">
             <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/logo/impulse_2024.png' %}" alt="Impulse Logo">
             <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white dark:text-white">Impulse</h1>
+            {% if admin %}
+                <a href="{% url 'impulse_admin' %}" class="btn btn-primary mt-10">Admin</a>
+            {% endif %}
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
-            <a href="#" target="" class="btn btn-primary mt-8 mb-0">Registrations Opening soon</a>
+            <a href="{% url 'impulse_register' %}" class="btn btn-primary mt-10">Register Now</a>
             <br>
         <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
             <div class="arrowdown h-10 w-10 m-0 p-0"></div>

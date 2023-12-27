@@ -1,0 +1,74 @@
+{% extends 'impulse/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ team.team_name }} | Team Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none mx-10 my-10">
+        <h1>{{ team.team_name }}</h1>
+        <div>
+            <h3>Members</h3>
+            <div class="overflow-x-auto my-5">
+                <table class="table table-zebra">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>From NITK?</th>
+                        <th>College Name</th>
+                        <th>IEEE Member?</th>
+                        <th>IEEE Membership Number</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>{{ member.user }}</td>
+                            <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
+                            <td>{{ member.college_name }}</td>
+                            <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
+                            <td>{{ member.ieee_membership_no }}</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>{{ member.member2_name }}</td>
+                            <td>{{ member.member2_from_nitk|yesno:"Yes,No" }}</td>
+                            <td>{{ member.member2_college_name }}</td>
+                            <td>{{ member.member2_ieee_member|yesno:"Yes,No" }}</td>
+                            <td>{{ member.member2_ieee_membership_no }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p><strong>Payment status:</strong> {{ team.get_payment_status_display }}</p>
+
+        {% if team.payment_proof %}
+        <div class="my-5">
+            <p class="text-green-500">Payment proof uploaded</p>
+            <img src="{% static team.payment_proof.url %}" alt="Payment proof" class="my-5 max-w-xs">
+            <p><a href="{% static team.payment_proof.url %}" download>Download</a></p>
+        </div>
+        {% else %}
+            {% if team.payment_status == "U" %}
+                <p class="text-red-500">Payment proof not uploaded</p>
+            {% endif %}
+        {% endif %}
+
+        {% if team.payment_status == "U" %}
+            <a href="{% url 'impulse_admin_mark_payment_complete' pk=team.pk %}"
+               class="btn btn-success text-black font-bold no-underline">Mark Payment as Complete</a>
+        {% endif %}
+        {% if team.payment_status == "P" %}
+            <a href="{% url 'impulse_admin_mark_payment_incomplete' pk=team.pk %}"
+               class="btn btn-warning text-black font-bold no-underline">Mark Payment as Incomplete</a>
+        {% endif %}
+
+        <a href="{% url 'impulse_admin_teams' %}"
+           class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}
