@@ -9,7 +9,7 @@ COURSES = [
     ("S", "B.Sc."),
     ("O", "Other undergraduate degree"),
 ]
-YEAR = [("1", "1st Year"), ("2", "2nd Year")]
+YEAR = [("1", "1st Year"), ("2", "2nd Year"), ("3", "3rd Year")]
 PAYMENT_STATUS = [("E", "Exempt"), ("U", "Fee Not Paid"), ("P", "Fee Paid")]
 
 
