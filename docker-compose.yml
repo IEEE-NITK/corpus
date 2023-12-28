@@ -38,6 +38,7 @@ services:
     restart: always
     ports:
       - "8000:8000"
+      - "465:465"
     networks:
       - corpus_network
     volumes:
