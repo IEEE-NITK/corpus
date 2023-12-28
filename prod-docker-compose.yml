@@ -35,6 +35,8 @@ services:
     restart: always
     expose:
       - ${DJANGO_BACKEND_PORT}
+    ports:
+      - "465:465"
     networks:
       - corpus_network
     volumes:
