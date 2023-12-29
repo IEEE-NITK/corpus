@@ -46,30 +46,45 @@
         <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
     </div>
     <div class="navbar-center">
-        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Home</a>
-        <a href="{% url 'about_us' %}" class="btn btn-ghost normal-case text-xl">About Us</a>
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-lg">Home</a>
+        <a href="{% url 'about_us' %}" class="btn btn-ghost normal-case text-lg">About Us</a>
         <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost normal-case text-xl">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
                 SIGs
             </label>
-            {% include "components/general_dropdown_sigs.html" %}
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                <ul class="mx-2">
+                    <li><a href="{% url 'sig' sig_slug='compsoc' %}">CompSoc</a></li>
+                    <li><a href="{% url 'sig' sig_slug='diode' %}">Diode</a></li>
+                    <li><a href="{% url 'sig' sig_slug='piston' %}">Piston</a></li>
+                </ul>
+            </div>
         </div>
         <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost normal-case text-xl">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
                 Affinity Groups
             </label>
-            {% include "components/general_dropdown_affinity_groups.html" %}
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                <ul class="mx-2">
+                    <li><a href="{% url 'sig' sig_slug='wie' %}">WiE</a></li>
+                    <li><a href="{% url 'sig' sig_slug='sight' %}">SIGHT</a></li>
+                </ul>
+            </div>
         </div>
         <div class="dropdown">
-            <label tabindex="0" class="btn btn-ghost normal-case text-xl">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
                 Embedathon
             </label>
-            {% include "components/general_dropdown_embedathon.html" %}
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                <ul class="mx-2">
+                    <li><a href="{% url 'embedathon_home' %}">Home</a></li>
+                    <li><a href="{% url 'embedathon_index' %}">Dashboard</a></li>
+                </ul>
+            </div>
         </div>
-        <a href="#" class="btn btn-ghost normal-case text-xl">Blog</a>
-        <a href="#" class="btn btn-ghost normal-case text-xl">Gyan</a>
-        <a href="#" class="btn btn-ghost normal-case text-xl">Achievements</a>
-        <a href="#" class="btn btn-ghost normal-case text-xl">Virtual Expo</a>
+        <a href="https://ieee-nitk.github.io/blog/" class="btn btn-ghost normal-case text-lg">Blog</a>
+        <a href="https://ieee-nitk.github.io/gyan/" class="btn btn-ghost normal-case text-lg">Gyan</a>
+        <a href="https://ieee-nitk.github.io/virtual-expo/" class="btn btn-ghost normal-case text-lg">Virtual Expo</a>
     </div>
     <div class="navbar-end">
 
