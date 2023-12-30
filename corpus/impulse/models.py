@@ -27,7 +27,7 @@ class ImpulseUser(models.Model):
     member2_ieee_membership_no = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.email
     
 class Team(models.Model):
     team_name = models.CharField(max_length=200, blank=False, null=False)
@@ -43,9 +43,18 @@ class Team(models.Model):
         return self.team_name
     
 class Announcement(models.Model):
+
+    AnnouncementType = (
+        ("A", "All"),
+        ("P", "Paid Teams"),
+        ("U", "Unpaid Teams"),
+        ("N", "Not Registered Teams"),
+    )
+
     content = models.TextField(blank=False, null=False)
     url_link = models.URLField(blank=True, null=True)
     url_link_text = models.CharField(max_length=200, blank=True, null=True)
+    announcement_type = models.CharField(max_length=1, choices=AnnouncementType, blank=False, null=False, default="A")
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

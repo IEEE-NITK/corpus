@@ -34,7 +34,7 @@ class TeamCreationForm(CorpusModelForm):
 class AnnouncementForm(CorpusModelForm):
     class Meta:
         model = Announcement
-        fields = ["content", "url_link", "url_link_text"]
+        fields = ["content", "url_link", "url_link_text", "announcement_type"]
 
 class Member2Form(CorpusModelForm):
     class Meta:

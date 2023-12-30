@@ -70,7 +70,14 @@
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
-            <a href="{% url 'impulse_register' %}" class="btn btn-primary mt-10">Register Now</a>
+            {% if registration_active %}
+                <a href="{% url 'impulse_register' %}" class="btn btn-primary mt-10">Register</a>
+            {% elif registration_done %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
+            {% else %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
+            {% endif %}
+
             <br>
         <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
             <div class="arrowdown h-10 w-10 m-0 p-0"></div>
@@ -552,6 +559,7 @@
 {% endblock %}
 
 {% block script %}
+{{ block.super }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>

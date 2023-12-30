@@ -48,11 +48,23 @@
                     {% endif %}
                 </div>
 
+                <div class="w-full my-2">
+                    <label for="{{ form.announcement_type.id_for_label }}">Announcement Type</label>
+                    {{ form.announcement_type }}
+                    {% if form.announcement_type.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.announcement_type.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
                 <button type="submit" class="btn btn-primary text-white btn-block">Add Announcements</button>
             </form>
         </div>
 
-        <div>
+        <div class="overflow-x-auto max-h-[600px] overflow-y-auto">
             <h2 class="text-center">Current Announcements</h2>
             <table class="table">
                 <thead>
@@ -61,7 +73,9 @@
                     <th>Content</th>
                     <th>URL Link</th>
                     <th>URL Link Content</th>
-                    <th></th>
+                    <th>Announcement Type</th>
+                    <th>Created At</th>
+                    <th>DELETE</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,6 +86,8 @@
                             <td>{{ announcement.content }}</td>
                             <td>{{ announcement.url_link }}</td>
                             <td>{{ announcement.url_link_text }}</td>
+                            <td>{{ announcement.get_announcement_type_display }}</td>
+                            <td>{{ announcement.date_created }}</td>
                             <td>
                                 <form method="post" action="{% url 'impulse_delete_announcement' announcement.id %}">
                                     {% csrf_token %}

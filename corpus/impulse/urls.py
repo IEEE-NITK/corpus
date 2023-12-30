@@ -34,4 +34,9 @@ urlpatterns = [
         views.delete_announcement,
         name="impulse_delete_announcement",
     ),
+    path(
+        "admin/announcements/edit/<int:pk>",
+        views.edit_announcement,
+        name="impulse_edit_announcement",
+    ),
 ]

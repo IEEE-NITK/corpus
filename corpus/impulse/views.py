@@ -29,6 +29,26 @@ def home(request):
     args = {}
     if request.user.groups.filter(name="impulse_admin").exists():
         args = {"admin": True}
+    config = ModuleConfiguration.objects.get(module_name="impulse").module_config
+
+    reg_start_datetime, reg_end_datetime = (
+        config["reg_start_datetime"],
+        config["reg_end_datetime"],
+    )
+
+    reg_start_datetime, reg_end_datetime = datetime.strptime(
+        reg_start_datetime, DATETIME_FORMAT
+    ), datetime.strptime(reg_end_datetime, DATETIME_FORMAT)
+
+    registration_active = (reg_start_datetime <= datetime.now()) and (
+        datetime.now() <= reg_end_datetime
+    )
+
+    registration_done = (reg_end_datetime < datetime.now())
+
+    args["registration_active"] = registration_active
+    args["registration_done"] = registration_done
+
     return render(
         request,
         "impulse/home.html",
@@ -50,6 +70,8 @@ def index(request):
     if impulse_user.team is not None:
         args["in_team"] = True
 
+        args["team_creation_form"] = TeamCreationForm(instance=impulse_user.team)
+
         team = impulse_user.team
         
         args["is_member2"] = impulse_user.is_member2
@@ -64,6 +86,8 @@ def index(request):
 
         if not impulse_user.is_member2:
             args["member2_form"] = Member2Form()
+        else:
+            args["member2_form"] = Member2Form(instance=impulse_user)
     else:
         args["in_team"] = False
         args["team_creation_form"] = TeamCreationForm()
@@ -86,7 +110,25 @@ def index(request):
     args["payment_proof_form"] = PaymentProofForm()
 
     args["registration_active"] = registration_active
-    args["announcements"] = Announcement.objects.all().order_by("-date_created")
+    if args["in_team"]:
+        team = impulse_user.team
+        if team.payment_status in ["P", "E"]:
+            args["payment_status"] = "Complete"
+        else:
+            args["payment_status"] = "Incomplete"
+
+    if args["payment_status"] == "Complete":
+        # filder announcements based on payment status, get all announcements marked as type A or P
+        announcements = Announcement.objects.filter(announcement_type__in=["A", "P"])
+    elif args["payment_status"] == "Incomplete":
+        announcements = Announcement.objects.filter(announcement_type__in=["A", "U"])
+    else:
+        announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
+    
+    # sort announcements by date created
+    announcements = announcements.order_by("-date_created")
+
+    args["announcements"] = announcements
 
     return render(request, "impulse/index.html", args)
 
@@ -149,32 +191,44 @@ def register(request):
 def create_team(request):
     if request.method == "POST":
         form = TeamCreationForm(request.POST)
-        if form.is_valid():
-            team = form.save(commit=False)
-            impulse_user = ImpulseUser.objects.get(user=request.user)
-            team.team_leader = impulse_user
-
-            if impulse_user.from_nitk or impulse_user.ieee_member:
-                team.payment_status = "E"
-            else:
-                team.payment_status = "U"
-
-            team.save() 
-            impulse_user.team = team
-            impulse_user.save()
-            messages.success(request, "Successfully created team!")
-            return redirect("impulse_index")
+        impulse_user = ImpulseUser.objects.get(user=request.user)
+        if impulse_user.team is not None:
+            if form.is_valid():
+                # update team name
+                team = impulse_user.team
+                team.team_name = form.cleaned_data["team_name"]
+                team.save()
+                messages.success(request, "Successfully updated team name!")
+                return redirect("impulse_index")
         else:
-            messages.error(request, "Please correct the errors before creating team!")
-            return redirect("impulse_index")
+            if form.is_valid():
+                team = form.save(commit=False)
+                impulse_user = ImpulseUser.objects.get(user=request.user)
+                team.team_leader = impulse_user
+
+                if impulse_user.from_nitk or impulse_user.ieee_member:
+                    team.payment_status = "E"
+                else:
+                    team.payment_status = "U"
+
+                team.save() 
+                impulse_user.team = team
+                impulse_user.save()
+                messages.success(request, "Successfully created team!")
+                return redirect("impulse_index")
+    else:
+        messages.error(request, "Please correct the errors before creating team!")
+        return redirect("impulse_index")
         
 @login_required
 @module_enabled(module_name="impulse")
 def add_member(request):
     if request.method == "POST":
         form = Member2Form(request.POST)
+        updation = False
         if form.is_valid():
             impulse_user = ImpulseUser.objects.get(user=request.user)
+            updation = impulse_user.is_member2
             # Save the member2 details in the form into the impulse_user
             impulse_user.is_member2 = True
             impulse_user.member2_name = form.cleaned_data["member2_name"]
@@ -191,7 +245,11 @@ def add_member(request):
                 team = impulse_user.team
                 team.payment_status = "E"
                 team.save()
-            messages.success(request, "Successfully added member!")
+            
+            if updation:
+                messages.success(request, "Successfully updated member details!")
+            else:
+                messages.success(request, "Successfully added member!")
             return redirect("impulse_index")
         else:
             messages.error(request, "Please correct the errors before adding member!")
@@ -279,6 +337,25 @@ def announcements_management(request):
 
     args = {"form": form, "announcements": announcements}
     return render(request, "impulse/admin/announcements.html", args)
+
+@login_required
+@ensure_group_membership(group_names=["impulse_admin"])
+def edit_announcement(request, pk):
+    announcement = Announcement.objects.get(pk=pk)
+    if request.method == "POST":
+        form = AnnouncementForm(request.POST, instance=announcement)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Successfully edited announcement!")
+            return redirect("impulse_announcements")
+        else:
+            messages.error(request, "Please correct the errors before editing announcement!")
+            return redirect("impulse_announcements")
+    else:
+        form = AnnouncementForm(instance=announcement)
+
+    args = {"form": form}
+    return render(request, "impulse/admin/edit_announcement.html", args)
 
 
 @login_required

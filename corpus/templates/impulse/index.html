@@ -86,7 +86,35 @@ class="hero min-h-[50vh] min-w-screen">
                     <div class="card-body pt-0">
                         {% if in_team %}
                         <div class="flex justify-between items-center">
-                            <h3 class="card-title">Team: {{ team.team_name }}</h3>
+                            <div class="flex justify-between items-center">
+                                <h3 class="card-title">Team: {{ team.team_name }}</h3>
+                                {% comment %} edit button {% endcomment %}
+                                <button class="btn btn-sm btn-circle mx-3" onclick="editteam_modal.showModal()" title="Edit Team"> ✎ </button>
+                                <dialog id="editteam_modal" class="modal">
+                                    <div class="modal-box">
+                                        <form method="dialog">
+                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                        </form>
+                                        <h3 class="font-bold text-lg">Edit Team</h3>
+                                        <form method="post" action="{% url 'impulse_create_team' %}" class="py-5">
+                                            {% csrf_token %}
+                                            <div class="my-2">
+                                                <label for="{{ team_creation_form.team_name }}"> Team Name</label>
+                                                {{ team_creation_form.team_name }}
+                                                {% if team_creation_form.team_name.errors %}
+                                                    <div class="my-1">
+                                                        <div role="alert" class="alert alert-error">
+                                                            {{ team_creation_form.team_name.errors }}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="my-2">
+                                                <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Update Team Details</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                            </div>
                             <div class="bg-green-500 text-white rounded-full px-3 py-1 text-sm dark:bg-yellow-500 dark:text-black">
                                     <strong class="text-black">Payment Status</strong>: {{ team.get_payment_status_display }}
                             </div>
@@ -120,7 +148,7 @@ class="hero min-h-[50vh] min-w-screen">
                                         </form>
             
                                         <div class="my-2">
-                                            <img src="{% static 'img/impulse/payment_qr.png' %}" alt="UPI QR Code" class="sm:w-64 md:w-96 lg:w-128 mx-auto my-0 py-0">
+                                            <img src="{% static 'img/impulse/payment_qr.jpeg' %}" alt="UPI QR Code" class="sm:w-64 md:w-96 lg:w-128 mx-auto my-0 py-0">
                                             <p class="text-center dark:text-white">Scan this QR code to pay the fee.</p>
                                             <form method="post" action="{% url 'impulse_upload_payment_proof' %}" class="py-3 dark:text-white" enctype="multipart/form-data">
                                                 {% csrf_token %}
@@ -187,6 +215,136 @@ class="hero min-h-[50vh] min-w-screen">
                                                 <div class="bg-blue-500 text-white px-2 py-1 rounded">
                                                     Member 2
                                                 </div>
+                                                {% comment %} EDIT BUTTON {% endcomment %}
+                                                <button class="btn btn-sm btn-circle mx-3" onclick="editmember_modal.showModal()" title="Edit Member"> ✎ </button>
+                                                <dialog id="editmember_modal" class="modal">
+                                                    <div class="modal-box">
+                                                        <form method="dialog">
+                                                            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                                        </form>
+                                                        <h3 class="font-bold text-lg">Edit Member</h3>
+                                                        <form method="post" action="{% url 'impulse_add_member2' %}" class="py-5">
+                                                            {% csrf_token %}
+                                                
+                                                            {% if member2_form.non_field_errors %}
+                                                                {% for error in member2_form.non_field_errors %}
+                                                                    <div role="alert" class="alert alert-error mt-1">
+                                                                        <span>{{ error }}</span>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+
+                                                            <div class="my-2">
+                                                                <label for="{{ member2_form.member2_name_for_label }}">Name</label>
+                                                                
+                                                                    {{ member2_form.member2_name }}
+                                                                
+                                                                {% if member2_form.member2_name.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_name.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                            
+                                                            <div class="my-2">
+                                                                <label for="{{ member2_form.member2_email.id_for_label }}">Email</label>
+                                                                
+                                                                    {{ member2_form.member2_email }}
+                                                                
+                                                                {% if member2_form.member2_email.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_email.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2">
+                                                                <label for="{{ member2_form.member2_phone.id_for_label }}">Phone Number</label>
+                                                                {{ member2_form.member2_phone }}
+
+                                                                {% if member2_form.member2_phone.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_phone.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2">
+                                                                <label for="{{ member2_form.member2_from_nitk.id_for_label }}">Is from NITK?</label>
+                                                                <div class="h-8 w-8">
+                                                                    {{ member2_form.member2_from_nitk }}
+                                                                </div>
+                                                                {% if member2_form.member2_from_nitk.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_from_nitk.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                
+                                                            <div class="my-2" id="roll-no-field">
+                                                                <label for="{{ member2_form.member2_roll_no.id_for_label }}">Roll Number</label>
+                                                                {{ member2_form.member2_roll_no }}
+                                                                {% if member2_form.member2_roll_no.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_roll_no.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2" id="college-name-field">
+                                                                <label for="{{ member2_form.member2_college_name.id_for_label }}">College Name</label>
+                                                                {{ member2_form.member2_college_name }}
+                                                                {% if member2_form.member2_college_name.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_college_name.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2">
+                                                                <label for="{{ member2_form.member2_ieee_member.id_for_label }}">Is an IEEE Member?</label>
+                                                                <div class="h-8 w-8">
+                                                                    {{ member2_form.member2_ieee_member }}
+                                                                </div>
+                                                                {% if member2_form.member2_ieee_member.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_ieee_member.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2" id="ieee-membership-number-field">
+                                                                <label for="{{ member2_form.member2_ieee_membership_no.id_for_label }}">IEEE Membership Number</label>
+                                                                {{ member2_form.member2_ieee_membership_no }}
+                                                                {% if member2_form.member2_ieee_membership_no.errors %}
+                                                                    <div class="my-1">
+                                                                        <div role="alert" class="alert alert-error">
+                                                                            {{ member2_form.member2_ieee_membership_no.errors }}
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                
+                                                            <div class="my-2">
+                                                                <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Update Member Details</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </dialog>
                                             </div>
                                         </div>
                                     {% endif %}
