@@ -1,5 +1,5 @@
 from impulse.models import ImpulseUser, Team, Announcement
-
+from django import forms
 from corpus.forms import CorpusModelForm
 
 class ImpulseForm(CorpusModelForm):
@@ -12,19 +12,20 @@ class ImpulseForm(CorpusModelForm):
             "ieee_member",
             "ieee_membership_no",
         ]
-    
-    def __init__(self, *args, **kwargs):
-        super(ImpulseForm, self).__init__(*args, **kwargs)
-        # set a required attribute based on conditions
-        self.fields["college_name"].required = not self.fields['from_nitk'].widget.value_from_datadict(
-            self.data, self.files, self.add_prefix('from_nitk')
-        )
-        self.fields["roll_no"].required = self.fields['from_nitk'].widget.value_from_datadict(
-            self.data, self.files, self.add_prefix('from_nitk')
-        )
-        self.fields["ieee_membership_no"].required = self.fields['ieee_member'].widget.value_from_datadict(
-            self.data, self.files, self.add_prefix('ieee_member')
-        )
+
+    def clean(self):
+        data = self.cleaned_data
+        if data.get("from_nitk", None) and not data.get("roll_no", None):
+            raise forms.ValidationError(
+                "Enter your roll number for verification that you are from NITK"
+            )
+        
+        if data.get("ieee_member", None) and not data.get("ieee_membership_no", None):
+            raise forms.ValidationError(
+                "Enter your IEEE Membership Number for verification that you are an IEEE member"
+            )
+        
+        return data
 
 class TeamCreationForm(CorpusModelForm):
     class Meta:

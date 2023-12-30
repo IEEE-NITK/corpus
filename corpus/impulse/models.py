@@ -8,7 +8,7 @@ class ImpulseUser(models.Model):
     college_name = models.CharField(
         max_length=200, default="National Institute of Technology Karnataka"
     )
-    roll_no = models.CharField(max_length=8, blank=False, null=False)
+    roll_no = models.CharField(max_length=8, blank=True, null=True)
     ieee_member = models.BooleanField(default=False)
     ieee_membership_no = models.BigIntegerField(blank=True, null=True)
     team = models.ForeignKey(
