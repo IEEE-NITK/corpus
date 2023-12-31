@@ -14,17 +14,6 @@ class ImpulseUser(models.Model):
     team = models.ForeignKey(
         "Team", on_delete=models.CASCADE, related_name="team", blank=True, null=True
     )
-    is_member2 = models.BooleanField(default=False)
-    member2_name = models.CharField(max_length=200, blank=True, null=True)
-    member2_email = models.EmailField(blank=True, null=True)
-    member2_from_nitk = models.BooleanField(default=True)
-    member2_college_name = models.CharField(
-        max_length=200, default="National Institute of Technology Karnataka"
-    )
-    member2_roll_no = models.CharField(max_length=8, blank=True, null=True)
-    member2_phone = models.CharField(max_length=13, blank=True, null=True)
-    member2_ieee_member = models.BooleanField(default=False)
-    member2_ieee_membership_no = models.BigIntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.user.email
@@ -34,6 +23,19 @@ class Team(models.Model):
     team_leader = models.ForeignKey(
         ImpulseUser, on_delete=models.CASCADE, related_name="leader"
     )
+
+    is_member = models.BooleanField(default=False)
+    member_name = models.CharField(max_length=200, blank=True, null=True)
+    member_email = models.EmailField(blank=True, null=True)
+    member_from_nitk = models.BooleanField(default=True)
+    member_college_name = models.CharField(
+        max_length=200, default="National Institute of Technology Karnataka"
+    )
+    member_roll_no = models.CharField(max_length=8, blank=True, null=True)
+    member_phone = models.CharField(max_length=13, blank=True, null=True)
+    member_ieee_member = models.BooleanField(default=False)
+    member_ieee_membership_no = models.BigIntegerField(blank=True, null=True)
+
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS, blank=False, null=False, default="U"
     )

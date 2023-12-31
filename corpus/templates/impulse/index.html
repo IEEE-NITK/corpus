@@ -136,8 +136,8 @@ class="hero min-h-[50vh] min-w-screen">
                                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 <span>
-                                    Please pay the fee of <strong>Rs. 150</strong> to this 
-                                    <button class="btn btn-primary btn-sm dark:bg-gray-200 dark:hover:bg-gray-400" onclick="upiQR_modal.showModal()">UPI QR Code</button>
+                                    Please pay the fee of <strong>Rs. 150</strong> here :
+                                    <button class="btn btn-primary btn-sm dark:bg-gray-200 dark:hover:bg-gray-400" onclick="upiQR_modal.showModal()">CLICK HERE</button>
                                     If you have already paid the fee, it might take some time for it to be updated
                                     here. Please only contact us if it has not been updated for more than a week.
                                 </span>
@@ -148,12 +148,15 @@ class="hero min-h-[50vh] min-w-screen">
                                         </form>
             
                                         <div class="my-2">
-                                            <img src="{% static 'img/impulse/payment_qr.jpeg' %}" alt="UPI QR Code" class="sm:w-64 md:w-96 lg:w-128 mx-auto my-0 py-0">
-                                            <p class="text-center dark:text-white">Scan this QR code to pay the fee.</p>
+                                            {% comment %} https://in.explara.com/e/impulse-2024?v=m {% endcomment %}
+                                            <a href="https://in.explara.com/e/impulse-2024?v=m" target="_blank">
+                                                Impulse 2024 Payment
+                                            </a>
+                                            <p class="text-center dark:text-white">Register and Pay the fee for this Event <span class="text-red-200">(Rs. 150 PER TEAM)</span> here.</p>
                                             <form method="post" action="{% url 'impulse_upload_payment_proof' %}" class="py-3 dark:text-white" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 <div class="my-2 dark:text-primary">
-                                                    <label for="{{ payment_proof_form.payment_proof.id_for_label }}">Payment Proof</label>
+                                                    <label for="{{ payment_proof_form.payment_proof.id_for_label }}">Ticket / Receipt Screenshot<span class="text-red-500">*</span></label>
                                                     {{ payment_proof_form.payment_proof }}
                                                     {% if payment_proof_form.payment_proof.errors %}
                                                         <div class="my-1">
@@ -162,14 +165,15 @@ class="hero min-h-[50vh] min-w-screen">
                                                             </div>
                                                         </div>
                                                     {% endif %}
+                                                    <p class="text-center"><span class="text-red-500">*</span> Please upload a screenshot of the ticket / receipt you get after paying the fee.</p>
                                                 </div>
                                                 <div class="my-2">
-                                                    <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Upload Payment Proof</button>
+                                                    <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Upload Registration Proof</button>
                                                 </div>
                                             </form>
                                             {% if team.payment_proof %}
                                                 <div class="my-2 dark:text-white">
-                                                    <p class="text-center">Your payment proof has been uploaded. It will be verified soon.</p>
+                                                    <p class="text-center">Your Registration proof has been uploaded. It will be verified soon.</p>
                                                     {% comment %} uploaded image {% endcomment %}
                                                     <div class="my-2">
                                                         <p class="text-center">Uploaded Image</p>
@@ -178,7 +182,7 @@ class="hero min-h-[50vh] min-w-screen">
                                                         <form method="post" action="{% url 'impulse_delete_payment_proof' %}" class="py-5">
                                                             {% csrf_token %}
                                                             <div class="my-2">
-                                                                <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Delete Payment Proof</button>
+                                                                <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Delete Registration Proof</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -199,7 +203,7 @@ class="hero min-h-[50vh] min-w-screen">
                                     <div class="mb-4 mx-auto">
                                         <div class="flex items-center">
                                             <div class="mr-2">
-                                                <span class="text-lg font-bold">{{ member.user }}</span>
+                                                <span class="text-lg font-bold">{{ team.team_leader.user }}</span>
                                             </div>
                                             <div class="bg-green-500 text-white px-2 py-1 rounded">
                                                 Leader
@@ -210,10 +214,10 @@ class="hero min-h-[50vh] min-w-screen">
                                         <div class="mb-4 mx-auto">
                                             <div class="flex items-center">
                                                 <div class="mr-2">
-                                                    <span class="text-lg font-bold">{{ member.member2_name }}</span>
+                                                    <span class="text-lg font-bold">{{ team.member_name }}</span>
                                                 </div>
                                                 <div class="bg-blue-500 text-white px-2 py-1 rounded">
-                                                    Member 2
+                                                    Member
                                                 </div>
                                                 {% comment %} EDIT BUTTON {% endcomment %}
                                                 <button class="btn btn-sm btn-circle mx-3" onclick="editmember_modal.showModal()" title="Edit Member"> ✎ </button>
@@ -237,103 +241,103 @@ class="hero min-h-[50vh] min-w-screen">
                                                             <div class="my-2">
                                                                 <label for="{{ member2_form.member2_name_for_label }}">Name</label>
                                                                 
-                                                                    {{ member2_form.member2_name }}
+                                                                    {{ member2_form.member_name }}
                                                                 
-                                                                {% if member2_form.member2_name.errors %}
+                                                                {% if member2_form.member_name.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_name.errors }}
+                                                                            {{ member2_form.member_name.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                                                             
                                                             <div class="my-2">
-                                                                <label for="{{ member2_form.member2_email.id_for_label }}">Email</label>
+                                                                <label for="{{ member2_form.member_email.id_for_label }}">Email</label>
                                                                 
-                                                                    {{ member2_form.member2_email }}
+                                                                    {{ member2_form.member_email }}
                                                                 
-                                                                {% if member2_form.member2_email.errors %}
+                                                                {% if member2_form.member_email.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_email.errors }}
+                                                                            {{ member2_form.member_email.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                 
                                                             <div class="my-2">
-                                                                <label for="{{ member2_form.member2_phone.id_for_label }}">Phone Number</label>
-                                                                {{ member2_form.member2_phone }}
+                                                                <label for="{{ member2_form.member_phone.id_for_label }}">Phone Number</label>
+                                                                {{ member2_form.member_phone }}
 
-                                                                {% if member2_form.member2_phone.errors %}
+                                                                {% if member2_form.member_phone.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_phone.errors }}
+                                                                            {{ member2_form.member_phone.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                 
                                                             <div class="my-2">
-                                                                <label for="{{ member2_form.member2_from_nitk.id_for_label }}">Is from NITK?</label>
+                                                                <label for="{{ member2_form.member_from_nitk.id_for_label }}">Is from NITK?</label>
                                                                 <div class="h-8 w-8">
-                                                                    {{ member2_form.member2_from_nitk }}
+                                                                    {{ member2_form.member_from_nitk }}
                                                                 </div>
-                                                                {% if member2_form.member2_from_nitk.errors %}
+                                                                {% if member2_form.member_from_nitk.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_from_nitk.errors }}
+                                                                            {{ member2_form.member_from_nitk.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                                                 
                                                             <div class="my-2" id="roll-no-field">
-                                                                <label for="{{ member2_form.member2_roll_no.id_for_label }}">Roll Number</label>
-                                                                {{ member2_form.member2_roll_no }}
-                                                                {% if member2_form.member2_roll_no.errors %}
+                                                                <label for="{{ member2_form.member_roll_no.id_for_label }}">Roll Number</label>
+                                                                {{ member2_form.member_roll_no }}
+                                                                {% if member2_form.member_roll_no.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_roll_no.errors }}
+                                                                            {{ member2_form.member_roll_no.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                 
                                                             <div class="my-2" id="college-name-field">
-                                                                <label for="{{ member2_form.member2_college_name.id_for_label }}">College Name</label>
-                                                                {{ member2_form.member2_college_name }}
-                                                                {% if member2_form.member2_college_name.errors %}
+                                                                <label for="{{ member2_form.member_college_name.id_for_label }}">College Name</label>
+                                                                {{ member2_form.member_college_name }}
+                                                                {% if member2_form.member_college_name.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_college_name.errors }}
+                                                                            {{ member2_form.member_college_name.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                 
                                                             <div class="my-2">
-                                                                <label for="{{ member2_form.member2_ieee_member.id_for_label }}">Is an IEEE Member?</label>
+                                                                <label for="{{ member2_form.member_ieee_member.id_for_label }}">Is an IEEE Member?</label>
                                                                 <div class="h-8 w-8">
-                                                                    {{ member2_form.member2_ieee_member }}
+                                                                    {{ member2_form.member_ieee_member }}
                                                                 </div>
-                                                                {% if member2_form.member2_ieee_member.errors %}
+                                                                {% if member2_form.member_ieee_member.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_ieee_member.errors }}
+                                                                            {{ member2_form.member_ieee_member.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
                                                             </div>
                 
                                                             <div class="my-2" id="ieee-membership-number-field">
-                                                                <label for="{{ member2_form.member2_ieee_membership_no.id_for_label }}">IEEE Membership Number</label>
-                                                                {{ member2_form.member2_ieee_membership_no }}
-                                                                {% if member2_form.member2_ieee_membership_no.errors %}
+                                                                <label for="{{ member2_form.member_ieee_membership_no.id_for_label }}">IEEE Membership Number</label>
+                                                                {{ member2_form.member_ieee_membership_no }}
+                                                                {% if member2_form.member_ieee_membership_no.errors %}
                                                                     <div class="my-1">
                                                                         <div role="alert" class="alert alert-error">
-                                                                            {{ member2_form.member2_ieee_membership_no.errors }}
+                                                                            {{ member2_form.member_ieee_membership_no.errors }}
                                                                         </div>
                                                                     </div>
                                                                 {% endif %}
@@ -375,104 +379,104 @@ class="hero min-h-[50vh] min-w-screen">
                                             {% endif %}
 
                                             <div class="my-2">
-                                                <label for="{{ member2_form.member2_name_for_label }}">Name</label>
+                                                <label for="{{ member2_form.member_name_for_label }}">Name</label>
                                                 
-                                                    {{ member2_form.member2_name }}
+                                                    {{ member2_form.member_name }}
                                                 
-                                                {% if member2_form.member2_name.errors %}
+                                                {% if member2_form.member_name.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_name.errors }}
+                                                            {{ member2_form.member_name.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
                                             
                                             <div class="my-2">
-                                                <label for="{{ member2_form.member2_email.id_for_label }}">Email</label>
+                                                <label for="{{ member2_form.member_email.id_for_label }}">Email</label>
                                                 
-                                                    {{ member2_form.member2_email }}
+                                                    {{ member2_form.member_email }}
                                                 
-                                                {% if member2_form.member2_email.errors %}
+                                                {% if member2_form.member_email.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_email.errors }}
+                                                            {{ member2_form.member_email.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
 
                                             <div class="my-2">
-                                                <label for="{{ member2_form.member2_phone.id_for_label }}">Phone Number</label>
-                                                {{ member2_form.member2_phone }}
-                                                {% if member2_form.member2_phone.errors %}
+                                                <label for="{{ member2_form.member_phone.id_for_label }}">Phone Number</label>
+                                                {{ member2_form.member_phone }}
+                                                {% if member2_form.member_phone.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_phone.errors }}
+                                                            {{ member2_form.member_phone.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
 
                                             <div class="my-2">
-                                                <label for="{{ member2_form.member2_from_nitk.id_for_label }}">Are you from NITK?</label>
+                                                <label for="{{ member2_form.member_from_nitk.id_for_label }}">Are you from NITK?</label>
                                                 <div class="h-8 w-8">
-                                                    {{ member2_form.member2_from_nitk }}
+                                                    {{ member2_form.member_from_nitk }}
                                                 </div>
-                                                {% if member2_form.member2_from_nitk.errors %}
+                                                {% if member2_form.member_from_nitk.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_from_nitk.errors }}
+                                                            {{ member2_form.member_from_nitk.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
                                 
                                             <div class="my-2" id="roll-no-field">
-                                                <label for="{{ member2_form.member2_roll_no.id_for_label }}">Roll Number</label>
-                                                {{ member2_form.member2_roll_no }}
-                                                {% if member2_form.member2_roll_no.errors %}
+                                                <label for="{{ member2_form.member_roll_no.id_for_label }}">Roll Number</label>
+                                                {{ member2_form.member_roll_no }}
+                                                {% if member2_form.member_roll_no.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_roll_no.errors }}
+                                                            {{ member2_form.member_roll_no.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
 
                                             <div class="my-2" id="college-name-field">
-                                                <label for="{{ member2_form.member2_college_name.id_for_label }}">College Name</label>
-                                                {{ member2_form.member2_college_name }}
-                                                {% if member2_form.member2_college_name.errors %}
+                                                <label for="{{ member2_form.member_college_name.id_for_label }}">College Name</label>
+                                                {{ member2_form.member_college_name }}
+                                                {% if member2_form.member_college_name.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_college_name.errors }}
+                                                            {{ member2_form.member_college_name.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
 
                                             <div class="my-2">
-                                                <label for="{{ member2_form.member2_ieee_member.id_for_label }}">Is an IEEE Member?</label>
+                                                <label for="{{ member2_form.member_ieee_member.id_for_label }}">Is an IEEE Member?</label>
                                                 <div class="h-8 w-8">
-                                                    {{ member2_form.member2_ieee_member }}
+                                                    {{ member2_form.member_ieee_member }}
                                                 </div>
-                                                {% if member2_form.member2_ieee_member.errors %}
+                                                {% if member2_form.member_ieee_member.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_ieee_member.errors }}
+                                                            {{ member2_form.member_ieee_member.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
                                             </div>
 
                                             <div class="my-2" id="ieee-membership-number-field">
-                                                <label for="{{ member2_form.member2_ieee_membership_no.id_for_label }}">IEEE Membership Number</label>
-                                                {{ member2_form.member2_ieee_membership_no }}
-                                                {% if member2_form.member2_ieee_membership_no.errors %}
+                                                <label for="{{ member2_form.member_ieee_membership_no.id_for_label }}">IEEE Membership Number</label>
+                                                {{ member2_form.member_ieee_membership_no }}
+                                                {% if member2_form.member_ieee_membership_no.errors %}
                                                     <div class="my-1">
                                                         <div role="alert" class="alert alert-error">
-                                                            {{ member2_form.member2_ieee_membership_no.errors }}
+                                                            {{ member2_form.member_ieee_membership_no.errors }}
                                                         </div>
                                                     </div>
                                                 {% endif %}
@@ -553,7 +557,7 @@ class="hero min-h-[50vh] min-w-screen">
     {{ block.super }}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            let nitkCheckbox = document.getElementById("{{ member2_form.member2_from_nitk.id_for_label }}");
+            let nitkCheckbox = document.getElementById("{{ member2_form.member_from_nitk.id_for_label }}");
             let collegeField = document.getElementById("college-name-field");
             let rollField = document.getElementById("roll-no-field");
     
@@ -565,7 +569,7 @@ class="hero min-h-[50vh] min-w-screen">
             toggleCollegeField();
             nitkCheckbox.addEventListener("change", toggleCollegeField);
     
-            let ieeeCheckbox = document.getElementById("{{ member2_form.member2_ieee_member.id_for_label }}");
+            let ieeeCheckbox = document.getElementById("{{ member2_form.member_ieee_member.id_for_label }}");
             let membershipField = document.getElementById("ieee-membership-number-field");
     
             function toggleIEEE() {

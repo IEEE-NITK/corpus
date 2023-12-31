@@ -16,17 +16,12 @@ from impulse.forms import AnnouncementForm
 from impulse.forms import Member2Form
 from impulse.forms import PaymentProofForm
 
-# from impulse.forms import TeamCreationForm
-
-
-
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
-# Create your views here.
 def home(request):
-    # check group_membership, if admin redirect to admin page
     args = {}
+    # Checking if user is Impulse_admin group member
     if request.user.groups.filter(name="impulse_admin").exists():
         args = {"admin": True}
     config = ModuleConfiguration.objects.get(module_name="impulse").module_config
@@ -66,7 +61,6 @@ def index(request):
         messages.error(request, "Please register for Impulse first!")
         return redirect("impulse_register")
     
-    # Check if already part of team
     if impulse_user.team is not None:
         args["in_team"] = True
 
@@ -74,23 +68,27 @@ def index(request):
 
         team = impulse_user.team
         
-        args["is_member2"] = impulse_user.is_member2
-        if impulse_user.is_member2:
-            args['team_count'] = 2
-        else:
-            args['team_count'] = 1
-
+        args["is_member2"] = team.is_member
+        args["team_count"] = 1 + team.is_member
         args["member"] = impulse_user
-
         args["team"] = team
+        args["payment_status"] = team.payment_status
 
-        if not impulse_user.is_member2:
+        pay_status = "Not Registered"
+
+        if args["payment_status"] == "E" or args["payment_status"] == "P":
+            pay_status = "Complete"
+        elif args["payment_status"] == "U":
+            pay_status = "Incomplete"
+
+        if not team.is_member:
             args["member2_form"] = Member2Form()
         else:
-            args["member2_form"] = Member2Form(instance=impulse_user)
+            args["member2_form"] = Member2Form(instance=impulse_user.team)
     else:
         args["in_team"] = False
         args["team_creation_form"] = TeamCreationForm()
+        
         
     config = ModuleConfiguration.objects.get(module_name="impulse").module_config
 
@@ -110,22 +108,17 @@ def index(request):
     args["payment_proof_form"] = PaymentProofForm()
 
     args["registration_active"] = registration_active
-    if args["in_team"]:
-        team = impulse_user.team
-        if team.payment_status in ["P", "E"]:
-            args["payment_status"] = "Complete"
-        else:
-            args["payment_status"] = "Incomplete"
 
-    if args["payment_status"] == "Complete":
-        # filder announcements based on payment status, get all announcements marked as type A or P
-        announcements = Announcement.objects.filter(announcement_type__in=["A", "P"])
-    elif args["payment_status"] == "Incomplete":
-        announcements = Announcement.objects.filter(announcement_type__in=["A", "U"])
-    else:
+    try :
+        if pay_status == "Complete":
+            announcements = Announcement.objects.filter(announcement_type__in=["A", "P"])
+        elif pay_status == "Incomplete":
+            announcements = Announcement.objects.filter(announcement_type__in=["A", "U"])
+        else:
+            announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
+    except:
         announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
-    
-    # sort announcements by date created
+
     announcements = announcements.order_by("-date_created")
 
     args["announcements"] = announcements
@@ -165,14 +158,10 @@ def register(request):
 
     if request.method == "POST":
         form = ImpulseForm(request.POST)
-        print("Form received")
         if form.is_valid():
-            print("Form is valid")
             impulse_user = form.save(commit=False)
-            print("Form saved")
             impulse_user.user = request.user
             impulse_user.save()
-            print("Impulse user saved")
             messages.success(request, "Successfully registered for Impulse!")
             return redirect("impulse_index")
         else:
@@ -182,7 +171,6 @@ def register(request):
         form = ImpulseForm()
 
     args = {"form": form}
-    print("Creating registration form")
     return render(request, "impulse/register.html", args)
 
 
@@ -194,7 +182,6 @@ def create_team(request):
         impulse_user = ImpulseUser.objects.get(user=request.user)
         if impulse_user.team is not None:
             if form.is_valid():
-                # update team name
                 team = impulse_user.team
                 team.team_name = form.cleaned_data["team_name"]
                 team.save()
@@ -228,23 +215,28 @@ def add_member(request):
         updation = False
         if form.is_valid():
             impulse_user = ImpulseUser.objects.get(user=request.user)
-            updation = impulse_user.is_member2
-            # Save the member2 details in the form into the impulse_user
-            impulse_user.is_member2 = True
-            impulse_user.member2_name = form.cleaned_data["member2_name"]
-            impulse_user.member2_email = form.cleaned_data["member2_email"]
-            impulse_user.member2_from_nitk = form.cleaned_data["member2_from_nitk"]
-            impulse_user.member2_college_name = form.cleaned_data["member2_college_name"]
-            impulse_user.member2_roll_no = form.cleaned_data["member2_roll_no"]
-            impulse_user.member2_phone = form.cleaned_data["member2_phone"]
-            impulse_user.member2_ieee_member = form.cleaned_data["member2_ieee_member"]
-            impulse_user.member2_ieee_membership_no = form.cleaned_data["member2_ieee_membership_no"]
-            impulse_user.save()
+            team = impulse_user.team
+            if impulse_user.team is None:
+                messages.error(request, "Please create a team first!")
+                return redirect("impulse_index")
+            if team.is_member:
+                updation = True
+            else:
+                team.is_member = True
 
-            if impulse_user.member2_from_nitk or impulse_user.member2_ieee_member:
-                team = impulse_user.team
+            team.member_name = form.cleaned_data["member_name"]
+            team.member_email = form.cleaned_data["member_email"]
+            team.member_from_nitk = form.cleaned_data["member_from_nitk"]
+            team.member_college_name = form.cleaned_data["member_college_name"]
+            team.member_roll_no = form.cleaned_data["member_roll_no"]
+            team.member_phone = form.cleaned_data["member_phone"]
+            team.member_ieee_member = form.cleaned_data["member_ieee_member"]
+            team.member_ieee_membership_no = form.cleaned_data["member_ieee_membership_no"]
+                
+            if team.member_from_nitk or team.member_ieee_member:
                 team.payment_status = "E"
-                team.save()
+
+            team.save()
             
             if updation:
                 messages.success(request, "Successfully updated member details!")
@@ -306,10 +298,6 @@ def team_page(request, pk):
     args = {}
     team = Team.objects.get(pk=pk)
     args["team"] = team
-    members = ImpulseUser.objects.filter(team=team)
-    for member in members:
-        args["member"] = member
-
     return render(request, "impulse/admin/team_page.html", args)
 
 @login_required

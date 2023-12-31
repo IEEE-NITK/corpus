@@ -39,16 +39,16 @@ class AnnouncementForm(CorpusModelForm):
 
 class Member2Form(CorpusModelForm):
     class Meta:
-        model = ImpulseUser
+        model = Team
         fields = [
-            "member2_name",
-            "member2_email",
-            "member2_from_nitk",
-            "member2_college_name",
-            "member2_roll_no",
-            "member2_phone",
-            "member2_ieee_member",
-            "member2_ieee_membership_no",
+            "member_name",
+            "member_email",
+            "member_from_nitk",
+            "member_college_name",
+            "member_roll_no",
+            "member_phone",
+            "member_ieee_member",
+            "member_ieee_membership_no",
         ]
 
 class PaymentProofForm(CorpusModelForm):
