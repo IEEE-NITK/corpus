@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from django.shortcuts import render
 from accounts.models import User
 from config.models import DATETIME_FORMAT
@@ -15,7 +14,6 @@ from impulse.forms import TeamCreationForm
 from impulse.forms import AnnouncementForm
 from impulse.forms import Member2Form
 from impulse.forms import PaymentProofForm
-
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
@@ -125,7 +123,6 @@ def index(request):
 
     return render(request, "impulse/index.html", args)
 
-
 @login_required
 @module_enabled(module_name="impulse")
 def register(request):
@@ -172,7 +169,6 @@ def register(request):
 
     args = {"form": form}
     return render(request, "impulse/register.html", args)
-
 
 @login_required
 @module_enabled(module_name="impulse")
