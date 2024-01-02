@@ -19,6 +19,7 @@ from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
 
+@module_enabled(module_name="impulse")
 def home(request):
     args = {}
     # Checking if user is Impulse_admin group member
