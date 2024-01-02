@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %} {% endblock %} | Corpus
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Ubuntu', sans-serif;
+        }
+
+        header {
+            padding: 5%;
+            width: 100%;
+            background-color: #38bdf8;
+        }
+
+        .content {
+            width: 100%;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #121212;
+            color: white;
+            padding: 5%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Corpus</h1>
+</header>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer>
+    <p>
+        For any technical enquiries, please contact us at <a href="mailto:corpusieeenitk@gmail.com">corpusieeenitk@gmail.com</a>.
+    </p>
+    <p>&copy; Corpus, IEEE NITK</p>
+    <p>Made with ❤️ by IEEE NITK</p>
+</footer>
+
+</body>
+
+</html>
