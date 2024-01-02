@@ -25,10 +25,3 @@ def about_us(request):
             "socieites": societies,
         },
     )
-
-def impulse(request):
-
-    return render(
-        request,
-        "pages/impulse.html",
-    )
