@@ -46,6 +46,15 @@ class InviteForm(CorpusModelForm):
 
 
 class AnnouncementForm(CorpusModelForm):
+    ANNOUNCEMENT_OPTIONS = [
+        ("1", "No email to be sent."),
+        ("2", "Send email to all team leaders."),
+        ("3", "Send email to all members"),
+    ]
+    announcement_mailing = forms.ChoiceField(
+        widget=forms.Select, choices=ANNOUNCEMENT_OPTIONS
+    )
+
     class Meta:
         model = Announcement
-        fields = ["content", "url_link", "url_link_text"]
+        fields = ["content", "url_link", "url_link_text", "announcement_mailing"]
