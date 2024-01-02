@@ -24,11 +24,9 @@ class Team(models.Model):
         ImpulseUser, on_delete=models.CASCADE, related_name="leader"
     )
 
-
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS, blank=False, null=False, default="U"
     )
-    payment_proof = models.ImageField(upload_to="img/impulse/payment_proofs", blank=True, null=True)
 
     def __str__(self):
         return self.team_name
