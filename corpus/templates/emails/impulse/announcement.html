@@ -1,0 +1,15 @@
+{% extends 'emails/base.html' %}
+
+{% block title %}
+    Announcement | Impulse
+{% endblock %}
+
+{% block content %}
+    <h1>Announcement - Impulse</h1>
+    <p>{{ announcement.content }}</p>
+    {% if announcement.url_link %}
+        <p>
+            <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+        </p>
+    {% endif %}
+{% endblock %}

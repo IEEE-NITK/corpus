@@ -1,4 +1,4 @@
-from impulse.models import ImpulseUser, Team, Announcement
+from impulse.models import ImpulseUser, Team, Announcement, Invite
 from django import forms
 from corpus.forms import CorpusModelForm
 
@@ -33,26 +33,26 @@ class TeamCreationForm(CorpusModelForm):
         fields = ["team_name"]
 
 class AnnouncementForm(CorpusModelForm):
+
+    ANNOUNCEMENT_OPTIONS = [
+        ("1", "No email to be sent."),
+        ("2", "Send email to all team leaders."),
+        ("3", "Send email to all members"),
+    ]
+
+    announcement_mailing = forms.ChoiceField(
+        widget=forms.Select, choices=ANNOUNCEMENT_OPTIONS
+    )
     class Meta:
         model = Announcement
-        fields = ["content", "url_link", "url_link_text", "announcement_type"]
-
-class Member2Form(CorpusModelForm):
-    class Meta:
-        model = Team
-        fields = [
-            "member_name",
-            "member_email",
-            "member_from_nitk",
-            "member_college_name",
-            "member_roll_no",
-            "member_phone",
-            "member_ieee_member",
-            "member_ieee_membership_no",
-        ]
+        fields = ["content", "url_link", "url_link_text", "announcement_type", "announcement_mailing"]
 
 class PaymentProofForm(CorpusModelForm):
     class Meta:
         model = Team
         fields = ["payment_proof"]
         
+class InviteForm(CorpusModelForm):
+    class Meta:
+        model = Invite
+        fields = ["invite_email"]

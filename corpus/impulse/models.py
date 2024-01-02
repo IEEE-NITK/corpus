@@ -24,17 +24,6 @@ class Team(models.Model):
         ImpulseUser, on_delete=models.CASCADE, related_name="leader"
     )
 
-    is_member = models.BooleanField(default=False)
-    member_name = models.CharField(max_length=200, blank=True, null=True)
-    member_email = models.EmailField(blank=True, null=True)
-    member_from_nitk = models.BooleanField(default=True)
-    member_college_name = models.CharField(
-        max_length=200, default="National Institute of Technology Karnataka"
-    )
-    member_roll_no = models.CharField(max_length=8, blank=True, null=True)
-    member_phone = models.CharField(max_length=13, blank=True, null=True)
-    member_ieee_member = models.BooleanField(default=False)
-    member_ieee_membership_no = models.BigIntegerField(blank=True, null=True)
 
     payment_status = models.CharField(
         max_length=1, choices=PAYMENT_STATUS, blank=False, null=False, default="U"
@@ -62,3 +51,12 @@ class Announcement(models.Model):
 
     def __str__(self):
         return self.content[:20] + "..."
+
+class Invite(models.Model):
+    inviting_team = models.ForeignKey(
+        Team, on_delete=models.CASCADE, related_name="invite_to_team"
+    )
+    invite_email = models.EmailField(blank=False, null=False)
+
+    def __str__(self):
+        return self.invite_email

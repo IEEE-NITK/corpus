@@ -74,6 +74,8 @@
                 <a href="{% url 'impulse_register' %}" class="btn btn-primary mt-10">Register</a>
             {% elif registration_done %}
                 <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
+            {% elif registered %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registered, Go to Dashboard</a>
             {% else %}
                 <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
             {% endif %}
@@ -193,7 +195,7 @@
               </div>
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
-                <div class="text-md md:text-lg lg:text-xl font-black">TBD</div>
+                <div class="text-md md:text-lg lg:text-xl font-black">Prelims test</div>
                 
               </div>
               <hr/>
@@ -205,7 +207,7 @@
               </div>
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <div class="text-lg font-black">Expert talk by Prof. Vineeth Balasubramanian, IITH</div>
                 
               </div>
               <hr />
@@ -217,7 +219,7 @@
               </div>
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">12<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <div class="text-lg font-black"> Workshop on GradCAM by Pranav Koundinya, SPS Chairperson</div>
                 
               </div>
               <hr />
@@ -229,7 +231,7 @@
               </div>
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">13<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <div class="text-lg font-black">24 hour hackathon</div>
                 
               </div>
               <hr />
