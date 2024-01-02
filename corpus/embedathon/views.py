@@ -18,6 +18,7 @@ from embedathon.models import Team
 
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
+from corpus.utils import send_email
 
 
 # Create your views here.
@@ -304,8 +305,28 @@ def announcements_management(request):
     if request.method == "POST":
         form = AnnouncementForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Added announcements.")
+            announcement = form.save()
+
+            mail_option = form.cleaned_data.get("announcement_mailing", "1")
+            email_ids = None
+            if mail_option == "2":
+                email_ids = list(
+                    Team.objects.values_list("team_leader__user__email", flat=True)
+                )
+            elif mail_option == "3":
+                email_ids = list(
+                    EmbedathonUser.objects.values_list("user__email", flat=True)
+                )
+
+            if email_ids is not None:
+                send_email(
+                    "Announcement | Embedathon",
+                    "emails/embedathon/announcement.html",
+                    {"announcement": announcement},
+                    bcc=email_ids,
+                )
+
+            messages.success(request, "Added announcement.")
             return redirect("embedathon_announcements")
     else:
         form = AnnouncementForm()
