@@ -7,7 +7,9 @@
 {% block content %}
     <h1>Announcement - Embedathon</h1>
     <p>{{ announcement.content }}</p>
-    <p>
-        <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
-    </p>
+    {% if announcement.url_link %}
+        <p>
+            <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+        </p>
+    {% endif %}
 {% endblock %}
