@@ -14,8 +14,6 @@ urlpatterns = [
     path(
         "delete_invite/<int:pk>", views.delete_invite, name="impulse_delete_invite"
     ),
-    path("upload_payment_proof", views.upload_payment_proof, name="impulse_upload_payment_proof"),
-    path("delete_payment_proof", views.delete_payment_proof, name="impulse_delete_payment_proof"),
     path("admin", views.admin, name="impulse_admin"),
     path("admin/teams", views.team_management, name="impulse_admin_teams"),
     path("admin/team/<int:pk>", views.team_page, name="impulse_admin_team_page"),

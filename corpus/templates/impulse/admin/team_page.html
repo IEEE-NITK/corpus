@@ -18,7 +18,6 @@
                     <tr>
                         <th></th>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>From NITK?</th>
                         <th>College Name</th>
                         <th>IEEE Member?</th>
@@ -26,41 +25,21 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% for member in members %}
                         <tr>
-                            <td>1</td>
-                            <td>{{ team.team_leader.user }}</td>
-                            <td>{{ team.team_leader.user.email }}</td>
-                            <td>{{ team.team_leader.from_nitk|yesno:"Yes,No" }}</td>
-                            <td>{{ team.team_leader.college_name }}</td>
-                            <td>{{ team.team_leader.ieee_member|yesno:"Yes,No" }}</td>
-                            <td>{{ team.team_leader.ieee_membership_no }}</td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ member.user }}</td>
+                            <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
+                            <td>{{ member.college_name }}</td>
+                            <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
+                            <td>{{ member.ieee_membership_no }}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>{{ team.member_name }}</td>
-                            <td>{{ team.member_email }}</td>
-                            <td>{{ team.member_from_nitk|yesno:"Yes,No" }}</td>
-                            <td>{{ team.member_college_name }}</td>
-                            <td>{{ team.member_ieee_member|yesno:"Yes,No" }}</td>
-                            <td>{{ team.member_ieee_membership_no }}</td>
-                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
         <p><strong>Payment status:</strong> {{ team.get_payment_status_display }}</p>
-
-        {% if team.payment_proof %}
-        <div class="my-5">
-            <p class="text-green-500">Payment proof uploaded</p>
-            <img src="{% static team.payment_proof.url %}" alt="Payment proof" class="my-5 max-w-xs">
-            <p><a href="{% static team.payment_proof.url %}" download>Download</a></p>
-        </div>
-        {% else %}
-            {% if team.payment_status == "U" %}
-                <p class="text-red-500">Payment proof not uploaded</p>
-            {% endif %}
-        {% endif %}
 
         {% if team.payment_status == "U" %}
             <a href="{% url 'impulse_admin_mark_payment_complete' pk=team.pk %}"

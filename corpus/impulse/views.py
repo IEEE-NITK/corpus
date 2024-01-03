@@ -13,7 +13,6 @@ from impulse.models import Invite
 from impulse.forms import ImpulseForm
 from impulse.forms import TeamCreationForm
 from impulse.forms import AnnouncementForm
-from impulse.forms import PaymentProofForm
 from impulse.forms import InviteForm
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
@@ -127,9 +126,7 @@ def index(request):
     registration_active = (reg_start_datetime <= datetime.now()) and (
         datetime.now() <= reg_end_datetime
     )
-
-    args["payment_proof_form"] = PaymentProofForm()
-
+    
     args["registration_active"] = registration_active
 
     try :
@@ -325,35 +322,6 @@ def delete_invite(request, pk):
     messages.success(request, "Invite deleted!")
     return redirect("impulse_index")
 
-
-@login_required
-@module_enabled(module_name="impulse")
-def upload_payment_proof(request):
-    if request.method == "POST":
-        impulse_user = ImpulseUser.objects.get(user=request.user)
-        team = Team.objects.get(team_leader=impulse_user)
-        
-        if team.payment_proof is not None:
-            team.payment_proof.delete()
-        team.payment_proof = request.FILES["payment_proof"]
-        if team.payment_proof is None:
-            messages.error(request, "Please upload a file!")
-            return redirect("impulse_index")
-        team.save()
-        messages.success(request, "Successfully uploaded payment proof!")
-        return redirect("impulse_index")
-    else:
-        return redirect("impulse_index")
-
-@login_required
-@module_enabled(module_name="impulse")
-def delete_payment_proof(request):
-    impulse_user = ImpulseUser.objects.get(user=request.user)
-    team = Team.objects.get(team_leader=impulse_user)
-    team.payment_proof.delete()
-    team.save()
-    messages.success(request, "Successfully deleted payment proof!")
-    return redirect("impulse_index")
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])

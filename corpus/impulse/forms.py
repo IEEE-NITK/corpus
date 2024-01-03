@@ -46,11 +46,6 @@ class AnnouncementForm(CorpusModelForm):
     class Meta:
         model = Announcement
         fields = ["content", "url_link", "url_link_text", "announcement_type", "announcement_mailing"]
-
-class PaymentProofForm(CorpusModelForm):
-    class Meta:
-        model = Team
-        fields = ["payment_proof"]
         
 class InviteForm(CorpusModelForm):
     class Meta:
