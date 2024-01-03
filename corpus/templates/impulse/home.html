@@ -7,6 +7,7 @@
 {% block style %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
     <style>
+
         .hero {
             background-color: rgba(0, 0, 0, 0.5);
             background-image: url("{% static 'img/ieee-impulse.png' %}");
@@ -106,11 +107,11 @@
     </section>
     <div class="prose max-w-none flex flex-row">
         <div class="md:basis-1/6"></div>
-        <div class="px-10 md:px-0 md:basis-4/6">
+        <div class="px-10 md:px-0 lg:basis-5/6 md:basis-4/6">
             <section id="speakers" class="py-5 px-5">
                 <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
                     Speakers</h2>
-                <div class="flex flex-col md:flex-row justify-between content-center gap-4">
+                <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
                     <div class="card bg-base-100 shadow-xl basis-1/2 border">
                         <figure>
                             <img src="{% static 'img/impulse/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
@@ -182,7 +183,7 @@
             <!-- ---------------------- -->
             <div class="col-lg-12 col-12 text-center">
                 <center>
-                    <p style="font-size: 1.5em; ">Prizes and goodies worth 8k!</p>
+                    <p style="font-size: 1.5em; ">Prizes and goodies worth INR 8K!</p>
                     {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
                 </center>
             </div>
@@ -527,9 +528,9 @@
     </section>
 
     {% comment %} Organizers Section {% endcomment %}
-    <section style="margin-bottom: 5%;"
-        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">  
-        <div class="container ">
+    <section
+        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
             <div class="section-header">
                 <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">Organized by</h2>
                 <div class="mx-auto text-center">
@@ -554,7 +555,7 @@
     {% comment %} Contact Section {% endcomment %}
     <section id="contact"
         class="contact bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
-        <div class="container ">
+        <div class="container mx-auto">
         <div class="section-header">
             <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Contact Us</h3>
             <center>
