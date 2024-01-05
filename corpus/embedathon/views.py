@@ -5,6 +5,7 @@ from config.models import DATETIME_FORMAT
 from config.models import ModuleConfiguration
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.shortcuts import redirect
 from django.shortcuts import render
 from embedathon.forms import AnnouncementForm
@@ -263,7 +264,8 @@ def admin(request):
 @ensure_group_membership(group_names=["embedathon_admin"])
 def team_management(request):
     teams = Team.objects.all()
-    args = {"teams": teams}
+    team_counts = teams.values("payment_status").annotate(count=Count("payment_status"))
+    args = {"teams": teams, "team_counts": team_counts}
     return render(request, "embedathon/team_management.html", args)
 
 
@@ -294,7 +296,18 @@ def mark_payment_complete(request, pk):
 def user_management(request):
     users = EmbedathonUser.objects.all()
 
-    args = {"users": users}
+    nitk_count = users.values("from_nitk").annotate(count=Count("from_nitk"))
+    ieee_count = users.values("ieee_member").annotate(count=Count("ieee_member"))
+    cass_count = users.values("cass_member").annotate(count=Count("cass_member"))
+    years_count = users.values("year").annotate(count=Count("year"))
+
+    args = {
+        "users": users,
+        "nitk_count": nitk_count,
+        "ieee_count": ieee_count,
+        "cass_count": cass_count,
+        "years_count": years_count,
+    }
 
     return render(request, "embedathon/user_management.html", args)
 
