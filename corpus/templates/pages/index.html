@@ -106,16 +106,16 @@ Home
     <h1 class="text-4xl lg:text-5xl text-center">Societies</h1>
     <div class="flex whitespace-nowrap overflow-x-hidden">
         <div class="relative">
-            <div class="w-max space-x-5 animate-[marquee_15s_linear_infinite]">
+            <div class="w-max animate-[marquee_15s_linear_infinite]">
                 {% for society in societies %}
                 {% if society.dark_image %}
                 <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
-                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline mx-5" /></a>
                 <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
-                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline mx-5" /></a>
                 {% else %}
                 <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
-                        class="h-14 lg:h-24 inline" /></a>
+                        class="h-14 lg:h-24 inline mx-5" /></a>
                 {% endif %}
                 {% empty %}
                 <p>There should be some societies here. Did you import the DB dump using
@@ -123,16 +123,16 @@ Home
                 </p>
                 {% endfor %}
             </div>
-            <div class="absolute top-0 w-max space-x-5 animate-[marquee2_15s_linear_infinite]">
+            <div class="absolute top-0 w-max animate-[marquee2_15s_linear_infinite]">
                 {% for society in societies %}
                 {% if society.dark_image %}
                 <a href="{{ society.url }}"><img src="{% static society.dark_image %}" style="display: none;"
-                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline" /></a>
+                        alt="{{ society.name }} Logo" class="dark-logo h-14 lg:h-24 inline mx-5" /></a>
                 <a href="{{ society.url }}"><img src="{% static society.image %}" style="display: none;"
-                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline" /></a>
+                        alt="{{ society.name }} Logo" class="light-logo h-14 lg:h-24 inline mx-5" /></a>
                 {% else %}
                 <a href="{{ society.url }}"><img src="{% static society.image %}" alt="{{ society.name }} Logo"
-                        class="h-14 lg:h-24 inline" /></a>
+                        class="h-14 lg:h-24 inline mx-5" /></a>
                 {% endif %}
                 {% empty %}
                 <p>There should be some societies here. Did you import the DB dump using
