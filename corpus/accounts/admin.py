@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
+from .models import ExecutiveMember
 from .models import User
 
 # Register your models here.
@@ -49,4 +50,37 @@ class CorpusUserAdmin(UserAdmin):
     ordering = ("email",)
 
 
+class ExecutiveMemberAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {"fields": ("user", "sig")}),
+        (
+            "NITK Related Details",
+            {
+                "fields": (
+                    "edu_email",
+                    "roll_number",
+                    "reg_number",
+                    "minor_branch",
+                    "is_nep",
+                )
+            },
+        ),
+        (
+            "IEEE Related Details",
+            {"fields": ("ieee_number", "ieee_email")},
+        ),
+        ("Socials", {"fields": ("linkedin", "github")}),
+    )
+    list_display = ("user", "sig", "roll_number", "edu_email", "ieee_number", "is_nep")
+    search_fields = (
+        "roll_number",
+        "reg_number",
+        "edu_email",
+        "ieee_number",
+        "ieee_email",
+    )
+    ordering = ("user",)
+
+
 admin.site.register(User, CorpusUserAdmin)
+admin.site.register(ExecutiveMember, ExecutiveMemberAdmin)
