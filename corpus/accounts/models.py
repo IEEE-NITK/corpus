@@ -5,13 +5,6 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
-GENDERS = [
-    ("M", "Male"),
-    ("F", "Female"),
-    ("O", "Other"),
-    ("N", "Prefer not to disclose"),
-]
-
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
@@ -40,6 +33,13 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    GENDERS = [
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+        ("N", "Prefer not to disclose"),
+    ]
+
     username = None
     phone_no = models.CharField(max_length=13, unique=True, blank=False, null=False)
     gender = models.CharField(max_length=1, choices=GENDERS, blank=False, null=False)

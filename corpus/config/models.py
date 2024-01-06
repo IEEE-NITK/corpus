@@ -3,6 +3,25 @@ from django.db import models
 DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
 
 
+class SIG(models.Model):
+    """
+    SIG Model.
+    Defines all SIGs that are part of IEEE NITK.
+    """
+
+    name = models.CharField(verbose_name="Name", max_length=10, unique=True)
+    about = models.TextField(verbose_name="About Us", default="")
+    what_we_do = models.TextField(verbose_name="What We Do", default="")
+    slug = models.SlugField(unique=True, null=True)  # Added SlugField for url access
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name = "SIG"
+        verbose_name_plural = "SIGs"
+
+
 class Society(models.Model):
     """
     Society Model.
@@ -61,6 +80,7 @@ class Society(models.Model):
         verbose_name="Dark Image", upload_to="img/logo/", blank=True, null=True
     )
     description = models.TextField(verbose_name="Description")
+    sigs = models.ManyToManyField(SIG, related_name="societies")
 
     def __str__(self):
         return self.get_name_display()
