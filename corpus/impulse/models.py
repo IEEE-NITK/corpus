@@ -34,16 +34,17 @@ class Team(models.Model):
 class Announcement(models.Model):
 
     AnnouncementType = (
-        ("A", "All"),
+        ("A", "All Impulse Users"),
         ("P", "Paid Teams"),
         ("U", "Unpaid Teams"),
-        ("N", "Not Registered Teams"),
+        ("N", "Registered for Impulse but no team"),
+        ("NI", "Not Registered for Impulse"),
     )
 
     content = models.TextField(blank=False, null=False)
     url_link = models.URLField(blank=True, null=True)
     url_link_text = models.CharField(max_length=200, blank=True, null=True)
-    announcement_type = models.CharField(max_length=1, choices=AnnouncementType, blank=False, null=False, default="A")
+    announcement_type = models.CharField(max_length=2, choices=AnnouncementType, blank=False, null=False, default="A")
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
