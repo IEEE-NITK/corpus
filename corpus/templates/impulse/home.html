@@ -69,14 +69,15 @@
                 <a href="{% url 'impulse_admin' %}" class="btn btn-primary mt-10">Admin</a>
             {% endif %}
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
+            <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p>
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
-            {% if registration_active %}
-                <a href="{% url 'impulse_register' %}" class="btn btn-primary mt-10">Register</a>
-            {% elif registration_done %}
+            {% if registration_active and not registration_done and not registered %}
+                <a href="{% url 'impulse_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a> 
+            {% elif registration_done and not registered %}
                 <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
             {% elif registered %}
-                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registered, Go to Dashboard</a>
+                <a class="btn btn-primary mt-10" href="{% url 'impulse_index' %}">Go to Dashboard</a>
             {% else %}
                 <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
             {% endif %}
@@ -241,7 +242,7 @@
                 <div class="tick h-5 w-5 m-0 p-0"></div>
               </div>
               <div class="timeline-end mb-10">
-                <time class="font-mono italic">13<sup>th</sup> Jan, 2024</time>
+                <time class="font-mono italic">13<sup>th</sup> - 14<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black">24 hour hackathon</div>
                 
               </div>
@@ -264,6 +265,7 @@
         openFaq8: false,
         openFaq9: false,
         openFaq10: false,
+        openFaq11: false,
         }
         "
         class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -364,11 +366,40 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Is it necessary to be from EC or EEE background?
+                            What to do after registering for Impulse?
                         </h4>
                     </div>
                     </button>
                     <div x-show="openFaq3" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        After registering for Impulse, make sure to create a team name irrespective of you taking part alone or in teams of 2. After creating the team, join the discord link to receive updates and announcements regarding the event.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq4 = !openFaq4"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to be from EC or EEE background?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq4" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -382,12 +413,12 @@
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq4 = !openFaq4"
+                        @click="openFaq5 = !openFaq5"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -397,7 +428,7 @@
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq4" class="faq-content pl-[62px]">
+                    <div x-show="openFaq5" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -405,67 +436,39 @@
                         </p>
                     </div>
                 </div>
-            </div>
-     
-            <div class="w-full px-4 lg:w-1/2">
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq5 = !openFaq5"
-                    >
-                    <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            The preliminary test is on Hackerearth. Is it a competitive coding test?
-                        </h4>
-                    </div>
-                    </button>
-                    <div x-show="openFaq5" class="faq-content pl-[62px]">
-                    <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Machine Learning, Aptitude and some Python coding. It will not have any competitive coding style questions.
-                    </p>
-                    </div>
-                </div>
 
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq6 = !openFaq6"
-                    >
-                    <div
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq6 = !openFaq6"
+                        >
+                        <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
                         <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
+                        </div>
+                        <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            How many members in a team?
+                            Will the final 24-hour hackathon be conducted in offline mode? Will there be any accommodation arranged for students coming to NITK?
                         </h4>
-                    </div>
+                        </div>
                     </button>
                     <div x-show="openFaq6" class="faq-content pl-[62px]">
-                    <p
+                        <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        A maximum of two members are allowed per team.
-                    </p>
+                        Final hackathon is in hybrid (both offline and online) mode, teams need not come to NITK campus for final hackathon . If you choose to come to campus, travel and accommodation will not be arranged. Students have to make the travel and accommodation arrangements themselves. Lunch will be provided on 14th January.
+                        </p>
                     </div>
                 </div>
 
+            </div>
+     
+            <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -482,11 +485,69 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                            The preliminary test is on Hackerearth. Is it a competitive coding test?
                         </h4>
                     </div>
                     </button>
                     <div x-show="openFaq7" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Machine Learning, Aptitude and some Python coding. It will not have any competitive coding style questions.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq8 = !openFaq8"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            How many members in a team?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        A maximum of two members are allowed per team.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq9 = !openFaq9"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq9" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -500,12 +561,12 @@
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq8 = !openFaq8"
+                        @click="openFaq10 = !openFaq10"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq10 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -515,7 +576,7 @@
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                    <div x-show="openFaq10" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -523,6 +584,36 @@
                         </p>
                     </div>
                 </div>
+         
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq11 = !openFaq11"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq11 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What is the duration of the final hackathon?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq11" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        The final hackathon will be held for 24 hours from 13th January afternoon to 14th January afternoon. Only those who clear the preliminary test would be eligible for the same.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

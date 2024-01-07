@@ -403,6 +403,16 @@ def announcements_management(request):
                             "user__email", flat=True
                         )
                     )
+                elif announcement.announcement_type == "NI":
+                    # all users who have not registered for impulse
+                    email_ids = list(
+                        User.objects.exclude(
+                            email__in=ImpulseUser.objects.values_list(
+                                "user__email", flat=True
+                            )
+                        ).values_list("email", flat=True)
+                    )
+                    
             if email_ids is not None:
                 send_email(
                     "Announcement | Impulse",
