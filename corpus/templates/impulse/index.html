@@ -214,6 +214,17 @@ class="hero min-h-[50vh] min-w-screen">
                             {% endif %}
 
                         {% elif registration_active %}
+                        {% comment %} IMPORTANT DANGER BANNER {% endcomment %}
+                        <div class="alert alert-error my-2 rounded-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current shrink-0 w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>
+                                YOU ARE NOT IN A TEAM. Please create a team or join an existing team to complete your registration for Impulse.
+                            </span>
+                        </div>
                             <div>
                                 <h3 class="card-title">Current Invites</h3>
                                 {% if invites_for_user %}

@@ -6,7 +6,9 @@
 
 {% block content %}
     <h1>Announcement - Impulse</h1>
-    <p>{{ announcement.content }}</p>
+    <div style="font-size: 1.2em;">
+        {{ announcement.content | safe }}
+    </div>
     {% if announcement.url_link %}
         <p>
             <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
