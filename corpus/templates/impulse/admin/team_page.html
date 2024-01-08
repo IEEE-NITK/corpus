@@ -18,6 +18,7 @@
                     <tr>
                         <th></th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>From NITK?</th>
                         <th>College Name</th>
                         <th>IEEE Member?</th>
@@ -29,10 +30,12 @@
                         <tr>
                             <td>{{ forloop.counter }}</td>
                             <td>{{ member.user }}</td>
+                            <td>{{ member.user.email }} </td>
                             <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
                             <td>{{ member.college_name }}</td>
                             <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
                             <td>{{ member.ieee_membership_no }}</td>
+                            {% comment %} Whether in team {% endcomment %}
                         </tr>
                     {% endfor %}
                     </tbody>

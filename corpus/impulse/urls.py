@@ -38,4 +38,10 @@ urlpatterns = [
         views.delete_announcement,
         name="impulse_delete_announcement",
     ),
+    path(
+        "admin/download_csv",
+        views.download_csv_non_registrants,
+        name="impulse_download_csv",
+    ),
+
 ]

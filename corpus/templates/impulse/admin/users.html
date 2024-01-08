@@ -15,10 +15,12 @@
                 <tr>
                     <th></th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>From NITK?</th>
                     <th>College Name</th>
                     <th>IEEE Member?</th>
                     <th>IEEE Membership Number</th>
+                    <th>In a Team?</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -26,10 +28,12 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ user.user }}</td>
+                        <td>{{ user.user.email }}</td>
                         <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
                         <td>{{ user.college_name }}</td>
                         <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
                         <td>{{ user.ieee_membership_no }}</td>
+                        <td>{{ user.team|yesno:"Yes,No" }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

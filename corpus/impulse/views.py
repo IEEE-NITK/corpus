@@ -403,6 +403,24 @@ def announcements_management(request):
                             "user__email", flat=True
                         )
                     )
+                elif announcement.announcement_type == "NI":
+                    # all users who have not registered for impulse
+                    users = User.objects.exclude(
+                        email__in=ImpulseUser.objects.values_list("user__email", flat=True)
+                    )
+
+                    users = users.exclude(
+                        email__in=[
+                            "impulse_admin",
+                            "embedathon_admin",
+                        ]
+                    )
+                    users = users.exclude(is_staff=True)
+                    users = users.exclude(is_superuser=True)
+                    
+                    email_ids = list(users.values_list("email", flat=True))
+                    
+                    
             if email_ids is not None:
                 send_email(
                     "Announcement | Impulse",
@@ -464,3 +482,35 @@ def mark_payment_incomplete(request, pk):
             )
     messages.success(request, "Successfully marked payment as incomplete!")
     return redirect("impulse_admin_team_page", pk=pk)
+
+
+@login_required
+@ensure_group_membership(group_names=["impulse_admin"])
+def download_csv_non_registrants(request):
+    import csv
+    from django.http import HttpResponse
+
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="non_registrants.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(["Name", "Email"])
+
+    users = User.objects.exclude(
+        email__in=ImpulseUser.objects.values_list("user__email", flat=True)
+    )
+
+    users = users.exclude(
+        email__in=[
+            "impulse_admin",
+            "embedathon_admin",
+        ]
+    )
+    users = users.exclude(is_staff=True)
+    users = users.exclude(is_superuser=True)
+        
+
+    for user in users:
+        writer.writerow([user, user.email])
+
+    return response

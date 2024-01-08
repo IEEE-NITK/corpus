@@ -127,5 +127,37 @@
             </table>
         </div>
         <a href="{% url 'impulse_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+        <a href="{% url 'impulse_download_csv' %}" class="btn btn-secondary text-black font-bold no-underline">Download CSV of Non-Registrants</a>
     </div>
 {% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let emailTypeField = document.getElementById("{{ form.announcement_mailing.id_for_label }}");
+        let announcementTypeField = document.getElementById("{{ form.announcement_type.id_for_label }}");
+
+        function toggleEmailType() {
+            if (announcementTypeField.value === "N") {
+                emailTypeField.value = "3";
+                emailTypeField.options[1].hidden = true;
+                emailTypeField.options[0].hidden = false;
+            }
+            else if (announcementTypeField.value === "NI") {
+                emailTypeField.value = "3";
+                emailTypeField.options[0].hidden = true;
+                emailTypeField.options[1].hidden = true;
+            }
+            else {
+                emailTypeField.options[1].hidden = false;
+                emailTypeField.options[0].hidden = false;
+            }
+        }
+
+        toggleEmailType();
+        announcementTypeField.addEventListener("change", toggleEmailType);
+    });
+</script>    
+{% endblock %}
+```
