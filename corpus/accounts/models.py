@@ -138,5 +138,10 @@ class ExecutiveMember(models.Model):
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        self.roll_number = self.roll_number.upper()
+
+        super(ExecutiveMember, self).save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} [{self.sig.name}]"
