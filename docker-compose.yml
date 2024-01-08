@@ -58,7 +58,6 @@ services:
     working_dir: /opt/app
     volumes:
       - ./corpus/templates:/opt/app/templates
-      - ./corpus/node_modules:/opt/app/node_modules
     command: npm run tailwind-dev
     tty: true
 
