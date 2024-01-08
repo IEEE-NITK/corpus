@@ -14,4 +14,7 @@ module.exports = {
         require("@tailwindcss/container-queries"),
         require("daisyui"),
     ],
+    daisyui: {
+        themes: ["winter", "night", "synthwave"],
+    }
 }
