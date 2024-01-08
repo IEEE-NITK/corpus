@@ -422,8 +422,6 @@ def announcements_management(request):
                     
                     
             if email_ids is not None:
-                # THIS REPLACES \n WITH <br> IN THE EMAIL CONTENT
-                announcement.content = announcement.content.replace("\n", "<br>")
                 send_email(
                     "Announcement | Impulse",
                     "emails/impulse/announcement.html",
