@@ -4,15 +4,8 @@ from django.core.validators import RegexValidator
 
 
 def validate_phone_number(value):
-    if len(value) == 10:
-        validator = RegexValidator(regex=r"^[0-9]{10}$")
-        validator(value)
-    elif len(value) == 12 and value.startswith("91"):
-        validator = RegexValidator(regex=r"^91[0-9]{10}$")
-        validator(value)
-    elif len(value) == 13 and value.startswith("+91"):
-        validator = RegexValidator(regex=r"^\+91[0-9]{10}$")
-        validator(value)
+    validator = RegexValidator(regex=r"^\+?[0-9]{8,14}$")
+    validator(value)
 
 
 def validate_nitk_email(value):

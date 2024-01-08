@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from config.models import SIG
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
@@ -136,7 +138,9 @@ class ExecutiveMember(models.Model):
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(blank=True, null=True, verbose_name="GitHub Username")
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(auto_now_add=True)
+    date_joined = models.DateTimeField(
+        default=datetime.now(), verbose_name="Date Joined"
+    )
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
