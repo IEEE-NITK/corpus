@@ -56,9 +56,9 @@ def signin(request):
             elif re.search(r"^[0-9]{6,}$", username) is not None:
                 exec_member = ExecutiveMember.objects.filter(reg_number=username)
             else:
-                exec_member = []
+                exec_member = None
 
-            if len(exec_member) == 1:
+            if exec_member is not None:
                 user = authenticate(
                     username=exec_member[0].user.email, password=password
                 )
