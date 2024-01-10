@@ -506,9 +506,7 @@ def team_download(request):
     writer = csv.writer(response)
     writer.writerow(["First Name", "Last Name", "Email"])
 
-    for team in Team.objects.all():
-        if team.payment_status == "U":
-            continue
+    for team in Team.objects.filter(payment_status__in=["P", "E"]):
         leader = team.team_leader
         writer.writerow([leader.user.first_name, leader.user.last_name, leader.user.email])
 
