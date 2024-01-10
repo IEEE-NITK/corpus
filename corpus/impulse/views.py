@@ -495,22 +495,6 @@ def mark_payment_incomplete(request, pk):
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
-def groupify(request):
-    # put all users not in a team into a team with their name as team name and single member
-    users = ImpulseUser.objects.filter(team=None)
-    for user in users:
-        team = Team(team_name=user.user.get_full_name(), team_leader=user)
-        if user.from_nitk or user.ieee_member:
-            team.payment_status = "E"
-        team.save()
-        user.team = team
-        user.save()
-
-    messages.success(request, "Successfully grouped users!")
-    return redirect("impulse_admin_users")
-
-@login_required
-@ensure_group_membership(group_names=["impulse_admin"])
 def team_download(request):
     import csv
     from django.http import HttpResponse

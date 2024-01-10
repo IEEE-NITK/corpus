@@ -10,21 +10,6 @@
         <h1 class="text-center">User Management</h1>
         <p><strong>Number of Users:</strong>{{ users.count }}</p>
 
-        <div class="tooltip tooltip-info" data-tip="This will put all users without a team into a team.">
-            <button class="btn btn-info" onclick="my_modal_1.showModal()">Groupify Users</button>
-        </div>
-        <dialog id="my_modal_1" class="modal modal-bottom sm:modal-middle">
-            <div class="modal-box">
-              <h3 class="font-bold text-lg">Groupify Users</h3>
-              <p class="py-4">ARE YOU SURE YOU WANT TO GROUPIFY USERS? This action cannot be undone.</p>
-              <div class="modal-action">
-                <a href="{% url 'groupify_users' %}" class="btn btn-secondary"> Groupify Users</a>
-                <form method="dialog">
-                  <button class="btn btn-error">Cancel</button>
-              </div>
-            </div>
-        </dialog>
-
         <div class="my-1">
             <h3>Stats</h3>
             <strong class="underline">NITK Students Stats</strong>
