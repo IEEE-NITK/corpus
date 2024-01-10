@@ -379,7 +379,7 @@ def announcements_management(request):
                     )
                 elif announcement.announcement_type == "P":
                     email_ids = list(
-                        Team.objects.filter(payment_status="P").values_list(
+                        Team.objects.filter(payment_status__in=["P", "E"]).values_list(
                             "team_leader__user__email", flat=True
                         )
                     )
@@ -397,7 +397,8 @@ def announcements_management(request):
                     )
                 elif announcement.announcement_type == "P":
                     email_ids = list(
-                        ImpulseUser.objects.filter(team__payment_status="P").values_list(
+                        # send to both paid and exempted teams
+                        ImpulseUser.objects.filter(team__payment_status__in=["P", "E"]).values_list(
                             "user__email", flat=True
                         )
                     )
