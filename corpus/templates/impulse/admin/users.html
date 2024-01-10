@@ -6,9 +6,22 @@
 {% endblock %}
 
 {% block content %}
-    <div class="prose max-w-none mx-10 my-10">
+    <div class="prose max-w-none md:mx-40 my-10 mx-10">
         <h1 class="text-center">User Management</h1>
         <p><strong>Number of Users:</strong>{{ users.count }}</p>
+
+        <div class="my-1">
+            <h3>Stats</h3>
+            <strong class="underline">NITK Students Stats</strong>
+            {% for item in nitk_count %}
+                <p><strong>{{ item.from_nitk | yesno:"From NITK, Not from NITK" }}</strong>: {{ item.count }}</p>
+            {% endfor %}
+            <strong class="underline">IEEE Members Stats</strong>
+            {% for item in ieee_count %}
+                <p><strong>{{ item.ieee_member | yesno:"IEEE Member, Not IEEE Member" }}</strong>: {{ item.count }}</p>
+            {% endfor %}
+        </div>
+
         <div class="overflow-x-auto my-5">
             <table class="table table-zebra">
                 <thead>
