@@ -38,10 +38,12 @@ urlpatterns = [
         views.delete_announcement,
         name="impulse_delete_announcement",
     ),
-    path(
-        "admin/download_csv",
-        views.download_csv_non_registrants,
-        name="impulse_download_csv",
+    path("admin/groupify",
+            views.groupify,
+            name="groupify_users"
     ),
-
+    path("admin/team_download",
+            views.team_download,
+            name="impulse_admin_team_download"
+    ),
 ]

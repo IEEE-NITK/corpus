@@ -38,5 +38,10 @@
         </div>
 
         <a href="{% url 'impulse_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+        <div class="tooltip tooltip-info" data-tip="Download the list of teams (Paid and Exempted) in CSV format.">
+            <a href="{% url 'impulse_admin_team_download' %}"
+                class="btn btn-primary text-black font-bold no-underline">Download Team List
+            </a>
+        </div>
     </div>
 {% endblock %}
