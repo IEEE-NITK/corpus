@@ -13,17 +13,7 @@ A Django based web application to manage all things IEEE NITK.
 cp env.example .env
 ```
 
-2. You'll need to setup the JS Toolchain, so that Tailwind and DaisyUI work properly. Install the version of `node`
-   mentioned in the `.tool-versions` file.
-   After installing `node`, do the following.
-
-```shell
-cd corpus/
-npm install
-npx tailwindcss -i ./templates/static/css/tailwind.css -o ./templates/static/css/tailwind-min.css --watch
-```
-
-3. In another terminal window, run docker compose
+2. In another terminal window, run docker compose
 
 ```sh
 docker compose up
@@ -35,6 +25,8 @@ for the same:
 ```sh
 docker compose up --build
 ```
+
+**Note:** Auto-reload for Tailwind on Windows only works on WSL, and not on the Windows filesystem. If you are using the Windows filesystem, you'll have to manually restart the `jstoolchain` container.
 
 To stop the containers, just bring the services down.
 
