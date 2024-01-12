@@ -1,0 +1,6 @@
+FROM node:20.10.0-slim
+
+RUN mkdir -p /opt/app
+WORKDIR /opt/app
+COPY package.json package-lock.json tailwind.config.js .
+RUN npm install
