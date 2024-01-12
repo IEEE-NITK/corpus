@@ -77,27 +77,37 @@
             </div>
             
             {% if admin %}
-                <a href="{% url 'impulse_admin' %}" class="btn btn-primary mt-10">Admin</a>
+                <a href="{% url 'electrika_admin' %}" class="btn btn-primary mt-10">Admin</a>
             {% endif %}
             <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
             {% comment %} <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> {% endcomment %}
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
-            {% if registration_active and not registration_done and not registered %}
-                <a class="registerBtn" href="{% url 'impulse_register' %}?next={{ request.path }}">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Register Now
-                  </a> 
-            {% elif registration_done and not registered %}
-                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
-            {% elif registered %}
-                <a class="btn btn-primary mt-10" href="{% url 'impulse_index' %}">Go to Dashboard</a>
-            {% else %}
-                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
-            {% endif %}
-
+            
+            <a class="registerBtn" 
+                {% if registration_active and not registration_done and not registered %}
+                href="{% url 'electrika_register' %}?next={{ request.path }}"
+                {% elif registration_done and not registered %}
+                
+                {% elif registered %}
+                href="{% url 'electrika_index' %}"
+                {% else %}
+                
+                {% endif %} 
+                >
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                {% if registration_active and not registration_done and not registered %}
+                Register Now
+                {% elif registration_done and not registered %}
+                Registerations Closed
+                {% elif registered %}
+                Go to Dashboard
+                {% else %}
+                Registerations Opening Soon
+                {% endif %}
+            </a> 
             <br>
             <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
                 <div class="arrowdown h-10 w-10 m-0 p-0"></div>
@@ -132,7 +142,7 @@
                 {% comment %} <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
                     <div class="card bg-base-100 shadow-xl basis-1/2 border">
                         <figure>
-                            <img src="{% static 'img/impulse/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
+                            <img src="{% static 'img/electrika/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
                                 class="h-96 rounded-md"/>
                         </figure>
                         <div class="card-body">
@@ -146,7 +156,7 @@
                     </div>
                     <div class="card bg-base-100 shadow-xl basis-1/2 border">
                         <figure>
-                            <img src="{% static 'img/impulse/pranav_k.jpg' %}" alt="Pranav Koundinya"
+                            <img src="{% static 'img/electrika/pranav_k.jpg' %}" alt="Pranav Koundinya"
                                 class="h-96 rounded-md"/>
                         </figure>
                         <div class="card-body">

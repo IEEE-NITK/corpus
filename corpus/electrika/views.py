@@ -40,6 +40,8 @@ def home(request):
         config["reg_end_datetime"],
     )
 
+    print(reg_start_datetime, reg_end_datetime)
+
     reg_start_datetime, reg_end_datetime = datetime.strptime(
         reg_start_datetime, DATETIME_FORMAT
     ), datetime.strptime(reg_end_datetime, DATETIME_FORMAT)
@@ -52,6 +54,8 @@ def home(request):
 
     args["registration_active"] = registration_active
     args["registration_done"] = registration_done
+
+    print(args)
 
     return render(
         request,
@@ -68,7 +72,7 @@ def index(request):
         args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         messages.error(request, "Please register for Electrika first!")
-        return redirect("electrika_user")
+        return redirect("electrika_home")
     
     if electrika_user.team is not None:
         args["in_team"] = True
@@ -97,14 +101,6 @@ def index(request):
     
         args["team"] = team
         args["members"] = members
-        args["payment_status"] = team.payment_status
-
-        pay_status = "Not Registered"
-
-        if args["payment_status"] == "E" or args["payment_status"] == "P":
-            pay_status = "Complete"
-        elif args["payment_status"] == "U":
-            pay_status = "Incomplete"
 
     else:
         args["in_team"] = False
@@ -131,14 +127,9 @@ def index(request):
     
     args["registration_active"] = registration_active
 
-    try :
-        if pay_status == "Complete":
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "P"])
-        elif pay_status == "Incomplete":
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "U"])
-        else:
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
-    except:
+    if electrika_user.team is not None:
+        announcements = Announcement.objects.filter(announcement_type__in=["A", "T"])
+    else:
         announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
 
     announcements = announcements.order_by("-date_created")
@@ -214,11 +205,6 @@ def create_team(request):
                 team = form.save(commit=False)
                 electrika_user = ElectrikaUser.objects.get(user=request.user)
                 team.team_leader = electrika_user
-
-                if electrika_user.from_nitk or electrika_user.ieee_member:
-                    team.payment_status = "E"
-                else:
-                    team.payment_status = "U"
 
                 team.save() 
                 electrika_user.team = team
@@ -306,11 +292,6 @@ def accept_invite(request, pk):
     electrika_user.team = invite.inviting_team
     electrika_user.save()
 
-    if electrika_user.from_nitk or electrika_user.ieee_member:
-        inviting_team = invite.inviting_team
-        inviting_team.payment_status = "E"
-        inviting_team.save()
-
     Invite.objects.filter(invite_email=request.user.email).delete()
 
     messages.success(request, "Invite accepted!")
@@ -371,35 +352,12 @@ def announcements_management(request):
                     email_ids = list(
                         Team.objects.values_list("team_leader__user__email", flat=True)
                     )
-                elif announcement.announcement_type == "P":
-                    email_ids = list(
-                        Team.objects.filter(payment_status="P").values_list(
-                            "team_leader__user__email", flat=True
-                        )
-                    )
-                elif announcement.announcement_type == "U":
-                    email_ids = list(
-                        Team.objects.filter(payment_status="U").values_list(
-                            "team_leader__user__email", flat=True
-                        )
-                    )
+
             elif mail_option == "3":
                 # for all members
                 if announcement.announcement_type == "A":
                     email_ids = list(
                         ElectrikaUser.objects.values_list("user__email", flat=True)
-                    )
-                elif announcement.announcement_type == "P":
-                    email_ids = list(
-                        ElectrikaUser.objects.filter(team__payment_status="P").values_list(
-                            "user__email", flat=True
-                        )
-                    )
-                elif announcement.announcement_type == "U":
-                    email_ids = list(
-                        ElectrikaUser.objects.filter(team__payment_status="U").values_list(
-                            "user__email", flat=True
-                        )
                     )
                 elif announcement.announcement_type == "N":
                     email_ids = list(
@@ -407,23 +365,12 @@ def announcements_management(request):
                             "user__email", flat=True
                         )
                     )
-                elif announcement.announcement_type == "NI":
-                    # all users who have not registered for electrika
-                    users = User.objects.exclude(
-                        email__in=ElectrikaUser.objects.values_list("user__email", flat=True)
+                elif announcement.announcement_type == "T":
+                    email_ids = list(
+                        ElectrikaUser.objects.filter(team__isnull=False).values_list(
+                            "user__email", flat=True
+                        )
                     )
-
-                    users = users.exclude(
-                        email__in=[
-                            "electrika_admin",
-                            "embedathon_admin",
-                        ]
-                    )
-                    users = users.exclude(is_staff=True)
-                    users = users.exclude(is_superuser=True)
-                    
-                    email_ids = list(users.values_list("email", flat=True))
-                    
                     
             if email_ids is not None:
                 send_email(
@@ -453,40 +400,6 @@ def delete_announcement(request, pk):
     messages.success(request, "Successfully deleted announcement!")
     return redirect("electrika_announcements")
 
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def mark_payment_complete(request, pk):
-    team = Team.objects.get(pk=pk)
-    team.payment_status = "P"
-    team.save()
-    for member in ElectrikaUser.objects.filter(team=team):
-        if member.user.email != None:
-            send_email(
-                "Payment Complete | Electrika",
-                "emails/electrika/payment_complete.html",
-                {"team": team, "user": member.user},
-                bcc=[member.user.email],
-            )
-    messages.success(request, "Successfully marked payment as complete and sent emails!")
-    return redirect("electrika_admin_team_page", pk=pk)
-
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def mark_payment_incomplete(request, pk):
-    team = Team.objects.get(pk=pk)
-    team.payment_status = "U"
-    team.save()
-    for member in ElectrikaUser.objects.filter(team=team):
-        if member.user.email != None:
-            send_email(
-                "Payment Incomplete | Electrika",
-                "emails/electrika/payment_incomplete.html",
-                {"team": team, "user": member.user},
-                bcc=[member.user.email],
-            )
-    messages.success(request, "Successfully marked payment as incomplete!")
-    return redirect("electrika_admin_team_page", pk=pk)
-
 
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
@@ -504,12 +417,6 @@ def download_csv_non_registrants(request):
         email__in=ElectrikaUser.objects.values_list("user__email", flat=True)
     )
 
-    users = users.exclude(
-        email__in=[
-            "electrika_admin",
-            "embedathon_admin",
-        ]
-    )
     users = users.exclude(is_staff=True)
     users = users.exclude(is_superuser=True)
         

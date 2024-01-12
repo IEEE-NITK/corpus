@@ -16,16 +16,6 @@ urlpatterns = [
     path("admin", views.admin, name="electrika_admin"),
     path("admin/teams", views.team_management, name="electrika_admin_teams"),
     path("admin/team/<int:pk>", views.team_page, name="electrika_admin_team_page"),
-    path(
-        "admin/team/<int:pk>/mark_payment_complete",
-        views.mark_payment_complete,
-        name="electrika_admin_mark_payment_complete",
-    ),
-    path(
-        "admin/team/<int:pk>/mark_payment_incomplete",
-        views.mark_payment_incomplete,
-        name="electrika_admin_mark_payment_incomplete",
-    ),
     path("admin/users", views.user_management, name="electrika_admin_users"),
     path(
         "admins/announcements",

@@ -23,11 +23,6 @@ class Team(models.Model):
     team_leader = models.ForeignKey(
         ElectrikaUser, on_delete=models.CASCADE, related_name="leader"
     )
-
-    payment_status = models.CharField(
-        max_length=1, choices=PAYMENT_STATUS, blank=False, null=False, default="U"
-    )
-
     def __str__(self):
         return self.team_name
     
@@ -35,8 +30,7 @@ class Announcement(models.Model):
 
     AnnouncementType = (
         ("A", "All Electrika Users"),
-        ("P", "Paid Teams"),
-        ("U", "Unpaid Teams"),
+        ("T", "All Electrika Teams"),
         ("N", "Registered for Electrika but no team"),
     )
 
