@@ -5,6 +5,7 @@ from config.models import DATETIME_FORMAT
 from config.models import ModuleConfiguration
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.shortcuts import redirect
 from impulse.models import Announcement
 from impulse.models import ImpulseUser
@@ -348,7 +349,16 @@ def team_page(request, pk):
 @ensure_group_membership(group_names=["impulse_admin"])
 def user_management(request):
     args = {}
-    args["users"] = ImpulseUser.objects.all()
+    users = ImpulseUser.objects.all()
+
+    nitk_count = users.values("from_nitk").annotate(count=Count("from_nitk"))
+    ieee_count = users.values("ieee_member").annotate(count=Count("ieee_member"))
+
+    args = {
+        "users": users,
+        "nitk_count": nitk_count,
+        "ieee_count": ieee_count,
+    }
     return render(request, "impulse/admin/users.html", args)
 
 @login_required
@@ -369,7 +379,7 @@ def announcements_management(request):
                     )
                 elif announcement.announcement_type == "P":
                     email_ids = list(
-                        Team.objects.filter(payment_status="P").values_list(
+                        Team.objects.filter(payment_status__in=["P", "E"]).values_list(
                             "team_leader__user__email", flat=True
                         )
                     )
@@ -387,7 +397,8 @@ def announcements_management(request):
                     )
                 elif announcement.announcement_type == "P":
                     email_ids = list(
-                        ImpulseUser.objects.filter(team__payment_status="P").values_list(
+                        # send to both paid and exempted teams
+                        ImpulseUser.objects.filter(team__payment_status__in=["P", "E"]).values_list(
                             "user__email", flat=True
                         )
                     )
@@ -483,34 +494,22 @@ def mark_payment_incomplete(request, pk):
     messages.success(request, "Successfully marked payment as incomplete!")
     return redirect("impulse_admin_team_page", pk=pk)
 
-
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
-def download_csv_non_registrants(request):
+def team_download(request):
     import csv
     from django.http import HttpResponse
 
     response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="non_registrants.csv"'
+    response["Content-Disposition"] = 'attachment; filename="teams.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(["Name", "Email"])
+    writer.writerow(["First Name", "Last Name", "Email"])
 
-    users = User.objects.exclude(
-        email__in=ImpulseUser.objects.values_list("user__email", flat=True)
-    )
-
-    users = users.exclude(
-        email__in=[
-            "impulse_admin",
-            "embedathon_admin",
-        ]
-    )
-    users = users.exclude(is_staff=True)
-    users = users.exclude(is_superuser=True)
-        
-
-    for user in users:
-        writer.writerow([user, user.email])
+    for team in Team.objects.filter(payment_status__in=["P", "E"]):
+        leader = team.team_leader
+        writer.writerow([leader.user.first_name, leader.user.last_name, leader.user.email])
 
     return response
+
+
