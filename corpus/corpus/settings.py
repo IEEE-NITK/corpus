@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "embedathon.apps.EmbedathonConfig",
     "impulse.apps.ImpulseConfig",
+    "electrika.apps.ElectrikaConfig",
 ]
 
 MIDDLEWARE = [
