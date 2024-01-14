@@ -11,10 +11,10 @@
   },
   {
     "fields": {
-      "about": "The NITK Diode SIG is a combination of the Circuits and Systems (CAS) Society, Signal Processing Society (SPS) and the Industrial Applications Society (IAS).\r\nThe SIG consists of a team of students with a strong interest in the field of Electronics and Electrical Science, and works on conceiving and pioneering solutions to fundamental and applied problems in the fields of robotics, microcontrollers and signal processing.\r\nIEEE NITK inaugurated the IEEE Industrial Applications Society student chapter in the year 2019. This year we saw a steady increase in the number of activities and events organized by the student chapter.",
+      "about": "The NITK Diode SIG is a combination of the Circuits and Systems (CAS) Society, Signal Processing Society (SPS) and the Industrial Applications Society (IAS).\r\nThe SIG consists of a team of students with a strong interest in the field of Electronics and Electrical Science, and works on conceiving and pioneering solutions to fundamental and applied problems in the fields of robotics, microcontrollers and signal processing.",
       "name": "Diode",
       "slug": "diode",
-      "what_we_do": "For 2019-20 IAS saw one project on a battery based solar powered inverter being completed under its wing. To enrich its members with knowledge in the fields of power electronics, the chapter held 3 workshop sessions. Additionally, in collaboration with the Department of Electrical and Electronics Engineering, the IAS student chapter organized a national conference PETPES 2019."
+      "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode."
     },
     "model": "config.sig",
     "pk": 2
