@@ -6,7 +6,7 @@ DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
 class SIG(models.Model):
     """
     SIG Model.
-    Defines all sigs that are part of IEEE NITK SB.
+    Defines all SIGs that are part of IEEE NITK.
     """
 
     name = models.CharField(verbose_name="Name", max_length=10, unique=True)
@@ -15,7 +15,7 @@ class SIG(models.Model):
     slug = models.SlugField(unique=True, null=True)  # Added SlugField for url access
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     class Meta:
         verbose_name = "SIG"
@@ -89,25 +89,7 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
-class SIG(models.Model):
-    IEEE_SIGs=[
-        ("CompSoc","CompSoc"),
-        ("Diode","Diode"),
-        ("Piston","Piston"),
-        ("WiE","WiE"),
-        ("SIGHT","SIGHT"),
-    ]
-    name = models.CharField(verbose_name="Name", max_length=10, unique=True, choices=IEEE_SIGs)
-    aboutus=models.CharField(verbose_name="AboutUs")
-    whatwedo=models.CharField(verbose_name="WhatWeDo")
 
-    def __str__(self):
-        return self.get_name_display()
-
-    class Meta:
-        verbose_name = "SIG"
-        verbose_name_plural = "SIGs"
-        
 class ModuleConfiguration(models.Model):
     module_name = models.CharField(max_length=200, blank=False, null=False)
     module_enabled = models.BooleanField(default=False)

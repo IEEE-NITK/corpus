@@ -9,6 +9,13 @@
     <div class="prose mx-auto my-10">
         <h1 class="text-center">Team Management</h1>
         <p><strong>Number of teams:</strong> {{ teams.count }}</p>
+        <div class="my-1">
+            <h3>Stats</h3>
+            {% for item in team_counts %}
+                <p><strong>{{ item.payment_status }}:</strong>{{ item.count }}</p>
+            {% endfor %}
+            <p>where E = Exempt, P = Paid, U = Unpaid.</p>
+        </div>
         <div class="overflow-x-auto my-5">
             <table class="table table-zebra">
                 <thead>

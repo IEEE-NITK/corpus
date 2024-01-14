@@ -19,6 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.6/dist/full.min.css" rel="stylesheet" type="text/css"/>
     {% block style %}
     {% endblock %}
+    {% if USE_TAILWIND_CDN_LINK %}
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
     <script>
         tailwind.config = {
@@ -28,6 +29,8 @@
             darkMode: ['class', '[data-theme="night"]']
         }
     </script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/tailwind-min.css' %}" />
     <style>
         body,
         html {

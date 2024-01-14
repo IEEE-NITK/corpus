@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     "config.apps.ConfigConfig",
     "accounts.apps.AccountsConfig",
     "embedathon.apps.EmbedathonConfig",
+    "impulse.apps.ImpulseConfig",
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                # Custom context processors
+                "pages.context_processors.tailwind_cdn_link",
             ],
         },
     },
@@ -177,3 +180,5 @@ EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "corpusieeenitk@gmail.com")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "gmailapppassword")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+
+USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None

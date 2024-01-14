@@ -1,59 +1,60 @@
-{% extends "base.html" %}
+{% extends "impulse/base.html" %}
 
 {% load static %}
 
 {% block title %} Impulse {% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
-<style>
-    .hero {
-        background-color: rgba(0, 0, 0, 0.5);
-        background-image: url("{% static 'img/ieee-impulse.png' %}");
-        background-size: cover;
-        background-position: center;
-        background-blend-mode: overlay;
-    }
-    /* Small screens (default full width) */
-    @media (min-width: 640px) {
-        #schedule {
-            max-width: 70%;
-        }
-    }
-    
-    /* Medium screens */
-    @media (min-width: 768px) {
-        #schedule {
-            max-width: 80%;
-        }
-    }
-    
-    /* Large screens */
-    @media (min-width: 1024px) {
-        #schedule {
-            max-width: 50%;
-        }
-    }
-    
-    /* Extra-large screens */
-    @media (min-width: 1280px) {
-        #schedule {
-            max-width: 50%;
-        }
-    }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <style>
 
-    .tick {
-        background-color: currentColor;
-        -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-        mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-    }
+        .hero {
+            background-color: rgba(0, 0, 0, 0.5);
+            background-image: url("{% static 'img/ieee-impulse.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        /* Small screens (default full width) */
+        @media (min-width: 640px) {
+            #schedule {
+                max-width: 70%;
+            }
+        }
+        
+        /* Medium screens */
+        @media (min-width: 768px) {
+            #schedule {
+                max-width: 80%;
+            }
+        }
+        
+        /* Large screens */
+        @media (min-width: 1024px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
+        
+        /* Extra-large screens */
+        @media (min-width: 1280px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
 
-    .arrowdown {
-        background-color: currentColor;
-        -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-        mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-    }
-</style>
+        .tick {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        }
+
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -64,10 +65,23 @@
         <div class="hero-content text-center flex-col pb-20">
             <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/logo/impulse_2024.png' %}" alt="Impulse Logo">
             <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white dark:text-white">Impulse</h1>
+            {% if admin %}
+                <a href="{% url 'impulse_admin' %}" class="btn btn-primary mt-10">Admin</a>
+            {% endif %}
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
+            <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p>
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
-            <a href="#" target="" class="btn btn-primary mt-8 mb-0">Registrations Opening soon</a>
+            {% if registration_active and not registration_done and not registered %}
+                <a href="{% url 'impulse_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a> 
+            {% elif registration_done and not registered %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
+            {% elif registered %}
+                <a class="btn btn-primary mt-10" href="{% url 'impulse_index' %}">Go to Dashboard</a>
+            {% else %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
+            {% endif %}
+
             <br>
         <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
             <div class="arrowdown h-10 w-10 m-0 p-0"></div>
@@ -91,38 +105,48 @@
                 </div>  
             </div>
         </div>
-        <br>
-        <div class="about-container">
-            <div class="col content text-center">
-                <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">SPEAKERS</h2>
-                <!-- <div class="row">
-                <div class="col-lg-6 text-center mx-auto" id="first_speaker">
-                    <div class="container">
-                    <img src="/assets/img/shayan_srinivas.png" alt="Prof. Achuta Kadambi" class="img-fluid img-responsive"> </img>
-                    </div>
-
-                    <br>
-
-                    <h4 style="color: black;"> <strong>Prof. Shayan Srinivasa Garani</strong> </h4>
-
-                    Prof. Shayan Srinivasa Garani is currently the Director of PNSI Lab, IISc Bangalore, and the former Chair of the IEEE Data Storage Technical Committee. He received his Ph.D. in Electrical and Computer Engineering from Georgia Institute of Technology - Atlanta, M.S. from the University of Florida - Gainesville, and B.E. from Mysore University. Before joining IISc, he held senior engineering positions within Broadcom Corporation, ST Microelectronics, and Western Digital. His research interests include broad areas of applied mathematics, physical modeling, coding, signal processing, and VLSI systems architecture for novel magnetic/optical recording channels, quantum information processing, neural nets, and mathematical modeling of complex systems.
-                </div>
-
-                <div class="col-lg-6 text-center">
-                    <div class="container">
-                    <img src="/assets/img/events/Impulse/Shreyas-Rao.jpg" alt="Pradyumna Chari" class="img-fluid img-responsive" style="width: 300px; height: 270px; object-fit: contain;"></img>
-                    </div>
-
-                    <br>
-
-                    <h4 style="color: black;"> <strong>Shreyas Rao</strong> </h4>
-                    Shreyas Rao is a final year student from the department of Electrical and Electronics Engineering, NITK. His interests lie in the fields of signal processing and machine learning. He has previously interned at Spectrum lab - IISc Bangalore and the University of Illinois Urbana-Champaign. He is also the Chair of the Signal Processing Society at the IEEE NITK Student Chapter.
-                </div>
-                </div> -->
-                <p class='text-md md:text-lg lg:text-xl'>To be revealed Soon!</h2>
-            </div>
-        </div>
     </section>
+    <div class="prose max-w-none flex flex-row">
+        <div class="md:basis-1/6"></div>
+        <div class="px-10 md:px-0 lg:basis-5/6 md:basis-4/6">
+            <section id="speakers" class="py-5 px-5">
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
+                    Speakers</h2>
+                <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/impulse/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Breaking the Black Box: Explainability of AI/ML Models for Trustworthy Systems</h2>
+                            <span>By Vineeth N Balasubramanian</span>
+                            <span>Vineeth N Balasubramanian is a Professor in the Department of Computer Science and Engineering at IIT-Hyderabad, India, and a recent Fulbright-Nehru Visiting Faculty Fellow at Carnegie Mellon University until July 2023. He served as the Founding Head of the Department of Artificial Intelligence at IIT-H from 2019-22. His research focuses on deep learning, machine learning, and computer vision, particularly in explainability, continual learning, and limited labeled data scenarios. He has received numerous accolades, including the Research Excellence Award at IIT-H (2022), Google Research Scholar Award (2021), and NASSCOM AI Gamechanger Award (2022). He is listed among the World's Top 2% Scientists and actively contributes to premier conferences such as CVPR, ICCV, AAAI, IJCAI, ECCV in various senior roles.</span>
+                            <div class="card-actions">
+                                <strong>11th Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/impulse/pranav_k.jpg' %}" alt="Pranav Koundinya"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Workshop on Grad-CAM</h2>
+                            <span>By Pranav Koundinya</span>
+                            <span>Chairperson of the Signal Processing Society, IEEE-NITK Student Branch</span>
+                            <span> A final year undergrad in the ECE department, he has worked as a research intern under Prof. Chandra Sekhar Seelamantula at the Spectrum Lab, Indian Institute of Science, Bangalore, where he has worked on the analysis and development of visual anomaly detection models for industrial applications. His interests lie in the fields of image signal processing, computer vision and deep learning.</span>
+                            <div class="card-actions">
+                                <strong>12th Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="md:basis-1/6"></div>
+    </div>
 
     {% comment %} Prizes Section {% endcomment %}
       <section id="prizes" 
@@ -130,7 +154,7 @@
         <div class=" pt-10">
             <div class="section-header">
                 <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold py-0 my-0">Prizes</h3>
-                <p class="section-description py-0 my-0">Exciting Prizes await you!</p>
+                <p class="section-description py-0 my-0">Exciting prizes to be won!</p>
             </div>
         </div>
 
@@ -160,8 +184,8 @@
             <!-- ---------------------- -->
             <div class="col-lg-12 col-12 text-center">
                 <center>
-                    <!-- <p style="font-size: 1.5em; ">Prizes and goodies worth 10k!</p> -->
-                    <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p>
+                    <p style="font-size: 1.5em; ">Prizes and goodies worth INR 8K!</p>
+                    {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
                 </center>
             </div>
             <!-- -------------------------------- -->
@@ -183,7 +207,7 @@
               </div>
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
-                <div class="text-md md:text-lg lg:text-xl font-black">TBD</div>
+                <div class="text-md md:text-lg lg:text-xl font-black">Prelims test</div>
                 
               </div>
               <hr/>
@@ -194,8 +218,8 @@
                 <div class="tick h-5 w-5 m-0 p-0"></div>
               </div>
               <div class="timeline-end mb-10">
-                <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <time class="font-mono italic">11<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">Expert talk by Prof. Vineeth Balasubramanian, IITH</div>
                 
               </div>
               <hr />
@@ -207,7 +231,7 @@
               </div>
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">12<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <div class="text-lg font-black"> Workshop on GradCAM by Pranav Koundinya, SPS Chairperson</div>
                 
               </div>
               <hr />
@@ -218,8 +242,8 @@
                 <div class="tick h-5 w-5 m-0 p-0"></div>
               </div>
               <div class="timeline-end mb-10">
-                <time class="font-mono italic">13<sup>th</sup> Jan, 2024</time>
-                <div class="text-lg font-black">TBD</div>
+                <time class="font-mono italic">13<sup>th</sup> - 14<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">24 hour hackathon</div>
                 
               </div>
               <hr />
@@ -241,6 +265,7 @@
         openFaq8: false,
         openFaq9: false,
         openFaq10: false,
+        openFaq11: false,
         }
         "
         class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -341,11 +366,40 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Is it necessary to be from EC or EEE background?
+                            What to do after registering for Impulse?
                         </h4>
                     </div>
                     </button>
                     <div x-show="openFaq3" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        After registering for Impulse, make sure to create a team name irrespective of you taking part alone or in teams of 2. After creating the team, join the discord link to receive updates and announcements regarding the event.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq4 = !openFaq4"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to be from EC or EEE background?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq4" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -359,12 +413,12 @@
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq4 = !openFaq4"
+                        @click="openFaq5 = !openFaq5"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -374,75 +428,47 @@
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq4" class="faq-content pl-[62px]">
+                    <div x-show="openFaq5" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        Brush up on your knowledge of Linear Algebra, Signals and Systems, aptitude and the basics of Python.
+                        Brush up on your knowledge of Linear Algebra, Signals and Systems, Machine Learning, aptitude and the basics of Python.
                         </p>
                     </div>
                 </div>
-            </div>
-     
-            <div class="w-full px-4 lg:w-1/2">
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq5 = !openFaq5"
-                    >
-                    <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            The preliminary test is on Hackerearth. Is it a competitive coding test?
-                        </h4>
-                    </div>
-                    </button>
-                    <div x-show="openFaq5" class="faq-content pl-[62px]">
-                    <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Aptitude and some Python coding. It will not have any competitive coding style questions.
-                    </p>
-                    </div>
-                </div>
 
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq6 = !openFaq6"
-                    >
-                    <div
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq6 = !openFaq6"
+                        >
+                        <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
                         <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
+                        </div>
+                        <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            How many members in a team?
+                            Will the final 24-hour hackathon be conducted in offline mode? Will there be any accommodation arranged for students coming to NITK?
                         </h4>
-                    </div>
+                        </div>
                     </button>
                     <div x-show="openFaq6" class="faq-content pl-[62px]">
-                    <p
+                        <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        A maximum of two members are allowed per team.
-                    </p>
+                        Final hackathon is in hybrid (both offline and online) mode, teams need not come to NITK campus for final hackathon . If you choose to come to campus, travel and accommodation will not be arranged. Students have to make the travel and accommodation arrangements themselves. Lunch will be provided on 14th January.
+                        </p>
                     </div>
                 </div>
 
+            </div>
+     
+            <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -459,11 +485,69 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                            The preliminary test is on Hackerearth. Is it a competitive coding test?
                         </h4>
                     </div>
                     </button>
                     <div x-show="openFaq7" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Machine Learning, Aptitude and some Python coding. It will not have any competitive coding style questions.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq8 = !openFaq8"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            How many members in a team?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        A maximum of two members are allowed per team.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq9 = !openFaq9"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq9" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -477,12 +561,12 @@
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq8 = !openFaq8"
+                        @click="openFaq10 = !openFaq10"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq10 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -492,7 +576,7 @@
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                    <div x-show="openFaq10" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -500,14 +584,44 @@
                         </p>
                     </div>
                 </div>
+         
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq11 = !openFaq11"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq11 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What is the duration of the final hackathon?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq11" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        The final hackathon will be held for 24 hours from 13th January afternoon to 14th January afternoon. Only those who clear the preliminary test would be eligible for the same.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     {% comment %} Organizers Section {% endcomment %}
-    <section style="margin-bottom: 5%;"
-        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">  
-        <div class="container ">
+    <section
+        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
             <div class="section-header">
                 <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">Organized by</h2>
                 <div class="mx-auto text-center">
@@ -532,7 +646,7 @@
     {% comment %} Contact Section {% endcomment %}
     <section id="contact"
         class="contact bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
-        <div class="container ">
+        <div class="container mx-auto">
         <div class="section-header">
             <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Contact Us</h3>
             <center>
@@ -549,6 +663,7 @@
 {% endblock %}
 
 {% block script %}
+{{ block.super }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>

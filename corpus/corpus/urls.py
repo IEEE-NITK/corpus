@@ -23,4 +23,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("", include("pages.urls")),
     path("embedathon/", include("embedathon.urls")),
+    path("impulse/", include("impulse.urls")),
 ]
