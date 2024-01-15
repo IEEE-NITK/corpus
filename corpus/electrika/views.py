@@ -17,7 +17,7 @@ from electrika.forms import InviteForm
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
-
+from django.db import transaction
 # Create your views here.
 @module_enabled(module_name="electrika")
 def home(request):
@@ -40,8 +40,6 @@ def home(request):
         config["reg_end_datetime"],
     )
 
-    print(reg_start_datetime, reg_end_datetime)
-
     reg_start_datetime, reg_end_datetime = datetime.strptime(
         reg_start_datetime, DATETIME_FORMAT
     ), datetime.strptime(reg_end_datetime, DATETIME_FORMAT)
@@ -54,8 +52,6 @@ def home(request):
 
     args["registration_active"] = registration_active
     args["registration_done"] = registration_done
-
-    print(args)
 
     return render(
         request,
@@ -86,6 +82,8 @@ def index(request):
         config = ModuleConfiguration.objects.get(module_name="electrika").module_config
 
         max_count = int(config["max_team_size"])
+
+        args["max_count"] = max_count
 
         if team_count >= max_count:
             args["team_full"] = True
@@ -307,6 +305,24 @@ def delete_invite(request, pk):
     messages.success(request, "Invite deleted!")
     return redirect("electrika_index")
 
+@login_required 
+@module_enabled(module_name="electrika")
+def opt_in(request):
+    electrika_user = ElectrikaUser.objects.get(user=request.user)
+    electrika_user.to_be_teamed_up = True
+    electrika_user.save()
+    messages.success(request, "Successfully opted in for team formation!")
+    return redirect("electrika_index")
+
+@login_required
+@module_enabled(module_name="electrika")
+def opt_out(request):
+    electrika_user = ElectrikaUser.objects.get(user=request.user)
+    electrika_user.to_be_teamed_up = False
+    electrika_user.save()
+    messages.success(request, "Successfully opted out for team formation!")
+    return redirect("electrika_index")
+
 
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
@@ -329,6 +345,74 @@ def team_page(request, pk):
     args["members"] = ElectrikaUser.objects.filter(team=team)
     return render(request, "electrika/admin/team_page.html", args)
 
+@login_required
+@ensure_group_membership(group_names=["electrika_admin"])
+def create_team_admin(request):
+    import random
+    electrika_users = ElectrikaUser.objects.filter(team=None, to_be_teamed_up=True)
+    TEAM_NAMES = [
+        "Iconoclasts",
+        "Nihilists",
+        "Antagonists",
+        "Whiz Kids",
+        "The Geek Squad",
+        "Net Surfers",
+        "The Informants",
+        "Black Hat Hackers",
+        "Brainiacs",
+        "Quizzical Education",
+        "Phone a Friend",
+        "Witches and Quizards",
+        "The Quizzy Bees",
+        "Wallflowers",
+        "Smart Simpson",
+        "Cheat Sheet",
+        "You Cheated Off Us in High School",
+        "Brainstormers"
+    ]
+
+    num_users = electrika_users.count()
+    num_teams = num_users // 4
+
+    if num_users == 0:
+        messages.error(request, "Not enough users to create teams!")
+        return redirect("electrika_admin_teams")
+
+    try:
+        with transaction.atomic():
+            for i in range(num_teams):
+                team_name = TEAM_NAMES[random.randint(0, len(TEAM_NAMES) - 1)]
+                team = Team(team_name=team_name, team_leader=electrika_users[i*4])
+                team.save()
+                for j in range(4):
+                    index = i*4 + j
+                    if index >= electrika_users.count():
+                        break
+                    user = electrika_users[index]
+                    user.team = team
+                    user.to_be_teamed_up = False
+                    user.save()
+
+            if num_users % 4 != 0:
+                team_name = TEAM_NAMES[num_teams%len(TEAM_NAMES)]
+                team = Team(team_name=team_name, team_leader=electrika_users[num_teams*4])
+                team.save()
+                for j in range(num_users % 4):
+                    index = num_teams*4 + j
+                    if index >= electrika_users.count():
+                        break
+                    user = electrika_users[num_teams*4 + j]
+                    user.team = team
+                    user.to_be_teamed_up = False
+                    user.save()
+    except Exception as e:
+        messages.error(request, "Error creating teams!")
+        return redirect("electrika_admin_teams")
+
+    messages.success(request, "Successfully created teams!")
+    return redirect("electrika_admin_teams")
+
+                  
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
 def user_management(request):
@@ -423,5 +507,31 @@ def download_csv_non_registrants(request):
 
     for user in users:
         writer.writerow([user, user.email])
+
+    return response
+
+@login_required
+@ensure_group_membership(group_names=["electrika_admin"])
+def team_download(request):
+    import csv
+    from django.http import HttpResponse
+
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment; filename="teams.csv"'
+
+    writer = csv.writer(response)
+    
+    queryset = Team.objects.select_related('team_leader__user').values('team_name', 'team_leader__user__first_name', 'team_leader__user__email', 'team_leader__user__phone_no')
+    selected_fields = request.POST.getlist('selected_fields[]')
+
+    # Write header row
+    header_row = selected_fields
+    writer.writerow(header_row)
+
+    # Write data rows
+    for item in queryset:
+        row_data = [str(item[field]) for field in selected_fields]
+    
+        writer.writerow(row_data)
 
     return response

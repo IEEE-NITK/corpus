@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Impulse
+Electrika
 {% endblock %}
 
 {% block style %}
@@ -111,7 +111,7 @@ class="hero min-h-[50vh] min-w-screen">
                                             <form method="post" action="{% url 'electrika_create_team' %}" class="py-5">
                                                 {% csrf_token %}
                                                 <div class="my-2">
-                                                    <label for="{{ team_creation_form.team_name }}"> Team Name</label>
+                                                    <label for='{{team_creation_form.team_name}}'> Team Name</label>
                                                     {{ team_creation_form.team_name }}
                                                     {% if team_creation_form.team_name.errors %}
                                                         <div class="my-1">
@@ -122,7 +122,7 @@ class="hero min-h-[50vh] min-w-screen">
                                                     {% endif %}
                                                 </div>
                                                 <div class="my-2">
-                                                    <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Update Team Details</button>
+                                                    <button class="btn btn-primary btn-block text-white hover:text-white" type="submit">Update Team Details</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -141,13 +141,63 @@ class="hero min-h-[50vh] min-w-screen">
                                 <div class="flex justify-between items-center"> 
                                     <h3>Team Members</h3>
                                     <div class="bg-green-500 text-white rounded-full px-3 py-1 text-sm dark:bg-yellow-500 dark:text-black">
-                                        <strong class="text-black">Team Size</strong>: {{ team_count }} / 2
+                                        <strong class="text-black">Team Size</strong>: {{ team_count }} / {{ max_count }}
                                     </div>
                                 </div>
                                 {% for member in members %}
                                 <div class="member-list mx-auto">
-                                    <div class="mb-4 mx-auto">
+                                    <div class="mb-4 mx-auto flex justify-between items-center">
                                         {{ member.user }}
+                                        <button class="btn btn-sm btn-circle mx-3" title="View Member" onclick="member_modal_{{ member.pk }}.showModal()">
+                                            view
+                                        </button>
+                                        <dialog id="member_modal_{{ member.pk }}" class="modal">
+                                            <div class="modal-box">
+                                                <form method="dialog">
+                                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                                </form>
+                                                <h3 class="font-bold text-lg">Member Details</h3>
+                                                {% comment %}  Member Details Table {% endcomment %}
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="font-bold">Name</td>
+                                                            <td>{{ member.user }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Email</td>
+                                                            <td>{{ member.user.email }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Phone Number</td>
+                                                            <td>{{ member.user.phone_no }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">College</td>
+                                                            <td>{{ member.college_name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Roll Number</td>
+                                                            <td>{{ member.roll_no }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">IEEE Member</td>
+                                                            <td>{{ member.member_ieee_member | yesno:"Yes,No" }}</td>
+                                                        </tr>
+                                                        {% if member.ieee_member %}
+                                                        <tr>
+                                                            <td class="font-bold">IEEE Membership Number</td>
+                                                            <td>{{ member.ieee_membership_no }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        <tr>
+                                                            <td class="font-bold">Member from NITK</td>
+                                                            <td>{{ member.from_nitk | yesno:"Yes,No" }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </dialog>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -214,7 +264,7 @@ class="hero min-h-[50vh] min-w-screen">
                                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 <span>
-                                    YOU ARE NOT IN A TEAM. Please create a team or join an existing team to complete your registration for Impulse. Even if you plan on participating individually, you will have to create a team.
+                                    YOU ARE NOT IN A TEAM. Please create a team or join an existing team to complete your registration for Electrika. Even if you plan on participating individually, you will have to create a team.
                                 </span>
                             </div>
                             <div>
@@ -267,10 +317,28 @@ class="hero min-h-[50vh] min-w-screen">
                                         {% endif %}
                                     </div>
 
-                                    <div class="card-actions mt-5">
+                                    <div class="card-actions mt-5 mb-10">
                                         <button class="btn btn-primary btn-block">Create Team</button>
                                     </div>
                                 </form>
+
+
+                                {% comment %} if not in a team and opted to teamed up {% endcomment %}
+                                {% if not in_team and electrika_user.to_be_teamed_up %}
+                                    <p class="text-sm font-bold">You have opted to be teamed up. You will be assigned a
+                                        team by the organizers.</p>
+                                    <a href="{% url 'electrika_opt_out' %}">
+                                        <button class="btn btn-accent" href="{% url 'electrika_opt_out' %}">Opt Out</button>
+                                    </a>
+                                {% elif not in_team and not electrika_user.to_be_teamed_up %}
+                                    <p class="text-sm font-bold">You have opted to not be teamed up. You will have to
+                                        create a team or join an existing team to complete your registration for
+                                        Electrika.</p>  
+                                    <a href = "{% url 'electrika_opt_in' %}">
+                                        <button class="btn btn-accent" href="{% url 'electrika_opt_in' %}">Opt In</button>
+                                    </a>
+                                {% endif %}
+ 
                             </div> 
                         {% endif %}
                     </div>
@@ -328,17 +396,4 @@ class="hero min-h-[50vh] min-w-screen">
             ieeeCheckbox.addEventListener("change", toggleIEEE);
         });
     </script>    
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script>
-        function setParticlesConfig(config) {
-            particlesJS('particles-js', config);
-        }
-        fetch('{% static 'js/electrika/particles.json' %}')
-            .then(response => response.json())
-            .then(particlesConfig => {
-                setParticlesConfig(particlesConfig);
-            })
-            .catch(error => console.error('Error fetching particles config:', error));
-
-    </script>
 {% endblock %}

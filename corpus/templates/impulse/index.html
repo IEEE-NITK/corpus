@@ -99,7 +99,7 @@ class="hero min-h-[50vh] min-w-screen">
                                             <form method="post" action="{% url 'impulse_create_team' %}" class="py-5">
                                                 {% csrf_token %}
                                                 <div class="my-2">
-                                                    <label for="{{ team_creation_form.team_name }}"> Team Name</label>
+                                                    <label for='{{ team_creation_form.team_name }}'> Team Name</label>
                                                     {{ team_creation_form.team_name }}
                                                     {% if team_creation_form.team_name.errors %}
                                                         <div class="my-1">

@@ -139,21 +139,24 @@
             <section id="speakers" class="py-5 px-5">
                 <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
                     Speakers</h2>
-                {% comment %} <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
-                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
+                    <div class="card bg-base-300 shadow-xl">
                         <figure>
-                            <img src="{% static 'img/electrika/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
+                            <img src="{% static 'img/electrika/Naman.jpg' %}" alt="Naman Agarwal"
                                 class="h-96 rounded-md"/>
                         </figure>
                         <div class="card-body">
-                            <h2 class="card-title">Breaking the Black Box: Explainability of AI/ML Models for Trustworthy Systems</h2>
-                            <span>By Vineeth N Balasubramanian</span>
-                            <span>Vineeth N Balasubramanian is a Professor in the Department of Computer Science and Engineering at IIT-Hyderabad, India, and a recent Fulbright-Nehru Visiting Faculty Fellow at Carnegie Mellon University until July 2023. He served as the Founding Head of the Department of Artificial Intelligence at IIT-H from 2019-22. His research focuses on deep learning, machine learning, and computer vision, particularly in explainability, continual learning, and limited labeled data scenarios. He has received numerous accolades, including the Research Excellence Award at IIT-H (2022), Google Research Scholar Award (2021), and NASSCOM AI Gamechanger Award (2022). He is listed among the World's Top 2% Scientists and actively contributes to premier conferences such as CVPR, ICCV, AAAI, IJCAI, ECCV in various senior roles.</span>
+                            <h2 class="card-title"> DC converters: An overview </h2>
+                            <span>By Naman Agarwal</span>
+                            <span>Naman Agarwal, an MSc graduate in Sustainable Energy Technology from TU Delft, served as the founding chair of the IAS society at IEEE NITK. Graduating from NITK in 2021, Naman specializes in Power Electronics, with experience from roles at Infineon and Lightyear. At Infineon, he contributed to the industrial power control division, focusing on the development of a SiC MOSFET-based wide input voltage auxiliary power supply. Later, at Lightyear, he played a role in designing a bias power supply solution for a GaN-based multilevel inverter.
+                            </span>
                             <div class="card-actions">
-                                <strong>11th Jan, 2024</strong>
+                                <strong>23<sup>rd</sup> Jan, 2024</strong>
                             </div>
                         </div>
                     </div>
+                </div>
+                    {% comment %}
                     <div class="card bg-base-100 shadow-xl basis-1/2 border">
                         <figure>
                             <img src="{% static 'img/electrika/pranav_k.jpg' %}" alt="Pranav Koundinya"
@@ -171,7 +174,7 @@
                     </div>
                 </div> {% endcomment %}
                 {% comment %} To be announced soon {% endcomment %}
-                <p class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">To be announced soon</p>
+                {% comment %} <p class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">To be announced soon</p> {% endcomment %}
             </section>
         </div>
         <div class="md:basis-1/6"></div>
@@ -213,7 +216,7 @@
             <!-- ---------------------- -->
             <div class="col-lg-12 col-12 text-center">
                 <center>
-                    <p style="font-size: 1.5em;" class='mb-0 pb-0'>Top 2 Teams receive cash prizes from a pool of 5000 INR</p>
+                    <p style="font-size: 1.5em;" class='mb-0 pb-0'>Top 2 Teams receive prizes from a pool of 5000 INR</p>
                     <div class="overflow-x-auto max-w-[300px] text-sm md:text-md lg:text-lg mt-0 pt-0">
                         <table class="table">
                           <tbody>
@@ -354,6 +357,7 @@
         openFaq13: false,
         openFaq14: false,
         openFaq15: false,
+        openFaq16: false,
         }
         "
         class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -813,6 +817,35 @@
                         </p>
                     </div>
                 </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq16 = !openFaq16"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq16 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What are the software requirements one should have?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq16" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Participants should have access to Matlab or simulink or Ltspice or any other equivalent software used for simulating circuits.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -863,33 +896,19 @@
 
 {% block script %}
 {{ block.super }}
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script>
-    function setParticlesConfig(config) {
-        particlesJS('particles-js', config);
-    }
-    fetch('{% static 'js/electrika/particles.json' %}')
-        .then(response => response.json())
-        .then(particlesConfig => {
-            setParticlesConfig(particlesConfig);
-        })
-        .catch(error => console.error('Error fetching particles config:', error));
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-</script>
+    <script>
+        function smoothScroll(target) {
+            const targetElement = document.querySelector(target);
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
-<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-<script>
-    function smoothScroll(target) {
-        const targetElement = document.querySelector(target);
-
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop,
-                behavior: 'smooth',
-            });
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth',
+                });
+            }
         }
-    }
-</script>
+    </script>
 {% endblock %}

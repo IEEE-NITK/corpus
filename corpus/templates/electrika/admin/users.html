@@ -1,4 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'electrika/base.html' %}
+
+
 
 {% block title %}
     User Management | Admin
@@ -23,10 +25,10 @@
         </div>
 
         <div class="overflow-x-auto my-5">
-            <table class="table table-zebra">
+            <table class="table table-zebra" id="users_table">
                 <thead>
                 <tr>
-                    <th></th>
+                    <th>S.No.</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>From NITK?</th>
@@ -55,4 +57,31 @@
 
         <a href="{% url 'electrika_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
     </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(document).ready( function () {
+            $('#users_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                language: {
+                    select: {
+                        rows: {
+                            _: "Selected %d rows",
+                            0: "Click a row to select it",
+                            1: "Selected 1 row"
+                        }
+                    }
+                },
+                select: true,
+                select: {
+                    blurable: true,
+                }
+            });
+        } );
+    </script>
 {% endblock %}

@@ -9,32 +9,62 @@
     <div class="prose mx-auto my-10">
         <h1 class="text-center">Team Management</h1>
         <p><strong>Number of teams:</strong> {{ teams.count }}</p>
-        <div class="overflow-x-auto my-5">
-            <table class="table table-zebra">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Leader</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for team in teams %}
+        
+            <div class="overflow-x-auto my-5">
+                <table class="table table-zebra" id="teams_table">
+                    <thead>
                     <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ team.team_name }}</td>
-                        <td>{{ team.team_leader.user }}</td>
-                        <td>
-                            <a href="{% url 'electrika_admin_team_page' pk=team.pk %}"
-                               class="btn btn-info text-black font-bold no-underline">View</a>
-                        </td>
+                        <th>Name</th>
+                        <th>Leader</th>
+                        <th>Leader Email</th>
+                        <th>Leader Phone</th>
+                        <th>Actions</th>
                     </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                    {% for team in teams %}
+                        <tr>
+                            <td>{{ team.team_name }}</td>
+                            <td>{{ team.team_leader.user }}</td>
+                            <td>{{ team.team_leader.user.email }}</td>
+                            <td>{{ team.team_leader.user.phone_no }}</td>
+                            <td>
+                                <a href="{% url 'electrika_admin_team_page' pk=team.pk %}"
+                                   class="btn btn-info text-black font-bold no-underline">View</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
+        <a href="{% url 'electrika_admin_team_create' %}" class="btn btn-primary text-black font-bold no-underline">Put all opted in users into teams</a>
         <a href="{% url 'electrika_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
     </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(document).ready( function () {
+            $('#teams_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                language: {
+                    select: {
+                        rows: {
+                            _: "Selected %d rows",
+                            0: "Click a row to select it",
+                            1: "Selected 1 row"
+                        }
+                    }
+                },
+                select: true,
+                select: {
+                    blurable: true,
+                }
+            });
+        } );
+    </script>
 {% endblock %}

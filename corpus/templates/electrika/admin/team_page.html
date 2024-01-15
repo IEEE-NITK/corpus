@@ -13,12 +13,13 @@
         <div>
             <h3>Members</h3>
             <div class="overflow-x-auto my-5">
-                <table class="table table-zebra">
+                <table class="table table-zebra" id="members_table">
                     <thead>
                     <tr>
-                        <th></th>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Phone</th>
                         <th>From NITK?</th>
                         <th>College Name</th>
                         <th>IEEE Member?</th>
@@ -31,6 +32,7 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{ member.user }}</td>
                             <td>{{ member.user.email }} </td>
+                            <td>{{ member.user.phone_no }}</td>
                             <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
                             <td>{{ member.college_name }}</td>
                             <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
@@ -45,4 +47,31 @@
         <a href="{% url 'electrika_admin_teams' %}"
            class="btn btn-secondary text-black font-bold no-underline">Back</a>
     </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(document).ready( function () {
+            $('#members_table').DataTable( {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
+                language: {
+                    select: {
+                        rows: {
+                            _: "Selected %d rows",
+                            0: "Click a row to select it",
+                            1: "Selected 1 row"
+                        }
+                    }
+                },
+                select: true,
+                select: {
+                    blurable: true,
+                }
+            });
+        } );
+    </script>
 {% endblock %}

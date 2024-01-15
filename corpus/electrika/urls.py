@@ -13,8 +13,11 @@ urlpatterns = [
     path(
         "delete_invite/<int:pk>", views.delete_invite, name="electrika_delete_invite"
     ),
+    path("teamify/optin", views.opt_in, name="electrika_opt_in"),
+    path("teamify/optout", views.opt_out, name="electrika_opt_out"),
     path("admin", views.admin, name="electrika_admin"),
     path("admin/teams", views.team_management, name="electrika_admin_teams"),
+    path("admin/teams/create", views.create_team_admin, name="electrika_admin_team_create"),
     path("admin/team/<int:pk>", views.team_page, name="electrika_admin_team_page"),
     path("admin/users", views.user_management, name="electrika_admin_users"),
     path(
@@ -28,9 +31,8 @@ urlpatterns = [
         name="electrika_delete_announcement",
     ),
     path(
-        "admin/download_csv",
-        views.download_csv_non_registrants,
-        name="electrika_download_csv",
-    ),
-
+        "admin/team/download_csv",
+        views.team_download,
+        name="electrika_admin_download_teams_csv",
+    )
 ]

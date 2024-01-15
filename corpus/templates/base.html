@@ -78,7 +78,9 @@
 {% block content %}
 {% endblock %}
 
-{% include "components/dark_mode_toggle.html" %}
+{% block dark_mode_toggle %}
+    {% include "components/dark_mode_toggle.html" %}
+{% endblock %}
 
 {% include "components/general_footer.html" %}
 <footer class="footer px-10 py-4 border-t bg-neutral text-neutral-content border-base-300">
