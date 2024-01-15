@@ -18,4 +18,5 @@ RUN chmod +x ./start_dev.sh
 
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
+RUN npm i
 RUN npm run tailwind-prod
