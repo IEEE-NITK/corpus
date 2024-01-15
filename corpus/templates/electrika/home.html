@@ -1,0 +1,914 @@
+{% extends "electrika/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <style>
+
+        .hero {
+            background-color: rgba(0, 0, 0);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        /* Small screens (default full width) */
+        @media (min-width: 640px) {
+            #schedule {
+                max-width: 70%;
+            }
+        }
+        
+        /* Medium screens */
+        @media (min-width: 768px) {
+            #schedule {
+                max-width: 80%;
+            }
+        }
+        
+        /* Large screens */
+        @media (min-width: 1024px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
+        
+        /* Extra-large screens */
+        @media (min-width: 1280px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
+
+        .tick {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        }
+
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/electrika.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    {% comment %} Hero Section {% endcomment %}
+    <section
+        class="hero min-h-[50vh] min-w-screen">
+        <div id="particles-js" class="h-screen w-full"></div>
+        <div class="hero-content text-center flex-col">
+            <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE NITK</h1>
+            <div class="wrapper">
+                <div class="neon-wrapper">
+                  <span class="txt">ELECTRIKA</span>
+                  <span class="gradient"></span>
+                  <span class="dodge"></span>
+                </div>
+            </div>
+            
+            {% if admin %}
+                <a href="{% url 'electrika_admin' %}" class="btn btn-primary mt-10">Admin</a>
+            {% endif %}
+            <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
+            {% comment %} <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> {% endcomment %}
+            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
+            
+            <a class="registerBtn" 
+                {% if registration_active and not registration_done and not registered %}
+                href="{% url 'electrika_register' %}?next={{ request.path }}"
+                {% elif registration_done and not registered %}
+                
+                {% elif registered %}
+                href="{% url 'electrika_index' %}"
+                {% else %}
+                
+                {% endif %} 
+                >
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                {% if registration_active and not registration_done and not registered %}
+                Register Now
+                {% elif registration_done and not registered %}
+                Registerations Closed
+                {% elif registered %}
+                Go to Dashboard
+                {% else %}
+                Registerations Opening Soon
+                {% endif %}
+            </a> 
+            <br>
+            <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
+                <div class="arrowdown h-10 w-10 m-0 p-0"></div>
+            </button>
+        </div>
+    </section>  
+
+    {% comment %} About Section {% endcomment %}
+    <section id="about" 
+        class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="about-content text-center flex-col ">
+            <div class="about-container">
+
+                <div class="content">
+                <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Unveiling Electrika</h2>
+                <p class="text-md md:text-lg lg:text-xl">
+                    Electrika - 'The Power Electronics Hackathon,' first of a kind conducted by The Industrial and Application Society of IEEE NITK Student Branch . Our event is designed to offer participants a profound understanding of power electronics while making the process of designing power electronics circuits an enjoyable and educational experience. We aim to acquaint participants with the intricacies of designing these circuits, making learning both engaging and informative. <br>
+                <p class="text-md md:text-lg lg:text-xl"><strong>Open to 2nd 3rd and 4th year Btech students across india! </strong></p>
+                <br>
+                </p>
+                </div>  
+            </div>
+        </div>
+    </section>
+    
+    <div class="prose max-w-none flex flex-row">
+        <div class="md:basis-1/6"></div>
+        <div class="px-10 md:px-0 lg:basis-5/6 md:basis-4/6">
+            <section id="speakers" class="py-5 px-5">
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
+                    Speakers</h2>
+                <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
+                    <div class="card bg-base-300 shadow-xl">
+                        <figure>
+                            <img src="{% static 'img/electrika/Naman.jpg' %}" alt="Naman Agarwal"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title"> DC converters: An overview </h2>
+                            <span>By Naman Agarwal</span>
+                            <span>Naman Agarwal, an MSc graduate in Sustainable Energy Technology from TU Delft, served as the founding chair of the IAS society at IEEE NITK. Graduating from NITK in 2021, Naman specializes in Power Electronics, with experience from roles at Infineon and Lightyear. At Infineon, he contributed to the industrial power control division, focusing on the development of a SiC MOSFET-based wide input voltage auxiliary power supply. Later, at Lightyear, he played a role in designing a bias power supply solution for a GaN-based multilevel inverter.
+                            </span>
+                            <div class="card-actions">
+                                <strong>23<sup>rd</sup> Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% comment %}
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/electrika/pranav_k.jpg' %}" alt="Pranav Koundinya"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Workshop on Grad-CAM</h2>
+                            <span>By Pranav Koundinya</span>
+                            <span>Chairperson of the Signal Processing Society, IEEE-NITK Student Branch</span>
+                            <span> A final year undergrad in the ECE department, he has worked as a research intern under Prof. Chandra Sekhar Seelamantula at the Spectrum Lab, Indian Institute of Science, Bangalore, where he has worked on the analysis and development of visual anomaly detection models for industrial applications. His interests lie in the fields of image signal processing, computer vision and deep learning.</span>
+                            <div class="card-actions">
+                                <strong>12th Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                {% comment %} To be announced soon {% endcomment %}
+                {% comment %} <p class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">To be announced soon</p> {% endcomment %}
+            </section>
+        </div>
+        <div class="md:basis-1/6"></div>
+    </div>
+
+    {% comment %} Prizes Section {% endcomment %}
+      <section id="prizes" 
+        class="facts bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class=" pt-10">
+            <div class="section-header">
+                <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold py-0 my-0">Prizes</h3>
+                <p class="section-description py-0 my-0">Exciting prizes to be won!</p>
+            </div>
+        </div>
+
+        <div class="row counters">
+
+            <!-- <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">5000 </span>INR
+                <p>Winner</p>
+                        </div>
+
+                <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">3000</span>INR
+                <p>First runner up</p>
+                </div>
+
+                <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">2000</span>INR
+                <p>Second runner up</p>
+                        </div>
+
+                <div class="col-lg-12 col-12 text-center">
+                <center>
+                    <p style="font-size: 1.5em; ">Certificates for all those who clear preliminary round!</p>
+                </center>
+            </div> -->
+
+            <!-- ---------------------- -->
+            <div class="col-lg-12 col-12 text-center">
+                <center>
+                    <p style="font-size: 1.5em;" class='mb-0 pb-0'>Top 2 Teams receive prizes from a pool of 5000 INR</p>
+                    <div class="overflow-x-auto max-w-[300px] text-sm md:text-md lg:text-lg mt-0 pt-0">
+                        <table class="table">
+                          <tbody>
+                            <!-- row 1 -->
+                            <tr class="border-b-2 border-gray-300">
+                              <td>
+                                <div class="flex items-center gap-3">
+                                  <div class="avatar">
+                                    <div class="justify-center items-center">
+                                        {% comment %} First prize cup icon svg {% endcomment %}
+                                        <img src="{% static 'img/electrika/first_prize.svg' %}" alt="First Prize" class="h-10 w-10 m-0 p-0 mx-auto">
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                First Prize
+                                <br/>
+                                {% comment %} <span class="badge badge-ghost badge-sm">Desktop Support Technician</span> {% endcomment %}
+                              </td>
+                              <td>3000 INR</td>
+                            </tr>
+                            <!-- row 2 -->
+                            <tr>
+                              <td>
+                                <div class="flex items-center gap-3">
+                                  <div class="avatar">
+                                    <div class="justify-center items-center">
+                                        {% comment %} Second prize cup icon svg {% endcomment %}
+                                        <img src="{% static 'img/electrika/second_prize.svg' %}" alt="Second Prize" class="h-10 w-10 m-0 p-0 mx-auto">
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td>
+                                Second Prize
+                                <br/>
+                              </td>
+                              <td>2000 INR</td>
+                            </tr>
+                        </tbody>                          
+                        </table>
+                      </div>
+                    {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
+                </center>
+            </div>
+            <!-- -------------------------------- -->
+        </div>
+    </section>
+
+    {% comment %} Schedule Section {% endcomment %}
+    <section id="schedule"
+        class="schedule bg-base-100 text-center prose px-10 lg:px-40 py-10 mx-auto">
+        <div class="section-header">
+            <br>
+            <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold ">SCHEDULE</h3>
+            <p class="section-description"></p>
+        </div>
+        <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical text-sm md:text-md lg:text-lg">
+            <li>
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">23<sup>rd</sup> Jan, 2024</time>
+                <div class="text-md md:text-lg lg:text-xl font-black">Expert Talk</div>
+                
+              </div>
+              <hr/>
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">24<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black">Preliminary test</div>
+                
+              </div>
+              <hr />
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">25<sup>th</sup> - 30<sup>th</sup> Jan, 2024</time>
+                <div class="text-lg font-black"> Knowledge sharing sessions and Tasks</div>
+                
+              </div>
+              <hr />
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <div class="tick h-5 w-5 m-0 p-0"></div>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">31<sup>st</sup> Jan, 2024</time>
+                <div class="text-lg font-black">Main problem statement reveal</div>
+                
+              </div>
+              <hr />
+            </li>
+            <li>
+                <hr />
+                <div class="timeline-middle">
+                  <div class="tick h-5 w-5 m-0 p-0"></div>
+                </div>
+                <div class="timeline-start mb-10">
+                  <time class="font-mono italic">3<sup>rd</sup> Feb, 2024</time>
+                  <div class="text-lg font-black">Hardware Round</div>
+                  
+                </div>
+                <hr />
+              </li>
+          </ul>
+    </section>
+
+    {% comment %} FAQ Section {% endcomment %}
+    <section id='section'
+        x-data="
+        {
+        openFaq1: false, 
+        openFaq2: false, 
+        openFaq3: false, 
+        openFaq4: false, 
+        openFaq5: false, 
+        openFaq6: false,
+        openFaq7: false,
+        openFaq8: false,
+        openFaq9: false,
+        openFaq10: false,
+        openFaq11: false,
+        openFaq12: false,
+        openFaq13: false,
+        openFaq14: false,
+        openFaq15: false,
+        openFaq16: false,
+        }
+        "
+        class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
+        <div class="container mx-auto">
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full px-4">
+                <div class="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
+                    <span class="block mb-2 text-lg md:text-xl lg:text-2xl font-semibold text-primary">
+                    FAQ
+                    </span>
+                    <h2
+                    class="mb-4 text-xl md:text-2xl lg:text-3xl font-extrabold"
+                    >
+                    Any Questions? Look Here
+                    </h2>
+                    <p class="text-base text-body-color dark:text-dark-6">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full px-4 lg:w-1/2">
+                <div
+                    class="w-full p-4 mb-8 rounded-lg bg-base-100 shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn "
+                    @click="openFaq1 = !openFaq1"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq1 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Who all are eligible to apply?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq1" class="faq-content pl-[62px]"> 
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        All students from all institutes can apply for this event.  
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)]  sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq2 = !openFaq2"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq2 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is there a registration fee?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq2" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No, Registration is free for everyone participating.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq3 = !openFaq3"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq3 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What are the Prizes?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq3" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Top 2 teams will receive cash prizes from a pool of Rs 5000.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq4 = !openFaq4"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to be from EC or EEE background?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq4" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        It is not necessary to be from ECE or EEE background. Students with interest and knowledge in the basics of Power Electronics can apply for the event irrespective of their background. 
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq5 = !openFaq5"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            How can we prepare for the event?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq5" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        To prepare for the competition, participants can review various application notes on prevalent design topologies available online. Understanding these notes will aid in preparing the required design documentation, a key objective for all teams to successfully accomplish. Additionally, exploring YouTube videos and research papers can offer valuable insights.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq6 = !openFaq6"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Will the final event be conducted offline?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq6" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Yes, the final event will take place offline during working hours at NITK. Selected teams are expected to cover their own transportation expenses.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                >
+                <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq14 = !openFaq14"
+                    >
+                    <div
+                    class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                    >
+                    <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq14 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                    <h4
+                        class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                        >
+                        What does Round-1 include ?
+                    </h4>
+                    </div>
+                </button>
+                <div x-show="openFaq14" class="faq-content pl-[62px]">
+                    <p
+                    class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                    >
+                    Round-1 will consist of two subtasks given after both the knowledge-sharing sessions are conducted. They will cover the basics of power electronics and embedded systems.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                >
+                <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq14 = !openFaq14"
+                    >
+                    <div
+                    class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                    >
+                    <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq14 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                    <h4
+                        class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                        >
+                        What does Round-2 include ?
+                    </h4>
+                    </div>
+                </button>
+                <div x-show="openFaq14" class="faq-content pl-[62px]">
+                    <p
+                    class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                    >
+                    It will entail the main problem statement, set to be released on Jan 31st, with submissions due by Feb 2nd at 12 PM.
+                    </p>
+                </div>
+            </div>                
+
+            </div>
+     
+            <div class="w-full px-4 lg:w-1/2">
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq7 = !openFaq7"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq7 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            The preliminary test is on Hackerearth. Is it a competitive coding test?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq7" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Machine Learning, Aptitude and some Python coding. It will not have any competitive coding style questions.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq8 = !openFaq8"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            How many members in a team?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        A team should can consist a maximum of 4 members.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq9 = !openFaq9"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq9" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No, It isn't necessary to have an IEEE member in a team comprising Non-NITK Members
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq10 = !openFaq10"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq10 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What are the selection criteria for both round 1 and 2?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq10" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Both round 1 and round 2 have separate sets of criteria which will be clearly mentioned in the problem statement. And in all cases, the organizers' decision will be the final decision.
+                        </p>
+                    </div>
+                </div>
+         
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq11 = !openFaq11"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq11 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What does one get from participation?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq11" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        You'll gain insights into designing industrial-grade power converters and implementing hardware of the designed converter.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq12 = !openFaq12"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq12 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What is the duration of the hardware round?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq12" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        It's scheduled for a single day on February 3.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq13 = !openFaq13"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq13 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Will participants be given certificates?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq13" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Yes, All teams qualifying round-1 will receive certificates.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq16 = !openFaq16"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq16 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What are the software requirements one should have?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq16" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Participants should have access to Matlab or simulink or Ltspice or any other equivalent software used for simulating circuits.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% comment %} Organizers Section {% endcomment %}
+    <section
+        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
+            <div class="section-header">
+                <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">Organized by</h2>
+                <div class="mx-auto text-center">
+                    <div class="flex flex-wrap justify-center gap-20 align-middle">
+                        <div class="mx-2 sm:my-auto my-0">
+                            <a href="https://ieee.nitk.ac.in/">
+                                <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+                            </a>
+                        </div>
+                        <div class="mx-2 sm:my-auto my-0">
+                            <a href="https://signalprocessingsociety.org/">
+                                <img src="{% static 'img/logo/ias-dark.png' %}" alt="SPS Logo" class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    {% comment %} Contact Section {% endcomment %}
+    <section id="contact"
+        class="contact bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
+        <div class="section-header">
+            <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Contact Us</h3>
+            <center>
+            <p class="section-description text-md md:text-lg lg:text-xl">
+            <strong>Apurva S</strong> : <a href="mailto:pranavmkoundinya@gmail.com">apurva.indumathi@gmail.com</a><br>
+            {% comment %} <strong>Raghuram Kannan</strong> : <a href="mailto:raghuramkannan400@gmail.com"> raghuramkannan400@gmail.com</a><br>
+            <strong>Kaliki Venkata Srinanda</strong> : <a href="mailto:srinandakv2004@gmail.com"> srinandakv2004@gmail.com</a> {% endcomment %}
+            </p>
+        </center>
+        <br>
+        </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        function smoothScroll(target) {
+            const targetElement = document.querySelector(target);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        }
+    </script>
+{% endblock %}
