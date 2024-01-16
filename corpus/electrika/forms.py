@@ -1,6 +1,11 @@
-from electrika.models import ElectrikaUser, Team, Announcement, Invite
 from django import forms
+from electrika.models import Announcement
+from electrika.models import ElectrikaUser
+from electrika.models import Invite
+from electrika.models import Team
+
 from corpus.forms import CorpusModelForm
+
 
 class ElectrikaForm(CorpusModelForm):
     class Meta:
@@ -19,18 +24,20 @@ class ElectrikaForm(CorpusModelForm):
             raise forms.ValidationError(
                 "Enter your roll number for verification that you are from NITK"
             )
-        
+
         if data.get("ieee_member", None) and not data.get("ieee_membership_no", None):
             raise forms.ValidationError(
                 "Enter your IEEE Membership Number for verification that you are an IEEE member"
             )
-        
+
         return data
+
 
 class TeamCreationForm(CorpusModelForm):
     class Meta:
         model = Team
         fields = ["team_name"]
+
 
 class AnnouncementForm(CorpusModelForm):
 
@@ -43,10 +50,18 @@ class AnnouncementForm(CorpusModelForm):
     announcement_mailing = forms.ChoiceField(
         widget=forms.Select, choices=ANNOUNCEMENT_OPTIONS
     )
+
     class Meta:
         model = Announcement
-        fields = ["content", "url_link", "url_link_text", "announcement_type", "announcement_mailing"]
-        
+        fields = [
+            "content",
+            "url_link",
+            "url_link_text",
+            "announcement_type",
+            "announcement_mailing",
+        ]
+
+
 class InviteForm(CorpusModelForm):
     class Meta:
         model = Invite
