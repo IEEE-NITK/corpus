@@ -4,6 +4,7 @@ from .models import Announcement
 from .models import ElectrikaUser
 from .models import Invite
 from .models import Team
+
 # Register your models here.
 
 admin.site.register(ElectrikaUser)

@@ -22,7 +22,6 @@ from corpus.decorators import module_enabled
 from corpus.utils import send_email
 
 
-
 # Create your views here.
 @module_enabled(module_name="electrika")
 def home(request):
