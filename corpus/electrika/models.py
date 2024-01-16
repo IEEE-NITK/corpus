@@ -1,6 +1,5 @@
 from accounts.models import User
 from django.db import models
-from embedathon.models import PAYMENT_STATUS
 
 
 class ElectrikaUser(models.Model):
@@ -32,7 +31,6 @@ class Team(models.Model):
 
 
 class Announcement(models.Model):
-
     AnnouncementType = (
         ("A", "All Electrika Users"),
         ("T", "All Electrika Teams"),

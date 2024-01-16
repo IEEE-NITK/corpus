@@ -21,6 +21,8 @@ from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
 
+
+
 # Create your views here.
 @module_enabled(module_name="electrika")
 def home(request):
@@ -33,7 +35,6 @@ def home(request):
 
     try:
         if request.user.is_authenticated:
-            electrika_user = ElectrikaUser.objects.get(user=request.user)
             args["registered"] = True
     except ElectrikaUser.DoesNotExist:
         args["registered"] = False
@@ -143,7 +144,6 @@ def index(request):
 @login_required
 @module_enabled(module_name="electrika")
 def register(request):
-
     config = ModuleConfiguration.objects.get(module_name="electrika").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -419,7 +419,7 @@ def create_team_admin(request):
                     user.team = team
                     user.to_be_teamed_up = False
                     user.save()
-    except Exception as e:
+    except Exception:
         messages.error(request, "Error creating teams!")
         return redirect("electrika_admin_teams")
 

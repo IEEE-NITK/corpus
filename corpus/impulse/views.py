@@ -32,7 +32,6 @@ def home(request):
 
     try:
         if request.user.is_authenticated:
-            impulse_user = ImpulseUser.objects.get(user=request.user)
             args["registered"] = True
     except ImpulseUser.DoesNotExist:
         args["registered"] = False
@@ -146,7 +145,7 @@ def index(request):
             announcements = Announcement.objects.filter(
                 announcement_type__in=["A", "N"]
             )
-    except:
+    except Exception:
         announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
 
     announcements = announcements.order_by("-date_created")
@@ -159,7 +158,6 @@ def index(request):
 @login_required
 @module_enabled(module_name="impulse")
 def register(request):
-
     config = ModuleConfiguration.objects.get(module_name="impulse").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -488,7 +486,7 @@ def mark_payment_complete(request, pk):
     team.payment_status = "P"
     team.save()
     for member in ImpulseUser.objects.filter(team=team):
-        if member.user.email != None:
+        if member.user.email is not None:
             send_email(
                 "Payment Complete | Impulse",
                 "emails/impulse/payment_complete.html",
@@ -508,7 +506,7 @@ def mark_payment_incomplete(request, pk):
     team.payment_status = "U"
     team.save()
     for member in ImpulseUser.objects.filter(team=team):
-        if member.user.email != None:
+        if member.user.email is not None:
             send_email(
                 "Payment Incomplete | Impulse",
                 "emails/impulse/payment_incomplete.html",

@@ -27,7 +27,8 @@ class ImpulseForm(CorpusModelForm):
 
         if data.get("ieee_member", None) and not data.get("ieee_membership_no", None):
             raise forms.ValidationError(
-                "Enter your IEEE Membership Number for verification that you are an IEEE member"
+                "Enter your IEEE Membership Number for verification "
+                + "that you are an IEEE member"
             )
 
         return data
@@ -40,7 +41,6 @@ class TeamCreationForm(CorpusModelForm):
 
 
 class AnnouncementForm(CorpusModelForm):
-
     ANNOUNCEMENT_OPTIONS = [
         ("1", "No email to be sent."),
         ("2", "Send email to all team leaders."),
