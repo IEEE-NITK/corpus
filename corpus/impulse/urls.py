@@ -8,12 +8,8 @@ urlpatterns = [
     path("register", views.register, name="impulse_register"),
     path("create_team", views.create_team, name="impulse_create_team"),
     path("create_invite", views.create_invite, name="impulse_create_invite"),
-    path(
-        "accept_invite/<int:pk>", views.accept_invite, name="impulse_accept_invite"
-    ),
-    path(
-        "delete_invite/<int:pk>", views.delete_invite, name="impulse_delete_invite"
-    ),
+    path("accept_invite/<int:pk>", views.accept_invite, name="impulse_accept_invite"),
+    path("delete_invite/<int:pk>", views.delete_invite, name="impulse_delete_invite"),
     path("admin", views.admin, name="impulse_admin"),
     path("admin/teams", views.team_management, name="impulse_admin_teams"),
     path("admin/team/<int:pk>", views.team_page, name="impulse_admin_team_page"),
@@ -38,8 +34,7 @@ urlpatterns = [
         views.delete_announcement,
         name="impulse_delete_announcement",
     ),
-    path("admin/team_download",
-            views.team_download,
-            name="impulse_admin_team_download"
+    path(
+        "admin/team_download", views.team_download, name="impulse_admin_team_download"
     ),
 ]
