@@ -144,7 +144,7 @@ def index(request):
 
 @login_required
 @module_enabled(module_name="electrika")
-def register(request):    
+def register(request):
     config = ModuleConfiguration.objects.get(module_name="electrika").module_config
 
     reg_start_datetime, reg_end_datetime = (
