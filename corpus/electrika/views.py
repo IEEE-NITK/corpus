@@ -74,7 +74,7 @@ def index(request):
         args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         messages.error(request, "Please register for Electrika first!")
-        return redirect("electrika_home")
+        return redirect("electrika_register")
 
     if electrika_user.team is not None:
         args["in_team"] = True
