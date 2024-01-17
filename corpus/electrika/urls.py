@@ -31,9 +31,4 @@ urlpatterns = [
         views.delete_announcement,
         name="electrika_delete_announcement",
     ),
-    path(
-        "admin/team/download_csv",
-        views.team_download,
-        name="electrika_admin_download_teams_csv",
-    ),
 ]

@@ -34,7 +34,9 @@ def home(request):
 
     try:
         if request.user.is_authenticated:
+            electrika_user = ElectrikaUser.objects.get(user=request.user)
             args["registered"] = True
+            args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         args["registered"] = False
 
@@ -500,60 +502,3 @@ def delete_announcement(request, pk):
     announcement.delete()
     messages.success(request, "Successfully deleted announcement!")
     return redirect("electrika_announcements")
-
-
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def download_csv_non_registrants(request):
-    import csv
-    from django.http import HttpResponse
-
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="non_registrants.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(["Name", "Email"])
-
-    users = User.objects.exclude(
-        email__in=ElectrikaUser.objects.values_list("user__email", flat=True)
-    )
-
-    users = users.exclude(is_staff=True)
-    users = users.exclude(is_superuser=True)
-
-    for user in users:
-        writer.writerow([user, user.email])
-
-    return response
-
-
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def team_download(request):
-    import csv
-    from django.http import HttpResponse
-
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="teams.csv"'
-
-    writer = csv.writer(response)
-
-    queryset = Team.objects.select_related("team_leader__user").values(
-        "team_name",
-        "team_leader__user__first_name",
-        "team_leader__user__email",
-        "team_leader__user__phone_no",
-    )
-    selected_fields = request.POST.getlist("selected_fields[]")
-
-    # Write header row
-    header_row = selected_fields
-    writer.writerow(header_row)
-
-    # Write data rows
-    for item in queryset:
-        row_data = [str(item[field]) for field in selected_fields]
-
-        writer.writerow(row_data)
-
-    return response
