@@ -74,7 +74,7 @@ def index(request):
         args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         messages.error(request, "Please register for Electrika first!")
-        return redirect("electrika_home")
+        return redirect("electrika_register")
 
     if electrika_user.team is not None:
         args["in_team"] = True
@@ -210,6 +210,7 @@ def create_team(request):
 
                 team.save()
                 electrika_user.team = team
+                electrika_user.to_be_teamed_up = False
                 electrika_user.save()
                 messages.success(request, "Successfully created team!")
                 return redirect("electrika_index")
@@ -295,6 +296,7 @@ def accept_invite(request, pk):
 
     electrika_user = ElectrikaUser.objects.get(user=request.user)
     electrika_user.team = invite.inviting_team
+    electrika_user.to_be_teamed_up = False
     electrika_user.save()
 
     Invite.objects.filter(invite_email=request.user.email).delete()

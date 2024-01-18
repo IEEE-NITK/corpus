@@ -257,14 +257,43 @@ class="hero min-h-[50vh] min-w-screen">
                                 </div>
                             {% endif %}
                         {% elif registration_active %}
-                            <div class="alert alert-error my-2 rounded-none">
+                            <div class="alert my-10 rounded-md bg-base-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     class="stroke-current shrink-0 w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 <span>
-                                    YOU ARE NOT IN A TEAM. Please create a team or join an existing team to complete your registration for Electrika. Even if you plan on participating individually, you will have to create a team.
+                                    <span class="text-primary text-lg">
+                                    For teams with more than one participant:
+                                    </span>
+                                    <br>
+                                    Each member must create an account on Corpus.<br>
+                                    One member should take the lead and create the team during Electrika registration, sending invites to teammates.<br>
+                                    Other team members can easily join the team by accepting the invites during their Electrika registration process.<br>
+                                    <br>
+                                    <span class="text-primary text-lg">
+                                        Note for solo participants :
+                                    </span>
+                                    <br>
+                                    Solo participants looking to team up with others, just hit the 'Opt-In' button to complete registration<br>
+                                    {% if not in_team and electrika_user.to_be_teamed_up %}
+                                        <a href="{% url 'electrika_opt_out' %}">
+                                            <button class="btn btn-accent my-5" href="{% url 'electrika_opt_out' %}">Opt Out</button>
+                                        </a>
+                                        <p class="text-sm font-bold">You have opted to be teamed up. You will be assigned a
+                                            team by the organizers.
+                                        </p>
+                                    {% elif not in_team and not electrika_user.to_be_teamed_up %}
+                                        <a href = "{% url 'electrika_opt_in' %}">
+                                            <button class="btn btn-accent my-5" href="{% url 'electrika_opt_in' %}">Opt In</button>
+                                        </a>
+                                        <p class="text-sm font-bold">You have opted to not be teamed up. You will have to
+                                            create a team or join an existing team to complete your registration for
+                                            Electrika.
+                                        </p>
+                                    {% endif %}
+                                    If you prefer solo participation, go ahead and create your own team to complete registration
                                 </span>
                             </div>
                             <div>
@@ -321,24 +350,6 @@ class="hero min-h-[50vh] min-w-screen">
                                         <button class="btn btn-primary btn-block">Create Team</button>
                                     </div>
                                 </form>
-
-
-                                {% comment %} if not in a team and opted to teamed up {% endcomment %}
-                                {% if not in_team and electrika_user.to_be_teamed_up %}
-                                    <p class="text-sm font-bold">You have opted to be teamed up. You will be assigned a
-                                        team by the organizers.</p>
-                                    <a href="{% url 'electrika_opt_out' %}">
-                                        <button class="btn btn-accent" href="{% url 'electrika_opt_out' %}">Opt Out</button>
-                                    </a>
-                                {% elif not in_team and not electrika_user.to_be_teamed_up %}
-                                    <p class="text-sm font-bold">You have opted to not be teamed up. You will have to
-                                        create a team or join an existing team to complete your registration for
-                                        Electrika.</p>
-                                    <a href = "{% url 'electrika_opt_in' %}">
-                                        <button class="btn btn-accent" href="{% url 'electrika_opt_in' %}">Opt In</button>
-                                    </a>
-                                {% endif %}
-
                             </div>
                         {% endif %}
                     </div>
