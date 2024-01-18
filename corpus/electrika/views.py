@@ -363,7 +363,7 @@ def team_page(request, pk):
 @ensure_group_membership(group_names=["electrika_admin"])
 def create_team_admin(request):
     import random
-
+    random.seed(datetime.now().second)
     electrika_users = ElectrikaUser.objects.filter(team=None, to_be_teamed_up=True)
     TEAM_NAMES = [
         "Iconoclasts",
@@ -389,6 +389,8 @@ def create_team_admin(request):
     num_users = electrika_users.count()
     num_teams = num_users // 4
 
+    electrika_users = list(electrika_users)
+
     if num_users == 0:
         messages.error(request, "Not enough users to create teams!")
         return redirect("electrika_admin_teams")
@@ -397,11 +399,13 @@ def create_team_admin(request):
         with transaction.atomic():
             for i in range(num_teams):
                 team_name = TEAM_NAMES[random.randint(0, len(TEAM_NAMES) - 1)]
-                team = Team(team_name=team_name, team_leader=electrika_users[i * 4])
+                team_leader_index = i * 4
+                team_leader = electrika_users[team_leader_index]
+                team = Team(team_name=team_name, team_leader=team_leader)
                 team.save()
                 for j in range(4):
                     index = i * 4 + j
-                    if index >= electrika_users.count():
+                    if index >= len(electrika_users):
                         break
                     user = electrika_users[index]
                     user.team = team
@@ -409,14 +413,15 @@ def create_team_admin(request):
                     user.save()
 
             if num_users % 4 != 0:
-                team_name = TEAM_NAMES[num_teams % len(TEAM_NAMES)]
+                team_name = TEAM_NAMES[random.randint(0, len(TEAM_NAMES) - 1)]
+                team_leader_index = num_teams * 4
                 team = Team(
-                    team_name=team_name, team_leader=electrika_users[num_teams * 4]
+                    team_name=team_name, team_leader=electrika_users[team_leader_index]
                 )
                 team.save()
                 for j in range(num_users % 4):
                     index = num_teams * 4 + j
-                    if index >= electrika_users.count():
+                    if index >= len(electrika_users):
                         break
                     user = electrika_users[num_teams * 4 + j]
                     user.team = team
