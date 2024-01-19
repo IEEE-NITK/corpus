@@ -31,11 +31,13 @@
                     <th>S.No.</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Phone Number</th>
                     <th>From NITK?</th>
                     <th>College Name</th>
                     <th>IEEE Member?</th>
                     <th>IEEE Membership Number</th>
                     <th>In a Team?</th>
+                    <th>Opted for getting teamed up?</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,11 +46,13 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ user.user }}</td>
                         <td>{{ user.user.email }}</td>
+                        <td>{{ user.user.phone_no }}</td>
                         <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
                         <td>{{ user.college_name }}</td>
                         <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
                         <td>{{ user.ieee_membership_no }}</td>
                         <td>{{ user.team|yesno:"Yes,No" }}</td>
+                        <td>{{ user.to_be_teamed_up|yesno:"Yes,No" }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
