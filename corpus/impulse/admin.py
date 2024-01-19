@@ -1,8 +1,9 @@
 from django.contrib import admin
 from impulse.models import Announcement
 from impulse.models import ImpulseUser
-from impulse.models import Team
 from impulse.models import Invite
+from impulse.models import Team
+
 # Register your models here.
 
 admin.site.register(ImpulseUser)

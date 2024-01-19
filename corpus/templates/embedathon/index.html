@@ -167,7 +167,7 @@
                         <ul>
                             {% for announcement in announcements %}
                                 <li>
-                                    {{ announcement.content | linebreaks }} 
+                                    {{ announcement.content | linebreaks }}
                                     {% if announcement.url_link %}
                                         <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
                                     {% endif %}
