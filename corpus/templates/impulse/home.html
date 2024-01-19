@@ -21,21 +21,21 @@
                 max-width: 70%;
             }
         }
-        
+
         /* Medium screens */
         @media (min-width: 768px) {
             #schedule {
                 max-width: 80%;
             }
         }
-        
+
         /* Large screens */
         @media (min-width: 1024px) {
             #schedule {
                 max-width: 50%;
             }
         }
-        
+
         /* Extra-large screens */
         @media (min-width: 1280px) {
             #schedule {
@@ -73,7 +73,7 @@
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
             {% if registration_active and not registration_done and not registered %}
-                <a href="{% url 'impulse_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a> 
+                <a href="{% url 'impulse_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a>
             {% elif registration_done and not registered %}
                 <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
             {% elif registered %}
@@ -87,10 +87,10 @@
             <div class="arrowdown h-10 w-10 m-0 p-0"></div>
         </button>
         </div>
-    </section>  
+    </section>
 
     {% comment %} About Section {% endcomment %}
-    <section id="about" 
+    <section id="about"
         class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class="about-content text-center flex-col ">
             <div class="about-container">
@@ -102,7 +102,7 @@
                 <p class="text-md md:text-lg lg:text-xl"><strong>Open to 1st and 2nd year B.Tech students from all over India!</strong></p>
                 <br>
                 </p>
-                </div>  
+                </div>
             </div>
         </div>
     </section>
@@ -149,7 +149,7 @@
     </div>
 
     {% comment %} Prizes Section {% endcomment %}
-      <section id="prizes" 
+      <section id="prizes"
         class="facts bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class=" pt-10">
             <div class="section-header">
@@ -208,7 +208,7 @@
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">10<sup>th</sup> Jan, 2024</time>
                 <div class="text-md md:text-lg lg:text-xl font-black">Prelims test</div>
-                
+
               </div>
               <hr/>
             </li>
@@ -220,7 +220,7 @@
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">11<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black">Expert talk by Prof. Vineeth Balasubramanian, IITH</div>
-                
+
               </div>
               <hr />
             </li>
@@ -232,7 +232,7 @@
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">12<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black"> Workshop on GradCAM by Pranav Koundinya, SPS Chairperson</div>
-                
+
               </div>
               <hr />
             </li>
@@ -244,7 +244,7 @@
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">13<sup>th</sup> - 14<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black">24 hour hackathon</div>
-                
+
               </div>
               <hr />
             </li>
@@ -255,11 +255,11 @@
     <section id='section'
         x-data="
         {
-        openFaq1: false, 
-        openFaq2: false, 
-        openFaq3: false, 
-        openFaq4: false, 
-        openFaq5: false, 
+        openFaq1: false,
+        openFaq2: false,
+        openFaq3: false,
+        openFaq4: false,
+        openFaq5: false,
         openFaq6: false,
         openFaq7: false,
         openFaq8: false,
@@ -467,7 +467,7 @@
                 </div>
 
             </div>
-     
+
             <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
@@ -551,7 +551,7 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        No, it's not necessary for a team to have an IEEE member in the team. Refer to eligibility of the event.  
+                        No, it's not necessary for a team to have an IEEE member in the team. Refer to eligibility of the event.
                     </p>
                     </div>
                 </div>
@@ -572,7 +572,7 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Should I clear the preliminary round to attend workshops and talks? 
+                            Should I clear the preliminary round to attend workshops and talks?
                         </h4>
                         </div>
                     </button>
@@ -584,7 +584,7 @@
                         </p>
                     </div>
                 </div>
-         
+
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -640,7 +640,7 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
 
     {% comment %} Contact Section {% endcomment %}

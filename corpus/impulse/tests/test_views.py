@@ -1,6 +1,7 @@
-from django.test import TestCase, Client
+from django.test import Client
+from django.test import TestCase
 from django.urls import reverse
-from impulse.models import ImpulseUser, Team, Announcement
+
 
 class ViewsTestCase(TestCase):
     def setUp(self):

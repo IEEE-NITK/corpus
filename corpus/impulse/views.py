@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.shortcuts import render
+
 from accounts.models import User
 from config.models import DATETIME_FORMAT
 from config.models import ModuleConfiguration
@@ -7,17 +7,20 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.shortcuts import redirect
+from django.shortcuts import render
+from impulse.forms import AnnouncementForm
+from impulse.forms import ImpulseForm
+from impulse.forms import InviteForm
+from impulse.forms import TeamCreationForm
 from impulse.models import Announcement
 from impulse.models import ImpulseUser
-from impulse.models import Team
 from impulse.models import Invite
-from impulse.forms import ImpulseForm
-from impulse.forms import TeamCreationForm
-from impulse.forms import AnnouncementForm
-from impulse.forms import InviteForm
+from impulse.models import Team
+
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
+
 
 @module_enabled(module_name="impulse")
 def home(request):
@@ -29,7 +32,6 @@ def home(request):
 
     try:
         if request.user.is_authenticated:
-            impulse_user = ImpulseUser.objects.get(user=request.user)
             args["registered"] = True
     except ImpulseUser.DoesNotExist:
         args["registered"] = False
@@ -47,7 +49,7 @@ def home(request):
         datetime.now() <= reg_end_datetime
     )
 
-    registration_done = (reg_end_datetime < datetime.now())
+    registration_done = reg_end_datetime < datetime.now()
 
     args["registration_active"] = registration_active
     args["registration_done"] = registration_done
@@ -58,17 +60,18 @@ def home(request):
         args,
     )
 
+
 @login_required
 @module_enabled(module_name="impulse")
 def index(request):
     args = {}
-    try :
+    try:
         impulse_user = ImpulseUser.objects.get(user=request.user)
         args["impulse_user"] = impulse_user
     except ImpulseUser.DoesNotExist:
         messages.error(request, "Please register for Impulse first!")
         return redirect("impulse_register")
-    
+
     if impulse_user.team is not None:
         args["in_team"] = True
 
@@ -91,9 +94,9 @@ def index(request):
             args["invite_form"] = InviteForm()
         else:
             args["is_leader"] = False
-        
+
         args["team_count"] = team_count
-    
+
         args["team"] = team
         args["members"] = members
         args["payment_status"] = team.payment_status
@@ -111,8 +114,7 @@ def index(request):
         args["team_creation_form"] = TeamCreationForm()
         invites = Invite.objects.filter(invite_email=impulse_user.user.email)
         args["invites_for_user"] = invites
-        
-        
+
     config = ModuleConfiguration.objects.get(module_name="impulse").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -127,17 +129,23 @@ def index(request):
     registration_active = (reg_start_datetime <= datetime.now()) and (
         datetime.now() <= reg_end_datetime
     )
-    
+
     args["registration_active"] = registration_active
 
-    try :
+    try:
         if pay_status == "Complete":
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "P"])
+            announcements = Announcement.objects.filter(
+                announcement_type__in=["A", "P"]
+            )
         elif pay_status == "Incomplete":
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "U"])
+            announcements = Announcement.objects.filter(
+                announcement_type__in=["A", "U"]
+            )
         else:
-            announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
-    except:
+            announcements = Announcement.objects.filter(
+                announcement_type__in=["A", "N"]
+            )
+    except Exception:
         announcements = Announcement.objects.filter(announcement_type__in=["A", "N"])
 
     announcements = announcements.order_by("-date_created")
@@ -146,10 +154,10 @@ def index(request):
 
     return render(request, "impulse/index.html", args)
 
+
 @login_required
 @module_enabled(module_name="impulse")
 def register(request):
-
     config = ModuleConfiguration.objects.get(module_name="impulse").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -168,7 +176,7 @@ def register(request):
     if not registration_active:
         messages.error(request, "Registration for Impulse is not active yet!")
         return redirect("index")
-    
+
     try:
         impulse_user = ImpulseUser.objects.get(user=request.user)
         messages.error(request, "You have already registered for Impulse!")
@@ -192,6 +200,7 @@ def register(request):
 
     args = {"form": form}
     return render(request, "impulse/register.html", args)
+
 
 @login_required
 @module_enabled(module_name="impulse")
@@ -217,7 +226,7 @@ def create_team(request):
                 else:
                     team.payment_status = "U"
 
-                team.save() 
+                team.save()
                 impulse_user.team = team
                 impulse_user.save()
                 messages.success(request, "Successfully created team!")
@@ -225,7 +234,7 @@ def create_team(request):
     else:
         messages.error(request, "Please correct the errors before creating team!")
         return redirect("impulse_index")
-    
+
 
 @login_required
 @module_enabled(module_name="impulse")
@@ -282,6 +291,7 @@ def create_invite(request):
     messages.error(request, "Illegal Request")
     return redirect("impulse_index")
 
+
 @login_required
 @module_enabled(module_name="impulse")
 def accept_invite(request, pk):
@@ -329,12 +339,14 @@ def delete_invite(request, pk):
 def admin(request):
     return render(request, "impulse/admin/admin.html", {})
 
+
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
 def team_management(request):
     args = {}
     args["teams"] = Team.objects.all()
     return render(request, "impulse/admin/teams.html", args)
+
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
@@ -344,6 +356,7 @@ def team_page(request, pk):
     args["team"] = team
     args["members"] = ImpulseUser.objects.filter(team=team)
     return render(request, "impulse/admin/team_page.html", args)
+
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
@@ -361,6 +374,7 @@ def user_management(request):
     }
     return render(request, "impulse/admin/users.html", args)
 
+
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
 def announcements_management(request):
@@ -368,7 +382,7 @@ def announcements_management(request):
         form = AnnouncementForm(request.POST)
         if form.is_valid():
             announcement = form.save()
-            
+
             mail_option = form.cleaned_data.get("announcement_mailing", "1")
             email_ids = None
             if mail_option == "2":
@@ -398,15 +412,15 @@ def announcements_management(request):
                 elif announcement.announcement_type == "P":
                     email_ids = list(
                         # send to both paid and exempted teams
-                        ImpulseUser.objects.filter(team__payment_status__in=["P", "E"]).values_list(
-                            "user__email", flat=True
-                        )
+                        ImpulseUser.objects.filter(
+                            team__payment_status__in=["P", "E"]
+                        ).values_list("user__email", flat=True)
                     )
                 elif announcement.announcement_type == "U":
                     email_ids = list(
-                        ImpulseUser.objects.filter(team__payment_status="U").values_list(
-                            "user__email", flat=True
-                        )
+                        ImpulseUser.objects.filter(
+                            team__payment_status="U"
+                        ).values_list("user__email", flat=True)
                     )
                 elif announcement.announcement_type == "N":
                     email_ids = list(
@@ -417,7 +431,9 @@ def announcements_management(request):
                 elif announcement.announcement_type == "NI":
                     # all users who have not registered for impulse
                     users = User.objects.exclude(
-                        email__in=ImpulseUser.objects.values_list("user__email", flat=True)
+                        email__in=ImpulseUser.objects.values_list(
+                            "user__email", flat=True
+                        )
                     )
 
                     users = users.exclude(
@@ -428,10 +444,9 @@ def announcements_management(request):
                     )
                     users = users.exclude(is_staff=True)
                     users = users.exclude(is_superuser=True)
-                    
+
                     email_ids = list(users.values_list("email", flat=True))
-                    
-                    
+
             if email_ids is not None:
                 send_email(
                     "Announcement | Impulse",
@@ -443,7 +458,9 @@ def announcements_management(request):
             messages.success(request, "Successfully created announcement!")
             return redirect("impulse_announcements")
         else:
-            messages.error(request, "Please correct the errors before creating announcement!")
+            messages.error(
+                request, "Please correct the errors before creating announcement!"
+            )
             return redirect("impulse_announcements")
     else:
         form = AnnouncementForm()
@@ -451,6 +468,7 @@ def announcements_management(request):
 
     args = {"form": form, "announcements": announcements}
     return render(request, "impulse/admin/announcements.html", args)
+
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
@@ -460,6 +478,7 @@ def delete_announcement(request, pk):
     messages.success(request, "Successfully deleted announcement!")
     return redirect("impulse_announcements")
 
+
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
 def mark_payment_complete(request, pk):
@@ -467,15 +486,18 @@ def mark_payment_complete(request, pk):
     team.payment_status = "P"
     team.save()
     for member in ImpulseUser.objects.filter(team=team):
-        if member.user.email != None:
+        if member.user.email is not None:
             send_email(
                 "Payment Complete | Impulse",
                 "emails/impulse/payment_complete.html",
                 {"team": team, "user": member.user},
                 bcc=[member.user.email],
             )
-    messages.success(request, "Successfully marked payment as complete and sent emails!")
+    messages.success(
+        request, "Successfully marked payment as complete and sent emails!"
+    )
     return redirect("impulse_admin_team_page", pk=pk)
+
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
@@ -484,7 +506,7 @@ def mark_payment_incomplete(request, pk):
     team.payment_status = "U"
     team.save()
     for member in ImpulseUser.objects.filter(team=team):
-        if member.user.email != None:
+        if member.user.email is not None:
             send_email(
                 "Payment Incomplete | Impulse",
                 "emails/impulse/payment_incomplete.html",
@@ -493,6 +515,7 @@ def mark_payment_incomplete(request, pk):
             )
     messages.success(request, "Successfully marked payment as incomplete!")
     return redirect("impulse_admin_team_page", pk=pk)
+
 
 @login_required
 @ensure_group_membership(group_names=["impulse_admin"])
@@ -508,8 +531,8 @@ def team_download(request):
 
     for team in Team.objects.filter(payment_status__in=["P", "E"]):
         leader = team.team_leader
-        writer.writerow([leader.user.first_name, leader.user.last_name, leader.user.email])
+        writer.writerow(
+            [leader.user.first_name, leader.user.last_name, leader.user.email]
+        )
 
     return response
-
-

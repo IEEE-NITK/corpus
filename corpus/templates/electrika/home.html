@@ -23,21 +23,21 @@
                 max-width: 70%;
             }
         }
-        
+
         /* Medium screens */
         @media (min-width: 768px) {
             #schedule {
                 max-width: 80%;
             }
         }
-        
+
         /* Large screens */
         @media (min-width: 1024px) {
             #schedule {
                 max-width: 50%;
             }
         }
-        
+
         /* Extra-large screens */
         @media (min-width: 1280px) {
             #schedule {
@@ -75,24 +75,24 @@
                   <span class="dodge"></span>
                 </div>
             </div>
-            
+
             {% if admin %}
                 <a href="{% url 'electrika_admin' %}" class="btn btn-primary mt-10">Admin</a>
             {% endif %}
             <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
             {% comment %} <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> {% endcomment %}
             <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
-            
-            <a class="registerBtn" 
+
+            <a class="registerBtn"
                 {% if registration_active and not registration_done and not registered %}
                 href="{% url 'electrika_register' %}?next={{ request.path }}"
                 {% elif registration_done and not registered %}
-                
+
                 {% elif registered %}
                 href="{% url 'electrika_index' %}"
                 {% else %}
-                
-                {% endif %} 
+
+                {% endif %}
                 >
                 <span></span>
                 <span></span>
@@ -107,16 +107,16 @@
                 {% else %}
                 Registerations Opening Soon
                 {% endif %}
-            </a> 
+            </a>
             <br>
             <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
                 <div class="arrowdown h-10 w-10 m-0 p-0"></div>
             </button>
         </div>
-    </section>  
+    </section>
 
     {% comment %} About Section {% endcomment %}
-    <section id="about" 
+    <section id="about"
         class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class="about-content text-center flex-col ">
             <div class="about-container">
@@ -128,11 +128,11 @@
                 <p class="text-md md:text-lg lg:text-xl"><strong>Open to 2nd 3rd and 4th year Btech students across india! </strong></p>
                 <br>
                 </p>
-                </div>  
+                </div>
             </div>
         </div>
     </section>
-    
+
     <div class="prose max-w-none flex flex-row">
         <div class="md:basis-1/6"></div>
         <div class="px-10 md:px-0 lg:basis-5/6 md:basis-4/6">
@@ -181,7 +181,7 @@
     </div>
 
     {% comment %} Prizes Section {% endcomment %}
-      <section id="prizes" 
+      <section id="prizes"
         class="facts bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
         <div class=" pt-10">
             <div class="section-header">
@@ -257,7 +257,7 @@
                               </td>
                               <td>2000 INR</td>
                             </tr>
-                        </tbody>                          
+                        </tbody>
                         </table>
                       </div>
                     {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
@@ -283,7 +283,7 @@
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">23<sup>rd</sup> Jan, 2024</time>
                 <div class="text-md md:text-lg lg:text-xl font-black">Expert Talk</div>
-                
+                6PM IST
               </div>
               <hr/>
             </li>
@@ -295,7 +295,7 @@
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">24<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black">Preliminary test</div>
-                
+
               </div>
               <hr />
             </li>
@@ -307,7 +307,7 @@
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">25<sup>th</sup> - 30<sup>th</sup> Jan, 2024</time>
                 <div class="text-lg font-black"> Knowledge sharing sessions and Tasks</div>
-                
+
               </div>
               <hr />
             </li>
@@ -319,7 +319,7 @@
               <div class="timeline-end mb-10">
                 <time class="font-mono italic">31<sup>st</sup> Jan, 2024</time>
                 <div class="text-lg font-black">Main problem statement reveal</div>
-                
+
               </div>
               <hr />
             </li>
@@ -330,8 +330,8 @@
                 </div>
                 <div class="timeline-start mb-10">
                   <time class="font-mono italic">3<sup>rd</sup> Feb, 2024</time>
-                  <div class="text-lg font-black">Hardware Round</div>
-                  
+                  <div class="text-lg font-black">Hardware Round at <span class="text-primary sm:text-lg md:text-xl lg:text-2xl">NITK Campus</span></div>
+
                 </div>
                 <hr />
               </li>
@@ -342,11 +342,11 @@
     <section id='section'
         x-data="
         {
-        openFaq1: false, 
-        openFaq2: false, 
-        openFaq3: false, 
-        openFaq4: false, 
-        openFaq5: false, 
+        openFaq1: false,
+        openFaq2: false,
+        openFaq3: false,
+        openFaq4: false,
+        openFaq5: false,
         openFaq6: false,
         openFaq7: false,
         openFaq8: false,
@@ -358,6 +358,7 @@
         openFaq14: false,
         openFaq15: false,
         openFaq16: false,
+        openFaq17: false,
         }
         "
         class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -400,11 +401,11 @@
                         </h4>
                     </div>
                     </button>
-                    <div x-show="openFaq1" class="faq-content pl-[62px]"> 
+                    <div x-show="openFaq1" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        All students from all institutes can apply for this event.  
+                        All students from all institutes can apply for this event.
                     </p>
                     </div>
                 </div>
@@ -462,7 +463,7 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        Top 2 teams will receive cash prizes from a pool of Rs 5000.
+                        Top 2 teams will receive prizes from a pool of Rs 5000.
                     </p>
                     </div>
                 </div>
@@ -483,7 +484,7 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Is it necessary to be from EC or EEE background?
+                            Is it necessary to be from ECE or EEE background?
                         </h4>
                     </div>
                     </button>
@@ -491,7 +492,7 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        It is not necessary to be from ECE or EEE background. Students with interest and knowledge in the basics of Power Electronics can apply for the event irrespective of their background. 
+                        It is not necessary to be from ECE or EEE background. Students with interest and knowledge in the basics of Power Electronics can apply for the event irrespective of their background.
                     </p>
                     </div>
                 </div>
@@ -588,12 +589,12 @@
                 >
                 <button
                     class="flex w-full text-left faq-btn"
-                    @click="openFaq14 = !openFaq14"
+                    @click="openFaq17 = !openFaq17"
                     >
                     <div
                     class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                     >
-                    <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq14 && 'rotate-180'"></div>
+                    <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq17 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                     <h4
@@ -603,17 +604,46 @@
                     </h4>
                     </div>
                 </button>
-                <div x-show="openFaq14" class="faq-content pl-[62px]">
+                <div x-show="openFaq17" class="faq-content pl-[62px]">
                     <p
                     class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                     >
                     It will entail the main problem statement, set to be released on Jan 31st, with submissions due by Feb 2nd at 12 PM.
                     </p>
                 </div>
-            </div>                
+            </div>
+
+            <div
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                >
+                <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq15 = !openFaq15"
+                    >
+                    <div
+                    class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                    >
+                    <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq15 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                    <h4
+                        class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                        >
+                        Will food be provided?
+                    </h4>
+                    </div>
+                </button>
+                <div x-show="openFaq15" class="faq-content pl-[62px]">
+                    <p
+                    class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                    >
+                    Yes, a food coupon will be provided for the canteen.
+                    </p>
+                </div>
+            </div>
 
             </div>
-     
+
             <div class="w-full px-4 lg:w-1/2">
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
@@ -639,7 +669,7 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        No. The test will have questions about the basics of Linear Algebra, Signals and Systems, Machine Learning, Aptitude and some Python coding. It will not have any competitive coding style questions.
+                        No. The test will have questions about the basics of analog and power electronics , basic control systems and Aptitude. It will not have any competitive coding style questions.
                     </p>
                     </div>
                 </div>
@@ -730,7 +760,7 @@
                         </p>
                     </div>
                 </div>
-         
+
                 <div
                     class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
@@ -813,7 +843,7 @@
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        Yes, All teams qualifying round-1 will receive certificates.
+                        All teams qualifying preliminary test will receive participation certificate.
                         </p>
                     </div>
                 </div>
@@ -872,7 +902,7 @@
                 </div>
             </div>
         </div>
-        
+
     </section>
 
     {% comment %} Contact Section {% endcomment %}
@@ -884,8 +914,8 @@
             <center>
             <p class="section-description text-md md:text-lg lg:text-xl">
             <strong>Apurva S</strong> : <a href="mailto:pranavmkoundinya@gmail.com">apurva.indumathi@gmail.com</a><br>
-            {% comment %} <strong>Raghuram Kannan</strong> : <a href="mailto:raghuramkannan400@gmail.com"> raghuramkannan400@gmail.com</a><br>
-            <strong>Kaliki Venkata Srinanda</strong> : <a href="mailto:srinandakv2004@gmail.com"> srinandakv2004@gmail.com</a> {% endcomment %}
+            <strong>Aditya Rajesh</strong> : <a href="mailto:adityacfal@gmail.com">adityacfal@gmail.com</a><br>
+            <strong>Chandan G Padmashali</strong> : <a href="mailto:chandanpadmashalig125@gmail.com">chandanpadmashalig125@gmail.com</a>
             </p>
         </center>
         <br>

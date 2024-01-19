@@ -1,23 +1,27 @@
 from datetime import datetime
-from django.shortcuts import render
+
 from accounts.models import User
 from config.models import DATETIME_FORMAT
 from config.models import ModuleConfiguration
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.shortcuts import redirect
+from django.shortcuts import render
+from electrika.forms import AnnouncementForm
+from electrika.forms import ElectrikaForm
+from electrika.forms import InviteForm
+from electrika.forms import TeamCreationForm
 from electrika.models import Announcement
 from electrika.models import ElectrikaUser
-from electrika.models import Team
 from electrika.models import Invite
-from electrika.forms import ElectrikaForm
-from electrika.forms import TeamCreationForm
-from electrika.forms import AnnouncementForm
-from electrika.forms import InviteForm
+from electrika.models import Team
+
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
-from django.db import transaction
+
+
 # Create your views here.
 @module_enabled(module_name="electrika")
 def home(request):
@@ -32,6 +36,7 @@ def home(request):
         if request.user.is_authenticated:
             electrika_user = ElectrikaUser.objects.get(user=request.user)
             args["registered"] = True
+            args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         args["registered"] = False
 
@@ -48,7 +53,7 @@ def home(request):
         datetime.now() <= reg_end_datetime
     )
 
-    registration_done = (reg_end_datetime < datetime.now())
+    registration_done = reg_end_datetime < datetime.now()
 
     args["registration_active"] = registration_active
     args["registration_done"] = registration_done
@@ -59,17 +64,18 @@ def home(request):
         args,
     )
 
+
 @login_required
 @module_enabled(module_name="electrika")
 def index(request):
     args = {}
-    try :
+    try:
         electrika_user = ElectrikaUser.objects.get(user=request.user)
         args["electrika_user"] = electrika_user
     except ElectrikaUser.DoesNotExist:
         messages.error(request, "Please register for Electrika first!")
-        return redirect("electrika_home")
-    
+        return redirect("electrika_register")
+
     if electrika_user.team is not None:
         args["in_team"] = True
 
@@ -94,9 +100,9 @@ def index(request):
             args["invite_form"] = InviteForm()
         else:
             args["is_leader"] = False
-        
+
         args["team_count"] = team_count
-    
+
         args["team"] = team
         args["members"] = members
 
@@ -106,8 +112,7 @@ def index(request):
         args["team_creation_form"] = TeamCreationForm()
         invites = Invite.objects.filter(invite_email=electrika_user.user.email)
         args["invites_for_user"] = invites
-        
-        
+
     config = ModuleConfiguration.objects.get(module_name="electrika").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -122,7 +127,7 @@ def index(request):
     registration_active = (reg_start_datetime <= datetime.now()) and (
         datetime.now() <= reg_end_datetime
     )
-    
+
     args["registration_active"] = registration_active
 
     if electrika_user.team is not None:
@@ -140,7 +145,6 @@ def index(request):
 @login_required
 @module_enabled(module_name="electrika")
 def register(request):
-
     config = ModuleConfiguration.objects.get(module_name="electrika").module_config
 
     reg_start_datetime, reg_end_datetime = (
@@ -159,7 +163,7 @@ def register(request):
     if not registration_active:
         messages.error(request, "Registration for Electrika is not active yet!")
         return redirect("index")
-    
+
     try:
         electrika_user = ElectrikaUser.objects.get(user=request.user)
         messages.error(request, "You have already registered for Electrika!")
@@ -204,15 +208,16 @@ def create_team(request):
                 electrika_user = ElectrikaUser.objects.get(user=request.user)
                 team.team_leader = electrika_user
 
-                team.save() 
+                team.save()
                 electrika_user.team = team
+                electrika_user.to_be_teamed_up = False
                 electrika_user.save()
                 messages.success(request, "Successfully created team!")
                 return redirect("electrika_index")
     else:
         messages.error(request, "Please correct the errors before creating team!")
         return redirect("electrika_index")
-    
+
 
 @login_required
 @module_enabled(module_name="electrika")
@@ -248,7 +253,9 @@ def create_invite(request):
                 inviting_team=electrika_user.team
             ).count()
 
-            team_members = ElectrikaUser.objects.filter(team=electrika_user.team).count()
+            team_members = ElectrikaUser.objects.filter(
+                team=electrika_user.team
+            ).count()
 
             config = ModuleConfiguration.objects.get(
                 module_name="electrika"
@@ -269,6 +276,7 @@ def create_invite(request):
     messages.error(request, "Illegal Request")
     return redirect("electrika_index")
 
+
 @login_required
 @module_enabled(module_name="electrika")
 def accept_invite(request, pk):
@@ -288,6 +296,7 @@ def accept_invite(request, pk):
 
     electrika_user = ElectrikaUser.objects.get(user=request.user)
     electrika_user.team = invite.inviting_team
+    electrika_user.to_be_teamed_up = False
     electrika_user.save()
 
     Invite.objects.filter(invite_email=request.user.email).delete()
@@ -305,7 +314,8 @@ def delete_invite(request, pk):
     messages.success(request, "Invite deleted!")
     return redirect("electrika_index")
 
-@login_required 
+
+@login_required
 @module_enabled(module_name="electrika")
 def opt_in(request):
     electrika_user = ElectrikaUser.objects.get(user=request.user)
@@ -313,6 +323,7 @@ def opt_in(request):
     electrika_user.save()
     messages.success(request, "Successfully opted in for team formation!")
     return redirect("electrika_index")
+
 
 @login_required
 @module_enabled(module_name="electrika")
@@ -329,12 +340,14 @@ def opt_out(request):
 def admin(request):
     return render(request, "electrika/admin/admin.html", {})
 
+
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
 def team_management(request):
     args = {}
     args["teams"] = Team.objects.all()
     return render(request, "electrika/admin/teams.html", args)
+
 
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
@@ -345,10 +358,13 @@ def team_page(request, pk):
     args["members"] = ElectrikaUser.objects.filter(team=team)
     return render(request, "electrika/admin/team_page.html", args)
 
+
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
 def create_team_admin(request):
     import random
+
+    random.seed(datetime.now().second)
     electrika_users = ElectrikaUser.objects.filter(team=None, to_be_teamed_up=True)
     TEAM_NAMES = [
         "Iconoclasts",
@@ -368,11 +384,13 @@ def create_team_admin(request):
         "Smart Simpson",
         "Cheat Sheet",
         "You Cheated Off Us in High School",
-        "Brainstormers"
+        "Brainstormers",
     ]
 
     num_users = electrika_users.count()
     num_teams = num_users // 4
+
+    electrika_users = list(electrika_users)
 
     if num_users == 0:
         messages.error(request, "Not enough users to create teams!")
@@ -382,11 +400,13 @@ def create_team_admin(request):
         with transaction.atomic():
             for i in range(num_teams):
                 team_name = TEAM_NAMES[random.randint(0, len(TEAM_NAMES) - 1)]
-                team = Team(team_name=team_name, team_leader=electrika_users[i*4])
+                team_leader_index = i * 4
+                team_leader = electrika_users[team_leader_index]
+                team = Team(team_name=team_name, team_leader=team_leader)
                 team.save()
                 for j in range(4):
-                    index = i*4 + j
-                    if index >= electrika_users.count():
+                    index = i * 4 + j
+                    if index >= len(electrika_users):
                         break
                     user = electrika_users[index]
                     user.team = team
@@ -394,31 +414,35 @@ def create_team_admin(request):
                     user.save()
 
             if num_users % 4 != 0:
-                team_name = TEAM_NAMES[num_teams%len(TEAM_NAMES)]
-                team = Team(team_name=team_name, team_leader=electrika_users[num_teams*4])
+                team_name = TEAM_NAMES[random.randint(0, len(TEAM_NAMES) - 1)]
+                team_leader_index = num_teams * 4
+                team = Team(
+                    team_name=team_name, team_leader=electrika_users[team_leader_index]
+                )
                 team.save()
                 for j in range(num_users % 4):
-                    index = num_teams*4 + j
-                    if index >= electrika_users.count():
+                    index = num_teams * 4 + j
+                    if index >= len(electrika_users):
                         break
-                    user = electrika_users[num_teams*4 + j]
+                    user = electrika_users[num_teams * 4 + j]
                     user.team = team
                     user.to_be_teamed_up = False
                     user.save()
-    except Exception as e:
+    except Exception:
         messages.error(request, "Error creating teams!")
         return redirect("electrika_admin_teams")
 
     messages.success(request, "Successfully created teams!")
     return redirect("electrika_admin_teams")
 
-                  
+
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
 def user_management(request):
     args = {}
     args["users"] = ElectrikaUser.objects.all()
     return render(request, "electrika/admin/users.html", args)
+
 
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
@@ -427,7 +451,7 @@ def announcements_management(request):
         form = AnnouncementForm(request.POST)
         if form.is_valid():
             announcement = form.save()
-            
+
             mail_option = form.cleaned_data.get("announcement_mailing", "1")
             email_ids = None
             if mail_option == "2":
@@ -455,7 +479,7 @@ def announcements_management(request):
                             "user__email", flat=True
                         )
                     )
-                    
+
             if email_ids is not None:
                 send_email(
                     "Announcement | Electrika",
@@ -467,7 +491,9 @@ def announcements_management(request):
             messages.success(request, "Successfully created announcement!")
             return redirect("electrika_announcements")
         else:
-            messages.error(request, "Please correct the errors before creating announcement!")
+            messages.error(
+                request, "Please correct the errors before creating announcement!"
+            )
             return redirect("electrika_announcements")
     else:
         form = AnnouncementForm()
@@ -476,6 +502,7 @@ def announcements_management(request):
     args = {"form": form, "announcements": announcements}
     return render(request, "electrika/admin/announcements.html", args)
 
+
 @login_required
 @ensure_group_membership(group_names=["electrika_admin"])
 def delete_announcement(request, pk):
@@ -483,55 +510,3 @@ def delete_announcement(request, pk):
     announcement.delete()
     messages.success(request, "Successfully deleted announcement!")
     return redirect("electrika_announcements")
-
-
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def download_csv_non_registrants(request):
-    import csv
-    from django.http import HttpResponse
-
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="non_registrants.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(["Name", "Email"])
-
-    users = User.objects.exclude(
-        email__in=ElectrikaUser.objects.values_list("user__email", flat=True)
-    )
-
-    users = users.exclude(is_staff=True)
-    users = users.exclude(is_superuser=True)
-        
-
-    for user in users:
-        writer.writerow([user, user.email])
-
-    return response
-
-@login_required
-@ensure_group_membership(group_names=["electrika_admin"])
-def team_download(request):
-    import csv
-    from django.http import HttpResponse
-
-    response = HttpResponse(content_type="text/csv")
-    response["Content-Disposition"] = 'attachment; filename="teams.csv"'
-
-    writer = csv.writer(response)
-    
-    queryset = Team.objects.select_related('team_leader__user').values('team_name', 'team_leader__user__first_name', 'team_leader__user__email', 'team_leader__user__phone_no')
-    selected_fields = request.POST.getlist('selected_fields[]')
-
-    # Write header row
-    header_row = selected_fields
-    writer.writerow(header_row)
-
-    # Write data rows
-    for item in queryset:
-        row_data = [str(item[field]) for field in selected_fields]
-    
-        writer.writerow(row_data)
-
-    return response
