@@ -363,7 +363,6 @@ def team_page(request, pk):
 @ensure_group_membership(group_names=["electrika_admin"])
 def create_team_admin(request):
     import random
-
     random.seed(datetime.now().second)
     electrika_users = ElectrikaUser.objects.filter(team=None, to_be_teamed_up=True)
     TEAM_NAMES = [
