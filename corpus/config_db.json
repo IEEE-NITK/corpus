@@ -1,10 +1,63 @@
 [
   {
     "fields": {
+      "about": "The NITK-IEEE Computer Society is a conglomeration of students with a passion for Computer Science and Information Technology. This SIG is a great platform for those who want to gain expertise in computer based technology.\r\nIn the true spirit of divide and conquer, our community intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science, in the form of 3 research groups : Intelligence, Systems and Core Computer Science.",
+      "name": "CompSoc",
+      "slug": "compsoc",
+      "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development ."
+    },
+    "model": "config.sig",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "about": "The NITK Diode SIG is a combination of the Circuits and Systems (CAS) Society, Signal Processing Society (SPS) and the Industrial Applications Society (IAS).\r\nThe SIG consists of a team of students with a strong interest in the field of Electronics and Electrical Science, and works on conceiving and pioneering solutions to fundamental and applied problems in the fields of robotics, microcontrollers and signal processing.",
+      "name": "Diode",
+      "slug": "diode",
+      "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode."
+    },
+    "model": "config.sig",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "about": "Piston is a SIG dedicated to the engineering applications of Mechanical, Civil, Chemical and Material Sciences. The SIG functions as a platform for students interested in learning and advancing specific areas of knowledge and technology. The SIG members co-operate, communicate, and organise meets, talks and conferences to discuss the latest technological advancements and applications.",
+      "name": "Piston",
+      "slug": "piston",
+      "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials."
+    },
+    "model": "config.sig",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "about": "The Women in Engineering affinity group of IEEE NITK aims to increase inclusivity and acceptance in tech on campus. We coordinate events and mentorship programs to inspire our colleagues and other women and girls to pursue a career in engineering. It is a professional organisation dedicated to promoting technical interests among women engineers and scientists.",
+      "name": "WiE",
+      "slug": "wie",
+      "what_we_do": "It was launched on February 18th 2009 by Prof. Marimuthu, the R10 WiE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally."
+    },
+    "model": "config.sig",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "about": "IEEE SIGHT caters to the guiding philosophy of IEEE - \u2018Advancing Technology for Humanity\u2019. IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
+      "name": "SIGHT",
+      "slug": "sight",
+      "what_we_do": "We focus on taking up projects in the open-source platforms. This helps us drive down the cost of the final product and make the solution affordable to a large section of people."
+    },
+    "model": "config.sig",
+    "pk": 5
+  },
+  {
+    "fields": {
       "dark_image": "img/logo/compsoc-dark.png",
       "description": "The IEEE NITK Computer Society Chapter intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science in the form of three focus groups: Intelligence, Systems and Theoretical Computer Science.",
       "image": "img/logo/compsoc-light.png",
       "name": "CS",
+      "sigs": [
+        1
+      ],
       "url": "https://www.computer.org/"
     },
     "model": "config.society",
@@ -16,6 +69,9 @@
       "description": "The IEEE NITK Signal Processing Society Chapter focuses projects and research in areas of signal processing and machine learning. Projects undertaken here are oriented towards healthcare and solutions to humanitarian needs.",
       "image": "img/logo/sps.png",
       "name": "SPS",
+      "sigs": [
+        2
+      ],
       "url": "https://signalprocessingsociety.org/"
     },
     "model": "config.society",
@@ -27,6 +83,9 @@
       "description": "The IEEE NITK Circuits and Systems Society Chapter focuses on areas around electrical and electronic circuits with applications in healthcare, industry appliances, home appliances and electronics systems research.",
       "image": "img/logo/cass-light.png",
       "name": "CASS",
+      "sigs": [
+        2
+      ],
       "url": "https://ieee-cas.org/"
     },
     "model": "config.society",
@@ -38,6 +97,9 @@
       "description": "The IEEE IAS vision \u201cto be a world leader in the advancement of technology and dissemination of technical information to support professionals engaged in the applications of electrical and electronic engineering to industry\u201d has become possible with the professional connection of Industry Professionals in Electrical and Electronic Engineering.",
       "image": "img/logo/ias-light.png",
       "name": "IAS",
+      "sigs": [
+        3
+      ],
       "url": "https://ias.ieee.org/"
     },
     "model": "config.society",
@@ -49,6 +111,9 @@
       "description": "The IEEE Photonics Society forms the hub of a vibrant technical community dedicated to transforming breakthroughs in quantum physics into the devices, systems and products to revolutionize our daily lives. From ubiquitous and inexpensive global communications via fiber optics, to lasers for medical and other applications, to flat-screen displays, to photovoltaic devices for solar energy, to LEDs for energy-efficient illumination, there are myriad examples of the society's impact on the world around us.",
       "image": "img/logo/photonics.png",
       "name": "PHO",
+      "sigs": [
+        3
+      ],
       "url": "https://www.photonicssociety.org/"
     },
     "model": "config.society",
@@ -60,6 +125,9 @@
       "description": "The IEEE RAS Student Chapter focuses on the interdisciplinary nature of technology and engineering and strives to advance robotics and intelligent systems technology in various fields of biomedical engineering, security, industry and home automation through research and ingenuity.",
       "image": "img/logo/ras.png",
       "name": "RAS",
+      "sigs": [
+        2
+      ],
       "url": "https://www.ieee-ras.org/"
     },
     "model": "config.society",
@@ -71,6 +139,9 @@
       "description": "GRSS - The Geoscience and Remote Sensing Society (GRSS) is a technical Society of the Institute of Electrical and Electronics Engineers (IEEE). GRSS encourages its members to participate in science, engineering, applications, and education linked to the advancement of geoscience and remote sensing for the benefit of society.",
       "image": "img/logo/grss-light.png",
       "name": "GRSS",
+      "sigs": [
+        3
+      ],
       "url": "https://www.grss-ieee.org/"
     },
     "model": "config.society",
@@ -82,6 +153,9 @@
       "description": "The IEEE Computational Intelligence Society (CIS) is a vibrant community working towards a common goal - to unravel the mysteries of the ever-evolving field of computational intelligence with its focus on neural networks, fuzzy systems, and evolutionary computation. The society hosts conferences, publishes journals, and provides educational resources to foster learning and collaboration leading to the development of cutting-edge applications and forging the future of AI.",
       "image": "img/logo/cis-light.png",
       "name": "CIS",
+      "sigs": [
+        1
+      ],
       "url": "https://cis.ieee.org/"
     },
     "model": "config.society",
@@ -93,6 +167,9 @@
       "description": "The IEEE NITK WIE is a professional organisation dedicated to promoting technical interests among women engineers and scientists. It was launched on February 18th 2009 by Prof Marimuthu, the R10 WIE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally.",
       "image": "img/logo/wie.png",
       "name": "WIE",
+      "sigs": [
+        4
+      ],
       "url": "https://wie.ieee.org/"
     },
     "model": "config.society",
@@ -104,6 +181,9 @@
       "description": "IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
       "image": "img/logo/sight.png",
       "name": "SIGHT",
+      "sigs": [
+        5
+      ],
       "url": "https://sight.ieee.org/"
     },
     "model": "config.society",
