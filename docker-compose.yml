@@ -9,7 +9,7 @@ services:
     expose:
       - ${POSTGRES_PORT}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-U corpus"]
+      test: [ "CMD-SHELL", "pg_isready", "-U corpus" ]
       interval: 30s
       timeout: 30s
       retries: 5
@@ -38,6 +38,7 @@ services:
     restart: always
     ports:
       - "8000:8000"
+      - "465:465"
     networks:
       - corpus_network
     volumes:
@@ -49,6 +50,16 @@ services:
       - .env
     environment:
       - ENVIRONMENT=DEVELOPMENT
+
+  jstoolchain:
+    build:
+      context: corpus
+      dockerfile: node-Dockerfile
+    working_dir: /opt/app
+    volumes:
+      - ./corpus/templates:/opt/app/templates
+    command: npm run tailwind-dev
+    tty: true
 
 networks:
   corpus_network:

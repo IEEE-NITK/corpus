@@ -33,6 +33,18 @@
                 {% endif %}
             </div>
 
+            <div class="my-2" id="nitk-roll-number-field">
+                <label for="{{ form.nitk_roll_number.id_for_label }}">Enter NITK Roll Number:</label>
+                {{ form.nitk_roll_number }}
+                {% if form.nitk_roll_number.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.nitk_roll_number.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="w-full my-2" id="college-name-field">
                 <label for="{{ form.college_name.id_for_label }}">College Name</label>
                 {{ form.college_name }}
@@ -134,9 +146,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             let nitkChackbox = document.getElementById("{{ form.from_nitk.id_for_label }}");
             let collegeField = document.getElementById("college-name-field");
+            let nitkRollNumberField = document.getElementById("nitk-roll-number-field");
 
             function toggleCollegeField() {
                 collegeField.style.display = nitkChackbox.checked ? "none" : "block";
+                nitkRollNumberField.style.display = nitkChackbox.checked ? "block" : "none";
             }
 
             toggleCollegeField();

@@ -9,7 +9,7 @@ COURSES = [
     ("S", "B.Sc."),
     ("O", "Other undergraduate degree"),
 ]
-YEAR = [("1", "1st Year"), ("2", "2nd Year")]
+YEAR = [("1", "1st Year"), ("2", "2nd Year"), ("3", "3rd Year")]
 PAYMENT_STATUS = [("E", "Exempt"), ("U", "Fee Not Paid"), ("P", "Fee Paid")]
 
 
@@ -54,3 +54,9 @@ class Invite(models.Model):
 
     def __str__(self):
         return self.invite_email
+
+
+class Announcement(models.Model):
+    content = models.TextField(blank=False, null=False)
+    url_link = models.URLField(blank=True, null=True)
+    url_link_text = models.CharField(max_length=200, blank=True, null=True)
