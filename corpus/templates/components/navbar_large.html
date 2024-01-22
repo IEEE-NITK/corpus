@@ -1,0 +1,73 @@
+<div class="navbar bg-primary text-primary-content sticky top-0 z-10">
+    <div class="navbar-start">
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
+    </div>
+    <div class="navbar-center">
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-lg">Home</a>
+        <a href="{% url 'about_us' %}" class="btn btn-ghost normal-case text-lg">About Us</a>
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
+                SIGs
+            </label>
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                <ul class="mx-2">
+                    <li><a href="{% url 'sig' sig_name='compsoc' %}">CompSoc</a></li>
+                    <li><a href="{% url 'sig' sig_name='diode' %}">Diode</a></li>
+                    <li><a href="{% url 'sig' sig_name='piston' %}">Piston</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
+                Affinity Groups
+            </label>
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                <ul class="mx-2">
+                    <li><a href="{% url 'sig' sig_name='wie' %}">WiE</a></li>
+                    <li><a href="{% url 'sig' sig_name='sight' %}">SIGHT</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost normal-case text-lg">
+                Events
+            </label>
+            <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-col md:flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+
+                <ul class="mx-2">
+                    <li class="text-xl font-bold text-white my-2">Embedathon</li>
+                    <li><a href="{% url 'embedathon_home' %}">Home</a></li>
+                    <li><a href="{% url 'embedathon_index' %}">Dashboard</a></li>
+                </ul>
+
+                <ul class="mx-2">
+                    <li class="text-xl font-bold text-white my-2">Impulse</li>
+                    <li><a href="{% url 'impulse_home' %}">Home</a></li>
+                    <li><a href="{% url 'impulse_index' %}">Dashboard</a></li>
+                </ul>
+
+                <ul class="mx-2">
+                    <li class="text-xl font-bold text-white my-2">Electrika</li>
+                    <li><a href="{% url 'electrika_home' %}">Home</a></li>
+                    <li><a href="{% url 'electrika_index' %}">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+
+
+
+        <a href="https://ieee-nitk.github.io/blog/" class="btn btn-ghost normal-case text-lg">Blog</a>
+        <a href="https://ieee-nitk.github.io/gyan/" class="btn btn-ghost normal-case text-lg">Gyan</a>
+        <a href="https://ieee-nitk.github.io/virtual-expo/" class="btn btn-ghost normal-case text-lg">Virtual Expo</a>
+    </div>
+    <div class="navbar-end">
+
+        {#    {% if user.is_authenticated %}#}
+            <!-- <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+                {#        {% include "components/internal_dropdown.html" %}#}
+            </div>    -->
+        {#    {% endif %}#}
+
+        {% include "components/navbar_right.html" %}
+    </div>
+</div>

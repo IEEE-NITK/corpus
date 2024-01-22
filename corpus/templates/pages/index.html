@@ -43,7 +43,6 @@ Home
     <p class="font-bold">NITK Student Branch: STB98631</p>
 </section>
 <!-- SIG Section -->
-<!-- TODO: Add SIG Links -->
 <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
     <h1 class="text-4xl lg:text-5xl">Special Interest Groups</h1>
     <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
@@ -60,7 +59,7 @@ Home
                 <p>A conglomeration of students with a passion for Computer Science, Information Technology and
                     Artificial Intelligence</p>
                 <div class="card-actions mt-3">
-                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                    <a role="button" href="{% url 'sig' sig_name='compsoc' %}" class="btn btn-outline btn-primary">Learn More</a>
                 </div>
             </div>
         </div>
@@ -76,7 +75,7 @@ Home
                 <p>A special interest group with a strong interest in the field of Electronics and Electrical Science
                 </p>
                 <div class="card-actions mt-3">
-                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                    <a role="button" href="{% url 'sig' sig_name='diode' %}" class="btn btn-outline btn-primary">Learn More</a>
                 </div>
             </div>
         </div>
@@ -95,7 +94,7 @@ Home
                 <p>A team dedicated to the engineering applications of Mechanical, Automation, Civil, Chemical and
                     Material Sciences</p>
                 <div class="card-actions mt-3">
-                    <a role="button" href="#" class="btn btn-outline btn-primary">Learn More</a>
+                    <a role="button" href="{% url 'sig' sig_name='piston' %}" class="btn btn-outline btn-primary">Learn More</a>
                 </div>
             </div>
         </div>
