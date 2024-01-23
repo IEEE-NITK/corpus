@@ -55,6 +55,8 @@ def home(request):
 
     registration_done = reg_end_datetime < datetime.now()
 
+    args["session_link"] = config["session-link"]
+
     args["registration_active"] = registration_active
     args["registration_done"] = registration_done
 
