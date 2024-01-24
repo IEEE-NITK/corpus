@@ -1,0 +1,345 @@
+{% extends 'robotrix/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Robotrix
+{% endblock %}
+
+{% block style %}
+<style>
+    .hero {
+        background-color: rgba(0, 0, 0, 0.5);
+        background-image: url("{% static 'img/ieee-robotrix.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+    }
+    /* Small screens (default full width) */
+    @media (min-width: 640px) {
+        #schedule {
+            max-width: 70%;
+        }
+    }
+
+    /* Medium screens */
+    @media (min-width: 768px) {
+        #schedule {
+            max-width: 80%;
+        }
+    }
+
+    /* Large screens */
+    @media (min-width: 1024px) {
+        #schedule {
+            max-width: 50%;
+        }
+    }
+
+    /* Extra-large screens */
+    @media (min-width: 1280px) {
+        #schedule {
+            max-width: 50%;
+        }
+    }
+
+    .tick {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+    }
+
+    .arrowdown {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+    }
+
+    #id_payment_proof {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid currentColor;
+        border-radius: 0.375rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section
+class="hero min-h-[50vh] min-w-screen">
+<div class="hero-content text-center flex-col pb-20">
+    <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/logo/robotrix_2024.png' %}" alt="Robotrix Logo">
+    <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white dark:text-white">Robotrix</h1>
+    <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
+    <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
+    <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
+    {% comment %} <a href="#" target="" class="btn btn-primary mt-8 mb-0">Registrations Opening soon</a> {% endcomment %}
+    <br>
+</div>
+</section>
+
+<section
+    class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <div class="prose max-w-none mx-10 my-10">
+        <div class="flex flex-col md:flex-row gap-2">
+            <div class="{% if registration_active %} basis-2/4 {% else %} basis-1/4 {% endif %} rounded-lg bg-gradient-to-br from-sky-50 to-blue-300 dark:from-gray-800 dark:to-base-100">
+                <div class="card ">
+                    <div class="card-body pt-0">
+                        {% if in_team %}
+                            <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="card-title">Team: {{ team.team_name }}</h3>
+                                    {% comment %} edit button {% endcomment %}
+                                    <button class="btn btn-sm btn-circle mx-3" onclick="editteam_modal.showModal()" title="Edit Team"> ✎ </button>
+                                    <dialog id="editteam_modal" class="modal">
+                                        <div class="modal-box">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                            </form>
+                                            <h3 class="font-bold text-lg">Edit Team</h3>
+                                            <form method="post" action="{% url 'robotrix_create_team' %}" class="py-5">
+                                                {% csrf_token %}
+                                                <div class="my-2">
+                                                    <label for='{{ team_creation_form.team_name }}'> Team Name</label>
+                                                    {{ team_creation_form.team_name }}
+                                                    {% if team_creation_form.team_name.errors %}
+                                                        <div class="my-1">
+                                                            <div role="alert" class="alert alert-error">
+                                                                {{ team_creation_form.team_name.errors }}
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="my-2">
+                                                    <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Update Team Details</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </div>
+                                <div class="bg-green-500 text-white rounded-full px-3 py-1 text-sm dark:bg-yellow-500 dark:text-black">
+                                        <strong class="text-black">Payment Status</strong>: {{ team.get_payment_status_display }}
+                                </div>
+                            </div>
+
+                            {% if team.payment_status == "P" or team.payment_status == "E" %}
+                            <div class="flex justify-between items-center w-1/2 mx-auto">
+                                <h4> Join the Discord Server </h4>
+                                <a href="https://discord.gg/ERgvn4EvHM" target="_blank" class="text-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
+                                        <path fill="#85cbf8" d="M62.34,43.27c-1.09-10.09-3.48-20-6.82-27.5a3.89,3.89,0,0,0-1.7-1.84A44.47,44.47,0,0,0,41.88,9.56,2,2,0,0,0,39.49,11L39,13l.08.72a35.17,35.17,0,0,0-14.16,0L25,13l-.49-2a2,2,0,0,0-2.39-1.47,44.47,44.47,0,0,0-11.94,4.37,3.89,3.89,0,0,0-1.7,1.84c-3.34,7.54-5.73,17.41-6.82,27.5a4,4,0,0,0,1.41,3.47A42.91,42.91,0,0,0,15.9,54.15a2,2,0,0,0,2.51-1L21,48l0-.3A46.94,46.94,0,0,0,43,47.7l0,.3,2.59,5.18a2,2,0,0,0,2.51,1,42.91,42.91,0,0,0,12.83-7.41A4,4,0,0,0,62.34,43.27ZM22.2,40.51c-2.8,0-5.07-2.94-5.07-6.55s2.27-6.55,5.07-6.55,5.07,2.93,5.07,6.55S25,40.51,22.2,40.51Zm20,0c-2.8,0-5.07-2.94-5.07-6.55s2.27-6.55,5.07-6.55,5.07,2.93,5.07,6.55S45,40.51,42.2,40.51Z"></path><path fill="#9fddff" d="M48,19.74l-.11.26a2.54,2.54,0,0,1-3.77,1.1A22.69,22.69,0,0,0,32,18a23,23,0,0,0-11.88,3,2.5,2.5,0,0,1-3.45-.84L16.6,20a2.52,2.52,0,0,1,1.12-3.61A36.35,36.35,0,0,1,32,13c5,0,11.21,2.13,14.55,3.43A2.51,2.51,0,0,1,48,19.74Z"></path><path fill="#9fddff" d="M60.93,46.74A42.91,42.91,0,0,1,48.1,54.15a2,2,0,0,1-2.51-1l0,0a42,42,0,0,0,10.36-6.4,4,4,0,0,0,1.41-3.47c-1.09-10.09-3.48-20-6.82-27.5a3.89,3.89,0,0,0-1.7-1.84,44.21,44.21,0,0,0-9-3.63,2,2,0,0,1,2-.74,44.47,44.47,0,0,1,11.94,4.37,3.89,3.89,0,0,1,1.7,1.84c3.34,7.54,5.73,17.41,6.82,27.5A4,4,0,0,1,60.93,46.74Z"></path><path fill="#7bbeeb" d="M3.28,46.74a42.91,42.91,0,0,0,12.83,7.41,2,2,0,0,0,2.51-1l0,0a42,42,0,0,1-10.36-6.4,4,4,0,0,1-1.41-3.47c1.09-10.09,3.48-20,6.82-27.5a3.89,3.89,0,0,1,1.7-1.84,44.21,44.21,0,0,1,9-3.63,2,2,0,0,0-2-.74,44.47,44.47,0,0,0-11.94,4.37,3.89,3.89,0,0,0-1.7,1.84C5.35,23.31,3,33.18,1.87,43.27A4,4,0,0,0,3.28,46.74Z"></path><path fill="#8d6c9f" d="M22 27c-3.31 0-6 3.14-6 7s2.69 7 6 7 6-3.14 6-7S25.31 27 22 27zm0 12c-2.21 0-4-2.24-4-5s1.79-5 4-5 4 2.24 4 5S24.21 39 22 39zM42 27c-3.31 0-6 3.14-6 7s2.69 7 6 7 6-3.14 6-7S45.31 27 42 27zm0 12c-2.21 0-4-2.24-4-5s1.79-5 4-5 4 2.24 4 5S44.21 39 42 39z"></path><path fill="#8d6c9f" d="M63.33,43.16c-1.12-10.41-3.57-20.28-6.89-27.8A4.89,4.89,0,0,0,54.3,13,45.81,45.81,0,0,0,42.08,8.58a3,3,0,0,0-3.56,2.21l-.43,1.73a36.25,36.25,0,0,0-12.18,0l-.43-1.73a3,3,0,0,0-3.56-2.21A45.81,45.81,0,0,0,9.7,13a4.89,4.89,0,0,0-2.14,2.32C4.24,22.88,1.79,32.75.67,43.16a5,5,0,0,0,1.76,4.34,43.79,43.79,0,0,0,13.13,7.58,3,3,0,0,0,1.06.19,3,3,0,0,0,2.69-1.66l2.37-4.74a48.3,48.3,0,0,0,20.65,0l2.37,4.74a3,3,0,0,0,2.69,1.66,3.06,3.06,0,0,0,1.06-.19,43.8,43.8,0,0,0,13.13-7.58A5,5,0,0,0,63.33,43.16Zm-3,2.82a41.8,41.8,0,0,1-12.53,7.23,1,1,0,0,1-1.27-.48L44.32,48.4a46.3,46.3,0,0,0,7.09-2.52,1,1,0,0,0-.82-1.82A44.92,44.92,0,0,1,32,48a44.92,44.92,0,0,1-18.59-3.94,1,1,0,0,0-.82,1.82,46.3,46.3,0,0,0,7.09,2.52l-2.16,4.33a1,1,0,0,1-1.27.48A41.79,41.79,0,0,1,3.72,46a3,3,0,0,1-1.06-2.6c1.1-10.21,3.49-19.87,6.74-27.2a2.88,2.88,0,0,1,1.26-1.37,43.81,43.81,0,0,1,11.68-4.27,1,1,0,0,1,1.2.73l.41,1.64a26.79,26.79,0,0,0-8.51,3.38,1,1,0,0,0,1.13,1.65c.06,0,5.9-3.93,15.44-3.93s15.38,3.89,15.44,3.93a1,1,0,0,0,1.13-1.65,26.78,26.78,0,0,0-8.51-3.38l.41-1.64a1,1,0,0,1,1.2-.73,43.81,43.81,0,0,1,11.68,4.27,2.88,2.88,0,0,1,1.26,1.37c3.24,7.33,5.64,17,6.74,27.2A3,3,0,0,1,60.28,46Z"></path><path fill="#8d6c9f" d="M34.67 52a37.93 37.93 0 0 1-11.43-.94A1 1 0 1 0 22.77 53 39.56 39.56 0 0 0 32 54.12c.94 0 1.88 0 2.81-.1a1 1 0 1 0-.14-2zM40.77 51.09c-.84.2-1.69.38-2.53.52a1 1 0 0 0 .16 2h.17c.89-.15 1.78-.33 2.67-.54a1 1 0 0 0-.47-1.95zM32 16.42a1 1 0 0 0-1 1v1.76a1 1 0 0 0 2 0V17.42A1 1 0 0 0 32 16.42zM36.75 20.61l.24 0a1 1 0 0 0 1-.77l.42-1.72a1 1 0 0 0-1.94-.47L36 19.4A1 1 0 0 0 36.75 20.61zM41.31 21.89a1 1 0 0 0 1.34-.44l.81-1.61a1 1 0 1 0-1.78-.9l-.81 1.61A1 1 0 0 0 41.31 21.89zM26 19.87a1 1 0 0 0 1 .77l.24 0A1 1 0 0 0 28 19.4l-.42-1.72a1 1 0 0 0-1.94.47zM21.35 21.45a1 1 0 1 0 1.78-.9l-.81-1.61a1 1 0 1 0-1.78.9z"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                            {% endif %}
+
+                            {% if team.payment_status == "U" %}
+                                <div class="alert alert-info my-2 rounded-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        class="stroke-current shrink-0 w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span>
+                                        Please pay the fee of <strong>Rs. 150</strong> <a href="https://in.explara.com/e/robotrix-2024">here </a>. If you have already paid the fee, it might take some time for it to be updated here. Please only contact us if it has not been updated for more than a week.
+                                    </span>
+                                </div>
+                            {% endif %}
+                            <div class="rounded-lg p-3 flex flex-col gap-2">
+                                <div class="flex justify-between items-center">
+                                    <h3>Team Members</h3>
+                                    <div class="bg-green-500 text-white rounded-full px-3 py-1 text-sm dark:bg-yellow-500 dark:text-black">
+                                        <strong class="text-black">Team Size</strong>: {{ team_count }} / 2
+                                    </div>
+                                </div>
+                                {% for member in members %}
+                                <div class="member-list mx-auto">
+                                    <div class="mb-4 mx-auto">
+                                        {{ member.user }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if is_leader and registration_active and not team_full %}
+                                <div class="flex flex-col w-full">
+                                    <div class="divider divider-primary">OR</div>
+                                </div>
+                                <div>
+                                    <h4>Active Invites</h4>
+                                    {% if invites_from_team %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Email Address</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for invite in invites_from_team %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ invite.invite_email }}</td>
+                                                    <td>
+                                                        <a href="{% url 'robotrix_delete_invite' pk=invite.pk %}"
+                                                        class="btn btn-sm btn-outline btn-error m-1">Revoke</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>You have no active invites.</p>
+                                    {% endif %}
+                                    <h4>Send Invite</h4>
+                                    <form method="post" action="{% url 'robotrix_create_invite' %}">
+                                        {% csrf_token %}
+                                        <div class="w-full my-2">
+                                            <label for="{{ invite_form.invite_email.id_for_label }}">Email
+                                                Address</label>
+                                            {{ invite_form.invite_email }}
+                                            <p class="text-sm font-bold">Please enter the email that your teammate will
+                                                be registering with on Corpus.</p>
+                                            {% if invite_form.invite_email.errors %}
+                                                <div class="my-1">
+                                                    <div role="alert" class="alert alert-error">
+                                                        {{ invite_form.invite_email.errors }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-actions amt-5">
+                                            <button class="btn btn-primary btn-block">Send Invite</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            {% endif %}
+
+                        {% elif registration_active %}
+                        {% comment %} IMPORTANT DANGER BANNER {% endcomment %}
+                        <div class="alert alert-error my-2 rounded-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="stroke-current shrink-0 w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>
+                                YOU ARE NOT IN A TEAM. Please create a team or join an existing team to complete your registration for Robotrix.
+                            </span>
+                        </div>
+                            <div>
+                                <h3 class="card-title">Current Invites</h3>
+                                {% if invites_for_user %}
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Team Name</th>
+                                            <th>Invited By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for invite in invites_for_user %}
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ invite.inviting_team.team_name }}</td>
+                                            <td>{{ invite.inviting_team.team_leader }}</td>
+                                            <td>
+                                                <a href="{% url 'robotrix_accept_invite' pk=invite.pk %}"
+                                                class="btn btn-sm btn-outline btn-success m-1">Accept</a>
+                                                <a href="{% url 'robotrix_delete_invite' pk=invite.pk %}"
+                                                class="btn btn-sm btn-outline btn-error m-1">Reject</a>
+                                            </td>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>You have no invites.</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <div class="divider divider-primary">OR</div>
+                            </div>
+                            <div>
+                                <h3>Create a team</h3>
+                                <form method="post" action="{% url 'robotrix_create_team' %}">
+                                    {% csrf_token %}
+
+                                    <div class="w-full my-2">
+                                        <label for="{{ team_creation_form.team_name.id_for_label }}">Team Name</label>
+                                        {{ team_creation_form.team_name }}
+                                        {% if team_creation_form.team_name.errors %}
+                                            <div class="my-1">
+                                                <div role="alert" class="alert alert-error">
+                                                    {{ team_creation_form.team_name.errors }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-actions mt-5">
+                                        <button class="btn btn-primary btn-block">Create Team</button>
+                                    </div>
+                                </form>
+                                <div class="block alert alert-info my-2 rounded-none">
+                                    If your team has members who are neither from NITK, nor IEEE members, you will have
+                                    to pay a registration amount of <strong>Rs. 150</strong>. This will be prompted
+                                    after you create a team.
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="{% if registration_active %} basis-2/4 {% else %} basis-3/4 {% endif %} rounded-lg bg-gradient-to-br from-blue-300 to-sky-50 dark:from-gray-800 dark:to-base-100">
+                <h2 class="text-center my-3">Announcements</h2>
+                <div class="p-3">
+                    {% if announcements %}
+                        <ul>
+                            {% for announcement in announcements %}
+                                <li>
+                                    {{ announcement.content | linebreaks }}
+                                    {% if announcement.url_link %}
+                                        <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have no announcements as of now.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkCheckbox = document.getElementById("{{ member2_form.member_from_nitk.id_for_label }}");
+            let collegeField = document.getElementById("college-name-field");
+            let rollField = document.getElementById("roll-no-field");
+
+            function toggleCollegeField() {
+                collegeField.style.display = nitkCheckbox.checked ? "none" : "block";
+                rollField.style.display = nitkCheckbox.checked ? "block" : "none";
+            }
+
+            toggleCollegeField();
+            nitkCheckbox.addEventListener("change", toggleCollegeField);
+
+            let ieeeCheckbox = document.getElementById("{{ member2_form.member_ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+            }
+
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        });
+    </script>
+{% endblock %}

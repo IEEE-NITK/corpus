@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     "embedathon.apps.EmbedathonConfig",
     "impulse.apps.ImpulseConfig",
     "electrika.apps.ElectrikaConfig",
+    "robotrix.apps.RobotrixConfig",
 ]
 
 MIDDLEWARE = [
