@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+
+<style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20vh;
+    }
+
+    .tabs {
+        width: 100%;
+    }
+</style>
+</head>
+
+<div class="center mt-10">
+<div role="tablist" class="tabs tabs-boxed tabs-lg">
+    <a role="tab" class="tab" onclick="changeTab(1)">CompSoc</a>
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
+        Hello1 </div>
+    <a role="tab" class="tab tab-active tabs-lg" onclick="changeTab(2)">Diode</a>
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
+        Hello2 </div>
+    <a role="tab" class="tab tabs-lg" onclick="changeTab(3)">Piston</a>
+    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
+        Hello3 </div>
+  </div>
+</div>
+
+  <script>
+    function changeTab(tabIndex) {
+      // Get all tabs and remove the 'tab-active' class
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('tab-active'));
+  
+      // Add the 'tab-active' class to the clicked tab
+      tabs[tabIndex - 1].classList.add('tab-active');
+    }
+  </script>
+{% endblock %}
