@@ -54,15 +54,15 @@
         content="IEEE NITK is a student branch of IEEE located at NITK Surathkal dedicated to innovative projects and solutions. This is the official website of IEEE NITK">
     <meta property="og:site_name" content="IEEE NITK | Corpus">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="{% static img/ms-icon-144x144.png %}">
+    <meta name="msapplication-TileImage" content="{% static 'img/icons/ms-icon-144x144.png' %}">
     <meta name="theme-color" content="#ffffff">
 
     <!-- Windows Tile Icons -->
     <meta name="msapplication-TileColor" content="#0562DC">
-    <meta name="msapplication-square70x70logo" content="{% static 'img/smalltile.png' %}" />
-    <meta name="msapplication-square150x150logo" content="{% static 'img/mediumtile.png' %}" />
-    <meta name="msapplication-wide310x150logo" content="{% static 'img/widetile.png' %}" />
-    <meta name="msapplication-square310x310logo" content="{% static 'img/largetile.png' %}" />
+    <meta name="msapplication-square70x70logo" content="{% static 'img/icons/ms-icon-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'img/icons/ms-icon-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'img/icons/ms-icon-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'img/icons/ms-icon-310x310.png' %}" />
 
     <!-- Android Theme Color -->
     <meta name="theme-color" content="#0562DC">
@@ -74,6 +74,7 @@
     <title>
         {% block title %} {% endblock %} | Corpus
     </title>
+    <link rel="icon" href="{% static 'img/icons/favicon.png' %}" type="image/x-icon">
 
     <!-- Linked Sheets needed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
