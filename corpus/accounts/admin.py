@@ -67,7 +67,7 @@ class ExecutiveMemberAdmin(admin.ModelAdmin):
         ),
         (
             "IEEE Related Details",
-            {"fields": ("ieee_number", "ieee_email")},
+            {"fields": ("ieee_number", "ieee_email", "profile_picture")},
         ),
         ("Socials", {"fields": ("linkedin", "github")}),
     )
