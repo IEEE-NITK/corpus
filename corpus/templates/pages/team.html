@@ -5,33 +5,93 @@
 <head>
 
 <style>
-    .center {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 20vh;
-    }
+
 
     .tabs {
         width: 100%;
     }
+
+    .flex-container{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-start;
+        align-content: space-around
+
+    }
+
 </style>
 </head>
-
 <div class="center mt-10">
 <div role="tablist" class="tabs tabs-boxed tabs-lg">
-    <a role="tab" class="tab" onclick="changeTab(1)">CompSoc</a>
+    <a role="tab" class="tab tab-active" onclick="changeTab(1)">CompSoc</a>
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-        Hello1 </div>
-    <a role="tab" class="tab tab-active tabs-lg" onclick="changeTab(2)">Diode</a>
+        <div class="flex-container">
+        {% for member in members %}
+        {% if member.sig.name == "CompSoc" %}
+            <div class="card w-96 bg-base-100 shadow-xl">
+            <figure class="px-10 pt-10">
+              <img src="" alt="photo" class="rounded-xl" />
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title">{{member.user}}</h2>
+              <p>Wow</p>
+              <div class="card-actions">
+                <button class="btn btn-primary">Socials</button>
+              </div>
+            </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <a role="tab" class="tab" onclick="changeTab(2)">Diode</a>
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-        Hello2 </div>
-    <a role="tab" class="tab tabs-lg" onclick="changeTab(3)">Piston</a>
+        <div class="flex-container">
+        {% for member in members %}
+        {% if member.sig.name == "Diode" %}
+            <div class="card w-96 bg-base-100 shadow-xl">
+            <figure class="px-10 pt-10">
+              <img src="" alt="photo" class="rounded-xl" />
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title">{{member.user}}</h2>
+              <p>Wow</p>
+              <div class="card-actions">
+                <button class="btn btn-primary">Socials</button>
+              </div>
+            </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    <a role="tab" class="tab" onclick="changeTab(3)">Piston</a>
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-        Hello3 </div>
+        <div class="flex-container">
+        {% for member in members %}
+        {% if member.sig.name == "Piston" %}
+            <div class="card w-96 bg-base-100 shadow-xl">
+            <figure class="px-10 pt-10">
+              <img src="" alt="photo" class="rounded-xl" />
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title">{{member.user}}</h2>
+              <p>Wow</p>
+              <div class="card-actions">
+                <button class="btn btn-primary">Socials</button>
+              </div>
+            </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
   </div>
 </div>
 
+{% endblock %}
+
+{% block script %}
   <script>
     function changeTab(tabIndex) {
       // Get all tabs and remove the 'tab-active' class
