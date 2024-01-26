@@ -141,6 +141,7 @@ class ExecutiveMember(models.Model):
         blank=True, null=True, verbose_name="Linkedin Profile URL"
     )
 
+    profile_picture = models.ImageField(blank=True, null=True)
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(
         max_length=39, blank=True, null=True, verbose_name="GitHub Username"
@@ -148,9 +149,7 @@ class ExecutiveMember(models.Model):
     hide_github = models.BooleanField(default=False)
     hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(
-        default=timezone.localtime, verbose_name="Date Joined"
-    )
+    date_joined = models.DateTimeField(verbose_name="Date Joined")
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
