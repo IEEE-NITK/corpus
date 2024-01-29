@@ -28,9 +28,9 @@ class CorpusCreationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(CorpusCreationForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs[
-                "class"
-            ] = "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            visible.field.widget.attrs["class"] = (
+                "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            )
 
 
 class CorpusChangeForm(UserChangeForm):
@@ -52,9 +52,9 @@ class CorpusLoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
         super(CorpusLoginForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs[
-                "class"
-            ] = "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            visible.field.widget.attrs["class"] = (
+                "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            )
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
