@@ -11,7 +11,10 @@
         </div>
     </div>
     <div class="navbar-center">
-        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">
+            <img src="../static/img/ieee-nitk.png" alt="IEEE NITK Logo" class="dark-logo w-20 h-10">
+            <img src="../static/img/ieee-nitk-white.png" alt="IEEE NITK Logo" class="light-logo w-20 h-10">
+        </a>
     </div>
     <div class="navbar-end">
         {% include "components/navbar_right.html" %}
