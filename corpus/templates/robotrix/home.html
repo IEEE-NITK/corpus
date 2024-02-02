@@ -9,8 +9,8 @@
     <style>
 
         .hero {
-            background-color: rgba(0, 0, 0, 0.5);
-            background-image: url("{% static 'img/ieee-impulse.png' %}");
+            background-color: rgba(0, 0, 0, 0.6);
+            background-image: url("{% static 'img/robotrix/robotrix_logo.png' %}");
             background-size: cover;
             background-position: center;
             background-blend-mode: overlay;
@@ -62,16 +62,16 @@
     {% comment %} Hero Section {% endcomment %}
     <section
         class="hero min-h-[50vh] min-w-screen">
-        <div class="hero-content text-center flex-col pb-20">
-            <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/logo/robotrix_2024.png' %}" alt="Robotrix Logo">
-            <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-white dark:text-white">Robotrix</h1>
+        <div class="hero-content text-center flex-col pb-20"><br>
+            <!-- <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/robotrix/robotrix_logo.png' %}" alt="Robotrix Logo"> -->
+            <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white">Robotrix 2024</h1><br>
             {% if admin %}
                 <a href="{% url 'robotrix_admin' %}" class="btn btn-primary mt-10">Admin</a>
             {% endif %}
-            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Signal Processing Hackathon</p>
-            <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p>
+            <p class="text-xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">A  24-Hour Robotics Hackathon</p><br><br>
+            <!-- <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> -->
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
-            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">10<sup>th</sup> - 13<sup>th</sup> January 2024</p>
+            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">22<sup>nd</sup> February - 9<sup>th</sup> March 2024</p>
             {% if registration_active and not registration_done and not registered %}
                 <a href="{% url 'robotrix_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a>
             {% elif registration_done and not registered %}
@@ -655,9 +655,8 @@
             <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Contact Us</h3>
             <center>
             <p class="section-description text-md md:text-lg lg:text-xl">
-            <strong>Pranav M Koundinya</strong> : <a href="mailto:pranavmkoundinya@gmail.com"> pranavmkoundinya@gmail.com</a><br>
-            <strong>Raghuram Kannan</strong> : <a href="mailto:raghuramkannan400@gmail.com"> raghuramkannan400@gmail.com</a><br>
-            <strong>Kaliki Venkata Srinanda</strong> : <a href="mailto:srinandakv2004@gmail.com"> srinandakv2004@gmail.com</a>
+            <strong>Shivani Chanda</strong> : <a href="mailto:shivani.201me215@nitk.edu.in"> shivani.201me215@nitk.edu.in</a><br>
+            <strong>Joel Jojo</strong> : <a href="mailto:joeljojopainuthara.211ec116@nitk.edu.in"> joeljojopainuthara.211ec116@nitk.edu.in</a><br>
             </p>
         </center>
         <br>
