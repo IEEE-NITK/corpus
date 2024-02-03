@@ -387,8 +387,6 @@
         openFaq7: false,
         openFaq8: false,
         openFaq9: false,
-        openFaq10: false,
-        openFaq11: false,
         }
         "
         class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
@@ -412,7 +410,7 @@
         <div class="flex flex-wrap -mx-4">
             <div class="w-full px-4 lg:w-1/2">
                 <div
-                    class="w-full p-4 mb-8 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] bg-base-100 sm:p-8 lg:px-6 xl:px-8"
+                    class="w-full p-4 mb-8 rounded-lg bg-base-100 shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                     class="flex w-full text-left faq-btn "
@@ -427,7 +425,7 @@
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            Who all are eligible to apply?
+                            Who is eligible to apply?
                         </h4>
                     </div>
                     </button>
@@ -435,13 +433,13 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        1st or 2nd year B.Tech students from any engineering college in India are eligible to participate.
+                        1st or 2nd year B.Tech students from any engineering college and any branch in India are eligible to participate.
                     </p>
                     </div>
                 </div>
 
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)]  sm:p-8 lg:px-6 xl:px-8"
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)]  sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                     class="flex w-full text-left faq-btn"
@@ -467,14 +465,14 @@
                         <ol class="list-decimal list-inside">
                             <li>No registration fees for NITK students</li>
                             <li>No registration fees for teams with at least one IEEE member</li>
-                            <li>A registration fee of Rs.150 for teams with all non-NITK or non-IEEE members</li>
+                            <li>A registration fee of Rs.150 for teams having non-NITK and non-IEEE members</li>
                         </ol>
                     </p>
                     </div>
                 </div>
 
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                     class="flex w-full text-left faq-btn"
@@ -483,13 +481,13 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq3 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq2 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            What to do after registering for Robotrix?
+                            What is the maximum possible size of a team?
                         </h4>
                     </div>
                     </button>
@@ -497,107 +495,17 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        After registering for Robotrix, make sure to create a team name irrespective of you taking part alone or in teams of 2. After creating the team, join the discord link to receive updates and announcements regarding the event.
+                        A maximum of two members are allowed per team.
                     </p>
                     </div>
                 </div>
 
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                     class="flex w-full text-left faq-btn"
                     @click="openFaq4 = !openFaq4"
-                    >
-                    <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            Is it necessary to be from EC or EEE background?
-                        </h4>
-                    </div>
-                    </button>
-                    <div x-show="openFaq4" class="faq-content pl-[62px]">
-                    <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        No, it is not compulsory for the candidates to be from EC or EEE background. All enthusiastic students are welcome to apply.
-                    </p>
-                    </div>
-                </div>
-
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                        class="flex w-full text-left faq-btn"
-                        @click="openFaq5 = !openFaq5"
-                        >
-                        <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
-                        </div>
-                        <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            How can we prepare for the event?
-                        </h4>
-                        </div>
-                    </button>
-                    <div x-show="openFaq5" class="faq-content pl-[62px]">
-                        <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        Brushing up on your aptitude skills and Matlab would be helpful.
-                        </p>
-                    </div>
-                </div>
-
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                        class="flex w-full text-left faq-btn"
-                        @click="openFaq6 = !openFaq6"
-                        >
-                        <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
-                        </div>
-                        <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            Will the final 24-hour hackathon be conducted in offline mode? Will there be any accommodation arranged for students coming to NITK?
-                        </h4>
-                        </div>
-                    </button>
-                    <div x-show="openFaq6" class="faq-content pl-[62px]">
-                        <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        Final hackathon is in hybrid (both offline and online) mode, teams need not come to NITK campus for final hackathon . If you choose to come to campus, travel and accommodation will not be arranged. Students have to make the travel and accommodation arrangements themselves. Lunch will be provided on 14th January.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="w-full px-4 lg:w-1/2">
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq7 = !openFaq7"
                     >
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
@@ -612,7 +520,7 @@
                         </h4>
                     </div>
                     </button>
-                    <div x-show="openFaq7" class="faq-content pl-[62px]">
+                    <div x-show="openFaq4" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -622,40 +530,11 @@
                 </div>
 
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                     class="flex w-full text-left faq-btn"
-                    @click="openFaq8 = !openFaq8"
-                    >
-                    <div
-                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
-                        >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
-                    </div>
-                    <div class="w-full">
-                        <h4
-                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
-                            >
-                            How many members in a team?
-                        </h4>
-                    </div>
-                    </button>
-                    <div x-show="openFaq8" class="faq-content pl-[62px]">
-                    <p
-                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
-                        >
-                        A maximum of two members are allowed per team.
-                    </p>
-                    </div>
-                </div>
-
-                <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
-                    >
-                    <button
-                    class="flex w-full text-left faq-btn"
-                    @click="openFaq9 = !openFaq9"
+                    @click="openFaq5 = !openFaq5"
                     >
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
@@ -670,7 +549,7 @@
                         </h4>
                     </div>
                     </button>
-                    <div x-show="openFaq9" class="faq-content pl-[62px]">
+                    <div x-show="openFaq5" class="faq-content pl-[62px]">
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -678,13 +557,15 @@
                     </p>
                     </div>
                 </div>
+            </div>
 
+            <div class="w-full px-4 lg:w-1/2">
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq10 = !openFaq10"
+                        @click="openFaq6 = !openFaq6"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
@@ -699,7 +580,7 @@
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq10" class="faq-content pl-[62px]">
+                    <div x-show="openFaq6" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
@@ -709,33 +590,92 @@
                 </div>
 
                 <div
-                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(201,203,204,0.30)] dark:shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
                     >
                     <button
                         class="flex w-full text-left faq-btn"
-                        @click="openFaq11 = !openFaq11"
+                        @click="openFaq7 = !openFaq7"
                         >
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq11 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
                             class="mt-1 text-lg font-semibold text-dark dark:text-white"
                             >
-                            What is the duration of the final hackathon?
+                            How can we prepare for the event?
                         </h4>
                         </div>
                     </button>
-                    <div x-show="openFaq11" class="faq-content pl-[62px]">
+                    <div x-show="openFaq7" class="faq-content pl-[62px]">
                         <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        The final hackathon will be held for TBD hours from TBDth January afternoon to TBDth January afternoon. Only those who clear the preliminary test would be eligible for the same.
+                        Brushing up on your aptitude skills would be helpful.
                         </p>
                     </div>
                 </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq8 = !openFaq8"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Who is eligible for the final hackathon?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                            Only those who clear the preliminary test would be eligible for the same.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq9 = !openFaq9"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Will the final 24-hour hackathon be conducted in offline mode?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq9" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                            The Complete event is in online mode including the hackathon.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             </div>
         </div>
