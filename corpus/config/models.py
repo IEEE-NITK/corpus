@@ -89,25 +89,7 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
-class SIG(models.Model):
-    IEEE_SIGs=[
-        ("CompSoc","CompSoc"),
-        ("Diode","Diode"),
-        ("Piston","Piston"),
-        ("WiE","WiE"),
-        ("SIGHT","SIGHT"),
-    ]
-    name = models.CharField(verbose_name="Name", max_length=10, unique=True, choices=IEEE_SIGs)
-    aboutus=models.CharField(verbose_name="AboutUs")
-    whatwedo=models.CharField(verbose_name="WhatWeDo")
 
-    def __str__(self):
-        return self.get_name_display()
-
-    class Meta:
-        verbose_name = "SIG"
-        verbose_name_plural = "SIGs"
-        
 class ModuleConfiguration(models.Model):
     module_name = models.CharField(max_length=200, blank=False, null=False)
     module_enabled = models.BooleanField(default=False)
