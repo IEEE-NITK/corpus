@@ -12,9 +12,15 @@
     <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-100 to-sky-500">
         <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
         <div class="my-5">
-            <a href="#" class="btn btn-primary btn-outline">Register</a>
-            <a href="#" class="btn btn-primary btn-outline">Dashboard</a>
-            <a href="#" class="btn btn-primary btn-outline">Admin</a>
+            {% if dashboard %}
+                <a href="#" class="btn btn-primary btn-outline">Dashboard</a>
+            {% else %}
+                <a href="#" class="btn btn-primary btn-outline">Register</a>
+            {% endif %}
+
+            {% if admin %}
+                <a href="#" class="btn btn-primary btn-outline">Admin</a>
+            {% endif %}
         </div>
         <div>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
