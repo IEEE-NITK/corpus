@@ -1,3 +1,6 @@
 from django.urls import path
+from skyward_expedition import views
 
-urlpatterns = []
+urlpatterns = [
+    path("", views.home, name="skyward_expedition_home"),
+]

@@ -1,0 +1,52 @@
+{% extends 'skyward_expedition/base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <link href="{% static 'css/skyward_expedition.css' %}" rel="stylesheet">
+
+    <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-100 to-sky-500">
+        <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
+        <div class="my-5">
+            <a href="#" class="btn btn-primary btn-outline">Register</a>
+            <a href="#" class="btn btn-primary btn-outline">Dashboard</a>
+            <a href="#" class="btn btn-primary btn-outline">Admin</a>
+        </div>
+        <div>
+            <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
+                 class="h-24 absolute bottom-20 -left-5 swing-animation-y"/>
+            <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
+                 class="h-24 absolute bottom-24 right-10 swing-animation-y delayed-swing"/>
+            <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
+                 class="h-24 absolute bottom-1 right-50 swing-animation-x"/>
+
+            <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
+                 class="h-24 absolute top-10 right-20 swing-animation-y"/>
+            <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
+                 class="h-24 absolute top-24 left-10 swing-animation-x"/>
+
+            <img src="{% static 'img/skyward_expedition/drone1.png' %}" alt="Cloud"
+                 class="h-48 absolute top-40 right-24 swing-animation-x"/>
+            <img src="{% static 'img/skyward_expedition/drone2.png' %}" alt="Cloud"
+                 class="h-48 absolute bottom-32 left-10 swing-animation-x delayed-swing"/>
+        </div>
+    </div>
+
+    <!-- Sponsors / Organisers -->
+    <div class="px-5 py-5 bg-sky-50">
+        <h2 class="text-4xl font-bold text-center my-5">
+            Organised by
+        </h2>
+        <div class="w-full flex flex-row gap-2 justify-around items-center">
+            <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK" class="w-64"/>
+            <img src="{% static 'img/skyward_expedition/boeing.png' %}" alt="Boeing" class="w-64"/>
+            <img src="{% static 'img/logo/ieee-mss.png' %}" alt="IEEE MSS" class="w-64"/>
+        </div>
+    </div>
+
+
+{% endblock %}
