@@ -7,6 +7,7 @@ from django.db import models
 
 class SEUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    college_name = models.CharField(max_length=200)
     team = models.ForeignKey(
         "Team", on_delete=models.CASCADE, related_name="team", blank=True, null=True
     )

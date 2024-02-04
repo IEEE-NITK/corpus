@@ -13,9 +13,9 @@
         <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
         <div class="my-5">
             {% if dashboard %}
-                <a href="#" class="btn btn-primary btn-outline">Dashboard</a>
+                <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-primary btn-outline">Dashboard</a>
             {% else %}
-                <a href="#" class="btn btn-primary btn-outline">Register</a>
+                <a href="{% url 'skyward_expedition_register' %}" class="btn btn-primary btn-outline">Register</a>
             {% endif %}
 
             {% if admin %}
