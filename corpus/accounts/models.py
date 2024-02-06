@@ -141,7 +141,7 @@ class ExecutiveMember(models.Model):
         blank=True, null=True, verbose_name="Linkedin Profile URL"
     )
 
-    profile_picture = models.ImageField(blank=True, null=True)
+    profile_picture = models.ImageField(blank=True, null=True, upload_to="execmember/profile_picture")
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(
         max_length=39, blank=True, null=True, verbose_name="GitHub Username"
@@ -149,7 +149,7 @@ class ExecutiveMember(models.Model):
     hide_github = models.BooleanField(default=False)
     hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(verbose_name="Date Joined")
+    date_joined = models.DateTimeField(verbose_name="Date Joined", default=datetime.now())
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
@@ -158,3 +158,18 @@ class ExecutiveMember(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} [{self.sig.name}]"
+    
+
+class Core(models.Model):
+    user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
+    post = models.CharField(max_length=100, null=False)
+    sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
+    term_start = models.DateField(default=datetime.now(), null=False)
+    term_end = models.DateField(null=True)
+
+class Faculty(models.Model):
+    user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
+    sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
+    post = models.CharField(max_length=100, null=False)
+    term_start = models.DateField(default=datetime.now(), null=False)
+    term_end = models.DateField(null=True)

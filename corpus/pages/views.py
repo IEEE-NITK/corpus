@@ -1,5 +1,7 @@
 from config.models import SIG
 from config.models import Society
+from accounts.models import Core
+from accounts.models import Faculty
 from accounts.models import ExecutiveMember
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -46,8 +48,12 @@ def sig(request, sig_name):
 
 def team(request):
     members = ExecutiveMember.objects.all()
+    core = Core.objects.all()
+    faculty = Faculty.objects.all()
     context = {
         "members":members,
+        "core":core,
+        "faculty":faculty,
     }
     return render(request, "pages/team.html", context)
 
