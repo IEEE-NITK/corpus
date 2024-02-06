@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import ExecutiveMember
 from .models import User
+from .models import Faculty
+from .models import Core
 
 # Register your models here.
 
@@ -84,3 +86,5 @@ class ExecutiveMemberAdmin(admin.ModelAdmin):
 
 admin.site.register(User, CorpusUserAdmin)
 admin.site.register(ExecutiveMember, ExecutiveMemberAdmin)
+admin.site.register(Core)
+admin.site.register(Faculty)
