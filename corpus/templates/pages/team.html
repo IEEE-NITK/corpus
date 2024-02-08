@@ -25,6 +25,7 @@
     .profile-pic{
       height: 150px;
       width: 170px;
+      border-radius: 50%;
     }
 
     .title{
@@ -64,9 +65,9 @@
   <div role="tablist" class="tabs tabs-boxed tabs-lg">
     <a role="tab" class="tab tab-active" onclick="changeTab(1)">CompSoc</a>
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-      <h2 class="section-heading">Faculty</h2>
+      
+      <h2 class="section-heading">CompSoc Faculty</h2>
       <div class="flex-container">
-
         <!-- Faculty -->
         {% for fac in faculty %}
         {% if fac.sig.name == "CompSoc" %}
@@ -82,13 +83,39 @@
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{fac.user}}</h2>
-            <p>{{fac.post}}</p>
+            <p class="card-content">{{fac.post}}</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Contact</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button>
             </div>
           </div>
         </div>
         {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 class="section-heading">CompSoc Core</h2>
+      <div class="flex-container">
+
+        <!-- Core -->
+        {% for core in compsoc_core %}
+        <!-- Faculty -->
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <figure class="px-10 pt-10">
+            <img 
+              class="profile-pic"
+              {% if core.profile_picture.url is not None %}
+                src="{{core.profile_picture.url}}" 
+              {% endif %}
+              alt="photo" class="rounded-xl" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">{{core.user}}</h2>
+            <p>{{core.post}}</p>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
 
@@ -110,7 +137,7 @@
             <h2 class="card-title">{{member.user}}</h2>
             <p>Wow</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Socials</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
             </div>
           </div>
         </div>
@@ -139,13 +166,39 @@
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{fac.user}}</h2>
-            <p>{{fac.post}}</p>
+            <p class="card-content">{{fac.post}}</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Contact</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button>            
             </div>
           </div>
         </div>
         {% endif %}
+        {% endfor %}
+      </div>
+
+      <h2 class="section-heading">Diode Core</h2>
+      <div class="flex-container">
+
+        <!-- Core -->
+        {% for core in diode_core %}
+        <!-- Faculty -->
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <figure class="px-10 pt-10">
+            <img 
+              class="profile-pic"
+              {% if core.profile_picture.url is not None %}
+                src="{{core.profile_picture.url}}" 
+              {% endif %}
+              alt="photo" class="rounded-xl" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">{{core.user}}</h2>
+            <p>{{core.post}}</p>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
 
@@ -169,7 +222,7 @@
             <h2 class="card-title">{{member.user}}</h2>
             <p>Wow</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Socials</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
             </div>
           </div>
         </div>
@@ -180,6 +233,7 @@
 
     <a role="tab" class="tab" onclick="changeTab(3)">Piston</a>
     <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
+      
       <h2 class="section-heading">Faculty</h2>
       <div class="flex-container">
         {% for fac in faculty %}
@@ -196,13 +250,40 @@
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{fac.user}}</h2>
-            <p>{{fac.post}}</p>
+            <p class="card-content">{{fac.post}}</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Contact</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button>            
             </div>
           </div>
         </div>
         {% endif %}
+        {% endfor %}
+      </div>
+
+
+      <h2 class="section-heading">Piston Core</h2>
+      <div class="flex-container">
+
+        <!-- Core -->
+        {% for core in piston_core %}
+        <!-- Faculty -->
+        <div class="card w-96 bg-base-100 shadow-xl">
+          <figure class="px-10 pt-10">
+            <img 
+              class="profile-pic"
+              {% if core.profile_picture.url is not None %}
+                src="{{core.profile_picture.url}}" 
+              {% endif %}
+              alt="photo" class="rounded-xl" />
+          </figure>
+          <div class="card-body items-center text-center">
+            <h2 class="card-title">{{core.user}}</h2>
+            <p>{{core.post}}</p>
+            <div class="card-actions">
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
+            </div>
+          </div>
+        </div>
         {% endfor %}
       </div>
 
@@ -226,7 +307,7 @@
             <h2 class="card-title">{{member.user}}</h2>
             <p>Wow</p>
             <div class="card-actions">
-              <button class="btn btn-primary">Socials</button>
+              <button class="btn btn-sm btn-outline btn-primary">Linkedin</button> <button class="btn btn-sm btn-outline btn-success">Github</button>
             </div>
           </div>
         </div>

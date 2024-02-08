@@ -83,8 +83,14 @@ class ExecutiveMemberAdmin(admin.ModelAdmin):
     )
     ordering = ("user",)
 
+class CoreAdmin(admin.ModelAdmin):
+    list_display = ("user", "sig", "post", "term_start")
+
+class FacultyAdmin(admin.ModelAdmin):
+    list_display = ("user", "sig", "post", "term_start")
+
 
 admin.site.register(User, CorpusUserAdmin)
 admin.site.register(ExecutiveMember, ExecutiveMemberAdmin)
-admin.site.register(Core)
-admin.site.register(Faculty)
+admin.site.register(Core, CoreAdmin)
+admin.site.register(Faculty, FacultyAdmin)
