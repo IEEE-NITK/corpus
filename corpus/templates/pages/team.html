@@ -103,10 +103,10 @@
           <figure class="px-10 pt-10">
             <img 
               class="profile-pic"
-              {% if core.profile_picture.url is not None %}
-                src="{{core.profile_picture.url}}" 
+              {% if core.user.executivemember.profile_picture.url is not None %}
+                src="{{core.user.executivemember.profile_picture.url}}" 
               {% endif %}
-              alt="photo" class="rounded-xl" />
+              alt="photo"/>
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{core.user}}</h2>
@@ -186,10 +186,10 @@
           <figure class="px-10 pt-10">
             <img 
               class="profile-pic"
-              {% if core.profile_picture.url is not None %}
-                src="{{core.profile_picture.url}}" 
+              {% if core.user.executivemember.profile_picture.url is not None %}
+                src="{{core.user.executivemember.profile_picture.url}}" 
               {% endif %}
-              alt="photo" class="rounded-xl" />
+              alt="photo"/>
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{core.user}}</h2>
@@ -271,10 +271,10 @@
           <figure class="px-10 pt-10">
             <img 
               class="profile-pic"
-              {% if core.profile_picture.url is not None %}
-                src="{{core.profile_picture.url}}" 
+              {% if core.user.executivemember.profile_picture.url is not None %}
+                src="{{core.user.executivemember.profile_picture.url}}" 
               {% endif %}
-              alt="photo" class="rounded-xl" />
+              alt="photo"/>
           </figure>
           <div class="card-body items-center text-center">
             <h2 class="card-title">{{core.user}}</h2>
