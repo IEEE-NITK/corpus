@@ -8,6 +8,16 @@ from django.db import models
 class SEUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     college_name = models.CharField(max_length=200)
+    degree = models.CharField(
+        max_length=200, blank=False, null=False, help_text="Degree Pursuing"
+    )
+    year_of_study = models.IntegerField(
+        blank=False, null=False, help_text="Year of Study"
+    )
+    nitk_participant = models.BooleanField()
+    roll_number = models.CharField(max_length=8, blank=True, null=True)
+    ieee_member = models.BooleanField()
+    ieee_number = models.CharField(max_length=20, blank=True, null=True)
     team = models.ForeignKey(
         "Team", on_delete=models.CASCADE, related_name="team", blank=True, null=True
     )

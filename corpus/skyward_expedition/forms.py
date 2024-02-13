@@ -8,11 +8,30 @@ from corpus.forms import CorpusModelForm
 
 
 class SEForm(CorpusModelForm):
-    nitk_roll_number = forms.CharField(max_length=8, required=False)
-
     class Meta:
         model = SEUser
-        fields = ["college_name"]
+        fields = [
+            "college_name",
+            "degree",
+            "year_of_study",
+            "nitk_participant",
+            "roll_number",
+            "ieee_member",
+            "ieee_number",
+        ]
+
+    def clean(self):
+        data = self.cleaned_data
+        if data.get("nitk_participant", None) and not data.get("roll_number", None):
+            raise forms.ValidationError(
+                "Enter your NITK roll number for verification that you are from NITK."
+            )
+
+        if data.get("ieee_member", None) and not data.get("ieee_number", None):
+            raise forms.ValidationError(
+                "Enter IEEE Membership number to verify membership status."
+            )
+        return data
 
 
 class TeamCreationForm(CorpusModelForm):

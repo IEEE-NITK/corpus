@@ -57,7 +57,7 @@ def register(request):
         se_user = SEUser.objects.get(user=request.user)
         if se_user:
             messages.info(request, "You have already registered!")
-            return redirect("embedathon_index")
+            return redirect("skyward_expedition_dashboard")
     except SEUser.DoesNotExist:
         pass
 
@@ -68,7 +68,7 @@ def register(request):
             se_user.user = request.user
             se_user.save()
             messages.success(request, "Registration successful!")
-            return redirect("skyward_expedition_home")
+            return redirect("skyward_expedition_dashboard")
     else:
         form = SEForm()
 
