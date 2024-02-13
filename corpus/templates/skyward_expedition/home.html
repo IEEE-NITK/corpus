@@ -9,7 +9,7 @@
 {% block content %}
     <link href="{% static 'css/skyward_expedition.css' %}" rel="stylesheet">
 
-    <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-100 to-sky-500">
+    <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-300 to-sky-500">
         <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
         <div class="my-5">
             {% if dashboard %}
@@ -21,6 +21,8 @@
             {% if admin %}
                 <a href="#" class="btn btn-primary btn-outline">Admin</a>
             {% endif %}
+            <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
+               class="btn btn-primary btn-outline">Rulebook</a>
         </div>
         <div>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
@@ -42,8 +44,52 @@
         </div>
     </div>
 
+    <hr class="h-px bg-white border-0">
+
+    <!-- About -->
+    <div class="px-5 py-5 bg-gradient-to-t from-sky-200 to-sky-300">
+        <h2 class="text-4xl font-bold text-center my-5">
+            About
+        </h2>
+        <div class="prose mx-auto text-justify">
+            <p>Unmanned Aerial Vehicles or UAVs have demonstrated their usefulness and utility in a wide range of
+                applications. From delivery of everyday goods and services to search and rescue operations, UAVs have
+                proven to be a versatile tool paving the way forward for unmanned expeditions that minimise human labour
+                while maximising chances of success.</p>
+            <p>
+                Skyward Expedition aims to be an event that underscores the overall usefulness and utility of UAVs
+                especially in disaster relief situations, for example, the delivery of medical supplies over to areas
+                which are not easily accessible by regular means.
+            </p>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
+    <!-- Problem Statement -->
+    <div class="px-5 py-5 bg-gradient-to-t from-sky-100 to-sky-200">
+        <h2 class="text-4xl font-bold text-center my-5">
+            Problem Statement
+        </h2>
+        <div class="prose mx-auto text-justify">
+            <p>As the event is built around the theme of delivery of essential supplies to areas inaccessible by
+                conventional means, participants are tasked with designing a deployment system that would be capable of
+                carrying predefined payloads over a certain fixed distance in a UAV. The design must be capable of
+                fitting onto a wide variety of UAV platforms while retaining its lifting capacity and possessing the
+                ability to make multiple drops in a single run. The release mechanism would be controlled by means of a
+                microcontroller. </p>
+            <p>View more details in
+                <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
+                   class="underline underline-offset-4 font-black">
+                    the rulebook
+                </a>.</p>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
     <!-- Sponsors / Organisers -->
-    <div class="px-5 py-5 bg-sky-50">
+    <div class="px-5 py-5 bg-sky-100">
         <h2 class="text-4xl font-bold text-center my-5">
             Organised by
         </h2>
