@@ -9,31 +9,32 @@
 {% block content %}
     <link href="{% static 'css/skyward_expedition.css' %}" rel="stylesheet">
 
-    <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-300 to-sky-500">
-        <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
+    <!-- Hero -->
+    <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-400 to-sky-500">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-black">Skyward Expedition</h1>
         <div class="my-5">
             {% if dashboard %}
-                <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-primary btn-outline">Dashboard</a>
+                <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-outline text-black">Dashboard</a>
             {% else %}
-                <a href="{% url 'skyward_expedition_register' %}" class="btn btn-primary btn-outline">Register</a>
+                <a href="{% url 'skyward_expedition_register' %}" class="btn btn-outline text-black">Register</a>
             {% endif %}
 
             {% if admin %}
-                <a href="#" class="btn btn-primary btn-outline">Admin</a>
+                <a href="#" class="btn btn-outline text-black">Admin</a>
             {% endif %}
             <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
-               class="btn btn-primary btn-outline">Rulebook</a>
+               class="btn btn-outline text-black">Rulebook</a>
         </div>
         <div>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
                  class="h-24 absolute bottom-20 -left-5 swing-animation-y"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute bottom-24 right-10 swing-animation-y delayed-swing"/>
+                 class="h-24 absolute bottom-24 right-24 swing-animation-y delayed-swing"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute bottom-1 right-50 swing-animation-x"/>
+                 class="h-24 absolute bottom-1 right-2 md:right-50 swing-animation-x"/>
 
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute top-10 right-20 swing-animation-y"/>
+                 class="h-24 absolute top-10 right-2 md:right-20 swing-animation-y"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
                  class="h-24 absolute top-24 left-10 swing-animation-x"/>
 
@@ -47,19 +48,20 @@
     <hr class="h-px bg-white border-0">
 
     <!-- About -->
-    <div class="px-5 py-5 bg-gradient-to-t from-sky-200 to-sky-300">
-        <h2 class="text-4xl font-bold text-center my-5">
+    <div class="px-5 py-5 bg-gradient-to-t bg-sky-400">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
             About
         </h2>
-        <div class="prose mx-auto text-justify">
-            <p>Unmanned Aerial Vehicles or UAVs have demonstrated their usefulness and utility in a wide range of
-                applications. From delivery of everyday goods and services to search and rescue operations, UAVs have
-                proven to be a versatile tool paving the way forward for unmanned expeditions that minimise human labour
-                while maximising chances of success.</p>
+        <div class="prose mx-auto text-justify text-black">
             <p>
-                Skyward Expedition aims to be an event that underscores the overall usefulness and utility of UAVs
-                especially in disaster relief situations, for example, the delivery of medical supplies over to areas
-                which are not easily accessible by regular means.
+                Calling all young innovators and aero modelling enthusiasts! Elevate your skills and let your ideas take
+                flight with Skyward Expedition, your chance to showcase your ability to innovate in the developing
+                domain of UAVs (Unmanned Aerial Vehicles). Sponsored by Boeing and organized by IEEE NITK, this platform
+                lays out the opportunity to showcase your engineering acumen, learn and compete for prizes worth
+                ₹40,000.
+            </p>
+            <p>
+                Register today and reach new heights!
             </p>
         </div>
     </div>
@@ -67,18 +69,23 @@
     <hr class="h-px bg-white border-0">
 
     <!-- Problem Statement -->
-    <div class="px-5 py-5 bg-gradient-to-t from-sky-100 to-sky-200">
-        <h2 class="text-4xl font-bold text-center my-5">
+    <div class="px-5 py-5 bg-gradient-to-t from-sky-300 to-sky-400">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
             Problem Statement
         </h2>
-        <div class="prose mx-auto text-justify">
-            <p>As the event is built around the theme of delivery of essential supplies to areas inaccessible by
-                conventional means, participants are tasked with designing a deployment system that would be capable of
-                carrying predefined payloads over a certain fixed distance in a UAV. The design must be capable of
-                fitting onto a wide variety of UAV platforms while retaining its lifting capacity and possessing the
-                ability to make multiple drops in a single run. The release mechanism would be controlled by means of a
-                microcontroller. </p>
-            <p>View more details in
+        <div class="prose mx-auto text-justify text-black">
+            <p>
+                UAVs have demonstrated their utility in disaster relief situations, easily navigating challenging
+                terrains that are inaccessible by humans. Delivery of essential supplies to these inaccessible areas is
+                one major application of UAVs.
+            </p>
+            <p>
+                You are tasked with designing a deployment system that is capable of wirelessly delivering payloads from
+                a height while attached to the UAV. The design must be capable of fitting onto a wide variety of UAV
+                platforms while retaining its lifting capacity and possessing the ability to make multiple drops in a
+                single run.
+            </p>
+            <p>View the detailed problem statement in
                 <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
                    class="underline underline-offset-4 font-black">
                     the rulebook
@@ -88,15 +95,169 @@
 
     <hr class="h-px bg-white border-0">
 
+    <!-- Timeline -->
+    <div class="px-5 py-5 bg-gradient-to-t bg-sky-300">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
+            Timeline
+        </h2>
+        <div class="prose mx-auto text-justify">
+            <ul class="timeline timeline-vertical" style="padding-left: 0;">
+                <li>
+                    <div class="timeline-start timeline-box text-black">
+                        <time class="font-mono italic font-black">February 18th, 2024</time>
+                        <br>
+                        Individual Registration on Corpus and Team Submission Link opens
+                    </div>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             class="w-5 h-5 text-primary">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <hr class="bg-primary"/>
+                </li>
+                <li>
+                    <hr class="bg-primary"/>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             class="w-5 h-5 text-primary">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="timeline-end timeline-box text-black">
+                        <time class="font-mono italic font-extrabold">March 9th-10th, 2024</time>
+                        <br>
+                        Offline Workshop on "Design and Development of Hypersonic Flight" at NITK, open for all
+                        participants to attend
+                    </div>
+                    <hr class="bg-primary"/>
+                </li>
+                <li>
+                    <hr class="bg-primary"/>
+                    <div class="timeline-start timeline-box text-black">
+                        <time class="font-mono italic font-extrabold">March 15th, 2024, 11:59pm</time>
+                        <br>
+                        Submission Link closes
+                    </div>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             class="w-5 h-5 text-primary">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <hr class="bg-primary"/>
+                </li>
+                <li>
+                    <hr class="bg-primary"/>
+                    <div class="timeline-middle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             class="w-5 h-5 text-primary">
+                            <path fill-rule="evenodd"
+                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="timeline-end timeline-box text-black">
+                        <time class="font-mono italic font-extrabold">March 20th, 2024</time>
+                        <br>
+                        Results to be announced
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
+    <!-- Prizes -->
+    <div class="px-5 py-5 bg-gradient-to-t from-sky-200 to-sky-300">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
+            Prizes
+        </h2>
+        <div class="prose mx-auto text-justify text-black">
+            <p>
+                Prizes are up for grabs for the teams that place first and second in the contest! All members of the
+                winning team will be receiving the following prizes -
+            </p>
+            <ul>
+                <li>1st Place Winning Team : Portable Monitors</li>
+                <li>2nd Place Winning Team : Graphic Tablets</li>
+            </ul>
+            <p>
+                All participating teams will be receiving e-certificates for their submissions.
+            </p>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
+    <!-- About Boeing -->
+    <div class="px-5 py-5 bg-sky-200">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
+            About Boeing
+        </h2>
+        <div class="prose mx-auto text-justify text-black">
+            <p>
+                Boeing has been a trusted partner of India’s aerospace sector for more than 80 years, both as the
+                mainstay of India’s growing commercial aviation sector, and in the modernization and mission readiness
+                of the country’s defence forces.
+            </p>
+            <p>
+                Boeing is focused on delivering value to Indian customers with advanced technologies and is committed to
+                creating sustainable value in the Indian aerospace sector – developing local suppliers, and shaping
+                academic and research collaborations with Indian institutions. Boeing has strengthened its supply chain
+                with more than 300 local companies in India and a joint venture to manufacture fuselages for Apache
+                helicopters and vertical fin structures for the 737 family of airplanes. Annual sourcing from India
+                stands at over $1 billion. Boeing currently employs over 5,000 people in India, and more than 13,000
+                people work with its supply chain partners. Boeing’s employee efforts and country-wide engagement serve
+                communities and citizenship programs to inspire change and make an impact on more than 500,000 lives.
+            </p>
+            <p>
+                Learn more at <a href="https://www.boeing.co.in/">boeing.co.in</a>.
+            </p>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
     <!-- Sponsors / Organisers -->
-    <div class="px-5 py-5 bg-sky-100">
-        <h2 class="text-4xl font-bold text-center my-5">
+    <div class="px-5 py-5 bg-gradient-to-t from-sky-100 to-sky-200">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
             Organised by
         </h2>
-        <div class="w-full flex flex-row gap-2 justify-around items-center">
+        <div class="w-full flex flex-col md:flex-row gap-2 justify-around items-center">
             <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK" class="w-64"/>
             <img src="{% static 'img/skyward_expedition/boeing.png' %}" alt="Boeing" class="w-64"/>
             <img src="{% static 'img/logo/ieee-mss.png' %}" alt="IEEE MSS" class="w-64"/>
+        </div>
+    </div>
+
+    <hr class="h-px bg-white border-0">
+
+    <!-- Contact -->
+    <div class="px-5 py-5 bg-gradient-to-t bg-sky-100">
+        <h2 class="text-4xl font-bold text-center my-5 text-black">
+            Contact Us
+        </h2>
+        <div class="prose mx-auto text-justify text-black">
+            In case of any queries, please reach out to:
+            <ul>
+                <li>
+                    <a href="mailto:dhirenbhandary.211me213@nitk.edu.in">Dhiren Bhandary</a>
+                </li>
+                <li>
+                    <a href="mailto:adithyasriharirao.211me203@nitk.edu.in">Adithya Srihari Rao</a>
+                </li>
+                <li>
+                    <a href="mailto:tarushineellohit.211mt052@nitk.edu.in">Tarushi Neel Lohit</a>
+                </li>
+            </ul>
         </div>
     </div>
 
