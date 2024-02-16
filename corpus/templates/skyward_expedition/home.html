@@ -10,7 +10,7 @@
     <link href="{% static 'css/skyward_expedition.css' %}" rel="stylesheet">
 
     <div class="h-screen flex flex-col items-center justify-center bg-gradient-to-t from-sky-300 to-sky-500">
-        <h1 class="text-6xl font-extrabold">Skyward Expedition</h1>
+        <h1 class="text-4xl md:text-6xl font-extrabold">Skyward Expedition</h1>
         <div class="my-5">
             {% if dashboard %}
                 <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-primary btn-outline">Dashboard</a>
@@ -28,12 +28,12 @@
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
                  class="h-24 absolute bottom-20 -left-5 swing-animation-y"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute bottom-24 right-10 swing-animation-y delayed-swing"/>
+                 class="h-24 absolute bottom-24 right-20 md:right-10 swing-animation-y delayed-swing"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute bottom-1 right-50 swing-animation-x"/>
+                 class="h-24 absolute bottom-1 right-2 md:right-50 swing-animation-x"/>
 
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
-                 class="h-24 absolute top-10 right-20 swing-animation-y"/>
+                 class="h-24 absolute top-10 right-2 md:right-20 swing-animation-y"/>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
                  class="h-24 absolute top-24 left-10 swing-animation-x"/>
 
@@ -93,7 +93,7 @@
         <h2 class="text-4xl font-bold text-center my-5">
             Organised by
         </h2>
-        <div class="w-full flex flex-row gap-2 justify-around items-center">
+        <div class="w-full flex flex-col md:flex-row gap-2 justify-around items-center">
             <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK" class="w-64"/>
             <img src="{% static 'img/skyward_expedition/boeing.png' %}" alt="Boeing" class="w-64"/>
             <img src="{% static 'img/logo/ieee-mss.png' %}" alt="IEEE MSS" class="w-64"/>
