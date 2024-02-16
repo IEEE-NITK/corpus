@@ -14,16 +14,16 @@
         <h1 class="text-4xl md:text-6xl font-extrabold text-black">Skyward Expedition</h1>
         <div class="my-5">
             {% if dashboard %}
-                <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-outline text-black">Dashboard</a>
+                <a href="{% url 'skyward_expedition_dashboard' %}" class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Dashboard</a>
             {% else %}
-                <a href="{% url 'skyward_expedition_register' %}" class="btn btn-outline text-black">Register</a>
+                <a href="{% url 'skyward_expedition_register' %}" class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Register</a>
             {% endif %}
 
             {% if admin %}
-                <a href="#" class="btn btn-outline text-black">Admin</a>
+                <a href="#" class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Admin</a>
             {% endif %}
             <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
-               class="btn btn-outline text-black">Rulebook</a>
+               class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Rulebook</a>
         </div>
         <div>
             <img src="{% static 'img/skyward_expedition/cloud1.png' %}" alt="Cloud"
@@ -87,7 +87,7 @@
             </p>
             <p>View the detailed problem statement in
                 <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
-                   class="underline underline-offset-4 font-black">
+                   class="underline underline-offset-4 font-black text-blue-700">
                     the rulebook
                 </a>.</p>
         </div>
@@ -103,67 +103,67 @@
         <div class="prose mx-auto text-justify">
             <ul class="timeline timeline-vertical" style="padding-left: 0;">
                 <li>
-                    <div class="timeline-start timeline-box text-black">
+                    <div class="timeline-start timeline-box text-black bg-white">
                         <time class="font-mono italic font-black">February 18th, 2024</time>
                         <br>
                         Individual Registration on Corpus and Team Submission Link opens
                     </div>
                     <div class="timeline-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             class="w-5 h-5 text-primary">
+                             class="w-5 h-5 text-blue-600">
                             <path fill-rule="evenodd"
                                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
                                   clip-rule="evenodd"/>
                         </svg>
                     </div>
-                    <hr class="bg-primary"/>
+                    <hr class="bg-blue-600"/>
                 </li>
                 <li>
-                    <hr class="bg-primary"/>
+                    <hr class="bg-blue-600"/>
                     <div class="timeline-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             class="w-5 h-5 text-primary">
+                             class="w-5 h-5 text-blue-600">
                             <path fill-rule="evenodd"
                                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
                                   clip-rule="evenodd"/>
                         </svg>
                     </div>
-                    <div class="timeline-end timeline-box text-black">
+                    <div class="timeline-end timeline-box text-black bg-white">
                         <time class="font-mono italic font-extrabold">March 9th-10th, 2024</time>
                         <br>
                         Offline Workshop on "Design and Development of Hypersonic Flight" at NITK, open for all
                         participants to attend
                     </div>
-                    <hr class="bg-primary"/>
+                    <hr class="bg-blue-600"/>
                 </li>
                 <li>
-                    <hr class="bg-primary"/>
-                    <div class="timeline-start timeline-box text-black">
+                    <hr class="bg-blue-600"/>
+                    <div class="timeline-start timeline-box text-black bg-white">
                         <time class="font-mono italic font-extrabold">March 15th, 2024, 11:59pm</time>
                         <br>
                         Submission Link closes
                     </div>
                     <div class="timeline-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             class="w-5 h-5 text-primary">
+                             class="w-5 h-5 text-blue-600">
                             <path fill-rule="evenodd"
                                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
                                   clip-rule="evenodd"/>
                         </svg>
                     </div>
-                    <hr class="bg-primary"/>
+                    <hr class="bg-blue-600"/>
                 </li>
                 <li>
-                    <hr class="bg-primary"/>
+                    <hr class="bg-blue-600"/>
                     <div class="timeline-middle">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                             class="w-5 h-5 text-primary">
+                             class="w-5 h-5 text-blue-600">
                             <path fill-rule="evenodd"
                                   d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
                                   clip-rule="evenodd"/>
                         </svg>
                     </div>
-                    <div class="timeline-end timeline-box text-black">
+                    <div class="timeline-end timeline-box text-black bg-white">
                         <time class="font-mono italic font-extrabold">March 20th, 2024</time>
                         <br>
                         Results to be announced
@@ -219,7 +219,7 @@
                 communities and citizenship programs to inspire change and make an impact on more than 500,000 lives.
             </p>
             <p>
-                Learn more at <a href="https://www.boeing.co.in/">boeing.co.in</a>.
+                Learn more at <a href="https://www.boeing.co.in/" class="font-bold text-blue-700">boeing.co.in</a>.
             </p>
         </div>
     </div>
@@ -247,15 +247,15 @@
         </h2>
         <div class="prose mx-auto text-justify text-black">
             In case of any queries, please reach out to:
-            <ul>
+            <ul class="marker:text-black">
                 <li>
-                    <a href="mailto:dhirenbhandary.211me213@nitk.edu.in">Dhiren Bhandary</a>
+                    <a href="mailto:dhirenbhandary.211me213@nitk.edu.in" class="font-bold text-blue-700">Dhiren Bhandary</a>
                 </li>
                 <li>
-                    <a href="mailto:adithyasriharirao.211me203@nitk.edu.in">Adithya Srihari Rao</a>
+                    <a href="mailto:adithyasriharirao.211me203@nitk.edu.in" class="font-bold text-blue-700">Adithya Srihari Rao</a>
                 </li>
                 <li>
-                    <a href="mailto:tarushineellohit.211mt052@nitk.edu.in">Tarushi Neel Lohit</a>
+                    <a href="mailto:tarushineellohit.211mt052@nitk.edu.in" class="font-bold text-blue-700">Tarushi Neel Lohit</a>
                 </li>
             </ul>
         </div>
