@@ -75,7 +75,7 @@
 
     {% comment %} Hero Section {% endcomment %}
     <section
-        class="hero min-h-[50vh]">
+        class="hero min-h-[50vh] min-w-screen">
         <div class="hero-content text-center flex-col pb-20"><br>
             <!-- <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/robotrix/robotrix_logo.png' %}" alt="Robotrix Logo"> -->
             <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white">Robotrix 2024</h1><br>
@@ -85,7 +85,7 @@
             <p class="text-xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">A  24-Hour Robotics Hackathon</p><br><br>
             <!-- <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> -->
             <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
-            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">22<sup>nd</sup> February - 9<sup>th</sup> March 2024</p>
+            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24<sup>th</sup> February - 10<sup>th</sup> March 2024</p>
             {% if registration_active and not registration_done and not registered %}
                 <a href="{% url 'robotrix_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a>
             {% elif registration_done and not registered %}
@@ -117,7 +117,7 @@
                     you with interesting problem statements to ensure a fun-filled learning experience. In addition to the hackathon, a
                     workshop will also be conducted before the final event to enhance your experience with us!
                 <br>
-                <p class="text-md md:text-lg lg:text-xl"><strong>Open to 1st and 2nd year B.Tech students from all over India!</strong></p>
+                <p class="text-md md:text-lg lg:text-xl"><strong>Open to 1st, 2nd and 3rd year B.Tech students from all over India!</strong></p>
                 <br>
                 </p>
                 </div>
@@ -211,50 +211,7 @@
             </div> -->
 
             <div class="col-lg-12 col-12 text-center">
-                <p style="font-size: 1.5em;" class='mb-0 pb-0'>Top 2 Teams receive prizes from a pool of 5000 INR</p>
-                <div class="overflow-x-auto max-w-[300px] text-sm md:text-md lg:text-lg mt-0 pt-0 mx-auto">
-                    <table class="table">
-                        <tbody>
-                        <!-- row 1 -->
-                        <tr class="border-b-2 border-gray-300">
-                            <td>
-                            <div class="flex items-center gap-3">
-                                <div class="avatar">
-                                <div class="justify-center items-center">
-                                    {% comment %} First prize cup icon svg {% endcomment %}
-                                    <img src="{% static 'img/electrika/first_prize.svg' %}" alt="First Prize" class="h-10 w-10 m-0 p-0 mx-auto">
-                                </div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            First Prize
-                            <br/>
-                            {% comment %} <span class="badge badge-ghost badge-sm">Desktop Support Technician</span> {% endcomment %}
-                            </td>
-                            <td>3000 INR</td>
-                        </tr>
-                        <!-- row 2 -->
-                        <tr>
-                            <td>
-                            <div class="flex items-center gap-3">
-                                <div class="avatar">
-                                <div class="justify-center items-center">
-                                    {% comment %} Second prize cup icon svg {% endcomment %}
-                                    <img src="{% static 'img/electrika/second_prize.svg' %}" alt="Second Prize" class="h-10 w-10 m-0 p-0 mx-auto">
-                                </div>
-                                </div>
-                            </div>
-                            </td>
-                            <td>
-                            Second Prize
-                            <br/>
-                            </td>
-                            <td>2000 INR</td>
-                        </tr>
-                    </tbody>
-                    </table>
-                    </div>
+                <p style="font-size: 1.6em;" class='mb-0 pb-0'>Top 2 Teams receive Prizes worth 5000 INR !</p>
                 {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
             </div>
 
@@ -303,12 +260,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
               </div>
               <div class="timeline-start md:text-end mb-10">
-                <time class="font-mono italic">22<sup>nd</sup> Feb, 2024</time>
-                <div class="text-md md:text-lg lg:text-xl font-black">Preliminary test</div>
+                <time class="font-mono italic">24<sup>th</sup> Feb, 2024</time>
+                <div class="text-md md:text-lg lg:text-xl font-black">Expert talk</div>
 
               </div>
-              <!-- <hr class="bg-primary"/> -->
-              <hr/>
+              <hr class="bg-primary"/>
+              <!-- <hr/> -->
             </li>
             <li>
               <hr />
@@ -316,11 +273,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
               </div>
               <div class="timeline-end mb-10">
-                <time class="font-mono italic">24<sup>th</sup> Feb, 2024</time>
-                <div class="text-lg font-black">Expert talk</div>
+                <time class="font-mono italic">26<sup>th</sup> Feb, 2024</time>
+                <div class="text-lg font-black">Qualifying test</div>
 
               </div>
-              <hr />
+              <hr class="bg-primary"/>
+              <!-- <hr /> -->
             </li>
             <li>
               <hr />
@@ -330,9 +288,9 @@
               <div class="timeline-start md:text-end mb-10">
                 <time class="font-mono italic">27<sup>th</sup> Feb, 2024</time>
                 <div class="text-lg font-black"> Session 1 on Coppeliasim </div>
-
               </div>
-              <hr />
+              <hr class="bg-primary"/>
+              <!-- <hr /> -->
             </li>
             <li>
                 <hr />
@@ -344,7 +302,8 @@
                   <div class="text-lg font-black">Assignment</div>
 
                 </div>
-                <hr />
+                <hr class="bg-primary"/>
+                <!-- <hr /> -->
               </li>
             <li>
             <li>
@@ -357,7 +316,8 @@
                   <div class="text-lg font-black"> Session 2 on Coppeliasim </div>
 
                 </div>
-                <hr />
+                <hr class="bg-primary"/>
+                <!-- <hr /> -->
               </li>
             <li>
               <hr />
@@ -433,7 +393,7 @@
                     <p
                         class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
                         >
-                        1st or 2nd year B.Tech students from any engineering college and any branch in India are eligible to participate.
+                        1st, 2nd or 3rd year B.Tech students from any engineering college and any branch in India are eligible to participate.
                     </p>
                     </div>
                 </div>
@@ -481,7 +441,7 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq2 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq3 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -510,7 +470,7 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq7 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -539,7 +499,7 @@
                     <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
                     </div>
                     <div class="w-full">
                         <h4
@@ -570,7 +530,7 @@
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq10 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -599,7 +559,7 @@
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq7 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -628,7 +588,7 @@
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4
@@ -657,7 +617,7 @@
                         <div
                         class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
                         >
-                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
                         </div>
                         <div class="w-full">
                         <h4

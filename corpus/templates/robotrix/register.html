@@ -57,6 +57,18 @@
                 {% endif %}
             </div>
 
+            <div class="w-full my-2" id="roll-no-field">
+                <label for="{{ form.roll_no.id_for_label }}">Phone Number</label>
+                {{ form.phone_no }}
+                {% if form.phone_no.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.phone_no.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="w-full my-2">
                 <label for="{{ form.ieee_member.id_for_label }}">Are you an IEEE Member?</label>
                 <div class="h-8 w-8">
@@ -84,7 +96,7 @@
             </div>
 
             <div class="w-full my-2">
-                <button class="btn btn-primary btn-block text-primary hover:text-white" type="submit">Register for Robotrix</button>
+                <button class="btn btn-primary btn-block text-white" type="submit">Register for Robotrix</button>
             </div>
         </form>
     </div>

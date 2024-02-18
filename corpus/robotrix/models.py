@@ -12,6 +12,11 @@ class RobotrixUser(models.Model):
     roll_no = models.CharField(max_length=8, blank=True, null=True)
     ieee_member = models.BooleanField(default=False)
     ieee_membership_no = models.BigIntegerField(blank=True, null=True)
+    phone_no = models.CharField(
+        max_length=15,
+        unique=True,
+        verbose_name="Phone Number",
+    )
     team = models.ForeignKey(
         "Team", on_delete=models.CASCADE, related_name="team", blank=True, null=True
     )
