@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+| Robotrix
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const theme = "night";
+        const currTheme = localStorage.getItem("corpusTheme");
+        const themeButton = document.getElementById("dark-mode-button");
+        themeButton.remove();
+        localStorage.setItem("corpusThemeArchive", currTheme);
+        localStorage.setItem("corpusTheme", theme);
+        document.documentElement.setAttribute("data-theme", theme);
+    });
+
+    window.addEventListener("beforeunload", function (event) {
+        const oldTheme = localStorage.getItem("corpusThemeArchive");
+        localStorage.setItem("corpusTheme", oldTheme);
+    })
+  </script>
+{% endblock %}

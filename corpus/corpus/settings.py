@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "averysecretdjangokey")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv("ENVIRONMENT") == "DEVELOPMENT") or (
-        os.getenv("LIVECYCLE") is not None
+    os.getenv("LIVECYCLE") is not None
 )
 
 # TODO: Stricter host policies
@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     "embedathon.apps.EmbedathonConfig",
     "impulse.apps.ImpulseConfig",
     "electrika.apps.ElectrikaConfig",
-    "skyward_expedition.apps.SkywardExpeditionConfig"
+    "robotrix.apps.RobotrixConfig",
+    "skyward_expedition.apps.SkywardExpeditionConfig",
 ]
 
 MIDDLEWARE = [
