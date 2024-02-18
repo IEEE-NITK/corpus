@@ -25,5 +25,6 @@ urlpatterns = [
     path("embedathon/", include("embedathon.urls")),
     path("impulse/", include("impulse.urls")),
     path("electrika/", include("electrika.urls")),
+    path("skyward_expedition/", include("skyward_expedition.urls")),
     path("robotrix/", include("robotrix.urls")),
 ]
