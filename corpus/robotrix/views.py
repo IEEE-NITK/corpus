@@ -31,8 +31,10 @@ def home(request):
     config = ModuleConfiguration.objects.get(module_name="robotrix").module_config
 
     try:
-        if request.user.is_authenticated and not RobotrixUser.DoesNotExist:
+        if request.user.is_authenticated:
+            robotrix_user = RobotrixUser.objects.get(user=request.user)
             args["registered"] = True
+            args["robotrix_user"] = robotrix_user
     except RobotrixUser.DoesNotExist:
         args["registered"] = False
 

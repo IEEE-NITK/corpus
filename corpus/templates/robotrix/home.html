@@ -24,6 +24,7 @@
             }
             .hero {
                 background-size: cover;
+                /* background-image: url("{% static 'img/robotrix/robo_small.png' %}"); */
             }
         }
 
@@ -89,11 +90,11 @@
             {% if registration_active and not registration_done and not registered %}
                 <a href="{% url 'robotrix_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a>
             {% elif registration_done and not registered %}
-                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Closed</a>
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registrations Closed</a>
             {% elif registered %}
                 <a class="btn btn-primary mt-10 text-lg md:text-xl" href="{% url 'robotrix_index' %}">Go to Dashboard</a>
             {% else %}
-                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registerations Opening Soon</a>
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registrations Opening Soon</a>
             {% endif %}
 
             <br>
