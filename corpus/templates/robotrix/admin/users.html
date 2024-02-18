@@ -29,6 +29,7 @@
                     <th></th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Phone Number</th>
                     <th>From NITK?</th>
                     <th>College Name</th>
                     <th>IEEE Member?</th>
@@ -42,6 +43,7 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ user.user }}</td>
                         <td>{{ user.user.email }}</td>
+                        <td>{{ user.phone_no }}</td>
                         <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
                         <td>{{ user.college_name }}</td>
                         <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>

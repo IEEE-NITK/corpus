@@ -16,6 +16,7 @@ class RobotrixForm(CorpusModelForm):
             "roll_no",
             "ieee_member",
             "ieee_membership_no",
+            "phone_no",
         ]
 
     def clean(self):

@@ -31,7 +31,7 @@ def home(request):
     config = ModuleConfiguration.objects.get(module_name="robotrix").module_config
 
     try:
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and not RobotrixUser.DoesNotExist:
             args["registered"] = True
     except RobotrixUser.DoesNotExist:
         args["registered"] = False
@@ -527,12 +527,17 @@ def team_download(request):
     response["Content-Disposition"] = 'attachment; filename="teams.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(["First Name", "Last Name", "Email"])
+    writer.writerow(["First Name", "Last Name", "Email", "Phone Number"])
 
     for team in Team.objects.filter(payment_status__in=["P", "E"]):
         leader = team.team_leader
         writer.writerow(
-            [leader.user.first_name, leader.user.last_name, leader.user.email]
+            [
+                leader.user.first_name,
+                leader.user.last_name,
+                leader.user.email,
+                leader.user.phone_no,
+            ]
         )
 
     return response
