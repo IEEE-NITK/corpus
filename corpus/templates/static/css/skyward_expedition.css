@@ -1,0 +1,35 @@
+@keyframes swingx {
+    0% {
+        transform: translateX(20%);
+    }
+    50% {
+        transform: translateX(-20%);
+    }
+    100% {
+        transform: translateX(20%);
+    }
+}
+
+@keyframes swingy {
+    0% {
+        transform: translateY(10%);
+    }
+    50% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(10%);
+    }
+}
+
+.swing-animation-x {
+    animation: swingx 5s linear infinite;
+}
+
+.swing-animation-y {
+    animation: swingy 5s linear infinite;
+}
+
+.delayed-swing {
+    animation-delay: 2.7s;
+}

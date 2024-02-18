@@ -20,7 +20,6 @@ if os.getenv("LIVECYCLE"):
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -29,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "averysecretdjangokey")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv("ENVIRONMENT") == "DEVELOPMENT") or (
-    os.getenv("LIVECYCLE") is not None
+        os.getenv("LIVECYCLE") is not None
 )
 
 # TODO: Stricter host policies
@@ -58,6 +57,7 @@ INSTALLED_APPS = [
     "embedathon.apps.EmbedathonConfig",
     "impulse.apps.ImpulseConfig",
     "electrika.apps.ElectrikaConfig",
+    "skyward_expedition.apps.SkywardExpeditionConfig"
 ]
 
 MIDDLEWARE = [
@@ -92,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "corpus.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -115,7 +114,6 @@ if os.getenv("LIVECYCLE"):
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -134,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -145,7 +142,6 @@ TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
