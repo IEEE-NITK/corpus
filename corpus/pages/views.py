@@ -161,6 +161,7 @@ def team(request):
     faculty = Faculty.objects.all()
     context = {
         "members":members,
+        "ieee_core": ieee_core,
         "compsoc_core":compsoc_core,
         "diode_core":diode_core,
         "piston_core":piston_core,
