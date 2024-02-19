@@ -136,7 +136,9 @@ class ExecutiveMember(models.Model):
     )
 
     # TODO: Phase out with GitHub OAuth details
-    github = models.CharField(blank=True, null=True, verbose_name="GitHub Username")
+    github = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name="GitHub Username"
+    )
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(
         default=datetime.now(), verbose_name="Date Joined"
