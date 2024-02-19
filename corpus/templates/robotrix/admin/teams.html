@@ -1,0 +1,47 @@
+{% extends 'robotrix/base.html' %}
+
+{% block title %}
+    Team Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose mx-auto my-10">
+        <h1 class="text-center">Team Management</h1>
+        <p><strong>Number of teams:</strong> {{ teams.count }}</p>
+        <div class="overflow-x-auto my-5">
+            <table class="table table-zebra">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Leader</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ team.team_name }}</td>
+                        <td>{{ team.team_leader.user }}</td>
+                        <td>{{ team.payment_status }}</td>
+                        <td>
+                            <a href="{% url 'robotrix_admin_team_page' pk=team.pk %}"
+                               class="btn btn-info text-black font-bold no-underline">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'robotrix_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+        <div class="tooltip tooltip-info" data-tip="Download the list of teams (Paid and Exempted) in CSV format.">
+            <a href="{% url 'robotrix_admin_team_download' %}"
+                class="btn btn-primary text-black font-bold no-underline">Download Team Leaders List
+            </a>
+        </div>
+    </div>
+{% endblock %}
