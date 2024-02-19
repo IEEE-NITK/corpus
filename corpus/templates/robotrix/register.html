@@ -1,0 +1,139 @@
+{% extends 'robotrix/base.html' %}
+
+{% block title %}
+    Register
+    {{ block.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="my-10 w-2/3 mx-auto prose">
+        <h1 class="text-center">Register for Robotrix</h1>
+        <form method="post" action="{% url 'robotrix_register' %}" class="py-5">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="my-2">
+                <label for="{{ form.from_nitk.id_for_label }}">Are you from NITK?</label>
+                <div class="h-8 w-8">
+                    {{ form.from_nitk }}
+                </div>
+                {% if form.from_nitk.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.from_nitk.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="college-name-field">
+                <label for="{{ form.college_name.id_for_label }}">College Name</label>
+                {{ form.college_name }}
+                {% if form.college_name.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.college_name.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="roll-no-field">
+                <label for="{{ form.roll_no.id_for_label }}">Roll Number</label>
+                {{ form.roll_no }}
+                {% if form.roll_no.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.roll_no.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="roll-no-field">
+                <label for="{{ form.roll_no.id_for_label }}">Phone Number</label>
+                {{ form.phone_no }}
+                {% if form.phone_no.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.phone_no.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.ieee_member.id_for_label }}">Are you an IEEE Member?</label>
+                <div class="h-8 w-8">
+                    {{ form.ieee_member }}
+                </div>
+                {% if form.ieee_member.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_member.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="ieee-membership-number-field">
+                <label for="{{ form.ieee_membership_no.id_for_label }}">Please enter your IEEE Membership Number</label>
+                {{ form.ieee_membership_no }}
+                {% if form.ieee_membership_no.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_membership_no.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <button class="btn btn-primary btn-block text-white" type="submit">Register for Robotrix</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkChackbox = document.getElementById("{{ form.from_nitk.id_for_label }}");
+            let collegeField = document.getElementById("college-name-field");
+            let rollField = document.getElementById("roll-no-field");
+
+            function toggleCollegeField() {
+                collegeField.style.display = nitkChackbox.checked ? "none" : "block";
+                rollField.style.display = nitkChackbox.checked ? "block" : "none";
+
+                // Setting the required attribute
+                collegeField.querySelector("input").required = !nitkChackbox.checked;
+                rollField.querySelector("input").required = nitkChackbox.checked;
+            }
+
+            toggleCollegeField();
+            nitkChackbox.addEventListener("change", toggleCollegeField);
+
+            let ieeeCheckbox = document.getElementById("{{ form.ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+
+                // Setting the required attribute
+                membershipField.querySelector("input").required = ieeeCheckbox.checked;
+            }
+
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        })
+    </script>
+{% endblock %}
