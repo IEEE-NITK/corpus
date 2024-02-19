@@ -1,0 +1,18 @@
+{% extends 'robotrix/base.html' %}
+
+{% block title %}
+    Admin
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose mx-auto my-40">
+        <h1 class="text-center">Admin Dashboard</h1>
+        <a href="{% url 'robotrix_admin_teams' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">Team
+            Management</a>
+        <a href="{% url 'robotrix_admin_users' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">User
+            Management</a>
+        <a href="{% url 'robotrix_announcements' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">Announcements
+            Management</a>
+    </div>
+{% endblock %}

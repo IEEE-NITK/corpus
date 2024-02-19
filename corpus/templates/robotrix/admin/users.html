@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    User Management | Admin
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none md:mx-40 my-10 mx-10">
+        <h1 class="text-center">User Management</h1>
+        <p><strong>Number of Users:</strong>{{ users.count }}</p>
+
+        <div class="my-1">
+            <h3>Stats</h3>
+            <strong class="underline">NITK Students Stats</strong>
+            {% for item in nitk_count %}
+                <p><strong>{{ item.from_nitk | yesno:"From NITK, Not from NITK" }}</strong>: {{ item.count }}</p>
+            {% endfor %}
+            <strong class="underline">IEEE Members Stats</strong>
+            {% for item in ieee_count %}
+                <p><strong>{{ item.ieee_member | yesno:"IEEE Member, Not IEEE Member" }}</strong>: {{ item.count }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="overflow-x-auto my-5">
+            <table class="table table-zebra">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>From NITK?</th>
+                    <th>College Name</th>
+                    <th>IEEE Member?</th>
+                    <th>IEEE Membership Number</th>
+                    <th>In a Team?</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ user.user }}</td>
+                        <td>{{ user.user.email }}</td>
+                        <td>{{ user.phone_no }}</td>
+                        <td>{{ user.from_nitk|yesno:"Yes,No" }}</td>
+                        <td>{{ user.college_name }}</td>
+                        <td>{{ user.ieee_member|yesno:"Yes,No" }}</td>
+                        <td>{{ user.ieee_membership_no }}</td>
+                        <td>{{ user.team|yesno:"Yes,No" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'robotrix_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}
