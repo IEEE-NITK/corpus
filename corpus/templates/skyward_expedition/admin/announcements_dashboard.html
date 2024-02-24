@@ -1,0 +1,51 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Announcements Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col mx-20">
+        <div class="flex flex-row justify-center items-center my-20">
+            <h1 class="text-4xl font-bold text-center">Announcements Dashboard</h1>
+        </div>
+        <div class="flex flex-row mb-20">
+            <a href="{% url 'skyward_expedition_admin' %}" class="btn btn-accent m-5">Go to Admin Dashboard</a>
+            <a href="{% url 'skyward_expedition_new_announcement' %}" class="btn btn-accent m-5">Create Announcement</a>
+        </div>
+        <div class="flex flex-col my-10 overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Content</td>
+                    <td>URL</td>
+                    <td>Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for announcement in announcements %}
+                    <tr>
+                        <td>{{ announcement.content | linebreaks }}</td>
+                        <td>
+                            {% if announcement.url_link %}
+                                <a href="{{ announcement.url_link }}" class="btn rounded-full btn-primary">
+                                    {{ announcement.url_link_text }}
+                                </a>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'skyward_expedition_edit_announcement' announcement_id=announcement.id %}" class="btn btn-info mx-1">
+                                Edit
+                            </a>
+                            <a href="{% url 'skyward_expedition_delete_announcement' announcement_id=announcement.id %}" class="btn btn-error mx-1">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

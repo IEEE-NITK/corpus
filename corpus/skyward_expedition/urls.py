@@ -33,4 +33,24 @@ urlpatterns = [
         views.team_details,
         name="skyward_expedition_team_details",
     ),
+    path(
+        "admin/announcements",
+        views.announcements_dashboard,
+        name="skyward_expedition_announcements_dashboard",
+    ),
+    path(
+        "admin/announcements/new/",
+        views.new_announcement,
+        name="skyward_expedition_new_announcement",
+    ),
+    path(
+        "admin/announcements/<int:announcement_id>/edit/",
+        views.edit_announcement,
+        name="skyward_expedition_edit_announcement",
+    ),
+    path(
+        "admin/announcements/<int:announcement_id>/delete/",
+        views.delete_announcement,
+        name="skyward_expedition_delete_announcement",
+    ),
 ]
