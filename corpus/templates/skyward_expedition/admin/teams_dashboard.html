@@ -29,12 +29,14 @@
                 </thead>
                 <tbody>
                 {% for team in teams %}
-                    <td>{{ team.team_name }}</td>
-                    <td>{{ team.team_leader.user }}</td>
-                    <td>
-                        <a href="{% url 'skyward_expedition_team_details' team_id=team.id %}"
-                           class="btn btn-outline btn-secondary">View Details</a>
-                    </td>
+                    <tr>
+                        <td>{{ team.team_name }}</td>
+                        <td>{{ team.team_leader.user }}</td>
+                        <td>
+                            <a href="{% url 'skyward_expedition_team_details' team_id=team.id %}"
+                            class="btn btn-outline btn-secondary">View Details</a>
+                        </td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
