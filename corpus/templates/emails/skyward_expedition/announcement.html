@@ -1,0 +1,15 @@
+{% extends 'emails/base.html' %}
+
+{% block title %}
+    Announcement | Skyward Expedition
+{% endblock %}
+
+{% block content %}
+    <h1>Announcement - Skyward Expedition</h1>
+    <p>{{ announcement.content | linebreaks }}</p>
+    {% if announcement.url_link %}
+        <p>
+            <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+        </p>
+    {% endif %}
+{% endblock %}
