@@ -1,0 +1,82 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Create Announcement
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col mx-20">
+        <div class="flex flex-row justify-center items-center my-20">
+            <h1 class="text-4xl font-bold text-center">Create Announcement</h1>
+        </div>
+        <div class="flex flex-row mb-20">
+            <a href="{% url 'skyward_expedition_announcements_dashboard' %}" class="btn btn-accent">
+                Go to Announcements Dashboard
+            </a>
+        </div>
+        <div class="flex flex-col mb-10 overflow-x-auto">
+            <form method="post" action="{% url 'skyward_expedition_new_announcement' %}">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <div class="w-full my-2">
+                        <div class="alert alert-error">
+                            <span>{{ form.non_field_errors }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="w-full my-2">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link.id_for_label }}">URL Link</label>
+                    {{ form.url_link }}
+                    {% if form.url_link.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link_text.id_for_label }}">URL Link Text</label>
+                    {{ form.url_link_text }}
+                    {% if form.url_link_text.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link_text.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.announcement_mailing.id_for_label }}">Email options</label>
+                    {{ form.announcement_mailing }}
+                    {% if form.announcement_mailing.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.announcement_mailing.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary text-white btn-block">Add Announcement</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
