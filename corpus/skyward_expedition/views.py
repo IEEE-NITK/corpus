@@ -14,6 +14,7 @@ from skyward_expedition.models import Announcement
 from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
 
+from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
 
@@ -249,3 +250,17 @@ def delete_invite(request, pk):
 
     messages.success(request, "Invite deleted!")
     return redirect("skyward_expedition_dashboard")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def admin(request):
+    return render(request, "skyward_expedition/admin/index.html")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def member_dashboard(request):
+    members = SEUser.objects.all()
+    args = {"members": members}
+    return render(request, "skyward_expedition/admin/member_dashboard.html", args)

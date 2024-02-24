@@ -19,4 +19,10 @@ urlpatterns = [
         views.delete_invite,
         name="skyward_expedition_delete_invite",
     ),
+    path("admin/", views.admin, name="skyward_expedition_admin"),
+    path(
+        "admin/members/",
+        views.member_dashboard,
+        name="skyward_expedition_member_dashboard",
+    ),
 ]
