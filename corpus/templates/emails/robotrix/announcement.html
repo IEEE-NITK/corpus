@@ -1,0 +1,17 @@
+{% extends 'emails/base.html' %}
+
+{% block title %}
+    Announcement | Robotrix
+{% endblock %}
+
+{% block content %}
+    <h1>Announcement - Robotrix</h1>
+    <div style="font-size: 1.2em;">
+        {{ announcement.content | linebreaks }}
+    </div>
+    {% if announcement.url_link %}
+        <p>
+            <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+        </p>
+    {% endif %}
+{% endblock %}

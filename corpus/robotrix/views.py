@@ -487,12 +487,19 @@ def mark_payment_complete(request, pk):
     team = Team.objects.get(pk=pk)
     team.payment_status = "P"
     team.save()
+    payment_status = "Complete"
+    final_message = "Thanks for registering for Robotrix."
     for member in RobotrixUser.objects.filter(team=team):
         if member.user.email is not None:
             send_email(
                 "Payment Complete | Robotrix",
                 "emails/robotrix/payment_complete.html",
-                {"team": team, "user": member.user},
+                {
+                    "team": team,
+                    "user": member.user,
+                    "payment_status": payment_status,
+                    "final_message": final_message,
+                },
                 bcc=[member.user.email],
             )
     messages.success(
@@ -507,12 +514,19 @@ def mark_payment_incomplete(request, pk):
     team = Team.objects.get(pk=pk)
     team.payment_status = "U"
     team.save()
+    payment_status = "Incomplete"
+    final_message = "Please contact us if you have any questions."
     for member in RobotrixUser.objects.filter(team=team):
         if member.user.email is not None:
             send_email(
                 "Payment Incomplete | Robotrix",
                 "emails/robotrix/payment_incomplete.html",
-                {"team": team, "user": member.user},
+                {
+                    "team": team,
+                    "user": member.user,
+                    "payment_status": payment_status,
+                    "final_message": final_message,
+                },
                 bcc=[member.user.email],
             )
     messages.success(request, "Successfully marked payment as incomplete!")

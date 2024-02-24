@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     "embedathon.apps.EmbedathonConfig",
     "impulse.apps.ImpulseConfig",
     "electrika.apps.ElectrikaConfig",
-    "robotrix.apps.RobotrixConfig",
     "skyward_expedition.apps.SkywardExpeditionConfig",
+    "robotrix.apps.RobotrixConfig",
 ]
 
 MIDDLEWARE = [
@@ -149,10 +149,10 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "templates/static"]
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
-else:
-    MEDIA_ROOT = os.path.join(BASE_DIR, "templates/static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
