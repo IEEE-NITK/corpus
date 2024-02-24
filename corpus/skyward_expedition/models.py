@@ -1,6 +1,8 @@
 from accounts.models import User
 from django.db import models
 
+from corpus.utils import send_email
+
 
 # Create your models here.
 
@@ -50,3 +52,21 @@ class Announcement(models.Model):
     content = models.TextField(blank=False, null=False)
     url_link = models.URLField(blank=True, null=True)
     url_link_text = models.CharField(max_length=200, blank=True, null=True)
+
+    def send_email(self, mail_option):
+        email_ids = None
+
+        if mail_option == 2:
+            email_ids = list(
+                Team.objects.values_list("team_leader__user__email", flat=True)
+            )
+        elif mail_option == 3:
+            email_ids = list(SEUser.objects.values_list("user__email", flat=True))
+
+        if email_ids is not None:
+            send_email(
+                "Announcement | Skyward Expedition",
+                "emails/skyward_expedition/announcement.html",
+                {"announcement": self},
+                bcc=email_ids,
+            )

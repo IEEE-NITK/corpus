@@ -59,3 +59,11 @@ class AnnouncementForm(CorpusModelForm):
     class Meta:
         model = Announcement
         fields = ["content", "url_link", "url_link_text", "announcement_mailing"]
+
+    def clean(self):
+        data = self.cleaned_data
+        if data.get("url_link") and not data.get("url_link_text"):
+            raise forms.ValidationError(
+                "Both URL Link and corresponding text are required."
+            )
+        return data

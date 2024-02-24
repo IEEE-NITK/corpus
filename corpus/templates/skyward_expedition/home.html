@@ -22,7 +22,8 @@
             {% endif %}
 
             {% if admin %}
-                <a href="#" class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Admin</a>
+                <a href="{% url 'skyward_expedition_admin' %}"
+                   class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Admin</a>
             {% endif %}
             <a href="https://docs.google.com/document/d/1LNpvMOtUVjlSSQT4ZLJtvwKd82UWEBaOl7mKTtLoqi0/edit#heading=h.bqw3s4te6f13"
                class="btn btn-outline text-black hover:bg-blue-600 hover:border-blue-600">Rulebook</a>

@@ -7,13 +7,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
+from skyward_expedition.forms import AnnouncementForm
 from skyward_expedition.forms import InviteForm
 from skyward_expedition.forms import SEForm
 from skyward_expedition.forms import TeamCreationForm
 from skyward_expedition.models import Announcement
 from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
+from skyward_expedition.models import Team
 
+from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
 
@@ -26,7 +29,7 @@ def home(request):
         if se_user is not None:
             args["dashboard"] = True
 
-        if request.user.groups.filter(name__in="se_admin").exists():
+        if request.user.groups.filter(name="skyward_expedition_admin").exists():
             args["admin"] = True
 
     return render(request, "skyward_expedition/home.html", args)
@@ -249,3 +252,111 @@ def delete_invite(request, pk):
 
     messages.success(request, "Invite deleted!")
     return redirect("skyward_expedition_dashboard")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def admin(request):
+    return render(request, "skyward_expedition/admin/index.html")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def member_dashboard(request):
+    members = SEUser.objects.all()
+
+    members_count = members.count()
+    nitk_count = members.filter(nitk_participant=True).count()
+    ieee_count = members.filter(ieee_member=True).count()
+
+    args = {
+        "members": members,
+        "members_count": members_count,
+        "nitk_count": nitk_count,
+        "ieee_count": ieee_count,
+    }
+
+    return render(request, "skyward_expedition/admin/member_dashboard.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def teams_dashboard(request):
+    teams = Team.objects.all()
+
+    teams_count = teams.count()
+
+    args = {"teams": teams, "teams_count": teams_count}
+
+    return render(request, "skyward_expedition/admin/teams_dashboard.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def team_details(request, team_id):
+    team = Team.objects.get(id=team_id)
+    members = SEUser.objects.filter(team=team)
+
+    args = {"team": team, "members": members}
+
+    return render(request, "skyward_expedition/admin/team_details.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def announcements_dashboard(request):
+    announcements = Announcement.objects.all().order_by("-pk")
+
+    args = {"announcements": announcements}
+
+    return render(
+        request, "skyward_expedition/admin/announcements_dashboard.html", args
+    )
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def new_announcement(request):
+    form = AnnouncementForm()
+
+    if request.method == "POST":
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            announcement = form.save()
+            mail_option = int(form.cleaned_data.get("announcement_mail", "1"))
+            announcement.send_email(mail_option)
+            messages.success(request, "Announcement added successfully!")
+            return redirect("skyward_expedition_announcements_dashboard")
+
+    args = {"form": form}
+
+    return render(request, "skyward_expedition/admin/new_announcement.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def edit_announcement(request, announcement_id):
+    announcement = Announcement.objects.get(pk=announcement_id)
+    form = AnnouncementForm(instance=announcement)
+
+    if request.method == "POST":
+        form = AnnouncementForm(request.POST, instance=announcement)
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, "Announcement updated!")
+            return redirect("skyward_expedition_announcements_dashboard")
+
+    args = {"announcement": announcement, "form": form}
+
+    return render(request, "skyward_expedition/admin/edit_announcement.html", args)
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def delete_announcement(request, announcement_id):
+    announcement = Announcement.objects.get(pk=announcement_id)
+    announcement.delete()
+
+    messages.success(request, "Announcement deleted!")
+    return redirect("skyward_expedition_announcements_dashboard")
