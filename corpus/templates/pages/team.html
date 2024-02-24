@@ -2,426 +2,360 @@
 {% load static %}
 
 {% block content %}
-<head>
-
-<style>
-
-
-    .tabs {
-        width: 100%;
-    }
-
-    .flex-container{
+  <head>
+    <style>
+      .flex-container {
         display: flex;
         flex-flow: row wrap;
         align-items: flex-start;
         align-content: space-between;
         align-content: center;
         text-align: center;
-    }
+      }
 
-    .profile-pic{
-      height: 150px;
-      width: 170px;
-      border-radius: 50%;
-    }
+      .profile-pic {
+        height: 150px;
+        width: 170px;
+        border-radius: 50%;
+      }
 
-    .title{
-      font-family: 'Ubuntu';
-      font-style: normal;
-      font-weight: 400;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-size: 50px;
-    }
+      .title {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: 400;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 50px;
+      }
 
-    .heading{
-      margin-top: 20px;
-      margin-bottom: 20px;
-      text-align: center;
-      font-weight: bold;
-      font-size: 30px;
-    }
+      .section-heading {
+        margin-top: 20px;
+        font-family: 'Ubuntu';
+        font-style: normal;
+        text-align: center;
+        font-size: 40px;
+      }
 
-    .section-heading{
-      margin-top: 20px;
-      font-family: 'Ubuntu';
-      font-style: normal;
-      text-align: center;
-      font-size: 40px;
-    }
+      .margins {
+        margin-top: 15px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 15px;
+      }
 
-    .margins{
-      margin-top: 15px;
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-bottom: 15px;
-    }
+      .card-post {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: normal;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        text-align: center;
+        font-size: 25px;
+      }
 
-    .card-post{
-      font-family: 'Ubuntu';
-      font-style: normal;
-      font-weight: normal;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      text-align: center;
-      font-size: 25px;
-    }
+      .card-title {
+        font-family: 'Ubuntu';
+        font-style: normal;
+        font-weight: bold;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        text-align: center;
+        font-size: 25px;
+      }
+    </style>
 
-    .card-title{
-      font-family: 'Ubuntu';
-      font-style: normal;
-      font-weight: bold;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      text-align: center;
-      font-size: 25px;
-    }
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+  </head>
 
-    
+  <div class="title">
+    <h1> Teams </h1>
+  </div>
 
-</style>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous"></head>
-<div class="title">
-  <h1> Teams </h1>
-</div>
+  <div class="center mt-10 align-center">
+    <div role="tablist" class="tabs tabs-boxed tabs-lg">
+      <a role="tab" class="tab tab-active" onclick="changeTab(1)">IEEE</a>
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
-<div class="center mt-10 align-center">
-  <div role="tablist" class="tabs tabs-boxed tabs-lg">
-    <a role="tab" class="tab tab-active" onclick="changeTab(1)">IEEE</a>
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-      
-      <h2 class="section-heading">IEEE Faculty</h2>
-      <br>
-      <div class="flex-container">
-        <!-- Faculty -->
-        {% for fac in faculty %}
-        {% if fac.post == "Branch Counselor" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">          
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if fac.profile_picture.url is not None %}
-                src="{{fac.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{fac.user}}</h2>
-            <p class="card-post">{{fac.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i>            </div>
-          </div>
-        </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-
-      <h2 class="section-heading">IEEE Core</h2>
-      <br>
-      <div class="flex-container">
-
-        <!-- Core -->
-        {% for core in ieee_core %}
-        <div class="margins">
-        <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-          <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if core.user.executivemember.profile_picture.url is not None %}
-                src="{{core.user.executivemember.profile_picture.url}}" 
-              {% endif %}
-              alt="photo"/>
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{core.user}}</h2>
-            <p class="card-post">{{core.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+        <h2 class="section-heading">IEEE Faculty</h2>
+        <br>
+        <div class="flex-container">
+          <!-- Faculty -->
+          {% for fac in faculty %}
+          {% if fac.post == "Branch Counselor" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{fac.user}}</h2>
+                <p class="card-post">{{fac.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endif %}
+          {% endfor %}
         </div>
-      </div>
-        {% endfor %}
-      </div>
-      </div>
 
-    <a role="tab" class="tab tab" onclick="changeTab(2)">CompSoc</a>
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-      
-      <h2 class="section-heading">CompSoc Faculty</h2>
-      <br>
-      <div class="flex-container">
-        <!-- Faculty -->
-        {% for fac in faculty %}
-        {% if fac.sig.name == "CompSoc" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if fac.profile_picture.url is not None %}
-                src="{{fac.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{fac.user}}</h2>
-            <p class="card-post">{{fac.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i>            </div>
-          </div>
-        </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
+        <h2 class="section-heading">IEEE Core</h2>
+        <br>
+        <div class="flex-container">
 
-      <h2 class="section-heading">CompSoc Core</h2>
-      <br>
-      <div class="flex-container">
-
-        <!-- Core -->
-        {% for core in compsoc_core %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">            
-              <img 
-              class="profile-pic"
-              {% if core.user.executivemember.profile_picture.url is not None %}
-                src="{{core.user.executivemember.profile_picture.url}}" 
-              {% endif %}
-              alt="photo"/>
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{core.user}}</h2>
-            <h2 class="card-post">{{core.post}}</h2>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+          <!-- Core -->
+          {% for core in ieee_core %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{core.user}}</h2>
+                <p class="card-post">{{core.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
         </div>
       </div>
-        {% endfor %}
-      </div>
 
-      <h2 class="section-heading">Members</h2>
-      <br>
-      <div class="flex-container">  
-        <!-- Members -->
-        {% for member in members %}
-        {% if member.sig.name == "CompSoc" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if member.profile_picture.url is not None %}
-                src="{{member.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{member.user}}</h2>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+      <a role="tab" class="tab" onclick="changeTab(2)">CompSoc</a>
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+
+        <h2 class="section-heading">CompSoc Faculty</h2>
+        <br>
+        <div class="flex-container">
+          <!-- Faculty -->
+          {% for fac in faculty %}
+          {% if fac.sig.name == "CompSoc" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{fac.user}}</h2>
+                <p class="card-post">{{fac.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endif %}
+          {% endfor %}
         </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
 
-    <a role="tab" class="tab" onclick="changeTab(3)">Diode</a>
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-      <h2 class="section-heading">Diode Faculty</h2>
-      <br>
-      <div class="flex-container">
+        <h2 class="section-heading">CompSoc Core</h2>
+        <br>
+        <div class="flex-container">
 
-        <!-- Faculty -->
-        {% for fac in faculty %}
-        {% if fac.sig.name == "Diode" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if fac.profile_picture.url is not None %}
-                src="{{fac.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{fac.user}}</h2>
-            <p class="card-post">{{fac.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i>            </div>
-          </div>
-        </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-
-      <h2 class="section-heading">Diode Core</h2>
-      <br>
-      <div class="flex-container">
-
-        <!-- Core -->
-        {% for core in diode_core %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if core.user.executivemember.profile_picture.url is not None %}
-                src="{{core.user.executivemember.profile_picture.url}}" 
-              {% endif %}
-              alt="photo"/>
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{core.user}}</h2>
-            <p class="card-post">{{core.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+          <!-- Core -->
+          {% for core in compsoc_core %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{core.user}}</h2>
+                <h2 class="card-post">{{core.post}}</h2>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
         </div>
-      </div>
-        {% endfor %}
-      </div>
 
-      <h2 class="section-heading">Members</h2>
-      <br>
-      <div class="flex-container">
-        
-
-        <!-- Members -->
-        {% for member in members %}
-        {% if member.sig.name == "Diode" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">
-            <img 
-              class="profile-pic"
-              {% if member.profile_picture.url is not None %}
-                src="{{member.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{member.user}}</h2>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+        <h2 class="section-heading">Members</h2>
+        <br>
+        <div class="flex-container">
+          <!-- Members -->
+          {% for member in members %}
+          {% if member.sig.name == "CompSoc" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{member.user}}</h2>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
 
-    <a role="tab" class="tab" onclick="changeTab(4)">Piston</a>
-    <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6"> 
-      
-      <h2 class="section-heading">Piston Faculty</h2>
-      <br>
-      <div class="flex-container">
-        {% for fac in faculty %}
-        {% if fac.sig.name == "Piston" %}
-        <!-- Faculty -->
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">            
-              <img 
-              class="profile-pic"
-              {% if fac.profile_picture.url is not None %}
-                src="{{fac.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{fac.user}}</h2>
-            <p class="card-post">{{fac.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i>            </div>
-          </div>
-        </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
+      <a role="tab" class="tab" onclick="changeTab(3)">Diode</a>
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
+        <h2 class="section-heading">Diode Faculty</h2>
+        <br>
+        <div class="flex-container">
 
-      <h2 class="section-heading">Piston Core</h2>
-      <br>
-      <div class="flex-container">
-
-        <!-- Core -->
-        {% for core in piston_core %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">            
-              <img 
-              class="profile-pic"
-              {% if core.user.executivemember.profile_picture.url is not None %}
-                src="{{core.user.executivemember.profile_picture.url}}" 
-              {% endif %}
-              alt="photo"/>
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{core.user}}</h2>
-            <p class="card-post">{{core.post}}</p>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+          <!-- Faculty -->
+          {% for fac in faculty %}
+          {% if fac.sig.name == "Diode" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{fac.user}}</h2>
+                <p class="card-post">{{fac.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endif %}
+          {% endfor %}
         </div>
-      </div>
-        {% endfor %}
-      </div>
 
-      <h2 class="section-heading">Members</h2>
-      <br>
-      <div class="flex-container">
-        
+        <h2 class="section-heading">Diode Core</h2>
+        <br>
+        <div class="flex-container">
 
-        <!-- Members -->
-        {% for member in members %}
-        {% if member.sig.name == "Piston" %}
-        <div class="margins">
-          <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-            <figure class="px-10 pt-10">            
-              <img 
-              class="profile-pic"
-              {% if member.profile_picture.url is not None %}
-                src="{{member.profile_picture.url}}" 
-              {% endif %}
-              alt="photo" class="rounded-xl" />
-          </figure>
-          <div class="card-body items-center text-center">
-            <h2 class="card-title">{{member.user}}</h2>
-            <div class="card-actions">
-              <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button> <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+          <!-- Core -->
+          {% for core in diode_core %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{core.user}}</h2>
+                <p class="card-post">{{core.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
             </div>
           </div>
+          {% endfor %}
+        </div>
+
+        <h2 class="section-heading">Members</h2>
+        <br>
+        <div class="flex-container">
+          <!-- Members -->
+          {% for member in members %}
+          {% if member.sig.name == "Diode" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{member.user}}</h2>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
-        {% endif %}
-        {% endfor %}
+
+      <a role="tab" class="tab" onclick="changeTab(4)">Piston</a>
+      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+
+        <h2 class="section-heading">Piston Faculty</h2>
+        <br>
+        <div class="flex-container">
+          {% for fac in faculty %}
+          {% if fac.sig.name == "Piston" %}
+          <!-- Faculty -->
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{fac.user}}</h2>
+                <p class="card-post">{{fac.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+        <h2 class="section-heading">Piston Core</h2>
+        <br>
+        <div class="flex-container">
+
+          <!-- Core -->
+          {% for core in piston_core %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{core.user}}</h2>
+                <p class="card-post">{{core.post}}</p>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <h2 class="section-heading">Members</h2>
+        <br>
+        <div class="flex-container">
+          <!-- Members -->
+          {% for member in members %}
+          {% if member.sig.name == "Piston" %}
+          <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{member.user}}</h2>
+                <div class="card-actions">
+                  <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
+                  <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
 {% endblock %}
 
 {% block script %}
@@ -430,7 +364,7 @@
       // Get all tabs and remove the 'tab-active' class
       const tabs = document.querySelectorAll('.tab');
       tabs.forEach(tab => tab.classList.remove('tab-active'));
-  
+
       // Add the 'tab-active' class to the clicked tab
       tabs[tabIndex - 1].classList.add('tab-active');
     }
