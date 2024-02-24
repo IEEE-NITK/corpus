@@ -25,4 +25,12 @@ urlpatterns = [
         views.member_dashboard,
         name="skyward_expedition_member_dashboard",
     ),
+    path(
+        "admin/teams/", views.teams_dashboard, name="skyward_expedition_teams_dashboard"
+    ),
+    path(
+        "admin/teams/<int:team_id>",
+        views.team_details,
+        name="skyward_expedition_team_details",
+    ),
 ]
