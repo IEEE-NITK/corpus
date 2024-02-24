@@ -15,8 +15,12 @@
                 Go to Announcements Dashboard
             </a>
         </div>
+        <div class="flex flex-col my-5">
+            <div class="alert alert-warning">Editing an announcement will not send an email.</div>
+        </div>
         <div class="flex flex-col mb-10 overflow-x-auto">
-            <form method="post" action="{% url 'skyward_expedition_edit_announcement' announcement_id=announcement.id %}">
+            <form method="post"
+                  action="{% url 'skyward_expedition_edit_announcement' announcement_id=announcement.id %}">
                 {% csrf_token %}
 
                 {% if form.errors %}

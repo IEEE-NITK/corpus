@@ -322,7 +322,9 @@ def new_announcement(request):
     if request.method == "POST":
         form = AnnouncementForm(request.POST)
         if form.is_valid():
-            form.save()
+            announcement = form.save()
+            mail_option = int(form.cleaned_data.get("announcement_mail", "1"))
+            announcement.send_email(mail_option)
             messages.success(request, "Announcement added successfully!")
             return redirect("skyward_expedition_announcements_dashboard")
 
