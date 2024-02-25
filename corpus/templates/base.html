@@ -4,19 +4,89 @@
 <html lang="en">
 
 <head>
+
+    <!-- Meta tags-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Give a small description in 3-4 sentences about the website -->
+    <meta name="description"
+        content="IEEE NITK is a student chapter of the IEEE Organisation belonging in the Bangalore R10 Section. IEEE NITK undertakes a lot of projects by its various SIGs which are formed and projects undertaken by students are futher applied to help solve daily world problems.">
+    <!-- A small abstract idea about the website -->
+    <meta name="abstract" content="This Website is about IEEE NITK Student Chapter">
+    <!-- Important Keywords to be noted in the website  -->
+    <meta name="keywords" content="IEEE, IEEE NITK, NITK Surathkal, NITK, Clubs in NITK, Technical Clubs in NITK, NITK Club Projects, Student Chapter Bangalore R10 Section">
+    <!-- Tell the spider to index the first page and other pages as well-->
+    <meta name="robots" content="index, follow">
+    <!-- How often should spiders come back to your page -->
+    <meta name="revisit-after" content="3 days">
+
+    <!-- Copyright regarding the website -->
+    <meta name="copyright" content="IEEE NITK">
+    <!-- Language for the website -->
+    <meta name="language" content="English">
+
+    <!-- Web Author for the image -->
+    <meta name="web_author" content="IEEE NITK">
+    <meta name="author" content="IEEE NITK">
+    <!-- Email ID -->
+    <meta name="contact" content="corpusieeenitk@gmail.com" />
+    <!-- Email ID to reply to -->
+    <meta name="reply-to" content="corpusieeenitk@gmail.com">
+
+    <!-- Refers to distribution of the page -->
+    <meta name="distribution" content="global">
+    <!-- Disallow spammers for the webpage -->
+    <meta name="no-email-collection" content="http://www.metatags.info/nospamharvesting">
+    <!-- Rating for the page -->
+    <meta name="rating" content="general">
+    <!-- Content Type for the page -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Fixing viewport on mobile views -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Authorship Markup -->
+    <!-- Social: Facebook / Open Graph and Google+ / Schema.org -->
+    <meta property="fb:app_id" content="0011038251882641" />
+    <meta property="og:url" content="https://ieee.nitk.ac.in" />
+    <meta property="og:title" itemprop="name" content="IEEE NITK | Corpus">
+    <meta property="og:image" itemprop="image" content="{% static 'img/ieee-nitk.png' %}">
+    <meta property="og:description" itemprop="description"
+        content="IEEE NITK is a student branch of IEEE located at NITK Surathkal dedicated to innovative projects and solutions. This is the official website of IEEE NITK">
+    <meta property="og:site_name" content="IEEE NITK | Corpus">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'img/icons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Windows Tile Icons -->
+    <meta name="msapplication-TileColor" content="#0562DC">
+    <meta name="msapplication-square70x70logo" content="{% static 'img/icons/ms-icon-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'img/icons/ms-icon-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'img/icons/ms-icon-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'img/icons/ms-icon-310x310.png' %}" />
+
+    <!-- Android Theme Color -->
+    <meta name="theme-color" content="#0562DC">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website Title -->
     <title>
         {% block title %} {% endblock %} | Corpus
     </title>
+    <link rel="icon" href="{% static 'img/icons/favicon.png' %}" type="image/x-icon">
+
+    <!-- Linked Sheets needed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+
+    <!-- Linked Scripts needed -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
             integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.6/dist/full.min.css" rel="stylesheet" type="text/css"/>
+
     {% block style %}
     {% endblock %}
     {% if USE_TAILWIND_CDN_LINK %}
