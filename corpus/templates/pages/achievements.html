@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Achievements
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section
+    class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-[50vh] w-full"></div>
+    <div class="hero-content text-center flex-col">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Achievements</h1>
+    </div>
+</section>
+<!-- Achievements -->
+<section class="bg-base-100 py-10 prose">
+    <ul>
+    {% for achievement in achievements %}
+    {% empty %}
+        <li>
+            <p class="font-bold">Forgot to add achievements - You!</p>
+            <p>You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
+        </li>
+    {% endfor %}
+    </ul>
+</section>
+{% endblock %}
+
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+{% endblock %}

@@ -3,6 +3,8 @@ from config.models import Society
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
+from .models import Achievement
+
 
 def index(request):
     # Get all societies to render on landing page Societies section
@@ -44,3 +46,11 @@ def sig(request, sig_name):
 
 def farewell(request):
     return render(request, "pages/farewell.html")
+
+def achievements(request):
+    achievements_all = Achievement.objects.order_by("-date")
+    return render(
+        request,
+        "pages/achievements.html",
+        {"achievements": achievements_all},
+    )
