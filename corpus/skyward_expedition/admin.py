@@ -1,5 +1,8 @@
 from django.contrib import admin
+from skyward_expedition.models import Announcement
+from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
+from skyward_expedition.models import Team
 
 
 # Register your models here.
@@ -12,3 +15,6 @@ class SEUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SEUser, SEUserAdmin)
+admin.site.register(Team)
+admin.site.register(Invite)
+admin.site.register(Announcement)
