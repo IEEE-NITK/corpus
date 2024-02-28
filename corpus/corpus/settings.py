@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+import sentry_sdk
+
 if os.getenv("LIVECYCLE"):
     from dotenv import load_dotenv
 
@@ -180,3 +182,18 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None
+
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
+    if SENTRY_DSN:
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            # Set traces_sample_rate to 1.0 to capture 100%
+            # of transactions for performance monitoring.
+            traces_sample_rate=1.0,
+            # Set profiles_sample_rate to 1.0 to profile 100%
+            # of sampled transactions.
+            # We recommend adjusting this value in production.
+            profiles_sample_rate=1.0,
+            enable_tracing=True,
+        )

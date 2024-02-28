@@ -4,5 +4,6 @@ gunicorn==21.2.0
 packaging==23.1
 Pillow==10.2.0
 psycopg2-binary==2.9.9
+sentry-sdk[django]==1.40.5
 sqlparse==0.4.4
 typing_extensions==4.8.0
