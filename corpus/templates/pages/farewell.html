@@ -110,10 +110,21 @@
         }
         
         .hero {
-            background-color: rgba(0, 0, 0);
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: overlay;
+            background: linear-gradient(45deg, #FFC700, #FF0000, #FF00FF);
+            background-size: 400% 400%;
+            animation: gradientAnimation 5s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         /* Small screens (default full width) */
         @media (min-width: 640px) {
@@ -154,6 +165,69 @@
             -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
             mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
         }
+        #particles-js {
+            z-index: 1;
+        }
+        .Menu-list-item {
+            position: relative;
+            color: transparent;
+            cursor: pointer;
+       }
+        .Menu-list-item::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 49%;
+            left: -10%;
+            right: -10%;
+            height: 4px;
+            border-radius: 4px;
+            margin-top: -2px;
+            background: #1155cc;
+            transform: scale(0);
+            transition: transform 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+            z-index: 0;
+       }
+        .Mask {
+            display: block;
+            position: absolute;
+            overflow: hidden;
+            color: #ff2c75;
+            top: 0;
+            height: 49%;
+            transition: all 0.8s cubic-bezier(0.16, 1.08, 0.38, 0.98);
+       }
+        .Mask span {
+            display: block;
+       }
+        .Mask + .Mask {
+            top: 48.9%;
+            height: 51.1%;
+       }
+        .Mask + .Mask span {
+            transform: translateY(-49%);
+       }
+        .Menu-list-item:hover .Mask, .Menu-list-item:active .Mask {
+            color: #fff;
+            transform: skewX(12deg) translateX(5px);
+       }
+        .Menu-list-item:hover .Mask + .Mask, .Menu-list-item:active .Mask + .Mask {
+            transform: skewX(12deg) translateX(-5px);
+       }
+        .Menu-list-item:hover::before, .Menu-list-item:active::before {
+            transform: scale(1);
+       }
+        .Menu-list {
+            font-size: 4.25rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: rotateX(-10deg) rotateY(20deg);
+       }
+        
     </style>
 </head>
 
@@ -163,7 +237,8 @@
         class="hero min-h-[50vh] min-w-screen">
         <div id="particles-js" class="h-screen w-full"></div>
         <div class="hero-content text-center flex-col">
-            <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1>
+            {% comment %} <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1> {% endcomment %}
+            <h1 class="text-3xl md:text-6xl lg:text-8xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1>
             <div class="wrapper">
                 <div class="neon-wrapper">
                   <span class="txt">IEEE Farewell 2024</span>
@@ -172,37 +247,16 @@
                 </div>
             </div>
 
-            {% if admin %}
-                <a href="{% url 'electrika_admin' %}" class="btn btn-primary mt-10">Admin</a>
-            {% endif %}
-            <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
+            {% comment %} <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p> {% endcomment %}
             {% comment %} <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> {% endcomment %}
-            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
+            {% comment %}<p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>{% endcomment %}
 
-            <a class="registerBtn"
-                {% if registration_active and not registration_done and not registered %}
-                href="{% url 'electrika_register' %}?next={{ request.path }}"
-                {% elif registration_done and not registered %}
-
-                {% elif registered %}
-                href="{% url 'electrika_index' %}"
-                {% else %}
-
-                {% endif %}
-                >
+            <a class="registerBtn">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                {% if registration_active and not registration_done and not registered %}
                 Register Now
-                {% elif registration_done and not registered %}
-                Registerations Closed
-                {% elif registered %}
-                Go to Dashboard
-                {% else %}
-                Registerations Opening Soon
-                {% endif %}
             </a>
             <br>
             <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
@@ -220,7 +274,42 @@
         </div>
     </div>
 {% endfor %}
-{% endif %}z
+{% endif %}
+
+<script>
+    var $menu = $('.Menu-list'),
+    $item = $('.Menu-list-item'),
+    w = $(window).width(), //window width
+    h = $(window).height(); //window height
+
+$(window).on('mousemove', function(e) {
+  var offsetX = 0.5 - e.pageX / w, //cursor position X
+      offsetY = 0.5 - e.pageY / h, //cursor position Y
+      dy = e.pageY - h / 2, //@h/2 = center of poster
+      dx = e.pageX - w / 2, //@w/2 = center of poster
+      theta = Math.atan2(dy, dx), //angle between cursor and center of poster in RAD
+      angle = theta * 180 / Math.PI - 90, //convert rad in degrees
+      offsetPoster = $menu.data('offset'),
+      transformPoster = 'translate3d(0, ' + -offsetX * offsetPoster + 'px, 0) rotateX(' + (-offsetY * offsetPoster) + 'deg) rotateY(' + (offsetX * (offsetPoster * 2)) + 'deg)'; //poster transform
+
+  //get angle between 0-360
+  if (angle < 0) {
+    angle = angle + 360;
+  }
+
+  //poster transform
+  $menu.css('transform', transformPoster);
+
+  //parallax for each layer
+  $item.each(function() {
+    var $this = $(this),
+        offsetLayer = $this.data('offset') || 0,
+        transformLayer = 'translate3d(' + offsetX * offsetLayer + 'px, ' + offsetY * offsetLayer + 'px, 20px)';
+
+    $this.css('transform', transformLayer);
+  });
+});
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -248,7 +337,7 @@
         }, intervalDuration);
     }
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script>
     function setParticlesConfig(config) {
         particlesJS('particles-js', config);
@@ -259,7 +348,6 @@
             setParticlesConfig(particlesConfig);
         })
         .catch(error => console.error('Error fetching particles config:', error));
-
 </script>
 </body>
 
