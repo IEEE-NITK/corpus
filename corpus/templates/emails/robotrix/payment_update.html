@@ -1,0 +1,13 @@
+{% extends 'emails/base.html' %}
+
+{% block title %}
+    Payment status Updated
+{% endblock %}
+
+{% block content %}
+    <h1>Hi {{ user }},</h1>
+
+    <p>Your payment status for Robotrix has been updated to <strong>{{ payment_status }}</strong>.</p>
+
+    <p>{{ final_message }}</p>
+{% endblock %}

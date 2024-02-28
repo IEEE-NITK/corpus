@@ -1,6 +1,10 @@
+{% load static %}
 <div class="navbar bg-primary text-primary-content sticky top-0 z-10">
     <div class="navbar-start">
-        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">Corpus</a>
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">
+            <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="dark-logo h-10">
+            <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="light-logo h-10">
+        </a>
     </div>
     <div class="navbar-center">
         <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-lg">Home</a>
@@ -36,25 +40,28 @@
             <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-col md:flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
 
                 <ul class="mx-2">
-                    <li class="text-xl font-bold text-white my-2">Embedathon</li>
-                    <li><a href="{% url 'embedathon_home' %}">Home</a></li>
-                    <li><a href="{% url 'embedathon_index' %}">Dashboard</a></li>
-                </ul>
-
-                <ul class="mx-2">
-                    <li class="text-xl font-bold text-white my-2">Impulse</li>
-                    <li><a href="{% url 'impulse_home' %}">Home</a></li>
-                    <li><a href="{% url 'impulse_index' %}">Dashboard</a></li>
-                </ul>
-
-                <ul class="mx-2">
-                    <li class="text-xl font-bold text-white my-2">Electrika</li>
-                    <li><a href="{% url 'electrika_home' %}">Home</a></li>
-                    <li><a href="{% url 'electrika_index' %}">Dashboard</a></li>
+                    <li>
+                        <a href="{% url 'embedathon_home' %}" class="text-lg font-bold text-white my-2">Embedathon</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'impulse_home' %}" class="text-lg font-bold text-white my-2">Impulse</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'electrika_home' %}" class="text-lg font-bold text-white my-2">Electrika</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'skyward_expedition_home' %}" class="text-lg font-bold text-white my-2">
+                            Skyward Expedition
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'robotrix_home' %}" class="text-lg font-bold text-white my-2">
+                            Robotrix
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
-
 
 
         <a href="https://ieee-nitk.github.io/blog/" class="btn btn-ghost normal-case text-lg">Blog</a>
@@ -64,7 +71,7 @@
     <div class="navbar-end">
 
         {#    {% if user.is_authenticated %}#}
-            <!-- <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+        <!-- <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
                 {#        {% include "components/internal_dropdown.html" %}#}
             </div>    -->
         {#    {% endif %}#}

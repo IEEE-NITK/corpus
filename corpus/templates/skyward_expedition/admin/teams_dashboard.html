@@ -1,0 +1,45 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Teams Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col mx-20">
+        <div class="flex flex-row justify-center items-center my-20">
+            <h1 class="text-4xl font-bold text-center">Teams Dashboard</h1>
+        </div>
+        <div class="flex flex-row mb-20">
+            <a href="{% url 'skyward_expedition_admin' %}" class="btn btn-accent">Go to Admin Dashboard</a>
+        </div>
+        <div class="flex flex-col my-10 overflow-x-auto">
+            <div class="alert">
+                <p>Number of teams: {{ teams_count }}</p>
+            </div>
+        </div>
+        <div class="flex flex-col my-10 overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Team Name</td>
+                    <td>Team Leader</td>
+                    <td>Actions</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ team.team_name }}</td>
+                        <td>{{ team.team_leader.user }}</td>
+                        <td>
+                            <a href="{% url 'skyward_expedition_team_details' team_id=team.id %}"
+                            class="btn btn-outline btn-secondary">View Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

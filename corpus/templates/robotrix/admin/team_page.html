@@ -1,0 +1,61 @@
+{% extends 'robotrix/base.html' %}
+
+{% load static %}
+
+{% block title %}
+    {{ team.team_name }} | Team Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none mx-10 my-10">
+        <h1>{{ team.team_name }}</h1>
+        <div>
+            <h3>Members</h3>
+            <div class="overflow-x-auto my-5">
+                <table class="table table-zebra">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>From NITK?</th>
+                        <th>College Name</th>
+                        <th>IEEE Member?</th>
+                        <th>IEEE Membership Number</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ member.user }}</td>
+                            <td>{{ member.user.email }} </td>
+                            <td>{{ member.user.phone_no }}</td>
+                            <td>{{ member.from_nitk|yesno:"Yes,No" }}</td>
+                            <td>{{ member.college_name }}</td>
+                            <td>{{ member.ieee_member|yesno:"Yes,No" }}</td>
+                            <td>{{ member.ieee_membership_no }}</td>
+                            {% comment %} Whether in team {% endcomment %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p><strong>Payment status:</strong> {{ team.get_payment_status_display }}</p>
+
+        {% if team.payment_status == "U" %}
+            <a href="{% url 'robotrix_admin_mark_payment_complete' pk=team.pk %}"
+               class="btn btn-success text-black font-bold no-underline">Mark Payment as Complete</a>
+        {% endif %}
+        {% if team.payment_status == "P" %}
+            <a href="{% url 'robotrix_admin_mark_payment_incomplete' pk=team.pk %}"
+               class="btn btn-warning text-black font-bold no-underline">Mark Payment as Incomplete</a>
+        {% endif %}
+
+        <a href="{% url 'robotrix_admin_teams' %}"
+           class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}

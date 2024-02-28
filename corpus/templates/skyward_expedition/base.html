@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    | Skyward Expedition
+{% endblock %}
+
+{% block script %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const themeButton = document.getElementById("dark-mode-button");
+            themeButton.remove();
+            document.documentElement.setAttribute("data-theme", "winter");
+        });
+    </script>
+{% endblock %}
