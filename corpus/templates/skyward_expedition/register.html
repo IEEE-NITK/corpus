@@ -1,0 +1,142 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Register
+    {{ block.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="my-10 w-2/3 mx-auto prose">
+        <h1 class="text-center">Register for Skyward Expedition</h1>
+        <form method="post" action="{% url 'skyward_expedition_register' %}" class="py-5">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="w-full my-2" id="college-name-field">
+                <label for="{{ form.college_name.id_for_label }}">College Name</label>
+                {{ form.college_name }}
+                {% if form.college_name.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.college_name.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="degree-field">
+                <label for="{{ form.degree.id_for_label }}">Degree</label>
+                {{ form.degree }}
+                {% if form.degree.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.degree.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="year-of-study-field">
+                <label for="{{ form.year_of_study.id_for_label }}">Year of Study</label>
+                {{ form.year_of_study }}
+                {% if form.year_of_study.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.year_of_study.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="nitk-participant-field">
+                <label for="{{ form.nitk_participant.id_for_label }}">Are you from NITK?</label>
+                <div class="h-8 w-8">
+                    {{ form.nitk_participant }}
+                </div>
+                {% if form.nitk_participant.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.nitk_participant.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="nitk-roll-number-field">
+                <label for="{{ form.roll_number.id_for_label }}">NITK Roll Number</label>
+                {{ form.roll_number }}
+                {% if form.roll_number.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.roll_number.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="ieee-member-field">
+                <label for="{{ form.ieee_member.id_for_label }}">Are you an IEEE Member?</label>
+                <div class="h-8 w-8">
+                    {{ form.ieee_member }}
+                </div>
+                {% if form.ieee_member.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_member.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="ieee-membership-number-field">
+                <label for="{{ form.ieee_number.id_for_label }}">IEEE Membership Number</label>
+                {{ form.ieee_number }}
+                {% if form.ieee_number.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_number.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <button class="btn btn-primary btn-block">Register for Skyward Expedition</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkChackbox = document.getElementById("{{ form.nitk_participant.id_for_label }}");
+            let nitkRollNumberField = document.getElementById("nitk-roll-number-field");
+
+            function toggleCollegeField() {
+                nitkRollNumberField.style.display = nitkChackbox.checked ? "block" : "none";
+            }
+
+            toggleCollegeField();
+            nitkChackbox.addEventListener("change", toggleCollegeField);
+
+            let ieeeCheckbox = document.getElementById("{{ form.ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+            }
+
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        })
+    </script>
+{% endblock %}

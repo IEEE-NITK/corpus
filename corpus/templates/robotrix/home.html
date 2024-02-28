@@ -1,0 +1,708 @@
+{% extends "robotrix/base.html" %}
+
+{% load static %}
+
+{% block title %} Home  {{ block.super }}
+{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <style>
+
+        .hero {
+            background-color: rgba(0, 0, 0, 0.6);
+            /* background-image: url("{% static 'img/robotrix/robotrix_logo.png' %}"); */
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            height: 25%;
+        }
+
+        /* Small screens (default full width) */
+        @media (min-width: 640px) {
+            #schedule {
+                max-width: 70%;
+            }
+            .hero {
+                background-size: contain;
+                background-image: url("{% static 'img/robotrix/robo_small.png' %}");
+            }
+        }
+
+        /* Medium screens */
+        @media (min-width: 768px) {
+            #schedule {
+                max-width: 80%;
+            }
+            .hero {
+                background-size: contain;
+                background-image: url("{% static 'img/robotrix/robotrix_logo.png' %}");
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            #schedule {
+                max-width: 50%;
+            }
+            .hero {
+                background-size: 60%; /* Adjust the size based on your preference */
+                background-image: url("{% static 'img/robotrix/robotrix_logo.png' %}");
+            }
+        }
+
+        /* Extra-large screens */
+        @media (min-width: 1280px) {
+            #schedule {
+                max-width: 50%;
+            }
+            .hero {
+                background-size: 70%; /* Adjust the size based on your preference */
+                background-image: url("{% static 'img/robotrix/robotrix_logo.png' %}");
+            }
+        }
+
+        .tick {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        }
+
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    {% comment %} Hero Section {% endcomment %}
+    <section
+        class="hero min-h-[50vh] min-w-screen">
+        <div class="hero-content text-center flex-col pb-20"><br>
+            <!-- <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/robotrix/robotrix_logo.png' %}" alt="Robotrix Logo"> -->
+            <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white">Robotrix 2024</h1><br>
+            {% if admin %}
+                <a href="{% url 'robotrix_admin' %}" class="btn btn-primary mt-10">Admin</a>
+            {% endif %}
+            <p class="text-xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24-Hour Robotics Hackathon</p><br><br>
+            <!-- <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> -->
+            <p class="text-md md:text-lg lg:text-xl p-3 bg-black dark:bg-white bg-opacity-70 dark:bg-opacity-30 rounded-md mt-10 text-white text-opacity-50 dark:text-white">NATIONAL INSTITUTE OF TECHNOLOGY KARNATAKA </p>
+            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white">24<sup>th</sup> February - 10<sup>th</sup> March 2024</p>
+            {% if registration_active and not registration_done and not registered %}
+                <a href="{% url 'robotrix_register' %}?next={{ request.path }}" class="btn btn-primary mt-10">Register Now</a>
+            {% elif registration_done and not registered %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registrations Closed</a>
+            {% elif registered %}
+                <a class="btn btn-primary mt-10 text-lg md:text-xl" href="{% url 'robotrix_index' %}">Go to Dashboard</a>
+            {% else %}
+                <a class="btn btn-primary mt-10" style="pointer-events: none;">Registrations Opening Soon</a>
+            {% endif %}
+
+            <br>
+        <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
+            <div class="arrowdown h-10 w-10 m-0 p-0"></div>
+        </button>
+        </div>
+    </section>
+
+    {% comment %} About Section {% endcomment %}
+    <section id="about"
+        class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="about-content text-center flex-col ">
+            <div class="about-container">
+
+                <div class="content">
+                <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">KNOW ABOUT ROBOTRIX</h2>
+                <p class="text-md md:text-lg lg:text-lg">
+                    Robotics is an emerging field in today's life. To introduce you to the field of robotics, we present Robotrix, a 24-hour
+                    hackathon conducted by the IEEE NITK Student Branch in association with the IEEE NITK RAS Student Chapter. It presents
+                    you with interesting problem statements to ensure a fun-filled learning experience. In addition to the hackathon, a
+                    workshop will also be conducted before the final event to enhance your experience with us!
+                <br>
+                <p class="text-md md:text-lg lg:text-xl"><strong>Open to 1st, 2nd and 3rd year B.Tech students from all over India!</strong></p>
+                <br>
+                </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshops Section -->
+    <div class="prose max-w-none flex flex-row">
+        <div class="md:basis-1/6"></div>
+        <div class="px-10 md:px-0 lg:basis-5/6 md:basis-4/6 ">
+            <section id="speakers" class="py-5 px-5">
+                <!-- <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
+                    Speakers</h2>
+                <div class="flex flex-col justify-between content-center gap-4 lg:flex-row">
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border mx-auto">
+                        <figure>
+                            <img src="{% static 'img/impulse/vineeth.jpg' %}" alt="Vineeth N Balasubramanian"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Breaking the Black Box: Explainability of AI/ML Models for Trustworthy Systems</h2>
+                            <span>By Vineeth N Balasubramanian</span>
+                            <span>Vinlorem ipsu.</span>
+                            <div class="card-actions">
+                                <strong>NNth Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/impulse/pranav_k.jpg' %}" alt="Pranav Koundinya"
+                                class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Workshop on Grad-CAM</h2>
+                            <span>By Pranav Koundinya</span>
+                            <span>Chairperson of the Signal Processing Society, IEEE-NITK Student Branch</span>
+                            <span> A final year undergrad in the ECE department, he has worked as a research intern under Prof. Chandra Sekhar Seelamantula at the Spectrum Lab, Indian Institute of Science, Bangalore, where he has worked on the analysis and development of visual anomaly detection models for industrial applications. His interests lie in the fields of image signal processing, computer vision and deep learning.</span>
+                            <div class="card-actions">
+                                <strong>NNth Jan, 2024</strong>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </section>
+        </div>
+        <div class="md:basis-1/6"></div>
+    </div>
+    <!-- Section ending -->
+
+    {% comment %} Prizes Section {% endcomment %}
+      <section id="prizes"
+        class="facts bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class=" pt-10">
+            <div class="section-header">
+                <h2 class="title text-xl md:text-2xl lg:text-3xl font-extrabold py-0 my-0">Prizes</h3>
+                <p class="section-description py-0 my-0">Exciting prizes to be won!</p>
+            </div>
+        </div>
+
+        <div class="row counters">
+
+            <!-- <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">5000 </span>INR
+                <p>Winner</p>
+                        </div>
+
+                <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">3000</span>INR
+                <p>First runner up</p>
+                </div>
+
+                <div class="col-md-4 text-center">
+                <span data-toggle="counter-up">2000</span>INR
+                <p>Second runner up</p>
+                        </div>
+
+                <div class="col-lg-12 col-12 text-center">
+                <center>
+                    <p style="font-size: 1.5em; ">Certificates for all those who clear preliminary round!</p>
+                </center>
+            </div> -->
+
+            <!-- ---------------------- -->
+            <!-- <div class="col-lg-12 col-12 text-center">
+                <center>
+                    <p style="font-size: 1.5em; ">Prizes and goodies worth INR10K!</p>
+                    {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
+                </center>
+            </div> -->
+
+            <div class="col-lg-12 col-12 text-center">
+                <p style="font-size: 1.6em;" class='mb-0 pb-0'>Top 2 Teams receive Prizes worth 5000 INR !</p>
+                {% comment %} <p style="font-size: 1.5em; ">Prizes and goodies to be announced soon !</p> {% endcomment %}
+            </div>
+
+            <!-- -------------------------------- -->
+
+
+        </div>
+    </section><br><br>
+
+    {% comment %} Resources Section {% endcomment %}
+    <div class="prose max-w-none flex flex-row">
+        <div class="md:basis-1/6"></div>
+        <div class="px-5 md:px-0 md:basis-4/6">
+        <section id="resources" class="py-5 px-5">
+            <h2 class="text-center text-xl md:text-2xl lg:text-3xl font-extrabold">
+                RESOURCES</h2>
+            <div class="flex flex-col md:flex-row justify-center content-center gap-3">
+                <div class="card bg-base-300 shadow-xl basis-1/2 mx-auto">
+                    <div class="card-body">
+                        <h2 class="card-title text-xl">ROBOTRIX 2023 Problem Statement</h2>
+                        <!-- <strong>Problem Statement</strong> -->
+                        <div class="card-actions flex justify-end ml-auto mt-3 md:mt-0">
+                            <a href="https://github.com/IEEE-NITK/Robotrix-2023/tree/main"
+                               class="btn btn-accent no-underline " target="_blank">
+                                <strong>Resource Link</strong>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+        </div>
+
+    {% comment %} Schedule Section {% endcomment %}
+    <section id="schedule"
+        class="schedule bg-base-100 text-center prose px-10 lg:px-40 py-10 mx-auto">
+        <div class="section-header">
+            <br>
+            <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold ">SCHEDULE</h3>
+            <p class="section-description"></p>
+        </div>
+        <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical text-sm md:text-md lg:text-lg">
+            <li>
+              <div class="timeline-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">24<sup>th</sup> Feb, 2024</time>
+                <div class="text-md md:text-lg lg:text-xl font-black">Expert talk</div>
+
+              </div>
+              <hr class="bg-primary"/>
+              <!-- <hr/> -->
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">26<sup>th</sup> Feb, 2024</time>
+                <div class="text-lg font-black">Qualifying test</div>
+
+              </div>
+              <hr class="bg-primary"/>
+              <!-- <hr /> -->
+            </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              </div>
+              <div class="timeline-start md:text-end mb-10">
+                <time class="font-mono italic">27<sup>th</sup> Feb, 2024</time>
+                <div class="text-lg font-black"> Session 1 on Coppeliasim </div>
+              </div>
+              <hr class="bg-primary"/>
+              <!-- <hr /> -->
+            </li>
+            <li>
+                <hr />
+                <div class="timeline-middle">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                </div>
+                <div class="timeline-end mb-10">
+                  <time class="font-mono italic">28<sup>th</sup>Feb - 6<sup>th</sup> Mar, 2024</time>
+                  <div class="text-lg font-black">Assignment</div>
+
+                </div>
+                <hr class="bg-primary"/>
+                <!-- <hr /> -->
+              </li>
+            <li>
+            <li>
+                <hr />
+                <div class="timeline-middle">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+                </div>
+                <div class="timeline-start md:text-end mb-10">
+                  <time class="font-mono italic">8<sup>th</sup> Mar, 2024</time>
+                  <div class="text-lg font-black"> Session 2 on Coppeliasim </div>
+
+                </div>
+                <hr class="bg-primary"/>
+                <!-- <hr /> -->
+              </li>
+            <li>
+              <hr />
+              <div class="timeline-middle">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6 text-primary"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" /></svg>
+              </div>
+              <div class="timeline-end mb-10">
+                <time class="font-mono italic">10<sup>th</sup> Mar, 2024</time>
+                <div class="text-lg font-black">24 hour Final hackathon</div>
+
+              </div>
+            </li>
+
+          </ul>
+    </section>
+
+    {% comment %} FAQ Section {% endcomment %}
+    <section id='section'
+        x-data="
+        {
+        openFaq1: false,
+        openFaq2: false,
+        openFaq3: false,
+        openFaq4: false,
+        openFaq5: false,
+        openFaq6: false,
+        openFaq7: false,
+        openFaq8: false,
+        openFaq9: false,
+        }
+        "
+        class="bg-base-200 pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]">
+        <div class="container mx-auto">
+        <div class="flex flex-wrap mx-4">
+            <div class="w-full px-4">
+                <div class="mx-auto mb-[60px] max-w-[520px] text-center lg:mb-20">
+                    <span class="block mb-2 text-lg md:text-xl lg:text-2xl font-semibold text-primary">
+                    FAQ
+                    </span>
+                    <h2
+                    class="mb-4 text-xl md:text-2xl lg:text-3xl font-extrabold"
+                    >
+                    Any Questions? Look Here
+                    </h2>
+                    <p class="text-base text-body-color dark:text-dark-6">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap mx-4">
+            <div class="w-full px-4 lg:w-1/2">
+                <div
+                    class="w-full p-4 mb-8 rounded-lg bg-base-100 shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn "
+                    @click="openFaq1 = !openFaq1"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq1 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Who is eligible to apply?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq1" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        1st, 2nd or 3rd year B.Tech students from any engineering college and any branch in India are eligible to participate.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)]  sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq2 = !openFaq2"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq2 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is there a registration fee?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq2" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        <ol class="list-decimal list-inside">
+                            <li>No registration fees for NITK students</li>
+                            <li>No registration fees for teams with at least one IEEE member</li>
+                            <li>A registration fee of Rs.250 for teams having non-NITK and non-IEEE members</li>
+                        </ol>
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq3 = !openFaq3"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq3 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            What is the maximum possible size of a team?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq3" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        A maximum of two members are allowed per team.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq4 = !openFaq4"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq4 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            The preliminary test is on Hackerearth. Is it a competitive coding test?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq4" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No. The questions contain aptitude, linear algebra and some python questions. It will not have any competitive coding style questions.
+                    </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                    class="flex w-full text-left faq-btn"
+                    @click="openFaq5 = !openFaq5"
+                    >
+                    <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq5 && 'rotate-180'"></div>
+                    </div>
+                    <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Is it necessary to have an IEEE member in a team comprising of non-NITK students?
+                        </h4>
+                    </div>
+                    </button>
+                    <div x-show="openFaq5" class="faq-content pl-[62px]">
+                    <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No, it's not necessary for a team to have an IEEE member in the team. Refer to eligibility of the event.
+                    </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full px-4 lg:w-1/2">
+                <div
+                class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq6 = !openFaq6"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq6 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Should I clear the preliminary round to attend workshops and talks?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq6" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        No, the workshop and talks are open for everyone who registers for the Hackathon.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq7 = !openFaq7"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq7 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            How can we prepare for the event?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq7" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                        Brushing up on your aptitude skills would be helpful.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq8 = !openFaq8"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq8 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Who is eligible for the final hackathon?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq8" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                            Only those who clear the preliminary test would be eligible for the same.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="w-full p-4 mb-8 bg-base-100 rounded-lg shadow-[0px_20px_95px_0px_rgba(0,0,0,0.30)] sm:p-8 lg:px-6 xl:px-8"
+                    >
+                    <button
+                        class="flex w-full text-left faq-btn"
+                        @click="openFaq9 = !openFaq9"
+                        >
+                        <div
+                        class="bg-primary/5 dark:bg-white/5 text-primary mr-5 flex h-10 w-full max-w-[40px] items-center justify-center rounded-lg"
+                        >
+                        <div class="arrowdown h-5 w-5 m-0 p-0" :class="openFaq9 && 'rotate-180'"></div>
+                        </div>
+                        <div class="w-full">
+                        <h4
+                            class="mt-1 text-lg font-semibold text-dark dark:text-white"
+                            >
+                            Will the final 24-hour hackathon be conducted in offline mode?
+                        </h4>
+                        </div>
+                    </button>
+                    <div x-show="openFaq9" class="faq-content pl-[62px]">
+                        <p
+                        class="py-3 text-base leading-relaxed text-body-color dark:text-dark-6"
+                        >
+                            The Complete event is in online mode including the hackathon.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    {% comment %} Organizers Section {% endcomment %}
+    <section
+        class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
+            <div class="section-header">
+                <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">Organized by</h2>
+                <div class="mx-auto text-center">
+                    <div class="flex flex-wrap justify-center gap-20 align-middle">
+                        <div class="mx-2 sm:my-auto my-0">
+                            <a href="https://ieee.nitk.ac.in/">
+                                <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+                            </a>
+                        </div>
+                        <div class="mx-2 sm:my-auto my-0">
+                            <a href="https://signalprocessingsociety.org/">
+                                <img src="{% static 'img/logo/ras.png' %}" alt="SPS Logo" class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    {% comment %} Contact Section {% endcomment %}
+    <section id="contact"
+        class="contact bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+        <div class="container mx-auto">
+        <div class="section-header">
+            <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">Contact Us</h3>
+            <center>
+            <p class="section-description text-md md:text-lg lg:text-xl">
+            <strong>Shivani Chanda</strong> : <a href="mailto:shivani.201me215@nitk.edu.in"> shivani.201me215@nitk.edu.in</a><br>
+            <strong>Joel Jojo</strong> : <a href="mailto:joeljojopainuthara.211ec116@nitk.edu.in"> joeljojopainuthara.211ec116@nitk.edu.in</a><br>
+            </p>
+        </center>
+        <br>
+        </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script>
+    function smoothScroll(target) {
+        const targetElement = document.querySelector(target);
+
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    }
+</script>
+{% endblock %}

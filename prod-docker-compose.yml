@@ -41,6 +41,7 @@ services:
       - corpus_network
     volumes:
       - static_files:/corpus/static
+      - media_files:/corpus/media
     depends_on:
       postgres:
         condition: service_healthy
@@ -62,6 +63,7 @@ services:
       - "443:443"
     volumes:
       - static_files:/etc/nginx/staticfiles
+      - media_files:/etc/nginx/mediafiles
       - certbot_etc:/etc/letsencrypt
       - certbot_var:/var/lib/letsencrypt
       - certbot_www:/var/www/certbot
@@ -88,6 +90,7 @@ networks:
 
 volumes:
   static_files:
+  media_files:
   postgres_data:
   certbot_etc:
   certbot_var:

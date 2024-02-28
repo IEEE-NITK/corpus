@@ -1,0 +1,165 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="h-[50vh] flex flex-col items-center justify-center bg-gradient-to-t from-sky-100 to-sky-500">
+        <h1 class="text-6xl font-extrabold">Welcome to Skyward Expedition!</h1>
+    </div>
+
+    <div class="prose max-w-none mx-10 my-10">
+        <div class="flex flex-col md:flex-row gap-2">
+            <div class="{% if registration_active %} basis-2/4 {% else %} basis-1/4 {% endif %} border border-slate-500">
+                <div class="card">
+                    <div class="card-body">
+                        {% if in_team %}
+                            <h3 class="card-title">Team: {{ team.team_name }}</h3>
+                            <div>
+                                <h4>Team Members</h4>
+                                <ul class="list-disc">
+                                    {% for member in members %}
+                                        <li>
+                                            {{ member.user }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% if is_leader and registration_active %}
+                                <div class="flex flex-col w-full">
+                                    <div class="divider divider-primary">OR</div>
+                                </div>
+                                <div>
+                                    <h4>Active Invites</h4>
+                                    {% if invites_from_team %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Email Address</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for invite in invites_from_team %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ invite.invite_email }}</td>
+                                                    <td>
+                                                        <a href="{% url 'skyward_expedition_delete_invite' pk=invite.pk %}"
+                                                           class="btn btn-sm btn-outline btn-error m-1">Revoke</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>You have no active invites.</p>
+                                    {% endif %}
+                                    <h4>Send Invite</h4>
+                                    <form method="post" action="{% url 'skyward_expedition_create_invite' %}">
+                                        {% csrf_token %}
+                                        <div class="w-full my-2">
+                                            <label for="{{ invite_form.invite_email.id_for_label }}">Email
+                                                Address</label>
+                                            {{ invite_form.invite_email }}
+                                            <p class="text-sm font-bold">Please enter the email that your teammate will
+                                                be registering with on Corpus.</p>
+                                            {% if invite_form.invite_email.errors %}
+                                                <div class="my-1">
+                                                    <div role="alert" class="alert alert-error">
+                                                        {{ invite_form.invite_email.errors }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-actions amt-5">
+                                            <button class="btn btn-primary btn-block">Send Invite</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% elif registration_active %}
+                            <div>
+                                <h3 class="card-title">Current Invites</h3>
+                                {% if invites_for_user %}
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Team Name</th>
+                                            <th>Invited By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for invite in invites_for_user %}
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ invite.inviting_team.team_name }}</td>
+                                            <td>{{ invite.inviting_team.team_leader }}</td>
+                                            <td>
+                                                <a href="{% url 'skyward_expedition_accept_invite' pk=invite.pk %}"
+                                                   class="btn btn-sm btn-outline btn-success m-1">Accept</a>
+                                                <a href="{% url 'skyward_expedition_delete_invite' pk=invite.pk %}"
+                                                   class="btn btn-sm btn-outline btn-error m-1">Reject</a>
+                                            </td>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>You have no invites.</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <div class="divider divider-primary">OR</div>
+                            </div>
+                            <div>
+                                <h3>Create a team</h3>
+                                <form method="post" action="{% url 'skyward_expedition_create_team' %}">
+                                    {% csrf_token %}
+
+                                    <div class="w-full my-2">
+                                        <label for="{{ team_creation_form.team_name.id_for_label }}">Team Name</label>
+                                        {{ team_creation_form.team_name }}
+                                        {% if team_creation_form.team_name.errors %}
+                                            <div class="my-1">
+                                                <div role="alert" class="alert alert-error">
+                                                    {{ team_creation_form.team_name.errors }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-actions mt-5">
+                                        <button class="btn btn-primary btn-block">Create Team</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="{% if registration_active %} basis-2/4 {% else %} basis-3/4 {% endif %} border border-slate-500">
+                <h2 class="text-center my-3">Announcements</h2>
+                <div class="p-3">
+                    {% if announcements %}
+                        <ul>
+                            {% for announcement in announcements %}
+                                <li>
+                                    {{ announcement.content | linebreaks }}
+                                    {% if announcement.url_link %}
+                                        <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have no announcements as of now.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

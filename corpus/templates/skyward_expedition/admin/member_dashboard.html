@@ -1,0 +1,60 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Member Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col mx-20">
+        <div class="flex flex-row justify-center items-center my-20">
+            <h1 class="text-4xl font-bold text-center">Member Dashboard</h1>
+        </div>
+        <div class="flex flex-row mb-20">
+            <a href="{% url 'skyward_expedition_admin' %}" class="btn btn-accent">Go to Admin Dashboard</a>
+        </div>
+        <div class="my-10">
+            <div class="alert flex flex-col">
+                <p>Number of registered users: {{ members_count }}</p>
+                <p>Number of NITK registrants: {{ nitk_count }}</p>
+                <p>Number of IEEE registrants: {{ ieee_count }}</p>
+            </div>
+        </div>
+        <div class="flex flex-col my-10 overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>College</td>
+                    <td>Degree</td>
+                    <td>Year of Study</td>
+                    <td>Team</td>
+                    <td>Is from NITK?</td>
+                    <td>NITK Roll Number</td>
+                    <td>IEEE Member?</td>
+                    <td>IEEE Membership Number</td>
+                    <td>Email</td>
+                    <td>Phone Number</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td>{{ member.user }}</td>
+                        <td>{{ member.college_name }}</td>
+                        <td>{{ member.degree }}</td>
+                        <td>{{ member.year_of_study }}</td>
+                        <td>{{ member.team.team_name }}</td>
+                        <td>{{ member.nitk_participant | yesno }}</td>
+                        <td>{{ member.roll_number }}</td>
+                        <td>{{ member.ieee_member | yesno }}</td>
+                        <td>{{ member.ieee_number }}</td>
+                        <td>{{ member.user.email }}</td>
+                        <td>{{ member.user.phone_no }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
