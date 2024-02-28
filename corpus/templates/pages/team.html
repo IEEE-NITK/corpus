@@ -34,7 +34,7 @@
         font-family: 'Ubuntu';
         font-style: normal;
         text-align: center;
-        font-size: 40px;
+        font-size: 30px;
       }
 
       .margins {
@@ -74,9 +74,18 @@
 
   <div class="center mt-10 align-center">
     <div role="tablist" class="tabs tabs-boxed tabs-lg">
-      <a role="tab" class="tab tab-active" onclick="changeTab(1)">IEEE</a>
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      
+      <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
 
+      <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
+      
+      <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
+      
+      <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
+
+    </div>
+
+      <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
         <h2 class="section-heading">IEEE Faculty</h2>
         <br>
         <div class="flex-container">
@@ -126,8 +135,7 @@
         </div>
       </div>
 
-      <a role="tab" class="tab" onclick="changeTab(2)">CompSoc</a>
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div id="CompSoc" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
         <h2 class="section-heading">CompSoc Faculty</h2>
         <br>
@@ -202,13 +210,11 @@
         </div>
       </div>
 
-      <a role="tab" class="tab" onclick="changeTab(3)">Diode</a>
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div id="Diode" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
         <h2 class="section-heading">Diode Faculty</h2>
         <br>
         <div class="flex-container">
-
           <!-- Faculty -->
           {% for fac in faculty %}
           {% if fac.sig.name == "Diode" %}
@@ -243,7 +249,7 @@
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{core.user}}</h2>
-                <p class="card-post">{{core.post}}</p>
+                <h2 class="card-post">{{core.post}}</h2>
                 <div class="card-actions">
                   <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
                   <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
@@ -279,15 +285,14 @@
         </div>
       </div>
 
-      <a role="tab" class="tab" onclick="changeTab(4)">Piston</a>
-      <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <div id="Piston" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
         <h2 class="section-heading">Piston Faculty</h2>
         <br>
         <div class="flex-container">
+          <!-- Faculty -->
           {% for fac in faculty %}
           {% if fac.sig.name == "Piston" %}
-          <!-- Faculty -->
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
@@ -306,7 +311,7 @@
           {% endfor %}
         </div>
 
-        <h2 class="section-heading">Piston Core</h2>
+        <h2 class="section-heading"> Piston Core</h2>
         <br>
         <div class="flex-container">
 
@@ -319,7 +324,7 @@
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{core.user}}</h2>
-                <p class="card-post">{{core.post}}</p>
+                <h2 class="card-post">{{core.post}}</h2>
                 <div class="card-actions">
                   <button class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></button>
                   <button class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></button>
@@ -355,18 +360,29 @@
         </div>
       </div>
     </div>
-  </div>
 {% endblock %}
 
 {% block script %}
   <script>
-    function changeTab(tabIndex) {
-      // Get all tabs and remove the 'tab-active' class
-      const tabs = document.querySelectorAll('.tab');
-      tabs.forEach(tab => tab.classList.remove('tab-active'));
+    function openPage(pageName, elmnt, tabName) {
+      // Hide all elements with class="tabcontent" by default */
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tab-content");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
 
-      // Add the 'tab-active' class to the clicked tab
-      tabs[tabIndex - 1].classList.add('tab-active');
+    tablinks = document.getElementsByClassName("tab");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].classList.remove("tab-active");
     }
+    
+      // Show the specific tab content
+      document.getElementById(pageName).style.display = "block";
+      document.getElementById(tabName).classList.add("tab-active");
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("IEEE-tab").click();
   </script>
 {% endblock %}
