@@ -1,0 +1,267 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Meta tags-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Give a small description in 3-4 sentences about the website -->
+    <meta name="description"
+        content="IEEE NITK is a student chapter of the IEEE Organisation belonging in the Bangalore R10 Section. IEEE NITK undertakes a lot of projects by its various SIGs which are formed and projects undertaken by students are futher applied to help solve daily world problems.">
+    <!-- A small abstract idea about the website -->
+    <meta name="abstract" content="This Website is about IEEE NITK Student Chapter">
+    <!-- Important Keywords to be noted in the website  -->
+    <meta name="keywords" content="IEEE, IEEE NITK, NITK Surathkal, NITK, Clubs in NITK, Technical Clubs in NITK, NITK Club Projects, Student Chapter Bangalore R10 Section">
+    <!-- Tell the spider to index the first page and other pages as well-->
+    <meta name="robots" content="index, follow">
+    <!-- How often should spiders come back to your page -->
+    <meta name="revisit-after" content="3 days">
+
+    <!-- Copyright regarding the website -->
+    <meta name="copyright" content="IEEE NITK">
+    <!-- Language for the website -->
+    <meta name="language" content="English">
+
+    <!-- Web Author for the image -->
+    <meta name="web_author" content="IEEE NITK">
+    <meta name="author" content="IEEE NITK">
+    <!-- Email ID -->
+    <meta name="contact" content="corpusieeenitk@gmail.com" />
+    <!-- Email ID to reply to -->
+    <meta name="reply-to" content="corpusieeenitk@gmail.com">
+
+    <!-- Refers to distribution of the page -->
+    <meta name="distribution" content="global">
+    <!-- Disallow spammers for the webpage -->
+    <meta name="no-email-collection" content="http://www.metatags.info/nospamharvesting">
+    <!-- Rating for the page -->
+    <meta name="rating" content="general">
+    <!-- Content Type for the page -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Fixing viewport on mobile views -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Authorship Markup -->
+    <!-- Social: Facebook / Open Graph and Google+ / Schema.org -->
+    <meta property="fb:app_id" content="0011038251882641" />
+    <meta property="og:url" content="https://ieee.nitk.ac.in" />
+    <meta property="og:title" itemprop="name" content="IEEE NITK | Corpus">
+    <meta property="og:image" itemprop="image" content="{% static 'img/ieee-nitk.png' %}">
+    <meta property="og:description" itemprop="description"
+        content="IEEE NITK is a student branch of IEEE located at NITK Surathkal dedicated to innovative projects and solutions. This is the official website of IEEE NITK">
+    <meta property="og:site_name" content="IEEE NITK | Corpus">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'img/icons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Windows Tile Icons -->
+    <meta name="msapplication-TileColor" content="#0562DC">
+    <meta name="msapplication-square70x70logo" content="{% static 'img/icons/ms-icon-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'img/icons/ms-icon-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'img/icons/ms-icon-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'img/icons/ms-icon-310x310.png' %}" />
+
+    <!-- Android Theme Color -->
+    <meta name="theme-color" content="#0562DC">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website Title -->
+    <title>
+        {% block title %} {% endblock %} | Corpus
+    </title>
+    <link rel="icon" href="{% static 'img/icons/favicon.png' %}" type="image/x-icon">
+
+    <!-- Linked Sheets needed -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
+
+    <!-- Linked Scripts needed -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    {% block style %}
+    {% endblock %}
+    {% if USE_TAILWIND_CDN_LINK %}
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+        tailwind.config = {
+            daisyui: {
+                themes: ["winter", "night", "synthwave", "sunset"]
+            },
+            darkMode: ['class', '[data-theme="night"]']
+        }
+    </script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/tailwind-min.css' %}" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        .hero {
+            background-color: rgba(0, 0, 0);
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        /* Small screens (default full width) */
+        @media (min-width: 640px) {
+            #schedule {
+                max-width: 70%;
+            }
+        }
+
+        /* Medium screens */
+        @media (min-width: 768px) {
+            #schedule {
+                max-width: 80%;
+            }
+        }
+
+        /* Large screens */
+        @media (min-width: 1024px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
+
+        /* Extra-large screens */
+        @media (min-width: 1280px) {
+            #schedule {
+                max-width: 50%;
+            }
+        }
+
+        .tick {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        }
+
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section
+        class="hero min-h-[50vh] min-w-screen">
+        <div id="particles-js" class="h-screen w-full"></div>
+        <div class="hero-content text-center flex-col">
+            <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1>
+            <div class="wrapper">
+                <div class="neon-wrapper">
+                  <span class="txt">IEEE Farewell 2024</span>
+                  <span class="gradient"></span>
+                  <span class="dodge"></span>
+                </div>
+            </div>
+
+            {% if admin %}
+                <a href="{% url 'electrika_admin' %}" class="btn btn-primary mt-10">Admin</a>
+            {% endif %}
+            <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
+            {% comment %} <p class="text-md md:text-lg lg:text-xl p-3 mt-10 text-white dark:text-white">Theme: Explainable AI</p> {% endcomment %}
+            <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
+
+            <a class="registerBtn"
+                {% if registration_active and not registration_done and not registered %}
+                href="{% url 'electrika_register' %}?next={{ request.path }}"
+                {% elif registration_done and not registered %}
+
+                {% elif registered %}
+                href="{% url 'electrika_index' %}"
+                {% else %}
+
+                {% endif %}
+                >
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                {% if registration_active and not registration_done and not registered %}
+                Register Now
+                {% elif registration_done and not registered %}
+                Registerations Closed
+                {% elif registered %}
+                Go to Dashboard
+                {% else %}
+                Registerations Opening Soon
+                {% endif %}
+            </a>
+            <br>
+            <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
+                <div class="arrowdown h-10 w-10 m-0 p-0"></div>
+            </button>
+        </div>
+    </section>
+    
+{% if messages %}
+{% for message in messages %}
+    <div class="toast toast-start message-fade-away z-40">
+        <div class="alert alert-{{ message.tags }}">
+            <span>{{ message }}</span>
+            <span>{{ message.id }}</span>
+        </div>
+    </div>
+{% endfor %}
+{% endif %}z
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fadeDivs = document.querySelectorAll(".message-fade-away");
+        fadeDivs.forEach(function (fadeDiv) {
+            setTimeout(function () {
+                fadeOut(fadeDiv);
+            }, 5000);
+        });
+    });
+
+    function fadeOut(element) {
+        let opacity = 1;
+        const intervalDuration = 50;
+        const intervalStep = 0.05;
+
+        let fadeInterval = setInterval(function () {
+            if (opacity > 0) {
+                opacity -= intervalStep;
+                element.style.opacity = opacity;
+            } else {
+                clearInterval(fadeInterval);
+                element.parentNode.removeChild(element);
+            }
+        }, intervalDuration);
+    }
+</script>
+
+<script>
+    function setParticlesConfig(config) {
+        particlesJS('particles-js', config);
+    }
+    fetch('{% static 'js/farewell/particles-dark.json' %}')
+        .then(response => response.json())
+        .then(particlesConfig => {
+            setParticlesConfig(particlesConfig);
+        })
+        .catch(error => console.error('Error fetching particles config:', error));
+
+</script>
+</body>
+
+</html>
+
