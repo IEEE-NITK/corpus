@@ -168,6 +168,9 @@ class Core(models.Model):
     term_end = models.DateField(null=True)
 
 class Faculty(models.Model):
+
+    class Meta:
+        verbose_name_plural = 'faculties'
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
     post = models.CharField(max_length=100, null=False)
