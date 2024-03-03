@@ -34,10 +34,15 @@ Achievements
         </ul>
     </div>
 {% empty %}
-    <li>
-        <p class="font-bold">Forgot to add achievements - You!</p>
-        <p>You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
-    </li>
+    <div class="pt-10">
+        <div class="divider divider-start text-3xl lg:text-5xl">{% now "Y" %}</div>
+        <ul>
+            <li>
+                <span class="font-bold">You forgot to add achievements!</span>&emsp;<span class="badge badge-outline">{% now "F j, Y" %}</span>
+                <p class="mt-0">You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
+            </li>
+        </ul>
+    </div>
 {% endfor %}
 </section>
 {% endblock %}
