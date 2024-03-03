@@ -15,16 +15,30 @@ Achievements
     </div>
 </section>
 <!-- Achievements -->
-<section class="bg-base-100 py-10 prose">
-    <ul>
-    {% for achievement in achievements %}
-    {% empty %}
-        <li>
-            <p class="font-bold">Forgot to add achievements - You!</p>
-            <p>You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
-        </li>
-    {% endfor %}
-    </ul>
+<section class="bg-base-100 px-4 lg:px-10 prose min-w-full">
+{% for year, achievements in achievements_map.items %}
+    <div class="pt-10">
+        <div class="divider divider-start text-3xl lg:text-5xl">{{ year }}</div>
+        <ul>
+        {% for achievement in achievements %}
+            <li>
+                {% if achievement.url %}
+                <a href="{{ achievement.url }}" class="font-bold">{{ achievement.title }}</a>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
+                {% else %}
+                <span class="font-bold">{{ achievement.title }}</span>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
+                {% endif %}
+                <!-- TODO - Add link to user if user is defined (blocked on user page implementation) -->
+                <p class="mt-0">{{ achievement.description }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% empty %}
+    <li>
+        <p class="font-bold">Forgot to add achievements - You!</p>
+        <p>You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
+    </li>
+{% endfor %}
 </section>
 {% endblock %}
 

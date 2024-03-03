@@ -49,8 +49,15 @@ def farewell(request):
 
 def achievements(request):
     achievements_all = Achievement.objects.order_by("-date")
+    achievements_year_map = {}
+    for achievement in achievements_all:
+        year = achievement.date.year
+        if year in achievements_year_map:
+            achievements_year_map[year].append(achievement)
+        else:
+            achievements_year_map[year] = [achievement]
     return render(
         request,
         "pages/achievements.html",
-        {"achievements": achievements_all},
+        {"achievements_map": achievements_year_map},
     )
