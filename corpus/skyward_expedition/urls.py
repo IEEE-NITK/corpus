@@ -54,4 +54,9 @@ urlpatterns = [
         views.delete_announcement,
         name="skyward_expedition_delete_announcement",
     ),
+    path(
+        "admin/submissions/",
+        views.submissions_dashboard,
+        name="skyward_expedition_submissions_dashboard",
+    ),
 ]

@@ -393,3 +393,11 @@ def delete_announcement(request, announcement_id):
 
     messages.success(request, "Announcement deleted!")
     return redirect("skyward_expedition_announcements_dashboard")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def submissions_dashboard(request):
+    submissions = Submission.objects.all()
+    args = {"submissions": submissions}
+    return render(request, "skyward_expedition/admin/submissions_dashboard.html", args)
