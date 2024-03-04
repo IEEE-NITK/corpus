@@ -8,6 +8,9 @@
 {% block content %}
     <div class="h-[50vh] flex flex-col items-center justify-center bg-gradient-to-t from-sky-100 to-sky-500">
         <h1 class="text-6xl font-extrabold">Welcome to Skyward Expedition!</h1>
+        <a href="{% url 'skyward_expedition_create_submission' %}" class="btn btn-primary text-white px-4 py-2 mt-5">
+            Create Submission
+        </a>
     </div>
 
     <div class="prose max-w-none mx-10 my-10">

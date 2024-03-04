@@ -19,6 +19,7 @@ urlpatterns = [
         views.delete_invite,
         name="skyward_expedition_delete_invite",
     ),
+    path("submission/", views.submission, name="skyward_expedition_create_submission"),
     path("admin/", views.admin, name="skyward_expedition_admin"),
     path(
         "admin/members/",
