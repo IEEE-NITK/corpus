@@ -1,0 +1,42 @@
+{% extends 'skyward_expedition/base.html' %}
+
+{% block title %}
+    Create Submission
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="my-10 w-2/3 mx-auto prose">
+        <h2 class="text-center">Create Submission</h2>
+        <form method="post" action="{% url 'skyward_expedition_create_submission' %}" class="py-5"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="w-full my-2">
+                <label for="{{ form.file.id_for_label }}">Upload Submission File</label>
+                <div class="text-primary-content">
+                    {{ form.file }}
+                </div>
+                {% if form.file.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.file.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <button class="btn btn-primary btn-block">Submit File</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
