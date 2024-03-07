@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 
 import sentry_sdk
+from django.core.exceptions import ImproperlyConfigured
 
 if os.getenv("LIVECYCLE"):
     from dotenv import load_dotenv
@@ -185,7 +186,7 @@ USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None
 
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
 if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
-    if SENTRY_DSN:
+    try:
         sentry_sdk.init(
             dsn=SENTRY_DSN,
             # Set traces_sample_rate to 1.0 to capture 100%
@@ -197,3 +198,5 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
             profiles_sample_rate=1.0,
             enable_tracing=True,
         )
+    except Exception:
+        raise ImproperlyConfigured("Django Sentry DSN Not found!")
