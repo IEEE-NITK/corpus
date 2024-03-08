@@ -2,6 +2,7 @@ from django.contrib import admin
 from skyward_expedition.models import Announcement
 from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
+from skyward_expedition.models import Submission
 from skyward_expedition.models import Team
 
 
@@ -18,3 +19,4 @@ admin.site.register(SEUser, SEUserAdmin)
 admin.site.register(Team)
 admin.site.register(Invite)
 admin.site.register(Announcement)
+admin.site.register(Submission)

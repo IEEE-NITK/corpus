@@ -2,6 +2,7 @@ from django import forms
 from skyward_expedition.models import Announcement
 from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
+from skyward_expedition.models import Submission
 from skyward_expedition.models import Team
 
 from corpus.forms import CorpusModelForm
@@ -67,3 +68,9 @@ class AnnouncementForm(CorpusModelForm):
                 "Both URL Link and corresponding text are required."
             )
         return data
+
+
+class SubmissionForm(CorpusModelForm):
+    class Meta:
+        model = Submission
+        fields = ["file"]
