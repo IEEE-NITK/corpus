@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from .models import Achievement
+from .models import Publication
 
 
 def index(request):
@@ -56,8 +57,20 @@ def achievements(request):
             achievements_year_map[year].append(achievement)
         else:
             achievements_year_map[year] = [achievement]
+
+    publications_all = Publication.objects.order_by("-date")
+    publications_year_map = {}
+    for publication in publications_all:
+        year = publication.date.year
+        if year in publications_year_map:
+            publications_year_map[year].append(publication)
+        else:
+            publications_year_map[year] = [publication]
     return render(
         request,
         "pages/achievements.html",
-        {"achievements_map": achievements_year_map},
+        {
+            "achievements_map": achievements_year_map,
+            "publications_map": publications_year_map,
+        },
     )

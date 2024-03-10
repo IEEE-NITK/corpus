@@ -38,6 +38,7 @@ class Publication(models.Model):
     date = models.DateField(verbose_name="Publish Date")
     url = models.URLField(verbose_name="URL")
     authors = models.CharField(max_length=256, verbose_name="Authors")
+    source = models.CharField(max_length=512, verbose_name="Source")
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

@@ -15,39 +15,97 @@ Achievements
     </div>
 </section>
 <!-- Achievements -->
-<section class="bg-base-100 px-4 lg:px-10 prose min-w-full">
-{% for year, achievements in achievements_map.items %}
-    <div class="pt-10">
-        <div class="divider divider-start text-3xl lg:text-5xl">{{ year }}</div>
-        <ul>
-        {% for achievement in achievements %}
-            <li>
-                {% if achievement.url %}
-                <a href="{{ achievement.url }}" class="font-bold">{{ achievement.title }}</a>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
-                {% else %}
-                <span class="font-bold">{{ achievement.title }}</span>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
-                {% endif %}
-                <!-- TODO - Add link to user if user is defined (blocked on user page implementation) -->
-                <p class="mt-0">{{ achievement.description }}</p>
-            </li>
-        {% endfor %}
-        </ul>
+<section class="bg-base-100 px-4 lg:px-16 pt-4 pb-10 min-w-full">
+    <div role="tablist" class="tabs tabs-bordered">
+        <a role="tab" class="tab text-xl lg:text-2xl tab-active">Achievements</a>
+        <a role="tab" class="tab text-xl lg:text-2xl">Publications</a>
     </div>
-{% empty %}
-    <div class="pt-10">
-        <div class="divider divider-start text-3xl lg:text-5xl">{% now "Y" %}</div>
-        <ul>
-            <li>
-                <span class="font-bold">You forgot to add achievements!</span>&emsp;<span class="badge badge-outline">{% now "F j, Y" %}</span>
-                <p class="mt-0">You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
-            </li>
-        </ul>
+    <div class="tabs-content min-w-full prose">
+    {% for year, achievements in achievements_map.items %}
+        <div class="pt-10">
+            <div class="divider divider-start text-3xl lg:text-5xl">{{ year }}</div>
+            <ul>
+            {% for achievement in achievements %}
+                <li>
+                    {% if achievement.url %}
+                    <a href="{{ achievement.url }}" class="font-bold">{{ achievement.title }}</a>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
+                    {% else %}
+                    <span class="font-bold">{{ achievement.title }}</span>&emsp;<span class="badge badge-outline">{{ achievement.date | date:"F j, Y" }}</span>
+                    {% endif %}
+                    <!-- TODO - Add link to user if user is defined (blocked on user page implementation) -->
+                    <p class="mt-0">{{ achievement.description }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <div class="pt-10">
+            <div class="divider divider-start text-3xl lg:text-5xl">{% now "Y" %}</div>
+            <ul>
+                <li>
+                    <span class="font-bold">You forgot to add achievements!</span>&emsp;<span class="badge badge-outline">{% now "F j, Y" %}</span>
+                    <p class="mt-0">You probably forgot to add achievements. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
     </div>
-{% endfor %}
+
+    <div class="tabs-content min-w-full prose hidden">
+    {% for year, publications in publications_map.items %}
+        <div class="pt-10">
+            <div class="divider divider-start text-3xl lg:text-5xl">{{ year }}</div>
+            <ul>
+            {% for publication in publications %}
+                <li>
+                    <a href="{{ publication.url }}" class="font-bold">{{ publication.title }}</a> - {{ publication.source }}&emsp;<span class="badge badge-outline">{{ publication.date | date:"F j, Y" }}</span>
+                    <!-- TODO - Add link to user if user is defined (blocked on user page implementation) -->
+                    <p class="mt-0">{{ publication.authors }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% empty %}
+        <div class="pt-10">
+            <div class="divider divider-start text-3xl lg:text-5xl">{% now "Y" %}</div>
+            <ul>
+                <li>
+                    <span class="font-bold">You forgot to add publications!</span>&emsp;<span class="badge badge-outline">{% now "F j, Y" %}</span>
+                    <p class="mt-0">You probably forgot to add publications. Add them using: <code>python manage.py loaddata dev_pages_db.json</code></p>
+                </li>
+            </ul>
+        </div>
+    {% endfor %}
+    </div>
 </section>
 {% endblock %}
 
 
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    // Get all tabs and tab contents
+    var tabs = document.querySelectorAll('.tab');
+    var tabContents = document.querySelectorAll('.tabs-content');
+
+    // Function to remove active class from all tabs and hide all tab contents
+    function removeActiveClassAndHideContent() {
+        tabs.forEach(function(tab, index) {
+            tab.classList.remove('tab-active');
+            tabContents[index].style.display = 'none';
+        });
+    }
+
+    // Add click event listener to all tabs
+    tabs.forEach(function(tab, index) {
+        tab.addEventListener('click', function() {
+            removeActiveClassAndHideContent();
+            tab.classList.add('tab-active');
+            tabContents[index].style.display = 'block';
+        });
+    });
+
+
+
+</script>
 {% endblock %}

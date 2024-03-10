@@ -31,5 +31,41 @@
     },
     "model": "pages.achievement",
     "pk": 3
+  },
+  {
+    "fields": {
+      "achievement": 1,
+      "tag": "GSOC"
+    },
+    "model": "pages.tag",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "achievement": 3,
+      "tag": "IAS SRFP"
+    },
+    "model": "pages.tag",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "achievement": 3,
+      "tag": "SB"
+    },
+    "model": "pages.tag",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "authors": "John Doe, Jane Doe, Someone Else",
+      "date": "2023-05-10",
+      "source": "Journal of Example",
+      "title": "Example Publication 1",
+      "url": "https://www.example.com/",
+      "user": null
+    },
+    "model": "pages.publication",
+    "pk": 1
   }
 ]
