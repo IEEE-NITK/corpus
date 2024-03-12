@@ -2,7 +2,7 @@ from config.models import SIG
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .validators import validate_ieee_email
@@ -151,9 +151,7 @@ class ExecutiveMember(models.Model):
     hide_github = models.BooleanField(default=False)
     hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(
-        verbose_name="Date Joined", default=datetime.now()
-    )
+    date_joined = models.DateTimeField(verbose_name="Date Joined", default=now)
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
@@ -168,7 +166,7 @@ class Core(models.Model):
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     post = models.CharField(max_length=100, null=False)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
-    term_start = models.DateField(default=datetime.now(), null=False)
+    term_start = models.DateField(default=now, null=False)
     term_end = models.DateField(null=True)
 
 
@@ -179,5 +177,5 @@ class Faculty(models.Model):
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
     post = models.CharField(max_length=100, null=False)
-    term_start = models.DateField(default=datetime.now(), null=False)
+    term_start = models.DateField(default=now, null=False)
     term_end = models.DateField(null=True)
