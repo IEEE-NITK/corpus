@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 
@@ -61,3 +62,12 @@ class CorpusLoginForm(AuthenticationForm):
         if username:
             username = username.lower()
         return username
+
+
+class CorpusPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(CorpusPasswordResetForm, self).__init__()
+        for visible in self.visible_fields():
+            visible.field.widget.attrs[
+                "class"
+            ] = "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
