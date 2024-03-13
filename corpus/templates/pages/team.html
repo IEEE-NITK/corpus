@@ -27,7 +27,7 @@
         <div class="flex-container">
           <!-- Faculty -->
           {% for fac in faculty %}
-          {% if fac.post == "Branch Counselor" %}
+          {% if fac.sig.name == "ExeCom" %}
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
@@ -37,15 +37,19 @@
                 <h2 class="card-title">{{fac.user}}</h2>
                 <p class="card-post">{{fac.post}}</p>
                 <br/>
+                {% if fac.user.executivemember.linkedin is not Blank %}
                 <div class="card-actions">
-                  <button action="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                {% endif %}
+                {% if fac.website is not Blank %}
+                  <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                {% endif %}
                 </div>
               </div>
             </div>
           </div>
           {% endif %}
           {% endfor %}
-        </div>
 
         <h2 class="section-heading">IEEE Core</h2>
         <br>
@@ -90,8 +94,15 @@
                 <h2 class="card-title">{{fac.user}}</h2>
                 <p class="card-post">{{fac.post}}</p>
                 <br/>
+                {% if fac.user.executivemember.linkedin is not Blank %}
                 <div class="card-actions">
                   <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                </div>
+                {% endif %}
+                {% if fac.website is not Blank %}
+                <div class="card-actions">
+                  <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                {% endif %}
                 </div>
               </div>
             </div>
@@ -166,8 +177,13 @@
                 <h2 class="card-title">{{fac.user}}</h2>
                 <p class="card-post">{{fac.post}}</p>
                 <br/>
+                {% if fac.user.executivemember.linkedin is not Blank %}
                 <div class="card-actions">
                   <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                {% endif %}
+                {% if fac.website is not Blank %}
+                  <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                {% endif %}
                 </div>
               </div>
             </div>
@@ -242,8 +258,13 @@
                 <h2 class="card-title">{{fac.user}}</h2>
                 <p class="card-post">{{fac.post}}</p>
                 <br/>
+                {% if fac.user.executivemember.linkedin is not Blank %}
                 <div class="card-actions">
                   <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                {% endif %}
+                {% if fac.website is not Blank %}
+                  <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                {% endif %}
                 </div>
               </div>
             </div>
