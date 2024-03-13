@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import ExecutiveMember
-from .models import User
-from .models import Faculty
 from .models import Core
+from .models import ExecutiveMember
+from .models import Faculty
+from .models import User
 
 # Register your models here.
 
@@ -83,8 +83,10 @@ class ExecutiveMemberAdmin(admin.ModelAdmin):
     )
     ordering = ("user",)
 
+
 class CoreAdmin(admin.ModelAdmin):
-    list_display = ("user", "sig", "post", "term_start")
+    list_display = ("executivemember", "sig", "post", "term_start")
+
 
 class FacultyAdmin(admin.ModelAdmin):
     list_display = ("user", "sig", "post", "term_start")
