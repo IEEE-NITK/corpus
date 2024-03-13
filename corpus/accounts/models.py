@@ -154,19 +154,78 @@ class ExecutiveMember(models.Model):
 
 
 class Core(models.Model):
-    user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
-    post = models.CharField(max_length=100, null=False)
+
+    POST_CHOICES = (
+        (1, "Convenor"),
+        (2, "Chairperson"),
+        (3, "Vice Chairperson"),
+        (4, "Secretary"),
+        (5, "Joint Secretary"),
+        (6, "Treasurer(Branch)"),
+        (7, "Treasurer(Institute)"),
+        (8, "Webmaster"),
+        (9, "Media Lead"),
+        (10, "Outreach Lead"),
+        (11, "Envision Lead"),
+        (12, "Labs Lead"),
+        (13, "CompSoc Chair"),
+        (14, "CompSoc Vice Chair"),
+        (15, "CompSoc Secretary"),
+        (16, "CompSoc Project Head"),
+        (17, "CompSoc Project Coordinator"),
+        (18, "CIS Chair"),
+        (19, "CIS Secretary"),
+        (20, "CIS Project Head"),
+        (21, "Diode Chair"),
+        (22, "SPS Chair"),
+        (23, "SPS Vice Chair"),
+        (24, "SPS Secretary"),
+        (25, "CAS Chair"),
+        (26, "CAS Vice Chair"),
+        (27, "CAS Secretary"),
+        (28, "RAS Chair"),
+        (29, "RAS Secretary"),
+        (30, "Piston Chair"),
+        (31, "Piston Vice Chair"),
+        (32, "Piston Secretary"),
+        (33, "IAS Chair"),
+        (34, "IAS Secretary"),
+    )
+    executivemember = models.OneToOneField(
+        ExecutiveMember, null=False, on_delete=models.CASCADE, primary_key=True
+    )
+    post = models.CharField(max_length=100, null=False, choices=POST_CHOICES)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
-    term_start = models.DateField(default=now, null=False)
-    term_end = models.DateField(null=True)
+    term_start = models.DateField()
+    term_end = models.DateField()
+
+    def __str__(self):
+        self_user = self.executivemember.user
+        return f"{self_user.first_name} {self_user.last_name}"
 
 
 class Faculty(models.Model):
     class Meta:
         verbose_name_plural = "faculties"
 
+    FACULTY_POSTS = (
+        ("BRANCH COUNSELOR", "Branch Counselor"),
+        ("CIS FACULTY ADVISOR", "CIS Faculty Advisor"),
+        ("COMPSOC FACULTY ADVISOR", "CompSoc Faculty Advisor"),
+        ("CAS FACULTY ADVISOR", "CAS Faculty Advisor"),
+        ("SPS FACULTY ADVISOR", "SPS Faculty Advisor"),
+        ("PHOTONIC SOCIETY FACULTY ADVISOR", "Photonic Society Faculty Advisor"),
+        ("WIE FACULTY ADVISOR", "WIE Faculty Advisor"),
+        ("IAS FACULTY ADVISOR", "IAS Faculty Advisor"),
+        ("SIGHT CHAIR", "SIGHT Chair"),
+        ("RAS FACULTY ADVISOR", "RAS Faculty Advisor"),
+        ("GRSS FACULTY ADVISOR", "GRSS Faculty Advisor"),
+    )
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
-    post = models.CharField(max_length=100, null=False)
-    term_start = models.DateField(default=now, null=False)
-    term_end = models.DateField(null=True)
+    post = models.CharField(
+        max_length=100, null=False, choices=FACULTY_POSTS, blank=True
+    )
+    term_start = models.DateField()
+    term_end = models.DateField()
+    website = models.URLField(max_length=200, null=True, blank=True)

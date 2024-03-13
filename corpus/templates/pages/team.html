@@ -1,88 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block style %}
+<head>
+  <link rel="stylesheet", href="corpus/corpus/templates/static/css/team.css", type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+</head>
+{% endblock %}
+
 {% block content %}
-  <head>
-    <style>
-      .flex-container {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: flex-start;
-        align-content: space-between;
-        align-content: center;
-        text-align: center;
-      }
-
-      .profile-pic {
-        height: 150px;
-        width: 170px;
-        border-radius: 50%;
-      }
-
-      .title {
-        font-family: 'Ubuntu';
-        font-style: normal;
-        font-weight: 400;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-        font-size: 50px;
-      }
-
-      .section-heading {
-        margin-top: 20px;
-        font-family: 'Ubuntu';
-        font-style: normal;
-        text-align: center;
-        font-size: 30px;
-      }
-
-      .margins {
-        margin-top: 15px;
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-bottom: 15px;
-      }
-
-      .card-post {
-        font-family: 'Ubuntu';
-        font-style: normal;
-        font-weight: normal;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        text-align: center;
-        font-size: 25px;
-      }
-
-      .card-title {
-        font-family: 'Ubuntu';
-        font-style: normal;
-        font-weight: bold;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        text-align: center;
-        font-size: 25px;
-      }
-    </style>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-  </head>
-
   <div class="title">
     <h1> Teams </h1>
   </div>
 
   <div class="center mt-10 align-center">
     <div role="tablist" class="tabs tabs-boxed tabs-lg">
-
       <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
-
       <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
-
       <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
-
       <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
-
     </div>
 
       <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
@@ -95,7 +31,7 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png" {% endif %}alt="Profile" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{fac.user}}</h2>
@@ -120,15 +56,15 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+                <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}"  {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.user}}</h2>
+                <h2 class="card-title">{{core.executivemember}}</h2>
                 <p class="card-post">{{core.post}}</p>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{core.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{core.user.executivemember.github}}" target="blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{core.executivemember.github}}" target="blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
@@ -148,7 +84,7 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{fac.user}}</h2>
@@ -173,15 +109,15 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+                <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.user}}</h2>
+                <h2 class="card-title">{{core.executivemember}}</h2>
                 <h2 class="card-post">{{core.post}}</h2>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{core.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{core.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{core.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
@@ -198,14 +134,14 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{member.user}}</h2>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{member.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{member.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
@@ -226,7 +162,7 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{fac.user}}</h2>
@@ -251,10 +187,10 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+                <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.user}}</h2>
+                <h2 class="card-title">{{core.executivemember}}</h2>
                 <h2 class="card-post">{{core.post}}</h2>
                 <br/>
                 <div class="card-actions">
@@ -276,14 +212,14 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{member.user}}</h2>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{member.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{member.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
@@ -304,7 +240,7 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{fac.user}}</h2>
@@ -329,15 +265,15 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if core.user.executivemember.profile_picture.url is not None %} src="{{core.user.executivemember.profile_picture.url}}" {% endif %} alt="photo" />
+                <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.user}}</h2>
+                <h2 class="card-title">{{core.executivemember}}</h2>
                 <h2 class="card-post">{{core.post}}</h2>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{core.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{core.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{core.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
@@ -354,14 +290,14 @@
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% endif %} alt="photo" class="rounded-xl" />
+                <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{member.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" class="rounded-xl" />
               </figure>
               <div class="card-body items-center text-center">
                 <h2 class="card-title">{{member.user}}</h2>
                 <br/>
                 <div class="card-actions">
-                  <a href="{{member.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{member.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
