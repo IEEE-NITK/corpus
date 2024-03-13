@@ -3,7 +3,7 @@
 
 {% block style %}
 <head>
-  <link rel="stylesheet", href="corpus/corpus/templates/static/css/team.css", type="text/css">
+  <link rel="stylesheet", href="static/css/team.css", type="text/css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 {% endblock %}
@@ -59,8 +59,8 @@
                 <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}"  {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.executivemember}}</h2>
-                <p class="card-post">{{core.post}}</p>
+                <h2 class="card-title">{{core.executivemember.user}}</h2>
+                <p class="card-post">{{core.get_post_display}}</p>
                 <br/>
                 <div class="card-actions">
                   <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
@@ -112,8 +112,8 @@
                 <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.executivemember}}</h2>
-                <h2 class="card-post">{{core.post}}</h2>
+                <h2 class="card-title">{{core.executivemember.user}}</h2>
+                <h2 class="card-post">{{core.get_post_display}}</h2>
                 <br/>
                 <div class="card-actions">
                   <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
@@ -129,8 +129,7 @@
         <br>
         <div class="flex-container">
           <!-- Members -->
-          {% for member in members %}
-          {% if member.sig.name == "CompSoc" %}
+          {% for member in compsoc_members %}
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
@@ -146,7 +145,6 @@
               </div>
             </div>
           </div>
-          {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -190,8 +188,8 @@
                 <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.executivemember}}</h2>
-                <h2 class="card-post">{{core.post}}</h2>
+                <h2 class="card-title">{{core.executivemember.user}}</h2>
+                <h2 class="card-post">{{core.get_post_display}}</h2>
                 <br/>
                 <div class="card-actions">
                   <a href="{{core.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
@@ -207,8 +205,7 @@
         <br>
         <div class="flex-container">
           <!-- Members -->
-          {% for member in members %}
-          {% if member.sig.name == "Diode" %}
+          {% for member in diode_members %}
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
@@ -224,7 +221,6 @@
               </div>
             </div>
           </div>
-          {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -268,8 +264,8 @@
                 <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.executivemember}}</h2>
-                <h2 class="card-post">{{core.post}}</h2>
+                <h2 class="card-title">{{core.executivemember.user}}</h2>
+                <h2 class="card-post">{{core.get_post_display}}</h2>
                 <br/>
                 <div class="card-actions">
                   <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
@@ -285,8 +281,7 @@
         <br>
         <div class="flex-container">
           <!-- Members -->
-          {% for member in members %}
-          {% if member.sig.name == "Piston" %}
+          {% for member in piston_members %}
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
@@ -302,7 +297,6 @@
               </div>
             </div>
           </div>
-          {% endif %}
           {% endfor %}
         </div>
       </div>

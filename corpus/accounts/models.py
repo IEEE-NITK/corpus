@@ -192,9 +192,9 @@ class Core(models.Model):
         (34, "IAS Secretary"),
     )
     executivemember = models.OneToOneField(
-        ExecutiveMember, null=False, on_delete=models.CASCADE, primary_key=True
+        ExecutiveMember, null=False, on_delete=models.CASCADE
     )
-    post = models.CharField(max_length=100, null=False, choices=POST_CHOICES)
+    post = models.IntegerField(null=False, choices=POST_CHOICES)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
     term_start = models.DateField()
     term_end = models.DateField()
@@ -202,6 +202,9 @@ class Core(models.Model):
     def __str__(self):
         self_user = self.executivemember.user
         return f"{self_user.first_name} {self_user.last_name}"
+
+    def get_post_display(self):
+        return dict(Core.POST_CHOICES).get(self.post)
 
 
 class Faculty(models.Model):
