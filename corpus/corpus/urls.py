@@ -17,13 +17,13 @@ Including another URLconf
 from ckeditor_uploader import views as ckeditor_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import include
 from django.urls import path
 from django.views.decorators.cache import never_cache
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path(
