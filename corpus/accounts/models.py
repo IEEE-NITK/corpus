@@ -212,17 +212,17 @@ class Faculty(models.Model):
         verbose_name_plural = "faculties"
 
     FACULTY_POSTS = (
-        ("BRANCH COUNSELOR", "Branch Counselor"),
-        ("CIS FACULTY ADVISOR", "CIS Faculty Advisor"),
-        ("COMPSOC FACULTY ADVISOR", "CompSoc Faculty Advisor"),
-        ("CAS FACULTY ADVISOR", "CAS Faculty Advisor"),
-        ("SPS FACULTY ADVISOR", "SPS Faculty Advisor"),
-        ("PHOTONIC SOCIETY FACULTY ADVISOR", "Photonic Society Faculty Advisor"),
-        ("WIE FACULTY ADVISOR", "WIE Faculty Advisor"),
-        ("IAS FACULTY ADVISOR", "IAS Faculty Advisor"),
-        ("SIGHT CHAIR", "SIGHT Chair"),
-        ("RAS FACULTY ADVISOR", "RAS Faculty Advisor"),
-        ("GRSS FACULTY ADVISOR", "GRSS Faculty Advisor"),
+        ("Branch Counselor", "Branch Counselor"),
+        ("CIS Faculty Advisor", "CIS Faculty Advisor"),
+        ("CompSoc Faculty Advisor", "CompSoc Faculty Advisor"),
+        ("CAS Faculty Advisor", "CAS Faculty Advisor"),
+        ("SPS Faculty Advisor", "SPS Faculty Advisor"),
+        ("Photonic Society Faculty Advisor", "Photonic Society Faculty Advisor"),
+        ("WIE Faculty Advisor", "WIE Faculty Advisor"),
+        ("IAS Faculty Advisor", "IAS Faculty Advisor"),
+        ("SIGHT Chair", "SIGHT Chair"),
+        ("RAS Faculty Advisor", "RAS Faculty Advisor"),
+        ("GRSS Faculty Advisor", "GRSS Faculty Advisor"),
     )
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
