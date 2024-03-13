@@ -135,7 +135,7 @@ class ExecutiveMember(models.Model):
     )
 
     profile_picture = models.ImageField(
-        blank=True, null=True, upload_to="execmember/profile_picture"
+        blank=True, null=True, upload_to="accounts/executivemember/profile_picture"
     )
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(
