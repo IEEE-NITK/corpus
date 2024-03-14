@@ -6,7 +6,7 @@ WORKDIR /corpus
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt-get update && apt-get install -y gcc libpq-dev
+RUN apt-get update && apt-get install -y gcc libpq-dev libmagic1
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip

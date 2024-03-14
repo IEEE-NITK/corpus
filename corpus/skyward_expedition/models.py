@@ -2,6 +2,16 @@ from accounts.models import User
 from django.db import models
 
 from corpus.utils import send_email
+from corpus.validators import FileValidator
+
+file_validator = FileValidator(
+    max_size=1024 * 1024 * 10,
+    content_types=(
+        "application/zip",
+        "application/x-rar-compressed",
+        "application/octet-stream",
+    ),
+)
 
 
 # Create your models here.
@@ -70,3 +80,12 @@ class Announcement(models.Model):
                 {"announcement": self},
                 bcc=email_ids,
             )
+
+
+class Submission(models.Model):
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
+    file = models.FileField(
+        verbose_name="Submission File",
+        upload_to="skyward_expedition/submissions",
+        validators=[file_validator],
+    )
