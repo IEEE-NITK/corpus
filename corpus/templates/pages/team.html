@@ -3,7 +3,7 @@
 
 {% block style %}
 <head>
-  <link rel="stylesheet", href="static/css/team.css", type="text/css">
+  <link rel="stylesheet", href="{% static 'css/team.css' %}", type="text/css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 {% endblock %}
@@ -13,69 +13,70 @@
     <h1> Teams </h1>
   </div>
 
-  <div class="center mt-10 align-center">
-    <div role="tablist" class="tabs tabs-boxed tabs-lg">
-      <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
-      <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
-      <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
-      <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
+<div class="center mt-10 align-center">
+  <div role="tablist" class="tabs tabs-boxed tabs-lg">
+    <!-- Tab links -->
+    <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
+    <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
+    <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
+    <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
+  </div>
+
+  <!-- Tab content -->
+  <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+    <h2 class="section-heading">IEEE Faculty</h2>
+    <br>
+    <div class="flex-container">
+      <div class="margins">
+        <!-- Faculty -->
+        {% for fac in faculty %}
+          {% if fac.sig.name == "ExeCom" %}
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+              <figure class="px-10 pt-10">
+                <img class="profile-pic" {% if fac.profile_picture.url %} src="{{ fac.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="Profile" class="rounded-xl" />
+              </figure>
+              <div class="card-body items-center text-center">
+                <h2 class="card-title">{{ fac.user }}</h2>
+                <p class="card-post">{{ fac.post }}</p>
+                <br/>
+                <div class="card-actions">
+                  <!-- Add your actions here -->
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
 
-      <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-        <h2 class="section-heading">IEEE Faculty</h2>
-        <br>
-        <div class="flex-container">
-          <!-- Faculty -->
-          {% for fac in faculty %}
-          {% if fac.sig.name == "ExeCom" %}
+    <div class="center mt-10 align-center"> <!-- Center the "IEEE Core" section -->
+      <h2 class="section-heading">IEEE Core</h2>
+      <br>
+      <div class="flex-container">
+        <!-- Core -->
+        {% for core in ieee_core %}
           <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
               <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if fac.profile_picture.url is not None %} src="{{fac.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png" {% endif %}alt="Profile" class="rounded-xl" />
+                <img class="profile-pic" {% if core.executivemember.profile_picture.url %} src="{{ core.executivemember.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
               </figure>
               <div class="card-body items-center text-center">
-                <h2 class="card-title">{{fac.user}}</h2>
-                <p class="card-post">{{fac.post}}</p>
+                <h2 class="card-title">{{ core.executivemember.user }}</h2>
+                <p class="card-post">{{ core.get_post_display }}</p>
                 <br/>
-                {% if fac.user.executivemember.linkedin is not Blank %}
                 <div class="card-actions">
-                  <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                {% endif %}
-                {% if fac.website is not Blank %}
-                  <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
-                {% endif %}
+                  <a href="{{ core.executivemember.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  <a href="{{ core.executivemember.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                 </div>
               </div>
             </div>
           </div>
-          {% endif %}
-          {% endfor %}
-
-        <h2 class="section-heading">IEEE Core</h2>
-        <br>
-        <div class="flex-container">
-
-          <!-- Core -->
-          {% for core in ieee_core %}
-          <div class="margins">
-            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
-              <figure class="px-10 pt-10">
-                <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}"  {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
-              </figure>
-              <div class="card-body items-center text-center">
-                <h2 class="card-title">{{core.executivemember.user}}</h2>
-                <p class="card-post">{{core.get_post_display}}</p>
-                <br/>
-                <div class="card-actions">
-                  <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                  <a href="{{core.executivemember.github}}" target="blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
+        {% endfor %}
       </div>
+    </div>
+  </div>
+
+
 
       <div id="CompSoc" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
