@@ -10,10 +10,12 @@ from django.shortcuts import render
 from skyward_expedition.forms import AnnouncementForm
 from skyward_expedition.forms import InviteForm
 from skyward_expedition.forms import SEForm
+from skyward_expedition.forms import SubmissionForm
 from skyward_expedition.forms import TeamCreationForm
 from skyward_expedition.models import Announcement
 from skyward_expedition.models import Invite
 from skyward_expedition.models import SEUser
+from skyward_expedition.models import Submission
 from skyward_expedition.models import Team
 
 from corpus.decorators import ensure_group_membership
@@ -255,6 +257,37 @@ def delete_invite(request, pk):
 
 
 @login_required
+@module_enabled(module_name="skyward_expedition")
+def submission(request):
+    team = SEUser.objects.get(user=request.user).team
+
+    try:
+        prev_submission = Submission.objects.get(team=team)
+    except Submission.DoesNotExist:
+        prev_submission = None
+
+    if prev_submission:
+        form = SubmissionForm(instance=prev_submission)
+    else:
+        form = SubmissionForm()
+
+    if request.method == "POST":
+        print(request.POST)
+        print(request.FILES)
+        form = SubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.team = team
+            submission.save()
+            messages.success(request, "Submission made successfully!")
+            return redirect("skyward_expedition_dashboard")
+
+    args = {"form": form}
+
+    return render(request, "skyward_expedition/create_submission.html", args)
+
+
+@login_required
 @ensure_group_membership(group_names=["skyward_expedition_admin"])
 def admin(request):
     return render(request, "skyward_expedition/admin/index.html")
@@ -360,3 +393,11 @@ def delete_announcement(request, announcement_id):
 
     messages.success(request, "Announcement deleted!")
     return redirect("skyward_expedition_announcements_dashboard")
+
+
+@login_required
+@ensure_group_membership(group_names=["skyward_expedition_admin"])
+def submissions_dashboard(request):
+    submissions = Submission.objects.all()
+    args = {"submissions": submissions}
+    return render(request, "skyward_expedition/admin/submissions_dashboard.html", args)
