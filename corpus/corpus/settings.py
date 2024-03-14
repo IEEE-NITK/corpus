@@ -167,6 +167,10 @@ AUTH_USER_MODEL = "accounts.User"
 AUTHENTICATION_BACKENDS = [
     "accounts.backend.CorpusAuthBackend",
 ]
+
+# Reset Timeout in seconds. 30 minutes
+PASSWORD_RESET_TIMEOUT = 1800
+
 LOGIN_URL = "/accounts/login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = ""
@@ -175,7 +179,9 @@ LOGOUT_REDIRECT_URL = "/"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Email Settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_PROTOCOL = os.getenv("EMAIL_PROTOCOL", "console")
+
+EMAIL_BACKEND = f"django.core.mail.backends.{EMAIL_PROTOCOL}.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "corpusieeenitk@gmail.com")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "gmailapppassword")
