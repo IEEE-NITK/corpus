@@ -49,13 +49,13 @@ def sig(request, sig_name):
 
 def team(request):
     compsoc_members = ExecutiveMember.objects.filter(
-        Q(core__isnull=True) and Q(sig__name="CompSoc")
+        (Q(core__isnull=True) | Q(core=None)) & Q(sig__name="CompSoc")
     )
     diode_members = ExecutiveMember.objects.filter(
-        Q(core__isnull=True) and Q(sig__name="Diode")
+        (Q(core__isnull=True) | Q(core=None)) & Q(sig__name="Diode")
     )
     piston_members = ExecutiveMember.objects.filter(
-        Q(core__isnull=True) and Q(sig__name="Piston")
+        (Q(core__isnull=True) | Q(core=None)) & Q(sig__name="Piston")
     )
     ieee_core = Core.objects.filter(sig__name="ExeCom").order_by("post")
     compsoc_core = Core.objects.filter(sig__name="CompSoc").order_by("post")
