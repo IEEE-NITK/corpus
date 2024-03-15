@@ -49,6 +49,7 @@ services:
       - .env
     environment:
       - ENVIRONMENT=PRODUCTION
+      - EMAIL_PROTOCOL=smtp
 
   nginx:
     build: nginx
