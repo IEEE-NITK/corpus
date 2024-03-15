@@ -168,8 +168,8 @@ AUTHENTICATION_BACKENDS = [
     "accounts.backend.CorpusAuthBackend",
 ]
 
-# Reset Timeout in seconds. 30 minutes
-PASSWORD_RESET_TIMEOUT = 1800
+# Reset Timeout in seconds. 1 day
+PASSWORD_RESET_TIMEOUT = 86400
 
 LOGIN_URL = "/accounts/login"
 LOGIN_REDIRECT_URL = "/"
