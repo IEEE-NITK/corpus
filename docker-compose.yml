@@ -50,6 +50,7 @@ services:
       - .env
     environment:
       - ENVIRONMENT=DEVELOPMENT
+      - EMAIL_PROTOCOL=console
 
   jstoolchain:
     build:

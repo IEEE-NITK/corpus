@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+import sentry_sdk
+from django.core.exceptions import ImproperlyConfigured
+
 if os.getenv("LIVECYCLE"):
     from dotenv import load_dotenv
 
@@ -164,6 +167,10 @@ AUTH_USER_MODEL = "accounts.User"
 AUTHENTICATION_BACKENDS = [
     "accounts.backend.CorpusAuthBackend",
 ]
+
+# Reset Timeout in seconds. 1 day
+PASSWORD_RESET_TIMEOUT = 86400
+
 LOGIN_URL = "/accounts/login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_URL = ""
@@ -172,7 +179,9 @@ LOGOUT_REDIRECT_URL = "/"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Email Settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_PROTOCOL = os.getenv("EMAIL_PROTOCOL", "console")
+
+EMAIL_BACKEND = f"django.core.mail.backends.{EMAIL_PROTOCOL}.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "corpusieeenitk@gmail.com")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "gmailapppassword")
@@ -180,3 +189,20 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None
+
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
+    try:
+        sentry_sdk.init(
+            dsn=SENTRY_DSN,
+            # Set traces_sample_rate to 1.0 to capture 100%
+            # of transactions for performance monitoring.
+            traces_sample_rate=1.0,
+            # Set profiles_sample_rate to 1.0 to profile 100%
+            # of sampled transactions.
+            # We recommend adjusting this value in production.
+            profiles_sample_rate=1.0,
+            enable_tracing=True,
+        )
+    except Exception:
+        raise ImproperlyConfigured("Django Sentry DSN Not found!")
