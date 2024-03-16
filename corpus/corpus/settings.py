@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "electrika.apps.ElectrikaConfig",
     "skyward_expedition.apps.SkywardExpeditionConfig",
     "robotrix.apps.RobotrixConfig",
+    "farewell.apps.FarewellConfig",
 ]
 
 MIDDLEWARE = [
