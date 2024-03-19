@@ -212,3 +212,4 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
         raise ImproperlyConfigured("Django Sentry DSN Not found!")
 
 CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
+CKEDITOR_RESTRICT_BY_USER = True
