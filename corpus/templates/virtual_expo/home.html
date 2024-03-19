@@ -1,0 +1,35 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" %}
+    <div class="m-10 p-5 prose max-w-none">
+        <p>
+            Welcome to IEEE NITK's Virtual Project Exposition!
+            We are extremely proud of the work we have done over the
+            past years, and we very pleased to present to you the
+            results of our work.
+        </p>
+        <p>
+            Project reports can be seen using the following links,
+            seperated by year.
+        </p>
+        <ul>
+            {% for year in years %}
+                <li>
+                    <a href="#" class="underline underline-offset-4">{{ year }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>
+            For older and other project reports, please check out
+            <a href="https://ieee-nitk.github.io/virtual-expo" class="underline underline-offset-4">
+                GitHub page.
+            </a>
+        </p>
+    </div>
+{% endblock %}

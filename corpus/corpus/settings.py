@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "skyward_expedition.apps.SkywardExpeditionConfig",
     "robotrix.apps.RobotrixConfig",
     "farewell.apps.FarewellConfig",
+    "virtual_expo.apps.VirtualExpoConfig",
 ]
 
 MIDDLEWARE = [
