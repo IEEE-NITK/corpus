@@ -33,6 +33,7 @@ urlpatterns = [
     path("skyward_expedition/", include("skyward_expedition.urls")),
     path("robotrix/", include("robotrix.urls")),
     path("farewell/", include("farewell.urls")),
+    path("virtual_expo/", include("virtual_expo.urls")),
 ]
 
 if settings.DEBUG:
