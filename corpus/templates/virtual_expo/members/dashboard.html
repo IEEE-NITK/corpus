@@ -57,7 +57,13 @@
                                            class="btn btn-secondary px-3 py-1">
                                             Add Members
                                         </a>
-                                        <a href="#" class="btn btn-success px-3 py-1">Send for review</a>
+                                        <form method="post" action="{% url 'virtual_expo_members_dashboard' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="report_id" value="{{ report.id }}">
+                                            <button type="submit" class="btn btn-success px-4 py-1">
+                                                Send for review
+                                            </button>
+                                        </form>
                                     {% endif %}
                                 </td>
                             </tr>

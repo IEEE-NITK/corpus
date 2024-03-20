@@ -16,6 +16,14 @@ from corpus.decorators import ensure_exec_membership
 def dashboard(request):
     reports = Report.objects.filter(reportmember__member=request.exec_member)
 
+    if request.method == "POST":
+        report_id = int(request.POST.get("report_id"))
+        report = Report.objects.get(pk=report_id)
+        report.ready_for_approval = True
+        report.save()
+        messages.success(request, "Sent report for approval!")
+        return redirect("virtual_expo_members_dashboard")
+
     args = {"reports": reports}
 
     return render(request, "virtual_expo/members/dashboard.html", args)
