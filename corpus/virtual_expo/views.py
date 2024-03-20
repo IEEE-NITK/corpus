@@ -1,8 +1,10 @@
 from config.models import SIG
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from virtual_expo.forms import ReportFilterForm
 from virtual_expo.models import Report
+from virtual_expo.models import ReportMember
 from virtual_expo.models import ReportType
 
 
@@ -35,3 +37,12 @@ def reports_by_year(request, year):
     args = {"reports": reports, "year": year, "form": form}
 
     return render(request, "virtual_expo/reports_by_year.html", args)
+
+
+def report(request, report_id):
+    report = get_object_or_404(Report, pk=report_id)
+    report_members = ReportMember.objects.filter(report=report)
+
+    args = {"report": report, "members": report_members}
+
+    return render(request, "virtual_expo/report.html", args)

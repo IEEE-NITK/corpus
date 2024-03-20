@@ -1,0 +1,39 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    {{ report.title }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with year=report.year %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <h1 class="text-5xl font-bold my-2">{{ report.title }}</h1>
+            <div class="my-2">
+                <div class="badge badge-primary">{{ report.report_type }}</div>
+                {% for sig in report.sigs %}
+                    <div class="badge badge-secondary">{{ sig }}</div>
+                {% endfor %}
+            </div>
+            <div class="my-2 prose max-w-none">
+                {{ report.content | safe }}
+            </div>
+            <div class="my-2 divider divider-secondary">METADATA</div>
+            <div class="my-2 prose max-w-none">
+                <p>Report prepared on {{ report.created_at }} by:</p>
+                <ul>
+                    {% for member in members %}
+                        <li>{{ member.member }}</li>
+                    {% endfor %}
+                </ul>
+                <p>Report reviewed and approved by {{ report.approver }} on {{ report.approved_at }}.</p>
+            </div>
+        </div>
+        <div class="my-2 p-5 border rounded-lg flex justify-center items-center">
+            <a href="{% url 'virtual_expo_reports_by_year' year=report.year %}"
+               class="text-3xl font-bold underline underline-offset-4 text-center">
+                Check out more projects!
+            </a>
+        </div>
+{% endblock %}

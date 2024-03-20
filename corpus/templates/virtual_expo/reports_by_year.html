@@ -30,22 +30,24 @@
                 {% if reports %}
                     {% for report in reports %}
                         <div class="card w-96 bg-base-100 border hover:shadow-2xl">
-                            <figure>
-                                <img src="{{ report.thumbnail.url }}" alt="Thumbnail for {{ report.title }}"
-                                     class="w-96 object-cover"/>
-                            </figure>
-                            <div class="card-body">
-                                <h2 class="card-title">
-                                    {{ report.title }}
-                                </h2>
-                                <p>{{ report.abstract }}</p>
-                                <div class="card-actions justify-end">
-                                    <div class="badge badge-outline badge-primary">{{ report.report_type }}</div>
-                                    {% for sig in report.sigs %}
-                                        <div class="badge badge-outline badge-secondary">{{ sig }}</div>
-                                    {% endfor %}
+                            <a href="{% url 'virtual_expo_report' report_id=report.id %}">
+                                <figure>
+                                    <img src="{{ report.thumbnail.url }}" alt="Thumbnail for {{ report.title }}"
+                                         class="w-96 object-cover"/>
+                                </figure>
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        {{ report.title }}
+                                    </h2>
+                                    <p>{{ report.abstract }}</p>
+                                    <div class="card-actions justify-end">
+                                        <div class="badge badge-outline badge-primary">{{ report.report_type }}</div>
+                                        {% for sig in report.sigs %}
+                                            <div class="badge badge-outline badge-secondary">{{ sig }}</div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     {% endfor %}
                 {% else %}
