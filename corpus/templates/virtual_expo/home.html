@@ -21,7 +21,8 @@
         <ul>
             {% for year in years %}
                 <li>
-                    <a href="#" class="underline underline-offset-4">{{ year }}</a>
+                    <a href="{% url 'virtual_expo_reports_by_year' year=year %}"
+                       class="underline underline-offset-4">{{ year }}</a>
                 </li>
             {% endfor %}
         </ul>

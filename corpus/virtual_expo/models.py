@@ -1,5 +1,6 @@
 from accounts.models import ExecutiveMember
 from ckeditor_uploader.fields import RichTextUploadingField
+from config.models import SIG
 from django.db import models
 
 
@@ -35,6 +36,9 @@ class Report(models.Model):
 
     def __str__(self):
         return self.title
+
+    def sigs(self):
+        return SIG.objects.filter(executivemember__reportmember__report=self)
 
 
 class ReportMember(models.Model):
