@@ -14,4 +14,9 @@ urlpatterns = [
         views.add_members,
         name="virtual_expo_members_add_members",
     ),
+    path(
+        "approver_dashboard/",
+        views.approver_dashboard,
+        name="virtual_expo_members_approver_dashboard",
+    ),
 ]

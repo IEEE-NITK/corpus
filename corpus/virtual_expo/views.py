@@ -27,7 +27,7 @@ def home(request):
 
 
 def reports_by_year(request, year):
-    reports = Report.objects.filter(year=year)
+    reports = Report.objects.filter(year=year, approved=True).order_by("-pk")
 
     form = ReportFilterForm(request.GET)
     if form.is_valid():

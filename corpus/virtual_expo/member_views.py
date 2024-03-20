@@ -14,7 +14,9 @@ from corpus.decorators import ensure_exec_membership
 
 @ensure_exec_membership()
 def dashboard(request):
-    reports = Report.objects.filter(reportmember__member=request.exec_member)
+    reports = Report.objects.filter(reportmember__member=request.exec_member).order_by(
+        "-pk"
+    )
     admin_user = request.user.groups.filter(name="virtual_expo_admin").exists()
 
     if request.method == "POST":
@@ -127,3 +129,27 @@ def add_members(request, report_id):
     }
 
     return render(request, "virtual_expo/members/add_members.html", args)
+
+
+@ensure_exec_membership()
+def approver_dashboard(request):
+    reports = Report.objects.filter(
+        approver=request.exec_member, approved=False
+    ).order_by("-pk")
+
+    if request.method == "POST":
+        report_id = int(request.POST.get("report_id"))
+        report = Report.objects.get(pk=report_id)
+        if report.approver == request.exec_member:
+            report.approved = True
+            report.approved_at = timezone.now()
+            report.save()
+            messages.success(request, "Report marked as approved!")
+            return redirect("virtual_expo_members_approver_dashboard")
+        else:
+            messages.error(request, "You are not the approver for this report.")
+            return redirect("virtual_expo_members_approver_dashboard")
+
+    args = {"reports": reports}
+
+    return render(request, "virtual_expo/members/approver_dashboard.html", args)
