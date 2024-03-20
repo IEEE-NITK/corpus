@@ -1,6 +1,10 @@
 <div class="min-h-[30vh] bg-secondary text-secondary-content flex justify-center items-center">
     <h1 class="font-extrabold text-6xl">
-        Virtual Expo
+        {% if text %}
+            {{ text }}
+        {% else %}
+            Virtual Expo
+        {% endif %}
         {% if year %}
             {{ year }}
         {% endif %}

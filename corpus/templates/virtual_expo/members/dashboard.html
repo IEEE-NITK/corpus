@@ -1,0 +1,65 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Members Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with text="Members Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5">
+            <h1 class=" my-2 text-4xl font-bold">My Reports</h1>
+            <a href="#" class="btn btn-accent px-3 py-1 rounded-full my-2">Create a new report</a>
+            <div class="overflow-x-auto my-2 border rounded-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Report Type</th>
+                        <th>Approval Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if reports %}
+                        {% for report in reports %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ report.title }}</td>
+                                <td>{{ report.report_type }}</td>
+                                <td>
+                                    {% if report.approved %}
+                                        <div class="badge badge-success">Approved</div>
+                                    {% elif report.ready_for_approval %}
+                                        <div class="badge badge-info">Under Review</div>
+                                    {% else %}
+                                        <div class="badge badge-warning">Not Submitted</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if not report.approved %}
+                                        <a href="#" class="btn btn-primary px-3 py-1">Edit</a>
+                                    {% endif %}
+                                    {% if not report.ready_for_approval %}
+                                        <a href="#" class="btn btn-secondary px-3 py-1">Add Members</a>
+                                        <a href="#" class="btn btn-success px-3 py-1">Send for review</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No reports yet. Create your first one!
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

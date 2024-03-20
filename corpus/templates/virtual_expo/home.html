@@ -8,6 +8,11 @@
 {% block content %}
     {% include "virtual_expo/header.html" %}
     <div class="m-10 p-5 prose max-w-none">
+        {% if exec_member %}
+            <a href="{% url 'virtual_expo_members_dashboard' %}" class="btn btn-accent rounded-full px-2 py-1">
+                Go to Members Dashboard
+            </a>
+        {% endif %}
         <p>
             Welcome to IEEE NITK's Virtual Project Exposition!
             We are extremely proud of the work we have done over the

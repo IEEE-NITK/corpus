@@ -1,3 +1,4 @@
+from accounts.models import ExecutiveMember
 from config.models import SIG
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
@@ -10,9 +11,15 @@ from virtual_expo.models import ReportType
 
 # Create your views here.
 def home(request):
+    try:
+        ExecutiveMember.objects.get(user=request.user.id)
+        exec_member = True
+    except ExecutiveMember.DoesNotExist:
+        exec_member = False
+
     years = list(Report.objects.values_list("year", flat=True).distinct())
 
-    args = {"years": years}
+    args = {"years": years, "exec_member": exec_member}
 
     return render(request, "virtual_expo/home.html", args)
 
