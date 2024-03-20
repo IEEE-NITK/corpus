@@ -10,9 +10,18 @@
     <div class="m-10">
         <div class="my-2 p-5">
             <h1 class=" my-2 text-4xl font-bold">My Reports</h1>
-            <a href="{% url 'virtual_expo_members_new_report' %}" class="btn btn-accent px-3 py-1 rounded-full my-2">
-                Create a new report
-            </a>
+            <div>
+                <a href="{% url 'virtual_expo_members_new_report' %}"
+                   class="btn btn-accent px-3 py-1 rounded-full my-2">
+                    Create a new report
+                </a>
+                {% if admin %}
+                    <a href="{% url 'virtual_expo_admin_dashboard' %}"
+                       class="btn btn-primary px-3 py-1 rounded-full my-2">
+                        Go to Admin Dashboard
+                    </a>
+                {% endif %}
+            </div>
             <div class="overflow-x-auto my-2 border rounded-lg">
                 <table class="table">
                     <!-- head -->
@@ -45,7 +54,7 @@
                                     {% if report.approved %}
                                         <a href="#" class="btn btn-primary px-3 py-1">View Report</a>
                                     {% else %}
-                                        <a href="{% url 'virtual_expo_members_preview_report' report_id=report.id %}"
+                                        <a href="{% url 'virtual_expo_preview_report' report_id=report.id %}"
                                            class="btn btn-neutral px-3 py-1">
                                             Preview Report
                                         </a>

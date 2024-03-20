@@ -15,6 +15,7 @@ from corpus.decorators import ensure_exec_membership
 @ensure_exec_membership()
 def dashboard(request):
     reports = Report.objects.filter(reportmember__member=request.exec_member)
+    admin_user = request.user.groups.filter(name="virtual_expo_admin").exists()
 
     if request.method == "POST":
         report_id = int(request.POST.get("report_id"))
@@ -24,19 +25,9 @@ def dashboard(request):
         messages.success(request, "Sent report for approval!")
         return redirect("virtual_expo_members_dashboard")
 
-    args = {"reports": reports}
+    args = {"reports": reports, "admin": admin_user}
 
     return render(request, "virtual_expo/members/dashboard.html", args)
-
-
-@ensure_exec_membership()
-def preview_report(request, report_id):
-    report = Report.objects.get(pk=report_id)
-    report_members = ReportMember.objects.filter(report=report)
-
-    args = {"report": report, "members": report_members, "preview": True}
-
-    return render(request, "virtual_expo/report.html", args)
 
 
 @ensure_exec_membership()

@@ -8,6 +8,8 @@ from virtual_expo.models import Report
 from virtual_expo.models import ReportMember
 from virtual_expo.models import ReportType
 
+from corpus.decorators import ensure_exec_membership
+
 
 # Create your views here.
 def home(request):
@@ -51,5 +53,15 @@ def report(request, report_id):
     report_members = ReportMember.objects.filter(report=report)
 
     args = {"report": report, "members": report_members}
+
+    return render(request, "virtual_expo/report.html", args)
+
+
+@ensure_exec_membership()
+def preview_report(request, report_id):
+    report = Report.objects.get(pk=report_id)
+    report_members = ReportMember.objects.filter(report=report)
+
+    args = {"report": report, "members": report_members, "preview": True}
 
     return render(request, "virtual_expo/report.html", args)

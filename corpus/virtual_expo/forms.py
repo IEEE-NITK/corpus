@@ -16,8 +16,13 @@ class ReportFilterForm(CorpusForm):
         SIG.objects.values_list("id", "name")
     )
 
+    year_choices = [(0, "All Years")] + [
+        (x, x) for x in list(Report.objects.values_list("year", flat=True).distinct())
+    ]
+
     report_type = forms.ChoiceField(choices=report_type_choices)
     sig = forms.ChoiceField(choices=sig_choices)
+    year = forms.ChoiceField(choices=year_choices, required=False)
 
 
 class ReportForm(CorpusModelForm):
