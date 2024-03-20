@@ -1,6 +1,7 @@
 from config.models import SIG
 from django import forms
 from virtual_expo.models import Report
+from virtual_expo.models import ReportMember
 from virtual_expo.models import ReportType
 
 from corpus.forms import CorpusForm
@@ -23,3 +24,9 @@ class ReportForm(CorpusModelForm):
     class Meta:
         model = Report
         fields = ["title", "abstract", "thumbnail", "report_type", "year", "content"]
+
+
+class ReportMemberForm(CorpusModelForm):
+    class Meta:
+        model = ReportMember
+        fields = ["member"]

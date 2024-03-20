@@ -14,4 +14,9 @@ urlpatterns = [
         views.edit_report,
         name="virtual_expo_members_edit_report",
     ),
+    path(
+        "report/<int:report_id>/add_members/",
+        views.add_members,
+        name="virtual_expo_members_add_members",
+    ),
 ]

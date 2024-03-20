@@ -1,9 +1,11 @@
 from accounts.models import ExecutiveMember
 from django.contrib import messages
+from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
 from virtual_expo.forms import ReportForm
+from virtual_expo.forms import ReportMemberForm
 from virtual_expo.models import Report
 from virtual_expo.models import ReportMember
 
@@ -71,3 +73,58 @@ def edit_report(request, report_id):
     args = {"report": report, "form": form}
 
     return render(request, "virtual_expo/members/edit_report.html", args)
+
+
+@ensure_exec_membership()
+def add_members(request, report_id):
+    report = Report.objects.get(pk=report_id)
+    members = ExecutiveMember.objects.filter(reportmember__report=report)
+
+    if request.exec_member not in members:
+        messages.error(request, "You have not been added to this report.")
+        return redirect("virtual_expo_members_dashboard")
+
+    form = ReportMemberForm(initial={"report": report})
+
+    if request.method == "POST":
+        if "add" in request.POST:
+            form = ReportMemberForm(request.POST)
+            form.instance.report = report
+            if form.is_valid():
+                try:
+                    form.save()
+                except IntegrityError:
+                    messages.error(request, "Member already added to the project.")
+                    return redirect(
+                        "virtual_expo_members_add_members", report_id=report.id
+                    )
+
+                messages.success(request, "Member added to project.")
+                return redirect("virtual_expo_members_add_members", report_id=report.id)
+        elif "edit" in request.POST:
+            report_id = int(request.POST.get("report_id"))
+            member_id = int(request.POST.get("member_id"))
+            report = Report.objects.get(pk=report_id)
+            member = ExecutiveMember.objects.get(pk=member_id)
+
+            if member == request.exec_member:
+                messages.error(request, "You cannot remove yourself from the project.")
+                return redirect("virtual_expo_members_add_members", report_id=report.id)
+
+            try:
+                report_member = ReportMember.objects.get(report=report, member=member)
+                report_member.delete()
+            except ReportMember.DoesNotExist:
+                messages.error(request, "Member does not exist for this project.")
+                return redirect("virtual_expo_members_add_members", report_id=report.id)
+
+            messages.success(request, "Members edited in project.")
+            return redirect("virtual_expo_members_add_members", report_id=report.id)
+
+    args = {
+        "form": form,
+        "members": members,
+        "report": report,
+    }
+
+    return render(request, "virtual_expo/members/add_members.html", args)
