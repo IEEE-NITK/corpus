@@ -49,7 +49,8 @@
                                            class="btn btn-neutral px-3 py-1">
                                             Preview Report
                                         </a>
-                                        <a href="#" class="btn btn-primary px-3 py-1">Edit</a>
+                                        <a href="{% url 'virtual_expo_members_edit_report' report_id=report.id %}"
+                                           class="btn btn-primary px-3 py-1">Edit</a>
                                     {% endif %}
                                     {% if not report.ready_for_approval %}
                                         <a href="#" class="btn btn-secondary px-3 py-1">Add Members</a>

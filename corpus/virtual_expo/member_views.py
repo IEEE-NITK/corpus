@@ -1,3 +1,4 @@
+from accounts.models import ExecutiveMember
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -47,3 +48,26 @@ def new_report(request):
     args = {"form": form}
 
     return render(request, "virtual_expo/members/new_report.html", args)
+
+
+@ensure_exec_membership()
+def edit_report(request, report_id):
+    report = Report.objects.get(pk=report_id)
+    members = ExecutiveMember.objects.filter(reportmember__report=report)
+
+    if request.exec_member not in members:
+        messages.error(request, "You have not been added to this report.")
+        return redirect("virtual_expo_members_dashboard")
+
+    form = ReportForm(instance=report)
+
+    if request.method == "POST":
+        form = ReportForm(request.POST, request.FILES, instance=report)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Report updated successfully!")
+            return redirect("virtual_expo_members_dashboard")
+
+    args = {"report": report, "form": form}
+
+    return render(request, "virtual_expo/members/edit_report.html", args)

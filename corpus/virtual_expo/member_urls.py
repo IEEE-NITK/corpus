@@ -9,4 +9,9 @@ urlpatterns = [
         name="virtual_expo_members_preview_report",
     ),
     path("report/new/", views.new_report, name="virtual_expo_members_new_report"),
+    path(
+        "report/<int:report_id>/edit/",
+        views.edit_report,
+        name="virtual_expo_members_edit_report",
+    ),
 ]
