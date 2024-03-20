@@ -31,6 +31,24 @@ class ReportForm(CorpusModelForm):
         fields = ["title", "abstract", "thumbnail", "report_type", "year", "content"]
 
 
+class AdminReportForm(CorpusModelForm):
+    class Meta:
+        model = Report
+        fields = [
+            "title",
+            "abstract",
+            "thumbnail",
+            "report_type",
+            "year",
+            "content",
+            "ready_for_approval",
+            "approver",
+            "approved",
+            "created_at",
+            "approved_at",
+        ]
+
+
 class ReportMemberForm(CorpusModelForm):
     class Meta:
         model = ReportMember

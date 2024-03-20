@@ -69,7 +69,8 @@
                                 Preview Report
                             </a>
                             {% if not report.approved %}
-                                <a href="#" class="btn btn-primary">Assign Approver</a>
+                                <a href="{% url 'virtual_expo_admin_manage' report_id=report.id %}"
+                                   class="btn btn-primary">Manage</a>
                             {% endif %}
                         </td>
                     </tr>
