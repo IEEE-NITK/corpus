@@ -7,6 +7,11 @@
 
 {% block content %}
     {% include "virtual_expo/header.html" with year=report.year %}
+
+    {% if preview %}
+        <div class="alert alert-error">This is a preview.</div>
+    {% endif %}
+
     <div class="m-10">
         <div class="my-2 p-5 border rounded-lg">
             <h1 class="text-5xl font-bold my-2">{{ report.title }}</h1>
@@ -30,10 +35,15 @@
                 <p>Report reviewed and approved by {{ report.approver }} on {{ report.approved_at }}.</p>
             </div>
         </div>
-        <div class="my-2 p-5 border rounded-lg flex justify-center items-center">
-            <a href="{% url 'virtual_expo_reports_by_year' year=report.year %}"
-               class="text-3xl font-bold underline underline-offset-4 text-center">
-                Check out more projects!
-            </a>
-        </div>
+        {% if not preview %}
+            <div class="my-2 p-5 border rounded-lg flex justify-center items-center">
+                <a href="{% url 'virtual_expo_reports_by_year' year=report.year %}"
+                   class="text-3xl font-bold underline underline-offset-4 text-center">
+                    Check out more projects!
+                </a>
+            </div>
+        {% else %}
+            <a href="{{ request.META.HTTP_REFERER|escape }}" class="m-10 btn btn-info">Back</a>
+        {% endif %}
+    </div>
 {% endblock %}

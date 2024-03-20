@@ -1,0 +1,103 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    New Report
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with text="New Report" %}
+    <div class="m-10">
+        <form method="post" enctype="multipart/form-data" action="{% url 'virtual_expo_members_new_report' %}">
+            {% csrf_token %}
+            {{ form.media }}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="w-full my-2">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.title.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.abstract.id_for_label }}">Abstract</label>
+                {{ form.abstract }}
+                {% if form.abstract.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.abstract.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
+                {{ form.thumbnail }}
+                {% if form.thumbnail.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.thumbnail.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.report_type.id_for_label }}">Report Type</label>
+                {{ form.report_type }}
+                {% if form.report_type.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.report_type.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.year.id_for_label }}">Year</label>
+                {{ form.year }}
+                {% if form.year.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.year.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.content.id_for_label }}">Content</label>
+                <div>
+                    {{ form.content | safe }}
+                </div>
+                {% if form.content.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.content.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="my-5">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
