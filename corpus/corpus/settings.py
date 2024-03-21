@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
+    "ckeditor_uploader",
     "pages.apps.PagesConfig",
     "config.apps.ConfigConfig",
     "accounts.apps.AccountsConfig",
@@ -63,6 +65,7 @@ INSTALLED_APPS = [
     "skyward_expedition.apps.SkywardExpeditionConfig",
     "robotrix.apps.RobotrixConfig",
     "farewell.apps.FarewellConfig",
+    "virtual_expo.apps.VirtualExpoConfig",
 ]
 
 MIDDLEWARE = [
@@ -207,3 +210,6 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
         )
     except Exception:
         raise ImproperlyConfigured("Django Sentry DSN Not found!")
+
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
+CKEDITOR_RESTRICT_BY_USER = True

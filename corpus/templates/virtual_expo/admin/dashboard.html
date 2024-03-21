@@ -1,0 +1,82 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Admin Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with text="Admin Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <div class="w-full">
+                        <label for="{{ form.report_type.id_for_label }}">Report Type</label>
+                        {{ form.report_type }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.sig.id_for_label }}">SIG</label>
+                        {{ form.sig }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.year.id_for_label }}">Year</label>
+                        {{ form.year }}
+                    </div>
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="p-5 border rounded-lg overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>SIGs</th>
+                    <th>Approval Status</th>
+                    <th>Approver</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ report.title }}</td>
+                        <td>{{ report.year }}</td>
+                        <td class="flex gap-4">
+                            {% for sig in report.sigs %}
+                                <div class="badge badge-secondary">{{ sig }}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if report.approved %}
+                                <div class="badge badge-success">Approved</div>
+                            {% elif report.ready_for_approval %}
+                                <div class="badge badge-info">Under Review</div>
+                            {% else %}
+                                <div class="badge badge-warning">Not Submitted</div>
+                            {% endif %}
+                        </td>
+                        <td>{{ report.approver }}</td>
+                        <td class="flex gap-4 justify-start items-center">
+                            <a href="{% url 'virtual_expo_preview_report' report_id=report.id %}"
+                               class="btn btn-primary">
+                                Preview Report
+                            </a>
+                            {% if not report.approved %}
+                                <a href="{% url 'virtual_expo_admin_manage' report_id=report.id %}"
+                                   class="btn btn-primary">Manage</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,9 +1,8 @@
-from datetime import datetime
-
 from config.models import SIG
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .validators import validate_ieee_email
@@ -137,11 +136,11 @@ class ExecutiveMember(models.Model):
 
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(
-        max_length=200, blank=True, null=True, verbose_name="GitHub Username"
+        max_length=39, blank=True, null=True, verbose_name="GitHub Username"
     )
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(
-        default=datetime.now(), verbose_name="Date Joined"
+        default=timezone.now(), verbose_name="Date Joined"
     )
 
     def save(self, *args, **kwargs):
