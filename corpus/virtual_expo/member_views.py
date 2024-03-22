@@ -1,5 +1,6 @@
 from accounts.models import ExecutiveMember
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -12,6 +13,7 @@ from virtual_expo.models import ReportMember
 from corpus.decorators import ensure_exec_membership
 
 
+@login_required
 @ensure_exec_membership()
 def dashboard(request):
     reports = Report.objects.filter(reportmember__member=request.exec_member).order_by(
@@ -32,6 +34,7 @@ def dashboard(request):
     return render(request, "virtual_expo/members/dashboard.html", args)
 
 
+@login_required
 @ensure_exec_membership()
 def new_report(request):
     form = ReportForm()
@@ -53,6 +56,7 @@ def new_report(request):
     return render(request, "virtual_expo/members/new_report.html", args)
 
 
+@login_required
 @ensure_exec_membership()
 def edit_report(request, report_id):
     report = Report.objects.get(pk=report_id)
@@ -76,6 +80,7 @@ def edit_report(request, report_id):
     return render(request, "virtual_expo/members/edit_report.html", args)
 
 
+@login_required
 @ensure_exec_membership()
 def add_members(request, report_id):
     report = Report.objects.get(pk=report_id)
@@ -131,6 +136,7 @@ def add_members(request, report_id):
     return render(request, "virtual_expo/members/add_members.html", args)
 
 
+@login_required
 @ensure_exec_membership()
 def approver_dashboard(request):
     reports = Report.objects.filter(
