@@ -1,6 +1,7 @@
 from accounts.models import ExecutiveMember
 from config.models import SIG
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -12,6 +13,7 @@ from virtual_expo.models import ReportType
 from corpus.decorators import ensure_group_membership
 
 
+@login_required
 @ensure_group_membership(group_names=["virtual_expo_admin"])
 def dashboard(request):
     reports = Report.objects.all().order_by("-pk")
@@ -39,6 +41,7 @@ def dashboard(request):
     return render(request, "virtual_expo/admin/dashboard.html", args)
 
 
+@login_required
 @ensure_group_membership(group_names=["virtual_expo_admin"])
 def manage(request, report_id):
     report = Report.objects.get(pk=report_id)

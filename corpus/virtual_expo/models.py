@@ -38,7 +38,7 @@ class Report(models.Model):
         return self.title
 
     def sigs(self):
-        return SIG.objects.filter(executivemember__reportmember__report=self)
+        return SIG.objects.filter(executivemember__reportmember__report=self).distinct()
 
 
 class ReportMember(models.Model):
