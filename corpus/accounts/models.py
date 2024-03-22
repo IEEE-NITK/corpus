@@ -201,7 +201,9 @@ class Core(models.Model):
 
     def __str__(self):
         self_user = self.executivemember.user
-        return f"{self_user.first_name} {self_user.last_name}"
+        return (
+            f"{self_user.first_name} {self_user.last_name} | {self.get_post_display()}"
+        )
 
     def get_post_display(self):
         return dict(Core.POST_CHOICES).get(self.post)
