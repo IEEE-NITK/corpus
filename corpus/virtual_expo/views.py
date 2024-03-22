@@ -43,6 +43,7 @@ def reports_by_year(request, year):
         elif sig != 0:
             reports = reports.filter(reportmember__member__sig=SIG.objects.get(pk=sig))
 
+    reports = reports.distinct()
     args = {"reports": reports, "year": year, "form": form}
 
     return render(request, "virtual_expo/reports_by_year.html", args)
