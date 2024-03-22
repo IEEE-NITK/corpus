@@ -36,6 +36,7 @@ def dashboard(request):
         elif sig != 0:
             reports = reports.filter(reportmember__member__sig=SIG.objects.get(pk=sig))
 
+    reports = reports.distinct()
     args = {"reports": reports, "form": form}
 
     return render(request, "virtual_expo/admin/dashboard.html", args)
