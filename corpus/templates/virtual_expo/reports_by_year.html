@@ -1,0 +1,59 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Virtual Expo {{ year }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with year=year %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <div class="w-full">
+                        <label for="{{ form.report_type.id_for_label }}">Report Type</label>
+                        {{ form.report_type }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.sig.id_for_label }}">SIG</label>
+                        {{ form.sig }}
+                    </div>
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="my-2 p-5 border rounded-lg">
+            <div class="flex flex-wrap gap-4">
+                {% if reports %}
+                    {% for report in reports %}
+                        <div class="card w-96 bg-base-100 border hover:shadow-2xl">
+                            <a href="{% url 'virtual_expo_report' report_id=report.id %}">
+                                <figure>
+                                    <img src="{{ report.thumbnail.url }}" alt="Thumbnail for {{ report.title }}"
+                                         class="w-96 object-cover"/>
+                                </figure>
+                                <div class="card-body">
+                                    <h2 class="card-title">
+                                        {{ report.title }}
+                                    </h2>
+                                    <p>{{ report.abstract }}</p>
+                                    <div class="card-actions justify-end">
+                                        <div class="badge badge-outline badge-primary">{{ report.report_type }}</div>
+                                        {% for sig in report.sigs %}
+                                            <div class="badge badge-outline badge-secondary">{{ sig }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No reports yet. Check back soon as we are uploading our reports!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

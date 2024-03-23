@@ -1,3 +1,4 @@
+from accounts.models import ExecutiveMember
 from config.models import ModuleConfiguration
 from django.contrib import messages
 from django.shortcuts import redirect
@@ -46,6 +47,28 @@ def ensure_group_membership(group_names):
                     """
                     Permission denied.
                     Please contact the administrators if you think there is some issue.
+                    """,
+                )
+                return redirect("index")
+
+        return wrapper
+
+    return decorator
+
+
+def ensure_exec_membership():
+    def decorator(view_func):
+        def wrapper(request, *args, **kwargs):
+            try:
+                exec_member = ExecutiveMember.objects.get(user=request.user.id)
+                request.exec_member = exec_member
+                return view_func(request, *args, **kwargs)
+            except ExecutiveMember.DoesNotExist:
+                messages.error(
+                    request,
+                    """
+                    Permission denied.
+                    Please contact the administrators if you think there is an issue.
                     """,
                 )
                 return redirect("index")

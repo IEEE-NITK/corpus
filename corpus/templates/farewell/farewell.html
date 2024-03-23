@@ -1,0 +1,785 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Meta tags-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Give a small description in 3-4 sentences about the website -->
+    <meta name="description"
+        content="IEEE NITK is a student chapter of the IEEE Organisation belonging in the Bangalore R10 Section. IEEE NITK undertakes a lot of projects by its various SIGs which are formed and projects undertaken by students are futher applied to help solve daily world problems.">
+    <!-- A small abstract idea about the website -->
+    <meta name="abstract" content="This Website is about IEEE NITK Student Chapter">
+    <!-- Important Keywords to be noted in the website  -->
+    <meta name="keywords" content="IEEE, IEEE NITK, NITK Surathkal, NITK, Clubs in NITK, Technical Clubs in NITK, NITK Club Projects, Student Chapter Bangalore R10 Section">
+    <!-- Tell the spider to index the first page and other pages as well-->
+    <meta name="robots" content="index, follow">
+    <!-- How often should spiders come back to your page -->
+    <meta name="revisit-after" content="3 days">
+
+    <!-- Copyright regarding the website -->
+    <meta name="copyright" content="IEEE NITK">
+    <!-- Language for the website -->
+    <meta name="language" content="English">
+
+    <!-- Web Author for the image -->
+    <meta name="web_author" content="IEEE NITK">
+    <meta name="author" content="IEEE NITK">
+    <!-- Email ID -->
+    <meta name="contact" content="corpusieeenitk@gmail.com" />
+    <!-- Email ID to reply to -->
+    <meta name="reply-to" content="corpusieeenitk@gmail.com">
+
+    <!-- Refers to distribution of the page -->
+    <meta name="distribution" content="global">
+    <!-- Disallow spammers for the webpage -->
+    <meta name="no-email-collection" content="http://www.metatags.info/nospamharvesting">
+    <!-- Rating for the page -->
+    <meta name="rating" content="general">
+    <!-- Content Type for the page -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Fixing viewport on mobile views -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Google Authorship Markup -->
+    <!-- Social: Facebook / Open Graph and Google+ / Schema.org -->
+    <meta property="fb:app_id" content="0011038251882641" />
+    <meta property="og:url" content="https://ieee.nitk.ac.in" />
+    <meta property="og:title" itemprop="name" content="IEEE NITK | Corpus">
+    <meta property="og:image" itemprop="image" content="{% static 'img/ieee-nitk.png' %}">
+    <meta property="og:description" itemprop="description"
+        content="IEEE NITK is a student branch of IEEE located at NITK Surathkal dedicated to innovative projects and solutions. This is the official website of IEEE NITK">
+    <meta property="og:site_name" content="IEEE NITK | Corpus">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'img/icons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Windows Tile Icons -->
+    <meta name="msapplication-TileColor" content="#0562DC">
+    <meta name="msapplication-square70x70logo" content="{% static 'img/icons/ms-icon-70x70.png' %}" />
+    <meta name="msapplication-square150x150logo" content="{% static 'img/icons/ms-icon-150x150.png' %}" />
+    <meta name="msapplication-wide310x150logo" content="{% static 'img/icons/ms-icon-310x150.png' %}" />
+    <meta name="msapplication-square310x310logo" content="{% static 'img/icons/ms-icon-310x310.png' %}" />
+
+    <!-- Android Theme Color -->
+    <meta name="theme-color" content="#0562DC">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Website Title -->
+    <title>
+        {% block title %} Farewell 2024 {% endblock %} | Corpus
+    </title>
+    <link rel="icon" href="{% static 'img/icons/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap">
+
+    <!-- Linked Scripts needed -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+    {% block style %}
+    {% endblock %}
+    {% if USE_TAILWIND_CDN_LINK %}
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script>
+        tailwind.config = {
+            daisyui: {
+                themes: ["winter", "night", "synthwave", "sunset"]
+            },
+            darkMode: ['class', '[data-theme="night"]']
+        }
+    </script>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/tailwind-min.css' %}" />
+    {% comment %} league spartan font {% endcomment %}
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .hero {
+            background: linear-gradient(45deg, #001c55, #000000, #330033),
+                        linear-gradient(-45deg, #330033, #000000, #001c55);
+            background-size: 400% 400%;
+            background-position: 0% 50%;
+            animation: gradientAnimation 10s ease infinite alternate;
+            z-index: -1;
+        }       
+
+        .rsvp {
+            background-color: #330033;
+            color: white;
+            {% comment %} reverse gradient so that top color of this matched bottom color of .hero {% endcomment %}
+            background: linear-gradient(45deg, #001c55, #000000, #330033),
+                        linear-gradient(-45deg, #330033, #000000, #001c55);
+            background-size: 400% 400%;
+            background-position: 0% 50%;
+            animation: gradientAnimation 10s ease infinite alternate;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        #particles-js {
+            z-index: 0;
+        }   
+
+        @font-face {
+            font-family: pompadour;
+            src: url({% static 'css/RedOctoberNF.otf' %});
+        }
+        @font-face {
+            font-family: gesat;
+            src: url({%static 'css/gesat.otf' %});
+        }
+          
+          .container {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+          }
+          
+          .neon {
+            font-family:  gesat;
+            pointer-events: none;
+            font-weight: 400;
+            color: #FED128; /* Use the lightest color from your dark mode gradient */
+            font-size: 9vw;
+            line-height: 9vw;
+            text-shadow: 0 0 3vw #FA1CAA; /* Adjust the shadow color based on your preference */
+        }
+        
+        {% comment %} make neon font smaller when screen size smaller {% endcomment %}
+        
+        @media (max-width: 370px) {
+            .neon {
+                font-size: 9vw;
+                line-height: 9vw;
+            }
+        }
+
+        @media (min-width: 370px) and (max-width: 768px) {
+            .neon {
+                font-size: 11vw;
+                line-height: 11vw;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1600px) {
+            .neon {
+                font-size: 12vw;
+                line-height: 11vw;
+            }
+        }
+        
+          
+          .flux {
+            font-family: pompadour;
+            pointer-events: none;
+            color: #426DFB;
+            font-size: 9vw;
+            line-height: 9vw;
+            text-shadow: 0 0 3vw #28D7FE;
+          }
+          
+          .neon {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            animation: neon 1s ease infinite;
+            -moz-animation: neon 1s ease infinite;
+            -webkit-animation: neon 1s ease infinite;
+          } 
+          
+          @keyframes neon {
+            0%, 100% {
+                text-shadow: 0 0 1vw #FA1CAA, 0 0 3vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 .4vw #FED198, .5vw .5vw .1vw #8F6914;
+                color: #FED128;
+            }
+            50% {
+                text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+                color: #806914;
+            }
+        }
+          
+          .flux {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            animation: flux 2s linear infinite;
+            -moz-animation: flux 2s linear infinite;
+            -webkit-animation: flux 2s linear infinite;
+            -o-animation: flux 2s linear infinite;
+          }
+          
+          @keyframes flux {
+            0%, 100% {
+                text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+                color: #28D7FE;
+            }
+            50% {
+                text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+                color: #146C80;
+            }
+        }
+
+        .arrowdown {
+            background-color: currentColor;
+            -webkit-mask: url("{% static 'img/symbols/down.svg' %}") no-repeat center;
+            mask: url("{% static 'img/symbols/down.svg' %}") no-repeat center;
+            {% comment %} glowing neon effect {% endcomment %}
+            animation: arrowdown 1s ease infinite;
+        }
+        
+        @keyframes arrowdown {
+            0%, 100% {
+                text-shadow: 0 0 1vw #FA1CAA, 0 0 3vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 .4vw #FED198, .5vw .5vw .1vw #8F6914;
+                color: #FFFFFF;
+            }
+            50% {
+                text-shadow: 0 0 .5vw #FFFFFF, 0 0 1.5vw #FFFFFF, 0 0 5vw #FFFFFF, 0 0 5vw #FFFFFF, 0 0 .2vw #FFFFFF, .5vw .5vw .1vw #FFFFFF;
+                color: #FFFFFF;
+            }
+        }
+        .arrowdown:hover {
+            background-color: #FED128;
+        }
+
+        #rsvp {
+            {% comment %} font-family: 'League Spartan', sans-serif; {% endcomment %}
+            font-size: 2rem;
+            color: white;
+        }
+
+        .frame {
+            opacity: 0;
+            padding: 0;
+            transform: scale(3.5); /* Use transform for scaling */
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out; /* Combine multiple properties */
+        }
+    </style>
+
+      
+    <style>
+    .checkbox-wrapper-5 .check {
+        --size: 40px;
+    
+        position: relative;
+        background: linear-gradient(90deg, #f19af3, #f099b5);
+        line-height: 0;
+        perspective: 400px;
+        font-size: var(--size);
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"],
+    .checkbox-wrapper-5 .check label,
+    .checkbox-wrapper-5 .check label::before,
+    .checkbox-wrapper-5 .check label::after,
+    .checkbox-wrapper-5 .check {
+        appearance: none;
+        display: inline-block;
+        border-radius: var(--size);
+        border: 0;
+        transition: .35s ease-in-out;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    
+    .checkbox-wrapper-5 .check label {
+        width: calc(2.2 * var(--size));
+        height: var(--size);
+        background: #d7d7d7;
+        overflow: hidden;
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"] {
+        position: absolute;
+        z-index: 1;
+        width: calc(.8 * var(--size));
+        height: calc(.8 * var(--size));
+        top: calc(.1 * var(--size));
+        left: calc(.1 * var(--size));
+        background: linear-gradient(45deg, #dedede, #ffffff);
+        box-shadow: 0 6px 7px rgba(0,0,0,0.3);
+        outline: none;
+        margin: 0;
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked {
+        left: calc(1.3 * var(--size));
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label {
+        background: transparent;
+    }
+    
+    .checkbox-wrapper-5 .check label::before,
+    .checkbox-wrapper-5 .check label::after {
+        content: "· ·";
+        position: absolute;
+        overflow: hidden;
+        left: calc(.15 * var(--size));
+        top: calc(.5 * var(--size));
+        height: var(--size);
+        letter-spacing: calc(-0.04 * var(--size));
+        color: #9b9b9b;
+        font-family: "Times New Roman", serif;
+        z-index: 2;
+        font-size: calc(.6 * var(--size));
+        border-radius: 0;
+        transform-origin: 0 0 calc(-0.5 * var(--size));
+        backface-visibility: hidden;
+    }
+    
+    .checkbox-wrapper-5 .check label::after {
+        content: "●";
+        top: calc(.65 * var(--size));
+        left: calc(.2 * var(--size));
+        height: calc(.1 * var(--size));
+        width: calc(.35 * var(--size));
+        font-size: calc(.2 * var(--size));
+        transform-origin: 0 0 calc(-0.4 * var(--size));
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::before,
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
+        left: calc(1.55 * var(--size));
+        top: calc(.4 * var(--size));
+        line-height: calc(.1 * var(--size));
+        transform: rotateY(360deg);
+    }
+    
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
+        height: calc(.16 * var(--size));
+        top: calc(.55 * var(--size));
+        left: calc(1.6 * var(--size));
+        font-size: calc(.6 * var(--size));
+        line-height: 0;
+    }
+    </style>    
+    
+    <style>
+        .checkbox-wrapper-6 .check {
+          --size: 40px;
+      
+          position: relative;
+          background: linear-gradient(90deg, #f19af3, #f099b5);
+          line-height: 0;
+          perspective: 400px;
+          font-size: var(--size);
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"],
+        .checkbox-wrapper-6 .check label,
+        .checkbox-wrapper-6 .check label::before,
+        .checkbox-wrapper-6 .check label::after,
+        .checkbox-wrapper-6 .check {
+          appearance: none;
+          display: inline-block;
+          border-radius: var(--size);
+          border: 0;
+          transition: .35s ease-in-out;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+      
+        .checkbox-wrapper-6 .check label {
+          width: calc(2.2 * var(--size));
+          height: var(--size);
+          background: #d7d7d7;
+          overflow: hidden;
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"] {
+          position: absolute;
+          z-index: 1;
+          width: calc(.8 * var(--size));
+          height: calc(.8 * var(--size));
+          top: calc(.1 * var(--size));
+          left: calc(.1 * var(--size));
+          background: linear-gradient(45deg, #dedede, #ffffff);
+          box-shadow: 0 6px 7px rgba(0,0,0,0.3);
+          outline: none;
+          margin: 0;
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"]:checked {
+          left: calc(1.3 * var(--size));
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label {
+          background: transparent;
+        }
+      
+        .checkbox-wrapper-6 .check label::before,
+        .checkbox-wrapper-6 .check label::after {
+          content: "· ·";
+          position: absolute;
+          overflow: hidden;
+          left: calc(.15 * var(--size));
+          top: calc(.5 * var(--size));
+          height: var(--size);
+          letter-spacing: calc(-0.04 * var(--size));
+          color: #9b9b9b;
+          font-family: "Times New Roman", serif;
+          z-index: 2;
+          font-size: calc(.6 * var(--size));
+          border-radius: 0;
+          transform-origin: 0 0 calc(-0.5 * var(--size));
+          backface-visibility: hidden;
+        }
+      
+        .checkbox-wrapper-6 .check label::after {
+          content: "●";
+          top: calc(.65 * var(--size));
+          left: calc(.2 * var(--size));
+          height: calc(.1 * var(--size));
+          width: calc(.35 * var(--size));
+          font-size: calc(.2 * var(--size));
+          transform-origin: 0 0 calc(-0.4 * var(--size));
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::before,
+        .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::after {
+          left: calc(1.55 * var(--size));
+          top: calc(.4 * var(--size));
+          line-height: calc(.1 * var(--size));
+          transform: rotateY(360deg);
+        }
+      
+        .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::after {
+          height: calc(.16 * var(--size));
+          top: calc(.55 * var(--size));
+          left: calc(1.6 * var(--size));
+          font-size: calc(.6 * var(--size));
+          line-height: 0;
+        }
+      </style>
+      <style>
+        .invite_text {
+            font-family: 'League Spartan', sans-serif;
+            font-size: 2rem;
+            color: white;
+            {% comment %} glow effect {% endcomment %}
+            text-shadow: 0 0 1vw #FA1CAA, 0 0 3vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 .4vw #FED198, 0vw 0vw .1vw #8F6914;
+            color: #d9bd4b;
+        }
+
+        label {
+            font-family: 'League Spartan', sans-serif;
+            color: white;
+        }
+        .drive-link:hover svg {
+            filter: drop-shadow(0 0 1.5rem rgba(255, 255, 36, 0.5)); 
+            transition: filter 0.4s ease-in-out;
+        }
+        
+        * {
+            {% comment %} border : 1px #FFFFFF00 solid; {% endcomment %}
+        } 
+      </style>
+      <link rel="stylesheet" href="{% static 'css/farewell.css' %}" />
+</head>
+
+<body>
+    <section
+        class="hero min-h-[50vh] w-screen">
+        <div id="particles-js" class="h-screen w-full"></div>  
+        <div class="hero-content text-center flex-col gap-4">
+            {% comment %} <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1> {% endcomment %}
+            <h1 class="sign text-6xl md:text-8xl lg:text-10xl font-extrabold text-white dark:text-white mb-10 pt-20"> 
+                <div class="container h-10">
+                    <div class="neon m-5 p-5 text-10xl lg:text-10xl sm:text-6xl">IEEE Farewell</div>
+                    <div class="flux m-5 mb-10 p-5 text-8xl sm:text-8xl">2024</div>
+                    
+                    <div class="frame my-10">
+                        <button onclick="smoothScroll('#rsvp')" class=""></button>
+                            {% comment %} <div class="arrowdown h-8 w-8 my-10 p-10"></div> {% endcomment %}
+                        <div class="heart"></div>
+                    </div>
+
+                    {% comment %} <button onclick="smoothScroll('#about')" class="color-white mt-5 pt-5 text-2xl mt-10 animate-bounce">
+                        <div class="arrowdown h-8 w-8 my-10 p-10"></div>
+                    </button> {% endcomment %}
+                </div>    
+            </h1>
+        </div>
+    </section>
+
+    <section id='rsvp' class="rsvp pb-20 w-screen">
+        <div style="margin: auto; padding:20px;">
+            <h1 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-10 pt-20 text-center invite_text">
+                All the juniors wholeheartedly invite you, {{ name }} to the IEEE Farewell 2024.
+            </h1>
+            <div class="flex justify-content-center align-items-center md:mx-20 flex-col md:flex-row">
+                <div class="iframe-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.4291207817637!2d74.8405772750738!3d12.815523787485677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35c767d5a2e43%3A0xd274a35020d61794!2sSummer%20Sands%20Beach%20Resort!5e0!3m2!1sen!2sin!4v1710485255905!5m2!1sen!2sin" width="100%" style="border: 1px solid #ccc;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="flex flex-col justify-center items-center w-full md:w-1/2">
+                    <img src="{% static 'img/summer-sands.jpeg' %}" alt="Farewell" class="summer w-full mx-auto" style="">
+                </div>
+            </div>
+            
+            {% comment %} venue and time  {% endcomment %}
+            <div class='flex justify-center align-items-center md:mx-20 flex-col md:flex-row mt-5 pt-5'>
+                {% comment %} venue icon and name {% endcomment %}
+                <div class="flex flex-col justify-center items-center w-full md:w-1/2">
+                    <div class="flex justify-center items-center">
+                        <div style='width:64px; border:8px #FFFFFF00 solid;padding-right:15px;'>
+                            <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                <g id="SVGRepo_iconCarrier">
+                                    <path fill="#ffffff" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24 C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24 C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <h1 class="ml-2 text-xl md:text-2xl lg:text-3xl font-extrabold text-center invite_text mt-2">
+                            Summer Sands Beach Resort
+                        </h1>
+                    </div>
+                    <div class="flex justify-center items-center my-10 ml-3">
+                        <svg width="64px" height="64px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                            <g id="SVGRepo_iconCarrier">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7 2a1 1 0 0 0-1 1v1.001c-.961.014-1.34.129-1.721.333a2.272 2.272 0 0 0-.945.945C3.116 5.686 3 6.09 3 7.205v10.59c0 1.114.116 1.519.334 1.926.218.407.538.727.945.945.407.218.811.334 1.926.334h11.59c1.114 0 1.519-.116 1.926-.334.407-.218.727-.538.945-.945.218-.407.334-.811.334-1.926V7.205c0-1.115-.116-1.519-.334-1.926a2.272 2.272 0 0 0-.945-.945C19.34 4.13 18.961 4.015 18 4V3a1 1 0 1 0-2 0v1H8V3a1 1 0 0 0-1-1zM5 9v8.795c0 .427.019.694.049.849.012.06.017.074.049.134a.275.275 0 0 0 .124.125c.06.031.073.036.134.048.155.03.422.049.849.049h11.59c.427 0 .694-.019.849-.049a.353.353 0 0 0 .134-.049.275.275 0 0 0 .125-.124.353.353 0 0 0 .048-.134c.03-.155.049-.422.049-.849L19.004 9H5zm8.75 4a.75.75 0 0 0-.75.75v2.5c0 .414.336.75.75.75h2.5a.75.75 0 0 0 .75-.75v-2.5a.75.75 0 0 0-.75-.75h-2.5z" fill="#ffffff"></path>
+                            </g>
+                        </svg>
+                        <h1 class="text-xl md:text-2xl lg:text-3xl font-extrabold text-center invite_text mt-3">
+                            6:00 PM 23rd March, 2024
+                        </h1>
+                    </div>
+                    
+                    <div class="flex flex-col justify-center items-center my-10">
+                        <h1 class="text-lg md:text-xl lg:text-2xl font-extrabold text-center" style='font-family: "League Spartan", sans-serif; color: white;'>
+                            Feel free to rat out your fellow friends by providing us fun family-friendly + non family-friendly pictures and videos here :
+                        </h1>
+                        <br>
+                        <a href='https://www.dropbox.com/request/CbKgD9FN0tspV0n5gqX1' target='_blank' class='drive-link'>
+                        <svg fill="#ffffff" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" width="64px" height="64px" viewBox="0 0 31.938 31.938" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M31.595,7.763 L26.540,11.969 L30.580,15.197 C30.829,15.396 30.968,15.701 30.954,16.019 C30.941,16.337 30.776,16.630 30.510,16.806 L25.936,19.851 C25.941,19.891 25.960,19.926 25.960,19.967 L25.960,24.955 C25.960,25.289 25.793,25.600 25.515,25.785 L16.523,31.771 C16.489,31.794 16.450,31.804 16.414,31.822 C16.381,31.839 16.350,31.856 16.315,31.869 C16.202,31.911 16.087,31.939 15.969,31.939 C15.851,31.939 15.735,31.911 15.623,31.869 C15.588,31.856 15.557,31.839 15.523,31.822 C15.487,31.804 15.449,31.794 15.415,31.771 L6.423,25.785 C6.145,25.600 5.978,25.289 5.978,24.955 L5.978,19.967 C5.978,19.926 5.997,19.891 6.001,19.851 L1.428,16.806 C1.162,16.630 0.997,16.337 0.984,16.019 C0.970,15.701 1.109,15.396 1.358,15.197 L5.398,11.969 L0.343,7.763 C0.101,7.561 -0.032,7.257 -0.015,6.943 C0.002,6.629 0.166,6.341 0.428,6.166 L9.420,0.180 C9.787,-0.066 10.273,-0.040 10.614,0.244 L15.969,4.700 L21.324,0.244 C21.664,-0.040 22.150,-0.066 22.518,0.180 L31.509,6.166 C31.772,6.341 31.936,6.629 31.953,6.943 C31.970,7.257 31.837,7.561 31.595,7.763 ZM28.265,15.903 L24.907,13.220 L17.660,18.044 L21.018,20.727 L28.265,15.903 ZM16.968,29.077 L23.962,24.421 L23.962,21.166 L21.519,22.792 C21.350,22.904 21.157,22.960 20.964,22.960 C20.743,22.960 20.522,22.886 20.340,22.741 L16.968,20.047 L16.968,29.077 ZM15.969,16.772 L23.160,11.985 L15.969,7.198 L8.778,11.985 L15.969,16.772 ZM7.976,24.421 L14.970,29.077 L14.970,20.047 L11.597,22.741 C11.416,22.886 11.195,22.960 10.973,22.960 C10.781,22.960 10.588,22.904 10.419,22.792 L7.976,21.166 L7.976,24.421 ZM10.920,20.727 L14.278,18.044 L7.031,13.220 L3.673,15.903 L10.920,20.727 ZM9.908,2.253 L2.650,7.086 L7.044,10.742 L14.302,5.910 L9.908,2.253 ZM22.030,2.253 L17.636,5.910 L24.894,10.742 L29.288,7.086 L22.030,2.253 Z"></path> </g></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-auto">
+                <form method="post" class="flex flex-col items-center justify-center" id='invite-form'>
+                    {% csrf_token %}
+            
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div role="alert" class="alert alert-error mt-1">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <br>
+            
+                    <div class="my-2 mx-auto w-full sm:w-1/2 md:w-1/3 lg:w-1/3 text-lg md:text-xl lg:text-2xl flex items-center justify-between">
+
+                        <label for="{{ form.coming_farewell.id_for_label }}" class='text-3xl md:text-4xl lg:text-5xl'>Are you coming?</label> 
+                        <div class="checkbox-wrapper-5">
+                            <div class="check">
+                                {{ form.coming_farewell }}
+                                <label for="check-5"></label>
+                            </div>
+                          </div>
+                        {% if form.coming_farewell.errors %}
+                            <div class="my-1">
+                                <div role="alert" class="alert alert-error">
+                                    {{ form.coming_farewell.errors }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <br>
+            
+                    <div class="w-full md:w-1/2 mt-5 mx-auto flex justify-center">
+                        <button class="mt-10 w-full lg:w-1/2 mx-auto registerBtn submit-btn" type="submit" style='border-radius: 10px; border: 2px solid #f19af3;'>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Confirm
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            
+            
+        </div>
+    </section>
+    
+    
+{% if messages %}
+{% for message in messages %}
+    <div class="toast toast-start message-fade-away z-40">
+        <div class="alert alert-{{ message.tags }}">
+            <span>{{ message }}</span>
+            <span>{{ message.id }}</span>
+        </div>
+    </div>
+{% endfor %}
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fadeDivs = document.querySelectorAll(".message-fade-away");
+        fadeDivs.forEach(function (fadeDiv) {
+            setTimeout(function () {
+                fadeOut(fadeDiv);
+            }, 5000);
+        });
+    });
+
+    function fadeOut(element) {
+        let opacity = 1;
+        const intervalDuration = 50;
+        const intervalStep = 0.05;
+
+        let fadeInterval = setInterval(function () {
+            if (opacity > 0) {
+                opacity -= intervalStep;
+                element.style.opacity = opacity;
+            } else {
+                clearInterval(fadeInterval);
+                element.parentNode.removeChild(element);
+            }
+        }, intervalDuration);
+    }
+</script>
+<script>
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const comingFarewell = document.getElementById("check-5");
+        const submitBtn = document.querySelector(".submit-btn");
+        const url = "https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=N3B2MzlobmkycjhlaTU4Nm5yaDRkcWNjb2ogZjEyZGEzNWFiNDVjOTY1MmFmM2FiNjUxOWRlNzEwZWQxYTFkM2ZmMjQwNGM0YjcxNDQ4ZGFjNWI4N2RjNzg1NEBn&tmsrc=f12da35ab45c9652af3ab6519de710ed1a1d3ff2404c4b71448dac5b87dc7854%40group.calendar.google.com";
+        if (comingFarewell.checked) {
+            window.open(url, "_blank");
+        }
+        form.submit();
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var form = document.getElementById("invite-form");
+        if (form) {
+            form.action = window.location.href;
+            print
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    const check5 = document.getElementById('check-5');
+    const submitBtn = document.querySelector('.submit-btn');
+
+    if (check5.checked) {
+        submitBtn.textContent = 'Confirm and add to calendar';
+        
+    } else {
+        submitBtn.textContent = 'Confirm';
+    }
+
+    check5.addEventListener('change', function () {
+        if (check5.checked) {
+            submitBtn.textContent = 'Confirm and add to calendar';
+        } else {
+            submitBtn.textContent = 'Confirm';
+        }
+    });
+</script>
+<script>
+    function smoothScroll(target) {
+        const targetElement = document.querySelector(target);
+
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    }
+
+    window.onload = function () {
+        const heart = document.querySelector('.frame');
+        const neon = document.querySelector('.neon');
+        const flux = document.querySelector('.flux');
+
+        setTimeout(() => {
+            heart.style.opacity = 1;
+        }, 800);
+
+        setTimeout(() => {
+            heart.style.transform = 'scale(1)';
+        }, 1300);
+
+        setTimeout(() => {    
+            isLarge = true;
+            setInterval(() => {
+                if (isLarge) {
+                    heart.style.transform = 'scale(1.5)';
+                    isLarge = false;
+                } else {
+                    heart.style.transform = 'scale(1)';
+                    isLarge = true;
+                }
+            }, 200);
+        }, 2000);
+
+        setTimeout(() => {
+            flicker(neon);
+        }, 2500);
+
+        setTimeout(() => {
+            flicker(flux);
+        }, 2900); 
+    }
+</script>
+
+<script>
+    function flicker(element) {
+        let opacity = 0;
+        const intervalDuration = 50;
+        const flickerInterval = setInterval(function () {
+            element.style.opacity = Math.random() > 0.3 ? 1 : 0;
+        }, intervalDuration);
+
+        setTimeout(function () {
+            clearInterval(flickerInterval);
+            element.style.opacity = 1;
+        }, 4000);
+    }
+</script>
+<script>
+    function setParticlesConfig(config) {
+        particlesJS('particles-js', config);
+    }
+    fetch('{% static 'js/farewell/particles-dark.json' %}')
+        .then(response => response.json())
+        .then(particlesConfig => {
+            setParticlesConfig(particlesConfig);
+        })
+        .catch(error => console.error('Error fetching particles config:', error));
+</script>
+</body>
+
+</html>
+

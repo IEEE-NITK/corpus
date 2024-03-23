@@ -1,0 +1,53 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Approver Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with text="Approver Dashboard" %}
+    <div class="m-10 p-5 border rounded-lg">
+        <h1 class="text-4xl font-bold my-2">Approval Requests</h1>
+        <div class="overflow-x-auto my-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Report Type</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if reports %}
+                    {% for report in reports %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ report.title }}</td>
+                            <td>{{ report.report_type }}</td>
+                            <td>{{ report.year }}</td>
+                            <td class="flex flex-row gap-4">
+                                <a href="{% url 'virtual_expo_preview_report' report_id=report.id %}"
+                                   class="btn btn-primary">
+                                    Preview Report
+                                </a>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="report_id" value="{{ report.id }}">
+                                    <button type="submit" class="btn btn-secondary px-3 py-1">Mark as Approved</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No approval requests yet!</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
