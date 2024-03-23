@@ -2,7 +2,7 @@ from config.models import SIG
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 
 from .validators import validate_ieee_email
@@ -134,14 +134,17 @@ class ExecutiveMember(models.Model):
         blank=True, null=True, verbose_name="Linkedin Profile URL"
     )
 
+    profile_picture = models.ImageField(
+        blank=True, null=True, upload_to="accounts/executivemember/profile_picture"
+    )
     # TODO: Phase out with GitHub OAuth details
     github = models.CharField(
         max_length=39, blank=True, null=True, verbose_name="GitHub Username"
     )
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(
-        default=timezone.now(), verbose_name="Date Joined"
-    )
+
+    date_joined = models.DateTimeField(verbose_name="Date Joined", default=now)
+
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
@@ -150,3 +153,86 @@ class ExecutiveMember(models.Model):
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} [{self.sig.name}]"
+
+
+class Core(models.Model):
+
+    POST_CHOICES = (
+        (1, "Convenor"),
+        (2, "Chairperson"),
+        (3, "Vice Chairperson"),
+        (4, "Secretary"),
+        (5, "Joint Secretary"),
+        (6, "Treasurer(Branch)"),
+        (7, "Treasurer(Institute)"),
+        (8, "Webmaster"),
+        (9, "Media Lead"),
+        (10, "Outreach Lead"),
+        (11, "Envision Lead"),
+        (12, "Labs Lead"),
+        (13, "CompSoc Chair"),
+        (14, "CompSoc Vice Chair"),
+        (15, "CompSoc Secretary"),
+        (16, "CompSoc Project Head"),
+        (17, "CompSoc Project Coordinator"),
+        (18, "CIS Chair"),
+        (19, "CIS Secretary"),
+        (20, "CIS Project Head"),
+        (21, "Diode Chair"),
+        (22, "SPS Chair"),
+        (23, "SPS Vice Chair"),
+        (24, "SPS Secretary"),
+        (25, "CAS Chair"),
+        (26, "CAS Vice Chair"),
+        (27, "CAS Secretary"),
+        (28, "RAS Chair"),
+        (29, "RAS Secretary"),
+        (30, "Piston Chair"),
+        (31, "Piston Vice Chair"),
+        (32, "Piston Secretary"),
+        (33, "IAS Chair"),
+        (34, "IAS Secretary"),
+    )
+    executivemember = models.OneToOneField(
+        ExecutiveMember, null=False, on_delete=models.CASCADE
+    )
+    post = models.IntegerField(null=False, choices=POST_CHOICES)
+    sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
+    term_start = models.DateField()
+    term_end = models.DateField()
+
+    def __str__(self):
+        self_user = self.executivemember.user
+        return (
+            f"{self_user.first_name} {self_user.last_name} | {self.get_post_display()}"
+        )
+
+    def get_post_display(self):
+        return dict(Core.POST_CHOICES).get(self.post)
+
+
+class Faculty(models.Model):
+    class Meta:
+        verbose_name_plural = "faculties"
+
+    FACULTY_POSTS = (
+        ("Branch Counselor", "Branch Counselor"),
+        ("CIS Faculty Advisor", "CIS Faculty Advisor"),
+        ("CompSoc Faculty Advisor", "CompSoc Faculty Advisor"),
+        ("CAS Faculty Advisor", "CAS Faculty Advisor"),
+        ("SPS Faculty Advisor", "SPS Faculty Advisor"),
+        ("Photonic Society Faculty Advisor", "Photonic Society Faculty Advisor"),
+        ("WIE Faculty Advisor", "WIE Faculty Advisor"),
+        ("IAS Faculty Advisor", "IAS Faculty Advisor"),
+        ("SIGHT Chair", "SIGHT Chair"),
+        ("RAS Faculty Advisor", "RAS Faculty Advisor"),
+        ("GRSS Faculty Advisor", "GRSS Faculty Advisor"),
+    )
+    user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
+    sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
+    post = models.CharField(
+        max_length=100, null=False, choices=FACULTY_POSTS, blank=True
+    )
+    term_start = models.DateField()
+    term_end = models.DateField()
+    website = models.URLField(max_length=200, null=True, blank=True)
