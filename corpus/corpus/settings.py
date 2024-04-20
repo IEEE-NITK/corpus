@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "ckeditor",
+    "ckeditor_uploader",
     "pages.apps.PagesConfig",
     "config.apps.ConfigConfig",
     "accounts.apps.AccountsConfig",
@@ -62,6 +64,8 @@ INSTALLED_APPS = [
     "electrika.apps.ElectrikaConfig",
     "skyward_expedition.apps.SkywardExpeditionConfig",
     "robotrix.apps.RobotrixConfig",
+    "farewell.apps.FarewellConfig",
+    "virtual_expo.apps.VirtualExpoConfig",
 ]
 
 MIDDLEWARE = [
@@ -206,3 +210,98 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
         )
     except Exception:
         raise ImproperlyConfigured("Django Sentry DSN Not found!")
+
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar_DefaultToolbarConfig": [
+            {
+                "name": "format",
+                "items": [
+                    "Format",
+                ],
+            },
+            {
+                "name": "extra",
+                "items": [
+                    "Link",
+                    "Unlink",
+                    "Blockquote",
+                    "Image",
+                    "Table",
+                    "CodeSnippet",
+                    "Mathjax",
+                    "Embed",
+                ],
+            },
+            {
+                "name": "source",
+                "items": [
+                    "Maximize",
+                    "Source",
+                ],
+            },
+            {
+                "name": "basicstyles",
+                "items": [
+                    "Bold",
+                    "Italic",
+                    "Underline",
+                    "Strike",
+                    "Subscript",
+                    "Superscript",
+                ],
+            },
+            {
+                "name": "clipboard",
+                "items": [
+                    "Undo",
+                    "Redo",
+                ],
+            },
+            {
+                "name": "paragraph",
+                "items": [
+                    "NumberedList",
+                    "BulletedList",
+                    "Outdent",
+                    "Indent",
+                    "HorizontalRule",
+                    "JustifyLeft",
+                    "JustifyCenter",
+                    "JustifyRight",
+                    "JustifyBlock",
+                ],
+            },
+        ],
+        "toolbar": "DefaultToolbarConfig",
+        "removeDialogTabs": ";".join(
+            [
+                "image:advanced",
+                "image:Link",
+                "link:upload",
+                "table:advanced",
+                "tableProperties:advanced",
+            ]
+        ),
+        "linkShowTargetTab": False,
+        "linkShowAdvancedTab": False,
+        "height": "250px",
+        "width": "auto",
+        "forcePasteAsPlainText ": True,
+        "mathJaxClass": "mathjax-latex",
+        "mathJaxLib": """
+            https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG
+        """,
+        "extraPlugins": ",".join(
+            [
+                "mathjax",
+                "codesnippet",
+                "image2",
+                "embed",
+                "tableresize",
+            ]
+        ),
+    }
+}

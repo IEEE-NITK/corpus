@@ -47,6 +47,7 @@ def sig(request, sig_name):
     return render(request, "pages/sig.html", args)
 
 
+
 def team(request):
     compsoc_members = ExecutiveMember.objects.filter(
         (Q(core__isnull=True) | Q(core=None))
@@ -80,3 +81,9 @@ def team(request):
         "faculty": faculty,
     }
     return render(request, "pages/team.html", context)
+
+  
+  
+def farewell(request):
+    return render(request, "pages/farewell.html")
+
