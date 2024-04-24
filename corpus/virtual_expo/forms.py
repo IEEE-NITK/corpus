@@ -9,20 +9,26 @@ from corpus.forms import CorpusModelForm
 
 
 class ReportFilterForm(CorpusForm):
-    report_type_choices = [(0, "All Report Types")] + list(
-        ReportType.objects.values_list("id", "name")
-    )
-    sig_choices = [(0, "All SIGs"), (-1, "Inter-SIG")] + list(
-        SIG.objects.values_list("id", "name")
-    )
+    report_type = forms.ChoiceField(choices=[])
+    sig = forms.ChoiceField(choices=[])
+    year = forms.ChoiceField(choices=[], required=False)
 
-    year_choices = [(0, "All Years")] + [
-        (x, x) for x in list(Report.objects.values_list("year", flat=True).distinct())
-    ]
+    def __init__(self, *args, **kwargs):
+        super(ReportFilterForm, self).__init__(*args, **kwargs)
 
-    report_type = forms.ChoiceField(choices=report_type_choices)
-    sig = forms.ChoiceField(choices=sig_choices)
-    year = forms.ChoiceField(choices=year_choices, required=False)
+        report_type_choices = [(0, "All Report Types")] + list(
+            ReportType.objects.values_list("id", "name")
+        )
+        sig_choices = [(0, "All SIGs"), (-1, "Inter-SIG")] + list(
+            SIG.objects.values_list("id", "name")
+        )
+        year_choices = [(0, "All Years")] + [
+            (x, x) for x in list(Report.objects.values_list("year", flat=True).distinct())
+        ]
+
+        self.fields["report_type"].choices = report_type_choices
+        self.fields["sig"].choices = sig_choices
+        self.fields["year"].choices = year_choices
 
 
 class ReportForm(CorpusModelForm):
