@@ -58,7 +58,7 @@ def signin(request):
             else:
                 exec_member = None
 
-            if exec_member is not None:
+            if exec_member:
                 user = authenticate(
                     username=exec_member[0].user.email, password=password
                 )
