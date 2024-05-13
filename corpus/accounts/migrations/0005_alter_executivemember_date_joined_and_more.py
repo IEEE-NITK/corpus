@@ -8,7 +8,7 @@ from django.db import models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("accounts", "0004_executivemember_profile_picture_and_more"),
+        ("accounts", "0004_alter_executivemember_date_joined"),
     ]
 
     operations = [
