@@ -2,7 +2,7 @@ from config.models import SIG
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils.timezone import now
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from .validators import validate_ieee_email
@@ -151,7 +151,7 @@ class ExecutiveMember(models.Model):
     hide_github = models.BooleanField(default=False)
     hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(verbose_name="Date Joined", default=now)
+    date_joined = models.DateTimeField(verbose_name="Date Joined", default=timezone.now())
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
