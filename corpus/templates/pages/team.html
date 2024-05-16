@@ -17,6 +17,7 @@
       <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
       <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
       <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
+      <a role="tab" id="SAC-tab" class="tab" onclick="openPage('SAC', this, 'SAC-tab')">SAC</a>
    </div>
    <!-- Tab content -->
    <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
@@ -24,21 +25,21 @@
       <br>
       <div class="flex-container">
          <div class="margins">
-            <!-- Faculty -->
+            <!-- ExeCom Faculty -->
             {% for fac in faculty %}
-            {% if fac.sig.name == "ExeCom" %}
+            {% if fac.post.is_execom %}
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
-                  <img class="profile-pic" {% if fac.profile_picture.url %} src="{{ fac.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="Profile" class="rounded-xl" />
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
                </figure>
                <div class="card-body items-center text-center">
                   <h2 class="card-title">{{ fac.user }}</h2>
-                  <p class="card-post">{{ fac.post }}</p>
+                  <p class="card-post">{{ fac.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     {% if fac.user.executivemember.linkedin is not Blank %}
+                     {% if fac.linkedin is not Blank %}
                      <div class="card-actions">
-                        <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                        <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                         {% endif %}
                         {% if fac.website is not Blank %}
                         <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
@@ -46,7 +47,6 @@
                      </div>
                   </div>
                </div>
-            </div>
             {% endif %}
             {% endfor %}
          </div>
@@ -54,34 +54,38 @@
       <h2 class="section-heading">IEEE Core</h2>
       <br>
       <div class="flex-container">
-         <!-- Core -->
-         {% for core in ieee_core %}
          <div class="margins">
+         <!-- ExeCom Core -->
+         {% for member in ieee_core %}
+
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
-                  <img class="profile-pic" {% if core.executivemember.profile_picture.url %} src="{{ core.executivemember.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
                </figure>
                <div class="card-body items-center text-center">
-                  <h2 class="card-title">{{ core.executivemember.user }}</h2>
-                  <p class="card-post">{{ core.get_post_display }}</p>
+                  <h2 class="card-title">{{ member.user }}</h2>
+                  <p class="card-post">{{ member.core.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{ core.executivemember.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{ core.executivemember.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     <a href="{{ member.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{ member.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                   </div>
                </div>
             </div>
-         </div>
+
          {% endfor %}
       </div>
+      </div>
+      </div>
    </div>
+
    <div id="CompSoc" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">CompSoc Faculty</h2>
       <br>
       <div class="flex-container">
          <!-- Faculty -->
          {% for fac in faculty %}
-         {% if fac.sig.name == "CompSoc" %}
+         {% if fac.sig.name == "CompSoc" and fac.post.is_execom == False and fac.post.is_sac == False %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
@@ -89,11 +93,11 @@
                </figure>
                <div class="card-body items-center text-center">
                   <h2 class="card-title">{{fac.user}}</h2>
-                  <p class="card-post">{{fac.post}}</p>
+                  <p class="card-post">{{fac.society}} {{ fac.post.name }}</p>
                   <br/>
-                  {% if fac.user.executivemember.linkedin is not Blank %}
+                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
-                     <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
                      {% if fac.website is not Blank %}
                      <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
@@ -101,37 +105,38 @@
                   </div>
                </div>
             </div>
-         </div>
+
          {% endif %}
          {% endfor %}
       </div>
       <h2 class="section-heading">CompSoc Core</h2>
       <br>
       <div class="flex-container">
-         <!-- Core -->
-         {% for core in compsoc_core %}
+         <!-- CompSoc Core -->
+         {% for member in compsoc_core %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
-                  <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
                </figure>
                <div class="card-body items-center text-center">
-                  <h2 class="card-title">{{core.executivemember.user}}</h2>
-                  <h2 class="card-post">{{core.get_post_display}}</h2>
+                  <h2 class="card-title">{{ member.user }}</h2>
+                  <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{core.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                   </div>
                </div>
             </div>
          </div>
          {% endfor %}
       </div>
+
       <h2 class="section-heading">Members</h2>
       <br>
       <div class="flex-container">
-         <!-- Members -->
+         <!-- CompSoc Members -->
          {% for member in compsoc_members %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
@@ -151,13 +156,14 @@
          {% endfor %}
       </div>
    </div>
+
    <div id="Diode" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">Diode Faculty</h2>
       <br>
       <div class="flex-container">
-         <!-- Faculty -->
+         <!-- Diode Faculty -->
          {% for fac in faculty %}
-         {% if fac.sig.name == "Diode" %}
+         {% if fac.sig.name == "Diode" and fac.post.is_execom == False and fac.post.is_sac == False %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
@@ -165,11 +171,11 @@
                </figure>
                <div class="card-body items-center text-center">
                   <h2 class="card-title">{{fac.user}}</h2>
-                  <p class="card-post">{{fac.post}}</p>
+                  <p class="card-post">{{fac.society}} {{ fac.post.name }}</p>
                   <br/>
-                  {% if fac.user.executivemember.linkedin is not Blank %}
+                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
-                     <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
                      {% if fac.website is not Blank %}
                      <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
@@ -177,33 +183,34 @@
                   </div>
                </div>
             </div>
-         </div>
+
          {% endif %}
          {% endfor %}
       </div>
       <h2 class="section-heading">Diode Core</h2>
       <br>
       <div class="flex-container">
-         <!-- Core -->
-         {% for core in diode_core %}
+         <!-- Diode Core -->
+         {% for member in diode_core %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
-                  <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
                </figure>
                <div class="card-body items-center text-center">
-                  <h2 class="card-title">{{core.executivemember.user}}</h2>
-                  <h2 class="card-post">{{core.get_post_display}}</h2>
+                  <h2 class="card-title">{{member.user}}</h2>
+                  <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{core.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{core.user.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                   </div>
                </div>
             </div>
          </div>
          {% endfor %}
       </div>
+
       <h2 class="section-heading">Members</h2>
       <br>
       <div class="flex-container">
@@ -227,13 +234,14 @@
          {% endfor %}
       </div>
    </div>
+
    <div id="Piston" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">Piston Faculty</h2>
       <br>
       <div class="flex-container">
          <!-- Faculty -->
          {% for fac in faculty %}
-         {% if fac.sig.name == "Piston" %}
+         {% if fac.sig.name == "Piston" and fac.post.is_execom == False and fac.post.is_sac == False %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
@@ -241,11 +249,11 @@
                </figure>
                <div class="card-body items-center text-center">
                   <h2 class="card-title">{{fac.user}}</h2>
-                  <p class="card-post">{{fac.post}}</p>
+                  <p class="card-post">{{fac.society}} {{fac.post.name}}</p>
                   <br/>
-                  {% if fac.user.executivemember.linkedin is not Blank %}
+                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
-                     <a href="{{fac.user.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
                      {% if fac.website is not Blank %}
                      <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
@@ -253,7 +261,7 @@
                   </div>
                </div>
             </div>
-         </div>
+
          {% endif %}
          {% endfor %}
       </div>
@@ -261,25 +269,26 @@
       <br>
       <div class="flex-container">
          <!-- Core -->
-         {% for core in piston_core %}
+         {% for member in piston_core %}
          <div class="margins">
             <div class="card card-bordered w-96 bg-base-300 shadow-xl">
                <figure class="px-10 pt-10">
-                  <img class="profile-pic" {% if core.executivemember.profile_picture.url is not None %} src="{{core.executivemember.profile_picture.url}}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
                </figure>
                <div class="card-body items-center text-center">
-                  <h2 class="card-title">{{core.executivemember.user}}</h2>
-                  <h2 class="card-post">{{core.get_post_display}}</h2>
+                  <h2 class="card-title">{{ member.user }}</h2>
+                  <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{core.executivemember.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{core.executivemember.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                   </div>
                </div>
             </div>
          </div>
          {% endfor %}
       </div>
+
       <h2 class="section-heading">Members</h2>
       <br>
       <div class="flex-container">
@@ -296,6 +305,62 @@
                   <div class="card-actions">
                      <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+
+   <div id="SAC" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+      <h2 class="section-heading">SAC Faculty</h2>
+      <br>
+      <div class="flex-container">
+         <div class="margins">
+            <!-- SAC Faculty -->
+            {% for fac in faculty %}
+            {% if fac.post.is_sac %}
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+               <figure class="px-10 pt-10">
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png"  {% endif %} alt="photo" />
+               </figure>
+               <div class="card-body items-center text-center">
+                  <h2 class="card-title">{{ fac.user }}</h2>
+                  <p class="card-post">{{ fac.post.name }}</p>
+                  <br/>
+                  <div class="card-actions">
+                     {% if fac.linkedin is not Blank %}
+                     <div class="card-actions">
+                        <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                        {% endif %}
+                        {% if fac.website is not Blank %}
+                        <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            {% endif %}
+            {% endfor %}
+         </div>
+      </div>
+      <h2 class="section-heading">SAC Core</h2>
+      <br>
+      <div class="flex-container">
+         <!-- SAC Core -->
+         {% for member in sac_core %}
+         <div class="margins">
+            <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+               <figure class="px-10 pt-10">
+                  <img class="profile-pic" {% if member.profile_picture.url is not None %} src="{{ member.profile_picture.url }}" {% else %} src="../static/img/default_profile_picture.png" {% endif %} alt="photo" />
+               </figure>
+               <div class="card-body items-center text-center">
+                  <h2 class="card-title">{{ member.user }}</h2>
+                  <p class="card-post">{{ member.core.post.name }}</p>
+                  <br/>
+                  <div class="card-actions">
+                     <a href="{{ member.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     <a href="{{ member.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
                   </div>
                </div>
             </div>

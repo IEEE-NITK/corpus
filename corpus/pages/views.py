@@ -1,9 +1,7 @@
-from accounts.models import Core
 from accounts.models import ExecutiveMember
 from accounts.models import Faculty
 from config.models import SIG
 from config.models import Society
-from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
@@ -48,27 +46,63 @@ def sig(request, sig_name):
 
 
 def team(request):
-    compsoc_members = ExecutiveMember.objects.filter(
-        (Q(core__isnull=True) | Q(core=None))
-        & (Q(user__faculty__isnull=True) | Q(user__faculty=None))
-        & Q(sig__name="CompSoc")
-    )
-    diode_members = ExecutiveMember.objects.filter(
-        (Q(core__isnull=True) | Q(core=None))
-        & (Q(user__faculty__isnull=True) | Q(user__faculty=None))
-        & Q(sig__name="Diode")
-    )
-    piston_members = ExecutiveMember.objects.filter(
-        (Q(core__isnull=True) | Q(core=None))
-        & (Q(user__faculty__isnull=True) | Q(user__faculty=None))
-        & Q(sig__name="Piston")
-    )
-    ieee_core = Core.objects.filter(sig__name="ExeCom").order_by("post")
-    compsoc_core = Core.objects.filter(sig__name="CompSoc").order_by("post")
-    diode_core = Core.objects.filter(sig__name="Diode").order_by("post")
-    piston_core = Core.objects.filter(sig__name="Piston").order_by("post")
+    # ExeCom Members
+    ieee_core = ExecutiveMember.objects.filter(
+        core__isnull=False, core__post__is_execom=True, core__post__is_sac=False
+    ).order_by("core__post__priority")
 
+    # CompSoc Core Members
+    compsoc_core = ExecutiveMember.objects.filter(
+        core__isnull=False,
+        sig__name="CompSoc",
+        core__post__is_execom=False,
+        core__post__is_sac=False,
+    ).order_by("core__post__priority")
+
+    # Diode Core Members
+    diode_core = ExecutiveMember.objects.filter(
+        core__isnull=False,
+        sig__name="Diode",
+        core__post__is_execom=False,
+        core__post__is_sac=False,
+    ).order_by("core__post__priority")
+
+    # Piston Core Members
+    piston_core = ExecutiveMember.objects.filter(
+        core__isnull=False,
+        sig__name="Piston",
+        core__post__is_execom=False,
+        core__post__is_sac=False,
+    ).order_by("core__post__priority")
+
+    # SAC Core Members
+    sac_core = ExecutiveMember.objects.filter(
+        core__isnull=False, core__post__is_execom=False, core__post__is_sac=True
+    ).order_by("core__post__priority")
+
+    # Faculty Members
     faculty = Faculty.objects.all()
+
+    # Executive Members
+    compsoc_members = (
+        ExecutiveMember.objects.filter(sig__name="CompSoc")
+        .exclude(pk__in=ieee_core.values("pk"))
+        .exclude(pk__in=compsoc_core.values("pk"))
+        .exclude(pk__in=sac_core.values("pk"))
+    )
+    diode_members = (
+        ExecutiveMember.objects.filter(sig__name="Diode")
+        .exclude(pk__in=ieee_core.values("pk"))
+        .exclude(pk__in=diode_core.values("pk"))
+        .exclude(pk__in=sac_core.values("pk"))
+    )
+    piston_members = (
+        ExecutiveMember.objects.filter(sig__name="Piston")
+        .exclude(pk__in=ieee_core.values("pk"))
+        .exclude(pk__in=piston_core.values("pk"))
+        .exclude(pk__in=sac_core.values("pk"))
+    )
+
     context = {
         "compsoc_members": compsoc_members,
         "diode_members": diode_members,
@@ -77,9 +111,11 @@ def team(request):
         "compsoc_core": compsoc_core,
         "diode_core": diode_core,
         "piston_core": piston_core,
+        "sac_core": sac_core,
         "faculty": faculty,
     }
     return render(request, "pages/team.html", context)
+
 
 def farewell(request):
     return render(request, "pages/farewell.html")

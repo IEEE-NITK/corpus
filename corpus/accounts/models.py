@@ -1,4 +1,5 @@
 from config.models import SIG
+from config.models import Society
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -151,7 +152,9 @@ class ExecutiveMember(models.Model):
     hide_github = models.BooleanField(default=False)
     hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
-    date_joined = models.DateTimeField(verbose_name="Date Joined", default=timezone.now())
+    date_joined = models.DateTimeField(
+        verbose_name="Date Joined", default=timezone.now()
+    )
 
     def save(self, *args, **kwargs):
         self.roll_number = self.roll_number.upper()
@@ -162,84 +165,48 @@ class ExecutiveMember(models.Model):
         return f"{self.user.first_name} {self.user.last_name} [{self.sig.name}]"
 
 
-class Core(models.Model):
+class Post(models.Model):
+    priority = models.IntegerField(null=False)
+    name = models.CharField(max_length=100, null=False)
+    is_execom = models.BooleanField(null=False, default=False)
+    is_sac = models.BooleanField(null=False, default=False)
 
-    POST_CHOICES = (
-        (1, "Convenor"),
-        (2, "Chairperson"),
-        (3, "Vice Chairperson"),
-        (4, "Secretary"),
-        (5, "Joint Secretary"),
-        (6, "Treasurer(Branch)"),
-        (7, "Treasurer(Institute)"),
-        (8, "Webmaster"),
-        (9, "Media Lead"),
-        (10, "Outreach Lead"),
-        (11, "Envision Lead"),
-        (12, "Labs Lead"),
-        (13, "CompSoc Chair"),
-        (14, "CompSoc Vice Chair"),
-        (15, "CompSoc Secretary"),
-        (16, "CompSoc Project Head"),
-        (17, "CompSoc Project Coordinator"),
-        (18, "CIS Chair"),
-        (19, "CIS Secretary"),
-        (20, "CIS Project Head"),
-        (21, "Diode Chair"),
-        (22, "SPS Chair"),
-        (23, "SPS Vice Chair"),
-        (24, "SPS Secretary"),
-        (25, "CAS Chair"),
-        (26, "CAS Vice Chair"),
-        (27, "CAS Secretary"),
-        (28, "RAS Chair"),
-        (29, "RAS Secretary"),
-        (30, "Piston Chair"),
-        (31, "Piston Vice Chair"),
-        (32, "Piston Secretary"),
-        (33, "IAS Chair"),
-        (34, "IAS Secretary"),
-    )
+    def __str__(self):
+        return self.name
+
+
+class Core(models.Model):
     executivemember = models.OneToOneField(
         ExecutiveMember, null=False, on_delete=models.CASCADE
     )
-    post = models.IntegerField(null=False, choices=POST_CHOICES)
-    sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    society = models.ForeignKey(
+        Society, blank=True, null=True, on_delete=models.CASCADE
+    )
     term_start = models.DateField()
     term_end = models.DateField()
 
     def __str__(self):
         self_user = self.executivemember.user
-        return (
-            f"{self_user.first_name} {self_user.last_name} | {self.get_post_display()}"
-        )
-
-    def get_post_display(self):
-        return dict(Core.POST_CHOICES).get(self.post)
+        return f"{self_user.first_name} {self_user.last_name} | {self.post.name}"
 
 
 class Faculty(models.Model):
     class Meta:
         verbose_name_plural = "faculties"
 
-    FACULTY_POSTS = (
-        ("Branch Counselor", "Branch Counselor"),
-        ("CIS Faculty Advisor", "CIS Faculty Advisor"),
-        ("CompSoc Faculty Advisor", "CompSoc Faculty Advisor"),
-        ("CAS Faculty Advisor", "CAS Faculty Advisor"),
-        ("SPS Faculty Advisor", "SPS Faculty Advisor"),
-        ("Photonic Society Faculty Advisor", "Photonic Society Faculty Advisor"),
-        ("WIE Faculty Advisor", "WIE Faculty Advisor"),
-        ("IAS Faculty Advisor", "IAS Faculty Advisor"),
-        ("SIGHT Chair", "SIGHT Chair"),
-        ("RAS Faculty Advisor", "RAS Faculty Advisor"),
-        ("GRSS Faculty Advisor", "GRSS Faculty Advisor"),
+    profile_picture = models.ImageField(
+        blank=True, null=True, upload_to="accounts/faculty/profile_picture"
     )
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
     sig = models.ForeignKey(SIG, null=False, on_delete=models.CASCADE)
-    post = models.CharField(
-        max_length=100, null=False, choices=FACULTY_POSTS, blank=True
+    society = models.ForeignKey(
+        Society, blank=True, null=True, on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    website = models.URLField(max_length=200, null=True, blank=True)
+    linkedin = models.URLField(
+        blank=True, null=True, verbose_name="Linkedin Profile URL"
     )
     term_start = models.DateField()
     term_end = models.DateField()
-    website = models.URLField(max_length=200, null=True, blank=True)
