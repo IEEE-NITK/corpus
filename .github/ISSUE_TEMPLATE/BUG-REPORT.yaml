@@ -1,0 +1,66 @@
+name: 🐛 Bug Report
+description: Create a new ticket for a bug/issue
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug! Please fill in the information below to help us reproduce the issue you are experiencing.
+  - type: checkboxes
+    id: checked-for-duplicate
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search [here](https://github.com/IEEE-NITK/corpus/issues) to see if an issue already exists for the bug you encountered. If so, please add a comment to the existing issue instead of creating a new one.
+      options:
+      - label: I have searched the existing issues
+        required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: |
+        Please include a brief description of the issue encountered.
+
+        **Tip:** You can attach images by clicking this area to highlight it and then dragging files in.
+      placeholder: Tell us what you see, and what you expected to see.
+    validations:
+      required: true
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps To Reproduce
+      description: Please include detailed steps to reproduce the behavior.
+      placeholder: |
+        1. Go to ...
+        1. Click on ...
+        1. See error...
+    validations:
+      required: false
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      description: Please select all that apply.
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Brave
+        - Opera/Opera GX
+        - Vivaldi
+        - Safari
+        - Microsoft Edge
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Anything else?
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+
+        Tip: You can attach images by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false

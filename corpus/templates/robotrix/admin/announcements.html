@@ -1,0 +1,162 @@
+{% extends 'robotrix/base.html' %}
+
+{% block title %}
+    Announcements Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none my-10 md:mx-40 mx-10">
+        <h1 class="text-center">Announcements Management</h1>
+
+        <div class="overflow-x-auto overflow-y-auto lg:mx-40 md:mx-10 mx-auto my-10">
+            <form method="post" action="{% url 'robotrix_announcements' %}">
+                {% csrf_token %}
+                <div class="w-full my-2">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link.id_for_label }}">URL Link</label>
+                    {{ form.url_link }}
+                    {% if form.url_link.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link_text.id_for_label }}">URL Link Text</label>
+                    {{ form.url_link_text }}
+                    {% if form.url_link_text.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link_text.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.announcement_type.id_for_label }}">Announcement Type</label>
+                    {{ form.announcement_type }}
+                    {% if form.announcement_type.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.announcement_type.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.announcement_mailing.id_for_label }}">Email Options</label>
+                    {{ form.announcement_mailing }}
+                    {% if form.announcement_mailing.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.announcement_mailing.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <button type="submit" class="btn btn-primary text-white btn-block">Add Announcements</button>
+            </form>
+        </div>
+
+        <div class="overflow-x-auto max-h-[600px] overflow-y-auto lg:mx-40 md:mx-10 mx-auto my-10">
+            <h2 class="text-center">Current Announcements</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Content</th>
+                    <th>URL Link</th>
+                    <th>URL Link Content</th>
+                    <th>Announcement Type</th>
+                    <th>Created At</th>
+                    <th>DELETE</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if announcements %}
+                    {% for announcement in announcements %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ announcement.content }}</td>
+                            <td>{{ announcement.url_link }}</td>
+                            <td>{{ announcement.url_link_text }}</td>
+                            <td>{{ announcement.get_announcement_type_display }}</td>
+                            <td>{{ announcement.date_created }}</td>
+                            <td>
+                                <form method="post" action="{% url 'robotrix_delete_announcement' announcement.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger text-black dark:text-white dark:hover:bg-gray-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ff0000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <line x1="4" y1="7" x2="20" y2="7" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No announcements yet.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <a href="{% url 'robotrix_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let emailTypeField = document.getElementById("{{ form.announcement_mailing.id_for_label }}");
+        let announcementTypeField = document.getElementById("{{ form.announcement_type.id_for_label }}");
+
+        function toggleEmailType() {
+            if (announcementTypeField.value === "N") {
+                emailTypeField.value = "3";
+                emailTypeField.options[1].hidden = true;
+                emailTypeField.options[0].hidden = false;
+            }
+            else if (announcementTypeField.value === "NI") {
+                emailTypeField.value = "3";
+                emailTypeField.options[0].hidden = true;
+                emailTypeField.options[1].hidden = true;
+            }
+            else {
+                emailTypeField.options[1].hidden = false;
+                emailTypeField.options[0].hidden = false;
+            }
+        }
+
+        toggleEmailType();
+        announcementTypeField.addEventListener("change", toggleEmailType);
+    });
+</script>
+{% endblock %}
+```

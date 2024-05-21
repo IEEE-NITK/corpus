@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{sig.name}}
+{% endblock %}
+
+{% block content %}
+<section class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-[50vh] w-full"></div>
+    <div class="flex flex-col lg:flex-row gap-20 justify-between mx-auto items-center">
+        {% for society in societies_linked_to_sig %}
+            <a href="{{ society.url }}">
+                {% if society.dark_image %}
+                    <img src="{% static society.image %}" class="padding-10 light-logo h-16 lg:h-28 inline">
+                    <img src="{% static society.dark_image %}" class="padding-10 dark-logo h-16 lg:h-28 inline">
+                    {% else %}
+                    <img src="{% static society.image %}" class="padding-10 h-16 lg:h-28 inline">
+                {% endif %}
+            </a>
+        {% empty %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- About SIG Section -->
+<section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">About {{sig.name}}</h1>
+    <p class="text-justify">
+        {{sig.about|linebreaksbr|safe}}
+    </p>
+</section>
+<!-- SIG Section -->
+<section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
+        <div class="card bg-base-100 shadow-xl basis-2/3">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title my-4 text-4xl">What We Do</h2>
+                <p>{{sig.what_we_do|linebreaksbr|safe}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/typeit"></script>
+<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

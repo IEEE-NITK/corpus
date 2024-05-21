@@ -1,0 +1,49 @@
+{% extends 'embedathon/base.html' %}
+
+{% block title %}
+    Team Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose mx-auto my-10">
+        <h1 class="text-center">Team Management</h1>
+        <p><strong>Number of teams:</strong> {{ teams.count }}</p>
+        <div class="my-1">
+            <h3>Stats</h3>
+            {% for item in team_counts %}
+                <p><strong>{{ item.payment_status }}:</strong>{{ item.count }}</p>
+            {% endfor %}
+            <p>where E = Exempt, P = Paid, U = Unpaid.</p>
+        </div>
+        <div class="overflow-x-auto my-5">
+            <table class="table table-zebra">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Leader</th>
+                    <th>Payment Status</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ team.team_name }}</td>
+                        <td>{{ team.team_leader }}</td>
+                        <td>{{ team.get_payment_status_display }}</td>
+                        <td>
+                            <a href="{% url 'embedathon_admin_team_page' pk=team.pk %}"
+                               class="btn btn-info text-black font-bold no-underline">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <a href="{% url 'embedathon_admin' %}" class="btn btn-secondary text-black font-bold no-underline">Back</a>
+    </div>
+{% endblock %}

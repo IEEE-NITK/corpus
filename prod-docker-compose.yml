@@ -1,0 +1,98 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:${POSTGRES_VERSION}
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - ${POSTGRES_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-U corpus" ]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    networks:
+      - corpus_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    expose:
+      - ${ADMINER_PORT}
+    env_file:
+      - .env
+    networks:
+      - corpus_network
+
+  corpus:
+    build: corpus
+    command: /corpus/start.sh
+    restart: always
+    expose:
+      - ${DJANGO_BACKEND_PORT}
+    ports:
+      - "465:465"
+    networks:
+      - corpus_network
+    volumes:
+      - static_files:/corpus/static
+      - media_files:/corpus/media
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=PRODUCTION
+      - EMAIL_PROTOCOL=smtp
+
+  nginx:
+    build: nginx
+    restart: always
+    depends_on:
+      - corpus
+      - postgres
+    networks:
+      - corpus_network
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - static_files:/etc/nginx/staticfiles
+      - media_files:/etc/nginx/mediafiles
+      - certbot_etc:/etc/letsencrypt
+      - certbot_var:/var/lib/letsencrypt
+      - certbot_www:/var/www/certbot
+    env_file:
+      - .env
+
+  certbot:
+    image: certbot/certbot
+    environment:
+      - CERTBOT_EMAIL=anirudhprabhakaran3@gmail.com
+      - CERTBOT_AGREE=true
+    volumes:
+      - certbot_etc:/etc/letsencrypt
+      - certbot_var:/var/lib/letsencrypt
+      - certbot_www:/var/www/certbot
+    depends_on:
+      - nginx
+    networks:
+      - corpus_network
+    command: certonly --webroot --webroot-path=/var/www/certbot -d ieee.nitk.ac.in --agree-tos --email anirudhprabhakaran3@gmail.com  --non-interactive
+
+networks:
+  corpus_network:
+
+volumes:
+  static_files:
+  media_files:
+  postgres_data:
+  certbot_etc:
+  certbot_var:
+  certbot_www:

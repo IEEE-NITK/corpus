@@ -1,0 +1,110 @@
+{
+  "interactivity": {
+    "detect_on": "canvas",
+    "events": {
+      "onclick": {
+        "enable": false,
+        "mode": "repulse"
+      },
+      "onhover": {
+        "enable": false,
+        "mode": "bubble"
+      },
+      "resize": false
+    },
+    "modes": {
+      "bubble": {
+        "distance": 250,
+        "duration": 2,
+        "opacity": 0,
+        "size": 0,
+        "speed": 3
+      },
+      "grab": {
+        "distance": 400,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      },
+      "repulse": {
+        "distance": 400,
+        "duration": 0.4
+      }
+    }
+  },
+  "particles": {
+    "color": {
+      "value": "#03e9f4"
+    },
+    "line_linked": {
+      "color": "#ffffff",
+      "distance": 150,
+      "enable": false,
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 600
+      },
+      "bounce": false,
+      "direction": "none",
+      "enable": true,
+      "out_mode": "out",
+      "random": true,
+      "speed": 1,
+      "straight": false
+    },
+    "number": {
+      "density": {
+        "enable": true,
+        "value_area": 800
+      },
+      "value": 160
+    },
+    "opacity": {
+      "anim": {
+        "enable": true,
+        "opacity_min": 0,
+        "speed": 1,
+        "sync": false
+      },
+      "random": true,
+      "value": 1
+    },
+    "shape": {
+      "image": {
+        "height": 100,
+        "src": "img/github.svg",
+        "width": 100
+      },
+      "polygon": {
+        "nb_sides": 5
+      },
+      "stroke": {
+        "color": "#000000",
+        "width": 0
+      },
+      "type": "circle"
+    },
+    "size": {
+      "anim": {
+        "enable": false,
+        "size_min": 0.3,
+        "speed": 4,
+        "sync": false
+      },
+      "random": true,
+      "value": 3
+    }
+  },
+  "retina_detect": true
+}

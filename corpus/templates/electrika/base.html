@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+| Electrika
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css" />
+
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+{% endblock %}
+
+
+{% block dark_mode_toggle %}
+<button class="btn btn-ghost btn-outline btn-circle fixed bottom-10 right-10" onclick="toggleTheme()" id="dark-mode-button">
+  <span class="material-symbols-outlined" id="dark-mode-toggle">
+  </span>
+</button>
+
+<script>
+  $(document).ready(() => {
+      const theme = localStorage.getItem("corpusTheme") || (window.matchMedia('(prefers-color-scheme: light)').matches ? "winter" : "night");
+      const icon = theme == "winter" ? "dark_mode" : "light_mode";
+      document.documentElement.setAttribute("data-theme", theme);
+      $("#dark-mode-toggle").html(icon);
+      updateParticles(theme);
+      updateIndex(theme);
+  })
+
+  const toggleTheme = () => {
+      let theme = localStorage.getItem("corpusTheme") || "winter";
+      theme = theme == "winter" ? "night" : "winter";
+      const icon = theme == "winter" ? "dark_mode" : "light_mode";
+      document.documentElement.setAttribute("data-theme", theme);
+      $("#dark-mode-toggle").html(icon);
+      updateIndex(theme);
+      localStorage.setItem("corpusTheme", theme);
+  }
+
+  const updateIndex = (theme) => {
+      if (theme == "winter") {
+          $("#ieee-white").hide();
+          $("#ieee-blue").show();
+
+          $(".dark-logo").hide();
+          $(".light-logo").show();
+      } else {
+          $("#ieee-blue").hide();
+          $("#ieee-white").show();
+
+          $(".light-logo").hide();
+          $(".dark-logo").show();
+      }
+  }
+</script>
+
+{% endblock %}
+
+{% block script %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const theme = "night";
+      const currTheme = localStorage.getItem("corpusTheme");
+      const themeButton = document.getElementById("dark-mode-button");
+      themeButton.remove();
+      localStorage.setItem("corpusThemeArchive", currTheme);
+      localStorage.setItem("corpusTheme", theme);
+      document.documentElement.setAttribute("data-theme", theme);
+  });
+
+  window.addEventListener("beforeunload", function (event) {
+      const oldTheme = localStorage.getItem("corpusThemeArchive");
+      localStorage.setItem("corpusTheme", oldTheme);
+  })
+</script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    function setParticlesConfig(config) {
+        particlesJS('particles-js', config);
+    }
+    fetch('{% static 'js/electrika/particles-dark.json' %}')
+        .then(response => response.json())
+        .then(particlesConfig => {
+            setParticlesConfig(particlesConfig);
+        })
+        .catch(error => console.error('Error fetching particles config:', error));
+
+</script>
+{% endblock %}

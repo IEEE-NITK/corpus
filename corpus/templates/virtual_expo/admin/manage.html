@@ -1,0 +1,198 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Manage
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "virtual_expo/header.html" with text="Manage Report" %}
+    <div class="m-10">
+        <div class="p-5 border rounded-lg">
+            <h1 class="text-2xl font-bold">Members</h1>
+            <div class="overflow-x-auto my-2">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>SIG</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for member in members %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ member.user }}</td>
+                            <td>{{ member.sig }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="p-5 border rounded-lg">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div role="alert" class="alert alert-error mt-1">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="w-full my-2">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.title.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.ready_for_approval.id_for_label }}">Ready for Approval?</label>
+                    <div class="h-8 w-8">
+                        {{ form.ready_for_approval }}
+                    </div>
+                    {% if form.ready_for_approval.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.ready_for_approval.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.approver.id_for_label }}">Approver</label>
+                    <div>
+                        {{ form.approver }}
+                    </div>
+                    {% if form.approver.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.approver.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.approved.id_for_label }}">Approved?</label>
+                    <div class="h-8 w-8">
+                        {{ form.approved }}
+                    </div>
+                    {% if form.approved.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.approved.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="my-5">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+                <div class="divider my-5">
+                    REPORT CONTENT
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.abstract.id_for_label }}">Abstract</label>
+                    {{ form.abstract }}
+                    {% if form.abstract.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.abstract.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
+                    {{ form.thumbnail }}
+                    {% if form.thumbnail.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.thumbnail.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.report_type.id_for_label }}">Report Type</label>
+                    {{ form.report_type }}
+                    {% if form.report_type.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.report_type.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.year.id_for_label }}">Year</label>
+                    {{ form.year }}
+                    {% if form.year.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.year.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    <div>
+                        {{ form.content | safe }}
+                    </div>
+                    {% if form.content.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.created_at.id_for_label }}">Created At</label>
+                    {{ form.created_at }}
+                    {% if form.created_at.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.created_at.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.approved_at.id_for_label }}">Approved At</label>
+                    {{ form.approved_at }}
+                    {% if form.approved_at.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.approved_at.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

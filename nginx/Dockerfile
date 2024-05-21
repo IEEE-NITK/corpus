@@ -1,5 +1,7 @@
 FROM nginx:stable-alpine
 
+RUN apk --no-cache add certbot
+
 RUN mkdir /logs
 
 COPY default.conf /etc/nginx

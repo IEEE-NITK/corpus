@@ -1,0 +1,31 @@
+<ul class="mx-2">
+    <li class="text-lg font-bold text-white my-2">General</li>
+    <li><a href="{% url 'index' %}">Home</a></li>
+    <li><a href="{% url 'about_us' %}">About Us</a></li>
+    <li><a href="https://ieee-nitk.github.io/blog/">Blog</a></li>
+    <li><a href="https://ieee-nitk.github.io/gyan/">Gyan</a></li>
+    <li><a href="{% url 'virtual_expo_home' %}">Virtual Expo</a>
+    </li>
+</ul>
+
+<ul class="mx-2">
+    <li class="text-lg font-bold text-white my-2">SIGs</li>
+    <li><a href="{% url 'sig' sig_name='compsoc' %}">CompSoc</a></li>
+    <li><a href="{% url 'sig' sig_name='diode' %}">Diode</a></li>
+    <li><a href="{% url 'sig' sig_name='piston' %}">Piston</a></li>
+</ul>
+
+<ul class="mx-2">
+    <li class="text-lg font-bold text-white my-2">Affinity Groups</li>
+    <li><a href="{% url 'sig' sig_name='wie' %}">WiE</a></li>
+    <li><a href="{% url 'sig' sig_name='sight' %}">SIGHT</a></li>
+</ul>
+
+<ul class="mx-2">
+    <li class="text-lg font-bold text-white my-2">Events</li>
+    <li><a href="{% url 'embedathon_home' %}">Embedathon</a></li>
+    <li><a href="{% url 'impulse_home' %}">Impulse</a></li>
+    <li><a href="{% url 'electrika_home' %}">Electrika</a></li>
+    <li><a href="{% url 'skyward_expedition_home' %}">Skyward Expedition</a></li>
+    <li><a href="{% url 'robotrix_home' %}">Robotrix</a></li>
+</ul>

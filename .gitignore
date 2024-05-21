@@ -178,6 +178,6 @@ cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
-# Node Modules
+# JS Toolchain
 node_modules/
-.svelte-kit/
+tailwind-min.css

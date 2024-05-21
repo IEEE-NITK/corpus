@@ -1,0 +1,410 @@
+{% extends 'electrika/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Electrika
+{% endblock %}
+
+{% block style %}
+<style>
+    .hero {
+        background-color: rgba(0, 0, 0);
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: overlay;
+    }
+    /* Small screens (default full width) */
+    @media (min-width: 640px) {
+        #schedule {
+            max-width: 70%;
+        }
+    }
+
+    /* Medium screens */
+    @media (min-width: 768px) {
+        #schedule {
+            max-width: 80%;
+        }
+    }
+
+    /* Large screens */
+    @media (min-width: 1024px) {
+        #schedule {
+            max-width: 50%;
+        }
+    }
+
+    /* Extra-large screens */
+    @media (min-width: 1280px) {
+        #schedule {
+            max-width: 50%;
+        }
+    }
+
+    .tick {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
+    }
+
+    .arrowdown {
+        background-color: currentColor;
+        -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+        mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
+    }
+
+    #id_payment_proof {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid currentColor;
+        border-radius: 0.375rem;
+    }
+</style>
+<link rel="stylesheet" href="{% static 'css/electrika.css' %}">
+{% endblock %}
+
+{% block content %}
+<section
+class="hero min-h-[50vh] min-w-screen">
+<div id="particles-js" class="h-screen w-full"></div>
+<div class="hero-content text-center flex-col">
+    <h1 class="text-xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE NITK</h1>
+    <div class="wrapper">
+        <div class="neon-wrapper">
+          <span class="txt">ELECTRIKA</span>
+          <span class="gradient"></span>
+          <span class="dodge"></span>
+        </div>
+    </div>
+    <p class="text-md md:text-lg lg:text-xl mt-10 bg-black dark:bg-white bg-opacity-30 dark:bg-opacity-40 mt-10 text-white text-opacity-50 dark:text-white p-3">POWER ELECTRONICS HACKATHON</p>
+    <p class="text-2xl md:text-3xl lg:text-4xl mt-10 text-white dark:text-white pb-10">23<sup>rd</sup> January 2024 - 3<sup>rd</sup> Feb 2024</p>
+    <a class="registerBtn" href="{% url 'electrika_home' %}">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Home Page
+    </a>
+    <br>
+</div>
+</section>
+
+<section
+    class="about bg-base-100 text-center prose px-1 sm:px-10  lg:px-40 py-10 min-w-full">
+    <div class="prose max-w-none mx-1 md:mx-10 my-10">
+        <div class="flex flex-col md:flex-row gap-2">
+            <div class="basis-2/4 rounded-lg bg-gradient-to-br from-sky-50 to-blue-300 dark:from-gray-800 dark:to-base-100">
+                <div class="card ">
+                    <div class="card-body pt-0">
+                        {% if in_team %}
+                            <div class="flex justify-between items-center">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="card-title">Team: {{ team.team_name }}</h3>
+                                    {% comment %} edit button {% endcomment %}
+                                    <button class="btn btn-sm btn-circle mx-3" onclick="editteam_modal.showModal()" title="Edit Team"> ✎ </button>
+                                    <dialog id="editteam_modal" class="modal">
+                                        <div class="modal-box">
+                                            <form method="dialog">
+                                                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                            </form>
+                                            <h3 class="font-bold text-lg">Edit Team</h3>
+                                            <form method="post" action="{% url 'electrika_create_team' %}" class="py-5">
+                                                {% csrf_token %}
+                                                <div class="my-2">
+                                                    <label for='{{team_creation_form.team_name}}'> Team Name</label>
+                                                    {{ team_creation_form.team_name }}
+                                                    {% if team_creation_form.team_name.errors %}
+                                                        <div class="my-1">
+                                                            <div role="alert" class="alert alert-error">
+                                                                {{ team_creation_form.team_name.errors }}
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="my-2">
+                                                    <button class="btn btn-primary btn-block text-white hover:text-white" type="submit">Update Team Details</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center w-1/2 mx-auto">
+                                <h4> Join the WhatsApp Group </h4>
+                                <a href="https://chat.whatsapp.com/KnFzPTUIVs0EkQ0XSFY7Ao" target="_blank" class="text-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 100 100">
+                                        <path fill="#ee3e54" d="M13 27A2 2 0 1 0 13 31A2 2 0 1 0 13 27Z"></path><path fill="#f1bc19" d="M77 12A1 1 0 1 0 77 14A1 1 0 1 0 77 12Z"></path><path fill="#fce0a2" d="M50 13A37 37 0 1 0 50 87A37 37 0 1 0 50 13Z"></path><path fill="#f1bc19" d="M83 11A4 4 0 1 0 83 19A4 4 0 1 0 83 11Z"></path><path fill="#ee3e54" d="M87 22A2 2 0 1 0 87 26A2 2 0 1 0 87 22Z"></path><path fill="#fbcd59" d="M81 74A2 2 0 1 0 81 78 2 2 0 1 0 81 74zM15 59A4 4 0 1 0 15 67 4 4 0 1 0 15 59z"></path><path fill="#ee3e54" d="M25 85A2 2 0 1 0 25 89A2 2 0 1 0 25 85Z"></path><path fill="#fff" d="M18.5 51A2.5 2.5 0 1 0 18.5 56A2.5 2.5 0 1 0 18.5 51Z"></path><path fill="#f1bc19" d="M21 66A1 1 0 1 0 21 68A1 1 0 1 0 21 66Z"></path><path fill="#fff" d="M80 33A1 1 0 1 0 80 35A1 1 0 1 0 80 33Z"></path><path fill="#add4a1" d="M51.5,25C38.5,25,28,35.5,28,48.5c0,4.5,1.2,8.6,3.4,12.2L28,71.1l10.1-3.3c3.8,2.7,8.4,4.2,13.4,4.2 C64.5,72,75,61.5,75,48.5S64.5,25,51.5,25z"></path><path fill="#472b29" d="M51.5,72.7c-4.9,0-9.5-1.4-13.5-4.1l-9.7,3.2c-0.3,0.1-0.5,0-0.7-0.2c-0.2-0.2-0.3-0.5-0.2-0.7l3.3-10.1 c-2.2-3.7-3.3-7.9-3.3-12.3c0-13.3,10.9-24.2,24.2-24.2s24.2,10.9,24.2,24.2S64.8,72.7,51.5,72.7z M38.1,67.1c0.1,0,0.3,0,0.4,0.1 c3.8,2.7,8.3,4.1,13,4.1c12.6,0,22.8-10.2,22.8-22.8c0-12.6-10.2-22.8-22.8-22.8c-12.6,0-22.8,10.2-22.8,22.8 c0,4.2,1.1,8.3,3.3,11.8c0.1,0.2,0.1,0.4,0.1,0.6L29.1,70l8.7-2.9C37.9,67.1,38,67.1,38.1,67.1z"></path><path fill="#5aba9e" d="M66.6,37.1c-3.5-4.5-8.9-7.5-15.1-7.5c-10.4,0-18.9,8.5-18.9,18.9c0,3.9,1.2,7.6,3.3,10.6l-2,6.2l6-1.9 c3.2,2.5,7.3,4.1,11.7,4.1c10.4,0,18.9-8.5,18.9-18.9c0-1.1-0.1-2.1-0.3-3.2"></path><path fill="#472b29" d="M51.5,67.9c-4.3,0-8.4-1.4-11.8-4L34,65.8c-0.2,0.1-0.4,0-0.5-0.1c-0.1-0.1-0.2-0.3-0.1-0.5l1.9-6 c-2.1-3.2-3.2-6.9-3.2-10.7c0-10.7,8.7-19.4,19.4-19.4c6.1,0,11.8,2.8,15.5,7.7c0.2,0.2,0.1,0.5-0.1,0.7c-0.2,0.2-0.5,0.1-0.7-0.1 c-3.5-4.6-8.9-7.3-14.7-7.3c-10.1,0-18.4,8.3-18.4,18.4c0,3.7,1.1,7.3,3.2,10.3c0.1,0.1,0.1,0.3,0.1,0.4l-1.7,5.3l5-1.6 c0.2-0.1,0.3,0,0.5,0.1c3.3,2.6,7.2,4,11.4,4c10.1,0,18.4-8.3,18.4-18.4c0-1-0.1-2.1-0.3-3.1c0-0.3,0.1-0.5,0.4-0.6 c0.3,0,0.5,0.1,0.6,0.4c0.2,1.1,0.3,2.2,0.3,3.2C70.9,59.2,62.2,67.9,51.5,67.9z"></path><g><path fill="#5aba9e" d="M69.5,42.6c-0.4-1.1-0.9-2.2-1.4-3.3"></path><path fill="#472b29" d="M69.5,43.1c-0.2,0-0.4-0.1-0.5-0.3c-0.4-1.1-0.8-2.2-1.4-3.2c-0.1-0.2,0-0.5,0.2-0.7c0.2-0.1,0.5,0,0.7,0.2 c0.6,1.1,1.1,2.2,1.5,3.3c0.1,0.3-0.1,0.5-0.3,0.6C69.6,43.1,69.5,43.1,69.5,43.1z"></path></g><g><path fill="#fdfcee" d="M59.1,58.7c-1.4,0-3.4-0.5-6.3-1.7c-3.8-1.5-7.6-4.6-10.7-8.8l-0.2-0.2c-0.9-1.2-2.5-3.6-2.5-6 c-0.1-1.8,0.7-3.6,2.2-4.8c0.5-0.4,1.2-0.6,1.8-0.6l0.2,0l0.7,0c0,0,0.1,0,0.2,0s0.1,0,0.2,0c0.1,0,0.2,0.1,0.3,0.2 c0.2,0.2,0.3,0.4,0.4,0.7l0.8,1.7c0.6,1.3,1.1,2.5,1.2,2.6c0.1,0.1,0.3,0.5,0.1,0.9c-0.2,0.3-0.4,0.6-0.6,0.8 c-0.1,0.2-0.2,0.3-0.3,0.4L46.3,44c-0.1,0.1-0.4,0.4-0.6,0.6c-0.5,0.5-0.6,1.1-0.3,1.6c1,1.6,2.2,3,3.7,4.2c1.5,1.3,3.2,2.3,5.1,3 l0.2,0.1c0.2,0.1,0.5,0.2,0.8,0.2c0.5,0,0.9-0.2,1.2-0.5c0.5-0.6,1-1.2,1.5-1.8l0.3-0.4c0.1-0.1,0.3-0.4,0.7-0.4 c0.1,0,0.3,0,0.4,0.1c0.5,0.2,3.3,1.4,4.3,1.9l0.4,0.2l0.5,0.2c0.2,0.1,0.3,0.2,0.3,0.4c0,0.9-0.1,1.7-0.4,2.5 c-0.5,1.2-2.5,2.4-4.1,2.7C60,58.7,59.6,58.7,59.1,58.7z"></path><path fill="#472b29" d="M44.4,37.1c0.1,0,0.1,0,0.2,0c0.1,0.1,0.2,0.3,0.3,0.5l0.6,1.3c0.8,1.7,1.3,3,1.4,3.2s0.1,0.3,0.1,0.4 c-0.1,0.3-0.3,0.5-0.5,0.7l-0.1,0.1c-0.1,0.1-0.3,0.3-0.4,0.4c-0.1,0.1-0.4,0.4-0.6,0.6c-0.7,0.6-0.8,1.5-0.3,2.2 c1,1.6,2.3,3.1,3.8,4.3c1.5,1.3,3.3,2.3,5.2,3l0.2,0.1c0.3,0.1,0.6,0.2,0.9,0.2c0.6,0,1.2-0.2,1.6-0.6c0.5-0.6,1.1-1.2,1.5-1.8 l0.3-0.4c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.5,0.2,3.2,1.4,4.3,1.9l0.4,0.2l0.5,0.2c0,0.8-0.1,1.6-0.4,2.3 c-0.4,1.1-2.2,2.1-3.7,2.4c-0.3,0.1-0.6,0.1-1.1,0.1c-1,0-2.7-0.3-6.2-1.6c-3.7-1.4-7.5-4.5-10.5-8.6l-0.2-0.2 c-0.9-1.2-2.4-3.4-2.4-5.7c-0.1-1.7,0.7-3.3,2-4.5c0.4-0.3,1-0.5,1.5-0.5c0,0,0.1,0,0.1,0c0.3,0,0.5,0,0.7,0 C44.2,37.1,44.3,37.1,44.4,37.1 M44.4,36.1c-0.1,0-0.1,0-0.2,0h-0.6c-0.1,0-0.1,0-0.2,0c-0.8,0-1.5,0.3-2.1,0.7c0,0,0,0,0,0 c-1.6,1.3-2.4,3.3-2.4,5.2c0,2.5,1.7,5,2.7,6.3l0.2,0.2c3.1,4.2,7,7.4,10.9,8.9c3,1.2,5.1,1.7,6.5,1.7c0.6,0,1-0.1,1.3-0.1 c1.7-0.3,3.9-1.5,4.4-3c0.3-0.8,0.5-1.8,0.5-2.7c0-0.4-0.3-0.7-0.6-0.9l-0.5-0.2l-0.4-0.2c-0.9-0.4-3.8-1.8-4.4-2 c-0.1,0-0.3-0.1-0.6-0.1c-0.7,0-1,0.5-1.1,0.6l-0.3,0.4c-0.5,0.6-0.9,1.2-1.4,1.7c-0.2,0.2-0.5,0.3-0.9,0.3c-0.2,0-0.4,0-0.5-0.1 l-0.2-0.1c-1.8-0.7-3.5-1.6-4.9-2.9c-1.4-1.2-2.6-2.6-3.6-4.1c-0.2-0.3-0.1-0.7,0.1-0.9c0,0,0.1-0.1,0.1-0.1 c0.2-0.2,0.4-0.4,0.5-0.6l0.1-0.1c0.1-0.1,0.2-0.2,0.3-0.3l0,0c0.3-0.3,0.5-0.6,0.7-0.9c0.2-0.3,0.3-0.8-0.1-1.4 c-0.1-0.2-0.6-1.3-1.2-2.6l-0.2-0.5l-0.6-1.3c-0.1-0.3-0.3-0.6-0.5-0.8c-0.2-0.2-0.4-0.3-0.6-0.3C44.5,36.1,44.4,36.1,44.4,36.1 L44.4,36.1z"></path></g>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="rounded-lg p-3 flex flex-col gap-2">
+                                <div class="flex justify-between items-center">
+                                    <h3>Team Members</h3>
+                                    <div class="bg-green-500 text-white rounded-full px-3 py-1 text-sm dark:bg-yellow-500 dark:text-black">
+                                        <strong class="text-black">Team Size</strong>: {{ team_count }} / {{ max_count }}
+                                    </div>
+                                </div>
+                                {% for member in members %}
+                                <div class="member-list mx-auto">
+                                    <div class="mb-4 mx-auto flex justify-between items-center">
+                                        {{ member.user }}
+                                        <button class="btn btn-sm btn-circle mx-3" title="View Member" onclick="member_modal_{{ member.pk }}.showModal()">
+                                            view
+                                        </button>
+                                        <dialog id="member_modal_{{ member.pk }}" class="modal">
+                                            <div class="modal-box">
+                                                <form method="dialog">
+                                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 dark:text-white">✕</button>
+                                                </form>
+                                                <h3 class="font-bold text-lg">Member Details</h3>
+                                                {% comment %}  Member Details Table {% endcomment %}
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="font-bold">Name</td>
+                                                            <td>{{ member.user }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Email</td>
+                                                            <td>{{ member.user.email }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Phone Number</td>
+                                                            <td>{{ member.user.phone_no }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">College</td>
+                                                            <td>{{ member.college_name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">Roll Number</td>
+                                                            <td>{{ member.roll_no }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="font-bold">IEEE Member</td>
+                                                            <td>{{ member.member_ieee_member | yesno:"Yes,No" }}</td>
+                                                        </tr>
+                                                        {% if member.ieee_member %}
+                                                        <tr>
+                                                            <td class="font-bold">IEEE Membership Number</td>
+                                                            <td>{{ member.ieee_membership_no }}</td>
+                                                        </tr>
+                                                        {% endif %}
+                                                        <tr>
+                                                            <td class="font-bold">Member from NITK</td>
+                                                            <td>{{ member.from_nitk | yesno:"Yes,No" }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </dialog>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% if is_leader and registration_active and not team_full %}
+                                <div class="flex flex-col w-full">
+                                    <div class="divider divider-primary">OR</div>
+                                </div>
+                                <div>
+                                    <h4>Active Invites</h4>
+                                    {% if invites_from_team %}
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Email Address</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for invite in invites_from_team %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ invite.invite_email }}</td>
+                                                    <td>
+                                                        <a href="{% url 'electrika_delete_invite' pk=invite.pk %}"
+                                                        class="btn btn-sm btn-outline btn-error m-1">Revoke</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <p>You have no active invites.</p>
+                                    {% endif %}
+                                    <h4>Send Invite</h4>
+                                    <form method="post" action="{% url 'electrika_create_invite' %}">
+                                        {% csrf_token %}
+                                        <div class="w-full my-2">
+                                            <label for="{{ invite_form.invite_email.id_for_label }}">Email
+                                                Address</label>
+                                            {{ invite_form.invite_email }}
+                                            <p class="text-sm font-bold">Please enter the email that your teammate will
+                                                be registering with on Corpus.</p>
+                                            {% if invite_form.invite_email.errors %}
+                                                <div class="my-1">
+                                                    <div role="alert" class="alert alert-error">
+                                                        {{ invite_form.invite_email.errors }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-actions amt-5">
+                                            <button class="btn btn-primary btn-block">Send Invite</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        {% elif registration_active %}
+                            <div class="alert my-10 rounded-md bg-base-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="stroke-current shrink-0 w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>
+                                    <span class="text-primary text-lg">
+                                    For teams with more than one participant:
+                                    </span>
+                                    <br>
+                                    Each member must create an account on Corpus.<br>
+                                    One member should take the lead and create the team during Electrika registration, sending invites to teammates.<br>
+                                    Other team members can easily join the team by accepting the invites during their Electrika registration process.<br>
+                                    <br>
+                                    <span class="text-primary text-lg">
+                                        Note for solo participants :
+                                    </span>
+                                    <br>
+                                    Solo participants looking to team up with others, just hit the 'Opt-In' button to complete registration<br>
+                                    {% if not in_team and electrika_user.to_be_teamed_up %}
+                                        <a href="{% url 'electrika_opt_out' %}">
+                                            <button class="btn btn-accent my-5" href="{% url 'electrika_opt_out' %}">Opt Out</button>
+                                        </a>
+                                        <p class="text-sm font-bold">You have opted to be teamed up. You will be assigned a
+                                            team by the organizers.
+                                        </p>
+                                    {% elif not in_team and not electrika_user.to_be_teamed_up %}
+                                        <a href = "{% url 'electrika_opt_in' %}">
+                                            <button class="btn btn-accent my-5" href="{% url 'electrika_opt_in' %}">Opt In</button>
+                                        </a>
+                                        <p class="text-sm font-bold">You have opted to not be teamed up. You will have to
+                                            create a team or join an existing team to complete your registration for
+                                            Electrika.
+                                        </p>
+                                    {% endif %}
+                                    If you prefer solo participation, go ahead and create your own team to complete registration
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="card-title">Current Invites</h3>
+                                {% if invites_for_user %}
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Team Name</th>
+                                            <th>Invited By</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for invite in invites_for_user %}
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ invite.inviting_team.team_name }}</td>
+                                            <td>{{ invite.inviting_team.team_leader }}</td>
+                                            <td>
+                                                <a href="{% url 'electrika_accept_invite' pk=invite.pk %}"
+                                                class="btn btn-sm btn-outline btn-success m-1">Accept</a>
+                                                <a href="{% url 'electrika_delete_invite' pk=invite.pk %}"
+                                                class="btn btn-sm btn-outline btn-error m-1">Reject</a>
+                                            </td>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% else %}
+                                    <p>You have no invites.</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <div class="divider divider-primary">OR</div>
+                            </div>
+                            <div>
+                                <h3>Create a team</h3>
+                                <form method="post" action="{% url 'electrika_create_team' %}">
+                                    {% csrf_token %}
+
+                                    <div class="w-full my-2">
+                                        <label for="{{ team_creation_form.team_name.id_for_label }}">Team Name</label>
+                                        {{ team_creation_form.team_name }}
+                                        {% if team_creation_form.team_name.errors %}
+                                            <div class="my-1">
+                                                <div role="alert" class="alert alert-error">
+                                                    {{ team_creation_form.team_name.errors }}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="card-actions mt-5 mb-10">
+                                        <button class="btn btn-primary btn-block">Create Team</button>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="{% if registration_active %} basis-2/4 {% else %} basis-3/4 {% endif %} rounded-lg bg-gradient-to-br from-blue-300 to-sky-50 dark:from-gray-800 dark:to-base-100">
+                <h2 class="text-center my-3">Announcements</h2>
+                <div class="p-3">
+                    {% if announcements %}
+                        <ul>
+                            {% for announcement in announcements %}
+                                <li>
+                                    {{ announcement.content | linebreaks }}
+                                    {% if announcement.url_link %}
+                                        <a href="{{ announcement.url_link }}">{{ announcement.url_link_text }}</a>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>You have no announcements as of now.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkCheckbox = document.getElementById("{{ member2_form.member_from_nitk.id_for_label }}");
+            let collegeField = document.getElementById("college-name-field");
+            let rollField = document.getElementById("roll-no-field");
+
+            function toggleCollegeField() {
+                collegeField.style.display = nitkCheckbox.checked ? "none" : "block";
+                rollField.style.display = nitkCheckbox.checked ? "block" : "none";
+            }
+
+            toggleCollegeField();
+            nitkCheckbox.addEventListener("change", toggleCollegeField);
+
+            let ieeeCheckbox = document.getElementById("{{ member2_form.member_ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+            }
+
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        });
+    </script>
+{% endblock %}

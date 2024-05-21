@@ -1,0 +1,55 @@
+<button class="btn btn-ghost btn-outline btn-circle fixed bottom-10 right-10" onclick="toggleTheme()" id="dark-mode-button">
+    <span class="material-symbols-outlined" id="dark-mode-toggle">
+    </span>
+</button>
+
+<script>
+    $(document).ready(() => {
+        const theme = localStorage.getItem("corpusTheme") || (window.matchMedia('(prefers-color-scheme: light)').matches ? "winter" : "night");
+        const icon = theme == "winter" ? "dark_mode" : "light_mode";
+        document.documentElement.setAttribute("data-theme", theme);
+        $("#dark-mode-toggle").html(icon);
+        updateParticles(theme);
+        updateIndex(theme);
+    })
+
+    const toggleTheme = () => {
+        let theme = localStorage.getItem("corpusTheme") || "winter";
+        theme = theme == "winter" ? "night" : "winter";
+        const icon = theme == "winter" ? "dark_mode" : "light_mode";
+        document.documentElement.setAttribute("data-theme", theme);
+        $("#dark-mode-toggle").html(icon);
+        updateParticles(theme);
+        updateIndex(theme);
+        localStorage.setItem("corpusTheme", theme);
+    }
+
+    const updateParticles = (theme) => {
+        try {
+            if (theme == "winter") {
+                particlesJS.load('particles-js', '/static/js/particles.json');
+            } else {
+                particlesJS.load('particles-js', '/static/js/particles-dark.json');
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+    const updateIndex = (theme) => {
+        if (theme == "winter") {
+            $("#ieee-white").hide();
+            $("#ieee-blue").show();
+
+            $(".dark-logo").hide();
+            $(".light-logo").show();
+        } else {
+            $("#ieee-blue").hide();
+            $("#ieee-white").show();
+
+            $(".light-logo").hide();
+            $(".dark-logo").show();
+        }
+    }
+</script>

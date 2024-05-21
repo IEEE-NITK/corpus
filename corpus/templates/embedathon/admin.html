@@ -1,0 +1,18 @@
+{% extends 'embedathon/base.html' %}
+
+{% block title %}
+    Admin
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose my-10 mx-auto">
+        <h1 class="text-center">Admin Dashboard</h1>
+        <a href="{% url 'embedathon_admin_teams' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">Team
+            Management</a>
+        <a href="{% url 'embedathon_admin_users' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">User
+            Management</a>
+        <a href="{% url 'embedathon_announcements' %}" class="btn btn-wide btn-info text-black font-bold no-underline m-1">Announcements
+            Management</a>
+    </div>
+{% endblock %}

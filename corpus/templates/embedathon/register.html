@@ -1,0 +1,172 @@
+{% extends 'embedathon/base.html' %}
+
+{% block title %}
+    Register
+    {{ block.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="my-10 w-2/3 mx-auto prose">
+        <h1 class="text-center">Register for Embedathon</h1>
+        <form method="post" action="{% url 'embedathon_register' %}" class="py-5">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="my-2">
+                <label for="{{ form.from_nitk.id_for_label }}">Are you from NITK?</label>
+                <div class="h-8 w-8">
+                    {{ form.from_nitk }}
+                </div>
+                {% if form.from_nitk.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.from_nitk.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="my-2" id="nitk-roll-number-field">
+                <label for="{{ form.nitk_roll_number.id_for_label }}">Enter NITK Roll Number:</label>
+                {{ form.nitk_roll_number }}
+                {% if form.nitk_roll_number.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.nitk_roll_number.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="college-name-field">
+                <label for="{{ form.college_name.id_for_label }}">College Name</label>
+                {{ form.college_name }}
+                {% if form.college_name.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.college_name.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.course.id_for_label }}">Course</label>
+                {{ form.course }}
+                {% if form.course.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.course.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.year.id_for_label }}">Year (1, 2, etc.)</label>
+                {{ form.year }}
+                {% if form.year.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.year.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.branch.id_for_label }}">Branch</label>
+                {{ form.branch }}
+                {% if form.branch.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.branch.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.ieee_member.id_for_label }}">Are you an IEEE Member?</label>
+                <div class="h-8 w-8">
+                    {{ form.ieee_member }}
+                </div>
+                {% if form.ieee_member.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_member.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="ieee-membership-number-field">
+                <label for="{{ form.ieee_membership_no.id_for_label }}">Please enter your IEEE Membership Number</label>
+                {{ form.ieee_membership_no }}
+                {% if form.ieee_membership_no.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.ieee_membership_no.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2" id="cass-member-field">
+                <label for="{{ form.cass_member.id_for_label }}">Do you have CASS Membership?</label>
+                <div class="h-8 w-8">
+                    {{ form.cass_member }}
+                </div>
+                {% if form.cass_member.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.cass_member.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <button class="btn btn-primary btn-block">Register for Embedathon</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ block.super }}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let nitkChackbox = document.getElementById("{{ form.from_nitk.id_for_label }}");
+            let collegeField = document.getElementById("college-name-field");
+            let nitkRollNumberField = document.getElementById("nitk-roll-number-field");
+
+            function toggleCollegeField() {
+                collegeField.style.display = nitkChackbox.checked ? "none" : "block";
+                nitkRollNumberField.style.display = nitkChackbox.checked ? "block" : "none";
+            }
+
+            toggleCollegeField();
+            nitkChackbox.addEventListener("change", toggleCollegeField);
+
+            let ieeeCheckbox = document.getElementById("{{ form.ieee_member.id_for_label }}");
+            let membershipField = document.getElementById("ieee-membership-number-field");
+            let cassField = document.getElementById("cass-member-field");
+
+            function toggleIEEE() {
+                membershipField.style.display = ieeeCheckbox.checked ? "block" : "none";
+                cassField.style.display = ieeeCheckbox.checked ? "block" : "none";
+            }
+
+            toggleIEEE();
+            ieeeCheckbox.addEventListener("change", toggleIEEE);
+        })
+    </script>
+{% endblock %}

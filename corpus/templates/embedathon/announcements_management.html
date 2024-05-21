@@ -1,0 +1,97 @@
+{% extends 'embedathon/base.html' %}
+
+{% block title %}
+    Announcements Management
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose mx-auto my-10">
+        <h1 class="text-center">Announcements Management</h1>
+
+        <div>
+            <form method="post" action="{% url 'embedathon_announcements' %}">
+                {% csrf_token %}
+                <div class="w-full my-2">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link.id_for_label }}">URL Link</label>
+                    {{ form.url_link }}
+                    {% if form.url_link.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.url_link_text.id_for_label }}">URL Link Text</label>
+                    {{ form.url_link_text }}
+                    {% if form.url_link_text.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.url_link_text.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.announcement_mailing.id_for_label }}">Email options</label>
+                    {{ form.announcement_mailing }}
+                    {% if form.announcement_mailing.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.announcement_mailing.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary text-white btn-block">Add Announcements</button>
+            </form>
+        </div>
+
+        <div>
+            <h2 class="text-center">Current Announcements</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Content</th>
+                    <th>URL Link</th>
+                    <th>URL Link Content</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if announcements %}
+                    {% for announcement in announcements %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ announcement.content }}</td>
+                            <td>{{ announcement.url_link }}</td>
+                            <td>{{ announcement.url_link_text }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">No announcements yet.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

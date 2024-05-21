@@ -1,0 +1,35 @@
+{% extends 'emails/farewell/base.html' %}
+
+{% block title %}
+    IEEE Farewell   
+{% endblock %}
+
+{% block content %}
+    <h1>Invitation to IEEE Farewell 2024</h1>
+    <div style="font-size: 1.2em;">
+        Dear {{name}},
+        <br><br>
+        It has been a wonderful time with you. Hell lot of unforgettable memories... However, with the approaching end of this journey, we'd like to have another everlasting one by sending your batch off with the most epic farewell 💐💐
+        <br>
+        <br>
+        Date: 23rd March 2024
+        <br>
+        Time: 6:00 PM
+        <br>
+        Location: Summer Sands Resort, Ullal
+        <br>
+        <br>
+        Commute to and from the venue will be provided. Further information regarding this will be conveyed later.
+        <br>
+        <p>
+            <a href="{{ url_link }}">PLEASE CONFIRM YOUR PRESENCE BY CLICKING HERE </a>
+        </p>
+        <br>
+        Looking forward to have a beautiful moment together.
+        <br>
+        Cheers,
+        <br>
+        Your juniors🥰
+    </div>
+
+{% endblock %}

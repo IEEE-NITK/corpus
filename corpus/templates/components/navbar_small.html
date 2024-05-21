@@ -1,0 +1,23 @@
+{% load static %}
+<div class="navbar bg-primary text-primary-content sticky top-0 z-10">
+    <div class="navbar-start">
+        <div class="dropdown">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+            </label>
+            {% include "components/navbar_dropdown.html" %}
+        </div>
+    </div>
+    <div class="navbar-center">
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">
+            <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="dark-logo h-10">
+            <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="light-logo h-10">
+        </a>
+    </div>
+    <div class="navbar-end">
+        {% include "components/navbar_right.html" %}
+    </div>
+</div>

@@ -9,7 +9,7 @@ services:
     expose:
       - ${POSTGRES_PORT}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready", "-U corpus"]
+      test: [ "CMD-SHELL", "pg_isready", "-U corpus" ]
       interval: 30s
       timeout: 30s
       retries: 5
@@ -22,55 +22,45 @@ services:
   adminer:
     image: adminer
     restart: always
-    expose:
-      - ${ADMINER_PORT}
-    env_file:
-      - .env
-    networks:
-      - corpus_network
-
-  backend:
-    build: backend
-    command: /corpus/start.sh
-    restart: always
-    expose:
-      - ${DJANGO_BACKEND_PORT}
-    networks:
-      - corpus_network
-    volumes:
-      - static_files:/corpus/static
-    depends_on:
-      postgres:
-        condition: service_healthy
-    env_file:
-      - .env
-
-  frontend:
-    build: frontend
-    restart: always
-    command: node build
-    networks:
-      - corpus_network
-    depends_on:
-      postgres:
-        condition: service_healthy
-    expose:
-      - "3000"
-
-  nginx:
-    build: nginx
-    restart: always
-    depends_on:
-      - backend
-      - postgres
-    networks:
-      - corpus_network
     ports:
-      - "80:80"
-    volumes:
-      - static_files:/etc/nginx/staticfiles
+      - "8080:8080"
     env_file:
       - .env
+    networks:
+      - corpus_network
+
+  corpus:
+    build:
+      context: corpus
+      dockerfile: dev-Dockerfile
+    working_dir: /corpus
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    ports:
+      - "8000:8000"
+      - "465:465"
+    networks:
+      - corpus_network
+    volumes:
+      - ./corpus:/corpus
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - ENVIRONMENT=DEVELOPMENT
+      - EMAIL_PROTOCOL=console
+
+  jstoolchain:
+    build:
+      context: corpus
+      dockerfile: node-Dockerfile
+    working_dir: /opt/app
+    volumes:
+      - ./corpus/templates:/opt/app/templates
+    command: npm run tailwind-dev
+    tty: true
 
 networks:
   corpus_network:
