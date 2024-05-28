@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 
@@ -61,3 +62,25 @@ class CorpusLoginForm(AuthenticationForm):
         if username:
             username = username.lower()
         return username
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(UserPasswordResetForm, self).__init__(*args, **kwargs)
+
+    email = forms.EmailField(
+        label="",
+        widget=forms.EmailInput(
+            attrs={
+                "class": "bg-gray-50 border\
+                        border-gray-300\
+                        text-white-900 text-sm rounded-lg \
+                        focus:ring-blue-500 focus:border-blue-500\
+                        block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 \
+                        dark:placeholder-gray-400 dark:text-black \
+                        dark:focus:ring-blue-500 dark:focus:border-blue-500",
+                "type": "email",
+                "name": "email",
+            }
+        ),
+    )
