@@ -74,3 +74,7 @@ def achievements(request):
             "publications_map": publications_year_map,
         },
     )
+
+
+def farewell(request):
+    return render(request, "pages/farewell.html")
