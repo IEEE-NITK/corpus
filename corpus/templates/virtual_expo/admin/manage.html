@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     {% include "virtual_expo/header.html" with text="Manage Report" %}
     <div class="m-10">
         <div class="p-5 border rounded-lg">
@@ -195,4 +198,12 @@
             </form>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $("select").each(function () {
+                $(this).select2();
+            });
+        });
+    </script>
 {% endblock %}
