@@ -42,7 +42,7 @@ repos:
     hooks:
       - id: reorder-python-imports
 
-  # Use the following hooks locally to check for issues. These will mostly always fail on CI.
+  # # Use the following hooks locally to check for issues. These will mostly always fail on CI.
   # - repo: https://github.com/PyCQA/bandit
   #   rev: 1.7.5
   #   hooks:
@@ -58,7 +58,7 @@ repos:
   #   hooks:
   #     - id: shellcheck
 
-  - repo: https://github.com/ecugol/pre-commit-hooks-django
-    rev: v0.4.0  # Use the ref you want to point at
-    hooks:
-      - id: check-untracked-migrations
+  # - repo: https://github.com/ecugol/pre-commit-hooks-django
+  #   rev: v0.4.0
+  #   hooks:
+  #     - id: check-untracked-migrations

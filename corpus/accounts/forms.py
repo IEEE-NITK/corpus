@@ -30,7 +30,15 @@ class CorpusCreationForm(UserCreationForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs[
                 "class"
-            ] = "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            ] = "mt-1 w-full rounded-md shadow-sm"  # noqa: E501
+            if visible.field.widget.input_type in ["text", "password", "email"]:
+                visible.field.widget.attrs[
+                    "class"
+                ] += " input input-bordered focus:input-primary"
+            elif visible.field.widget.input_type == "select":
+                visible.field.widget.attrs[
+                    "class"
+                ] += " select select-bordered focus:select-primary"
 
 
 class CorpusChangeForm(UserChangeForm):
@@ -54,7 +62,11 @@ class CorpusLoginForm(AuthenticationForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs[
                 "class"
-            ] = "mt-1 block w-full rounded-md border-base-800 text-black shadow-sm focus:border-primary focus:ring focus:ring-primary-200 focus:ring-opacity-50"  # noqa: E501
+            ] = "mt-1 w-full rounded-md shadow-sm"  # noqa: E501
+            if visible.field.widget.input_type in ["text", "password", "email"]:
+                visible.field.widget.attrs[
+                    "class"
+                ] += " input input-bordered focus:input-primary"
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
