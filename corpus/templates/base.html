@@ -113,13 +113,8 @@
 </head>
 
 <body>
-<div class="lg:hidden">
-    {% include "components/navbar_small.html" %}
-</div>
 
-<div class="hidden lg:block">
-    {% include "components/navbar_large.html" %}
-</div>
+{% include "components/navbar.html" %}
 
 {% if messages %}
     {% for message in messages %}

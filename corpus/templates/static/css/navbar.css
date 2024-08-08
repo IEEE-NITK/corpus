@@ -1,0 +1,25 @@
+.drawer-side {
+  z-index: 1000;
+}
+
+img.logo {
+  width: 125px;
+}
+
+@media (min-width: 480px) {
+  img.logo {
+      width: 150px;
+  }
+}
+
+@media (min-width: 768px) {
+  img.logo {
+      width: 175px;
+  }
+}
+
+@media (min-width: 992px) {
+  img.logo {
+      width: 200px;
+  }
+}
