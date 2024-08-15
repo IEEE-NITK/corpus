@@ -24,3 +24,4 @@ typing_extensions==4.8.0
 urllib3==2.2.1
 virtualenv==20.25.0
 wheel==0.41.2
+markdown==3.6
