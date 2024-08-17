@@ -18,20 +18,7 @@ def full_post(request,slug):
     individual_post = Post.objects.filter(published_date__lte=timezone.now()).get(slug=slug)
     return render(request,'blog/full_post.html',{'individual_post':individual_post})
 
-@login_required
-def upload_blog(request):
-    if request.method == 'POST':
-        print(request.POST)
-        form = blog_form(request.POST)
-        if form.is_valid():
-            blog_post = form.save(commit=False)
-            blog_post.author = request.user
-            blog_post.save()
-            return redirect('post_list')
-    else:
-        form=blog_form()
 
-    return render(request,'blog/post_upload.html',{'form':form})
 
 
 def tagged_blog(request,specific_tag):
