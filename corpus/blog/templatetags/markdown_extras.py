@@ -5,6 +5,7 @@ from django.template import Context,Template
 
 register = template.Library()
 
+# a custom filter to convert markdown to html including support for template tags in the markdown itself
 @register.filter(name='markdown')
 def markdown_to_html(value):
     md_converted_html = markdown.markdown(value,extensions=['extra','codehilite','toc'])
