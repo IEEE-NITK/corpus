@@ -6,6 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
@@ -80,3 +81,14 @@ def signout(request):
     logout(request)
     messages.success(request, "Successfully signed out.")
     return redirect("index")
+
+def profile(request, roll_no):
+    exec_member = get_object_or_404(ExecutiveMember, roll_number=roll_no)
+    user = exec_member.user
+
+    args = {
+        "exec_member": exec_member,
+        "user": user
+    }
+
+    return render(request, "accounts/profile.html", args)
