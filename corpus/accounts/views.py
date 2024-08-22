@@ -11,6 +11,7 @@ from django.shortcuts import get_object_or_404
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
 from .models import ExecutiveMember
+from virtual_expo.models import Report, ReportMember
 
 # Create your views here.
 
@@ -86,9 +87,14 @@ def profile(request, roll_no):
     exec_member = get_object_or_404(ExecutiveMember, roll_number=roll_no)
     user = exec_member.user
 
+    # Get Virtual Expo Reports
+    reports = Report.objects.filter(reportmember__member=exec_member)
+
+
     args = {
         "exec_member": exec_member,
-        "user": user
+        "user": user,
+        "reports": reports
     }
 
     return render(request, "accounts/profile.html", args)
