@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils import timezone
+
 from .models import Post
 from .models import Tag
+
 
 # view for the blog list page
 def post_list(request):
