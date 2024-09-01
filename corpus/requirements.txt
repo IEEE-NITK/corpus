@@ -8,6 +8,7 @@ django-js-asset==2.2.0
 filelock==3.13.1
 gunicorn==21.2.0
 identify==2.5.34
+markdown==3.6
 nodeenv==1.8.0
 packaging==23.1
 Pillow==10.0.1
@@ -24,4 +25,3 @@ typing_extensions==4.8.0
 urllib3==2.2.1
 virtualenv==20.25.0
 wheel==0.41.2
-markdown==3.6
