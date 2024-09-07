@@ -492,7 +492,12 @@ def mark_payment_complete(request, pk):
             send_email(
                 "Payment Complete | Impulse",
                 "emails/impulse/payment_complete.html",
-                {"team": team, "user": member.user, "payment_status": payment_status, "final_message": final_message},
+                {
+                    "team": team,
+                    "user": member.user,
+                    "payment_status": payment_status,
+                    "final_message": final_message,
+                },
                 bcc=[member.user.email],
             )
     messages.success(
@@ -514,7 +519,12 @@ def mark_payment_incomplete(request, pk):
             send_email(
                 "Payment Incomplete | Impulse",
                 "emails/impulse/payment_incomplete.html",
-                {"team": team, "user": member.user, "payment_status": payment_status, "final_message": final_message},
+                {
+                    "team": team,
+                    "user": member.user,
+                    "payment_status": payment_status,
+                    "final_message": final_message,
+                },
                 bcc=[member.user.email],
             )
     messages.success(request, "Successfully marked payment as incomplete!")

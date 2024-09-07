@@ -1,0 +1,43 @@
+{% extends "./base.html" %}
+
+{% block title %}
+Upload a Blog
+{% endblock %}
+
+{% block content %}
+<div class="my-10 w-2/3 mx-auto prose">
+    <h2 class="text-center text-2xl">Upload Blogs</h2>
+    <form method="post" class="p-5 border">
+        {% csrf_token %}
+        <div>
+            <label for="form.blog_tag.id_for_label">Blog tag :</label>
+            <div class="h-8 w-8">{{form.blog_tag}}</div>
+        </div>
+        <div>
+            <label for="form.layout.id_for_label">Layout :</label>
+            <div>{{form.layout}}</div>
+        </div>
+        <div>
+            <label for="form.title.id_for_label">Title :</label>
+            <div>{{form.title}}</div>
+        </div>
+        <div>
+            <label for="form.description.id_for_label">Description :</label>
+            <div>{{form.description}}</div>
+        </div>
+        <div>
+            <label for="form.author_github.id_for_label">Author Github :</label>
+            <div>{{form.author_github}}</div>
+        </div>
+        <div>
+            <label for="form.text.id_for_label">Text :</label>
+            <div>{{form.text}}</div>
+        </div>
+        <div>
+            <label for="form.published_date.id_for_label">Published Date :</label>
+            <div>{{form.published_date}}</div>
+        </div>
+        <button class="btn btn-primary btn-block mt-4" type="submit">Submit :</button>
+    </form>
+</div>
+{% endblock %}
