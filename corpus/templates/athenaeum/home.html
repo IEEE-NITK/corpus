@@ -1,0 +1,347 @@
+{% extends 'athenaeum/base.html' %}
+{% load static %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none flex flex-row">
+        <div class="md:basis-1/6"></div>
+        <div class="px-10 md:px-0 md:basis-4/6">
+            <section id="hero" class="text-center py-5">
+                <h1>Athenaeum</h1>
+                <h2>Week Long Event Consisting of Talks and More!</h2>
+                <h2>October , 2024</h2>
+            </section>
+
+            <section id="about" class="py-5 px-5">
+                <h2>What is Athenaeum?</h2>
+                <p>
+                The Athenaeum talks are conducted every year as part of the IEEE week from 1st October to 6th October. 
+                Speakers from various fields talk about interesting topics, emerging technologies and amazing research.
+                Each society invites speakers of more or less their own domain
+                </p>
+            </section>
+            <section id="workshops" class="py-5 px-5">
+                <h2>Events</h2>
+                <div class="flex flex-col md:flex-row justify-between content-center gap-4">
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <div class="card-body">
+                            <h2 class="card-title">Tech it Easy Quiz!</h2>
+                            <strong>4th October, 2024</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="speakers" class="py-5 px-5">
+                <h2>Speakers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Kshitij_Anand.png' %}" alt="Kshitij Anand"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Signals, Information Theory and Quantitative Finance</h2>
+                            <span>By Kshitij Anand</span>
+                            <span>IIT Bhubaneswar</span>
+                            <strong>5th October, 2024 at 6:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Rahul_Kala.png' %}" alt="Rahul Kala"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Autonomous Mobile Robots</h2>
+                            <span>By Rahul Kala</span>
+                            <span>Associate Professor at ABV-IIITM Gwalior</span>
+                            <strong>3rd October, 2024 at 6:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Rajanikanth_AR.png' %}" alt="Rajanikanth AR"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Overview of VLSI industry and the path to it</h2>
+                            <span>By Rajanikanth AR</span>
+                            <span>UCIe / D2D Execution Lead at Intel Corporation</span>
+                            <strong>4th October, 2024 at 6:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Arpan_Pal.png' %}" alt="Arpan Pal"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Signal Processing and Machine Learning for early screening and monitoring of Non-communicable Diseases</h2>
+                            <span>By Arpan Pal</span>
+                            <span>Distinguished Chief Scientist and Research Area Head, Embedded Devices and Intelligent Systems, TCS Research</span>
+                            <span>Senior Member, IEEE and ACM</span>
+                            <strong>2nd October, 2024 at 11:00AM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Reshma_Verma.png' %}" alt="Reshma {% verbatim  %}{% endverbatim  %}"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Universal Verification Methodology</h2>
+                            <span>By Reshma Verma</span>
+                            <span>Assistant Professor at M.S.Ramaiah Institute of Technology</span>
+                            <strong>1st October, 2024 at 6:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Sandeep_Madishetti.png' %}" alt="Sandeep Madishetti"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Electrifying Change: The Role of Engineers in Addressing Climate Change</h2>
+                            <span>By Dr Sandeep Madishetti</span>
+                            <span>Lead Electrical Engineer at Eaton Singapore</span>
+                            <strong>2nd October, 2024 at 4:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Inba_Perumal.png' %}" alt="Inbasekaran Perumal"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">GSOC: How to apply and Computer Vision in GSOC</h2>
+                            <span>By Inbasekaran Perumal</span>
+                            <span>SDE at Ring Central, Alumni</span>
+                            <strong>3rd October, 2024 at 9:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Anantha_Kumar.png' %}" alt="Anantha Kumar"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Achieving First Pass Silicon Success of a Complex AI Training Processor</h2>
+                            <span>By Anantha Kumar N</span>
+                            <span>Sr Staff Autopilot Hardware Engineer/Eng. Management at Tesla</span>
+                            <strong>2nd October, 2024 at 9:00PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
+                        <figure>
+                            <img src="{% static 'img/athenaeum/Rimjhim_Agrawal.png' %}" alt="Rimjhim Agrawal"
+                                 class="h-96 rounded-md"/>
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Women in Tech and Healthtech: Leadership, Entrepreneurship, and the Future of AI in Neuroscience.</h2>
+                            <span>By Rimjhim Agrawal</span>
+                            <span>Co-founder & CTO at BrainSightAI</span>
+                            <strong>4th October, 2024 at 7:30PM</strong>
+                            <div class="card-actions">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="schedule" class="px-5 py-5">
+                <h2>Timeline</h2>
+                <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                    <li class="m-0">
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-start md:text-end mb-10">
+                            <div class="font-black">1st October 6PM</div>
+                            Universal Verification Methodology <strong>Reshma Verma</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-end mb-10">
+                            <div class="font-black">2nd October 11AM</div>
+                            Signal Processing and Machine Learning <strong>Dr Arpan Pal</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-start md:text-end mb-10">
+                            <div class="font-black">2nd October 4PM</div>
+                            Electrifying Change <strong>Dr Sandeep Madishetti</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-end mb-10">
+                            <div class="font-black">2nd October 9PM</div>
+                            Tesla: Achieving first pass silicon success of AI training processor <strong>Anantha Kumar N</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-start md:text-end mb-10">
+                            <div class="font-black">3rd October 6PM</div>
+                            Autonomous Mobile Robots <strong>Professor Rahul Kala</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-end mb-10">
+                            <div class="font-black">3rd October 9PM</div>
+                            GSOC Journey with Intel Openvino <strong>Inbasekaran Perumal</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-start md:text-end mb-10">
+                            <div class="font-black">4th October 4:30PM</div>
+                            Tech it Easy Quiz! <strong>IEEE x QuizSoc</strong>.
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-end mb-10">
+                            <div class="font-black">4th October 6PM</div>
+                            Decoding the Semiconductor Industry <strong>Rajanikanth AR</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-start md:text-end mb-10">
+                            <div class="font-black">4th October 7:30PM</div>
+                            Leadership and Future of AI in Neuroscience <strong>Dr. Rimjhim Agrawal</strong>.
+                        </div>
+                        <hr/>
+                    </li>
+                    <li class="m-0">
+                        <hr/>
+                        <div class="timeline-middle">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 class="h-5 w-5">
+                                <path fill-rule="evenodd"
+                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="timeline-end mb-10">
+                            <div class="font-black">5th October 6PM</div>
+                            Signals, Information Theory and Quant Finance <strong>Kshitij Anand</strong>
+                        </div>
+                        <hr/>
+                    </li>
+                </ul>
+            </section>
+            <section id="contact" class="px-5 py-5">
+                <h2>Contact</h2>
+                <p>For any queries, you can contact <strong>Adithya Srihari Rao</strong>, IEEE Convenor, or <strong>Jalak Kamdar</strong>, IEEE NITK Secretary. You can
+                    reach out with your enquiries at <a href="mailto:ieee@nitk.edu.in">ieee@nitk.edu.in</a>.</p>
+            </section>
+        </div>
+        <div class="md:basis-1/6"></div>
+    </div>
+{% endblock %}
+
