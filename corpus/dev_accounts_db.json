@@ -1,0 +1,237 @@
+[
+  {
+    "fields": {
+      "date_joined": "2024-02-25T15:58:04Z",
+      "email": "admin@example.com",
+      "first_name": "Admin",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "last_login": "2024-02-25T16:00:26Z",
+      "last_name": "Example",
+      "password": "pbkdf2_sha256$600000$fcABeeEsmGM15Dd4lG7WiW$9G/1iMoCAGb4whUweOPTRyCpLy6IMY8Pmu1zg7zi27c=",
+      "phone_no": "1234567890",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:09:40Z",
+      "email": "user1@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "One",
+      "password": "pbkdf2_sha256$600000$Cwv74DWoks3V5dS0dQnP1a$7VX3L74bdTOEgwabvhSU+JuOPCvoFtNC/vIMYP/SfTo=",
+      "phone_no": "1234567891",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:11:26Z",
+      "email": "user2@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "Two",
+      "password": "pbkdf2_sha256$600000$gL00s5frbSpEo4YXULxMXX$NOYvJ9dtdbI/5JkjRwMC+JAcGlftqinNXqkyaTGLroo=",
+      "phone_no": "1234567892",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:12:05Z",
+      "email": "user3@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "Three",
+      "password": "pbkdf2_sha256$600000$Uez7rmaWTOC8H6w7f5G4XA$f9m+LV1q6rpucl45hRMyEK7Lw61nxy+hxS7TUfhwwqM=",
+      "phone_no": "1234567893",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:13:01Z",
+      "email": "user4@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "Four",
+      "password": "pbkdf2_sha256$600000$4R9AoWCJlh5aEjreZQ0jVr$G2z4zf69SkLbKt+dbjGgasj/0LdvSK8Q5hm9jQIi9Ro=",
+      "phone_no": "1234567894",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:13:47Z",
+      "email": "user5@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "Five",
+      "password": "pbkdf2_sha256$600000$278aPjc0My2xPLEwb9Vy4E$K4xSetizP3uXDyITBDvWMly3ZjoETgugL0mRxmFlF+U=",
+      "phone_no": "1234567895",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25T16:14:32Z",
+      "email": "user6@example.com",
+      "first_name": "User",
+      "gender": "N",
+      "groups": [],
+      "is_active": true,
+      "is_staff": false,
+      "is_superuser": false,
+      "last_login": null,
+      "last_name": "Six",
+      "password": "pbkdf2_sha256$600000$ealY6zpHM8mFG7rU5XD4Kv$OpV5Hxbk7FBx4rnlLG8s+aRG+byAXvSIAdtj+fAZmUk=",
+      "phone_no": "1234567896",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user1@nitk.edu.in",
+      "github": "user1",
+      "ieee_email": "user1@ieee.org",
+      "ieee_number": "12345671",
+      "is_nep": true,
+      "linkedin": "https://www.linkedin.com/in/user1/",
+      "minor_branch": "CS",
+      "reg_number": "123001",
+      "roll_number": "123XX001",
+      "sig": 1
+    },
+    "model": "accounts.executivemember",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user2@nitk.edu.in",
+      "github": "user2",
+      "ieee_email": "user2@ieee.org",
+      "ieee_number": "12345672",
+      "is_nep": true,
+      "linkedin": null,
+      "minor_branch": null,
+      "reg_number": "123002",
+      "roll_number": "123XX002",
+      "sig": 2
+    },
+    "model": "accounts.executivemember",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user3@nitk.edu.in",
+      "github": null,
+      "ieee_email": null,
+      "ieee_number": null,
+      "is_nep": false,
+      "linkedin": "https://www.linkedin.com/in/user3/",
+      "minor_branch": "PS",
+      "reg_number": "123003",
+      "roll_number": "123XX003",
+      "sig": 3
+    },
+    "model": "accounts.executivemember",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user4@nitk.edu.in",
+      "github": "user4",
+      "ieee_email": null,
+      "ieee_number": "12345674",
+      "is_nep": false,
+      "linkedin": null,
+      "minor_branch": "IT",
+      "reg_number": "123004",
+      "roll_number": "123XX004",
+      "sig": 1
+    },
+    "model": "accounts.executivemember",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user5@nitk.edu.in",
+      "github": null,
+      "ieee_email": "user5@ieee.org",
+      "ieee_number": null,
+      "is_nep": true,
+      "linkedin": null,
+      "minor_branch": "EC",
+      "reg_number": "123005",
+      "roll_number": "123XX005",
+      "sig": 2
+    },
+    "model": "accounts.executivemember",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "date_joined": "2024-02-25",
+      "edu_email": "user6@nitk.edu.in",
+      "github": null,
+      "ieee_email": null,
+      "ieee_number": null,
+      "is_nep": false,
+      "linkedin": null,
+      "minor_branch": null,
+      "reg_number": "123006",
+      "roll_number": "123XX006",
+      "sig": 3
+    },
+    "model": "accounts.executivemember",
+    "pk": 8
+  }
+]
