@@ -56,6 +56,7 @@ class User(AbstractUser):
     )
     gender = models.CharField(max_length=1, choices=GENDERS)
     email = models.EmailField(unique=True, verbose_name="Personal Email")
+    profile_pic = models.ImageField(upload_to="accounts/profile/pics", blank=True, null=True, default=None)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

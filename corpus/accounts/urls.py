@@ -7,6 +7,7 @@ from django.urls import path
 from .views import signin
 from .views import signout
 from .views import signup
+from .views import profile
 
 urlpatterns = [
     path("signup/", signup, name="accounts_signup"),
@@ -25,4 +26,5 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("profile/<roll_no>", profile, name="accounts_profile")
 ]
