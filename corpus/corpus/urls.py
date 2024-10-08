@@ -44,7 +44,7 @@ urlpatterns = [
     path("robotrix/", include("robotrix.urls")),
     path("farewell/", include("farewell.urls")),
     path("virtual_expo/", include("virtual_expo.urls")),
-    path("blog/",include("blog.urls")),
+    path("blog/", include("blog.urls")),
 ]
 
 if settings.DEBUG:
