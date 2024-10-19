@@ -8,7 +8,7 @@
     100% { transform: translateX(0%); }
 }
 
-{% comment %} 
+{% comment %}
     THIS IS A HACK TO FIX THE Z-INDEX OF THE HERO CONTENT
 {% endcomment %}
 .hero-content {

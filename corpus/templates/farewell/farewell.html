@@ -102,7 +102,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         .hero {
             background: linear-gradient(45deg, #001c55, #000000, #330033),
                         linear-gradient(-45deg, #330033, #000000, #001c55);
@@ -110,7 +110,7 @@
             background-position: 0% 50%;
             animation: gradientAnimation 10s ease infinite alternate;
             z-index: -1;
-        }       
+        }
 
         .rsvp {
             background-color: #330033;
@@ -137,7 +137,7 @@
 
         #particles-js {
             z-index: 0;
-        }   
+        }
 
         @font-face {
             font-family: pompadour;
@@ -147,13 +147,13 @@
             font-family: gesat;
             src: url({%static 'css/gesat.otf' %});
         }
-          
+
           .container {
             display: table-cell;
             text-align: center;
             vertical-align: middle;
           }
-          
+
           .neon {
             font-family:  gesat;
             pointer-events: none;
@@ -163,9 +163,9 @@
             line-height: 9vw;
             text-shadow: 0 0 3vw #FA1CAA; /* Adjust the shadow color based on your preference */
         }
-        
+
         {% comment %} make neon font smaller when screen size smaller {% endcomment %}
-        
+
         @media (max-width: 370px) {
             .neon {
                 font-size: 9vw;
@@ -186,8 +186,8 @@
                 line-height: 11vw;
             }
         }
-        
-          
+
+
           .flux {
             font-family: pompadour;
             pointer-events: none;
@@ -196,15 +196,15 @@
             line-height: 9vw;
             text-shadow: 0 0 3vw #28D7FE;
           }
-          
+
           .neon {
             opacity: 0;
             transition: opacity 1s ease-in-out;
             animation: neon 1s ease infinite;
             -moz-animation: neon 1s ease infinite;
             -webkit-animation: neon 1s ease infinite;
-          } 
-          
+          }
+
           @keyframes neon {
             0%, 100% {
                 text-shadow: 0 0 1vw #FA1CAA, 0 0 3vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 .4vw #FED198, .5vw .5vw .1vw #8F6914;
@@ -215,7 +215,7 @@
                 color: #806914;
             }
         }
-          
+
           .flux {
             opacity: 0;
             transition: opacity 1s ease-in-out;
@@ -224,7 +224,7 @@
             -webkit-animation: flux 2s linear infinite;
             -o-animation: flux 2s linear infinite;
           }
-          
+
           @keyframes flux {
             0%, 100% {
                 text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
@@ -243,7 +243,7 @@
             {% comment %} glowing neon effect {% endcomment %}
             animation: arrowdown 1s ease infinite;
         }
-        
+
         @keyframes arrowdown {
             0%, 100% {
                 text-shadow: 0 0 1vw #FA1CAA, 0 0 3vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 10vw #FA1CAA, 0 0 .4vw #FED198, .5vw .5vw .1vw #8F6914;
@@ -272,18 +272,18 @@
         }
     </style>
 
-      
+
     <style>
     .checkbox-wrapper-5 .check {
         --size: 40px;
-    
+
         position: relative;
         background: linear-gradient(90deg, #f19af3, #f099b5);
         line-height: 0;
         perspective: 400px;
         font-size: var(--size);
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"],
     .checkbox-wrapper-5 .check label,
     .checkbox-wrapper-5 .check label::before,
@@ -297,14 +297,14 @@
         box-sizing: border-box;
         cursor: pointer;
     }
-    
+
     .checkbox-wrapper-5 .check label {
         width: calc(2.2 * var(--size));
         height: var(--size);
         background: #d7d7d7;
         overflow: hidden;
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"] {
         position: absolute;
         z-index: 1;
@@ -317,15 +317,15 @@
         outline: none;
         margin: 0;
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"]:checked {
         left: calc(1.3 * var(--size));
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label {
         background: transparent;
     }
-    
+
     .checkbox-wrapper-5 .check label::before,
     .checkbox-wrapper-5 .check label::after {
         content: "· ·";
@@ -343,7 +343,7 @@
         transform-origin: 0 0 calc(-0.5 * var(--size));
         backface-visibility: hidden;
     }
-    
+
     .checkbox-wrapper-5 .check label::after {
         content: "●";
         top: calc(.65 * var(--size));
@@ -353,7 +353,7 @@
         font-size: calc(.2 * var(--size));
         transform-origin: 0 0 calc(-0.4 * var(--size));
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::before,
     .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
         left: calc(1.55 * var(--size));
@@ -361,7 +361,7 @@
         line-height: calc(.1 * var(--size));
         transform: rotateY(360deg);
     }
-    
+
     .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
         height: calc(.16 * var(--size));
         top: calc(.55 * var(--size));
@@ -369,19 +369,19 @@
         font-size: calc(.6 * var(--size));
         line-height: 0;
     }
-    </style>    
-    
+    </style>
+
     <style>
         .checkbox-wrapper-6 .check {
           --size: 40px;
-      
+
           position: relative;
           background: linear-gradient(90deg, #f19af3, #f099b5);
           line-height: 0;
           perspective: 400px;
           font-size: var(--size);
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"],
         .checkbox-wrapper-6 .check label,
         .checkbox-wrapper-6 .check label::before,
@@ -395,14 +395,14 @@
           box-sizing: border-box;
           cursor: pointer;
         }
-      
+
         .checkbox-wrapper-6 .check label {
           width: calc(2.2 * var(--size));
           height: var(--size);
           background: #d7d7d7;
           overflow: hidden;
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"] {
           position: absolute;
           z-index: 1;
@@ -415,15 +415,15 @@
           outline: none;
           margin: 0;
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"]:checked {
           left: calc(1.3 * var(--size));
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label {
           background: transparent;
         }
-      
+
         .checkbox-wrapper-6 .check label::before,
         .checkbox-wrapper-6 .check label::after {
           content: "· ·";
@@ -441,7 +441,7 @@
           transform-origin: 0 0 calc(-0.5 * var(--size));
           backface-visibility: hidden;
         }
-      
+
         .checkbox-wrapper-6 .check label::after {
           content: "●";
           top: calc(.65 * var(--size));
@@ -451,7 +451,7 @@
           font-size: calc(.2 * var(--size));
           transform-origin: 0 0 calc(-0.4 * var(--size));
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::before,
         .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::after {
           left: calc(1.55 * var(--size));
@@ -459,7 +459,7 @@
           line-height: calc(.1 * var(--size));
           transform: rotateY(360deg);
         }
-      
+
         .checkbox-wrapper-6 .check input[type="checkbox"]:checked + label::after {
           height: calc(.16 * var(--size));
           top: calc(.55 * var(--size));
@@ -483,13 +483,13 @@
             color: white;
         }
         .drive-link:hover svg {
-            filter: drop-shadow(0 0 1.5rem rgba(255, 255, 36, 0.5)); 
+            filter: drop-shadow(0 0 1.5rem rgba(255, 255, 36, 0.5));
             transition: filter 0.4s ease-in-out;
         }
-        
+
         * {
             {% comment %} border : 1px #FFFFFF00 solid; {% endcomment %}
-        } 
+        }
       </style>
       <link rel="stylesheet" href="{% static 'css/farewell.css' %}" />
 </head>
@@ -497,14 +497,14 @@
 <body>
     <section
         class="hero min-h-[50vh] w-screen">
-        <div id="particles-js" class="h-screen w-full"></div>  
+        <div id="particles-js" class="h-screen w-full"></div>
         <div class="hero-content text-center flex-col gap-4">
             {% comment %} <h1 class="text-2xl md:text-4xl lg:text-5xl font-extrabold text-white dark:text-white mb-10 pt-20">IEEE Farewell 2024</h1> {% endcomment %}
-            <h1 class="sign text-6xl md:text-8xl lg:text-10xl font-extrabold text-white dark:text-white mb-10 pt-20"> 
+            <h1 class="sign text-6xl md:text-8xl lg:text-10xl font-extrabold text-white dark:text-white mb-10 pt-20">
                 <div class="container h-10">
                     <div class="neon m-5 p-5 text-10xl lg:text-10xl sm:text-6xl">IEEE Farewell</div>
                     <div class="flux m-5 mb-10 p-5 text-8xl sm:text-8xl">2024</div>
-                    
+
                     <div class="frame my-10">
                         <button onclick="smoothScroll('#rsvp')" class=""></button>
                             {% comment %} <div class="arrowdown h-8 w-8 my-10 p-10"></div> {% endcomment %}
@@ -514,7 +514,7 @@
                     {% comment %} <button onclick="smoothScroll('#about')" class="color-white mt-5 pt-5 text-2xl mt-10 animate-bounce">
                         <div class="arrowdown h-8 w-8 my-10 p-10"></div>
                     </button> {% endcomment %}
-                </div>    
+                </div>
             </h1>
         </div>
     </section>
@@ -532,7 +532,7 @@
                     <img src="{% static 'img/summer-sands.jpeg' %}" alt="Farewell" class="summer w-full mx-auto" style="">
                 </div>
             </div>
-            
+
             {% comment %} venue and time  {% endcomment %}
             <div class='flex justify-center align-items-center md:mx-20 flex-col md:flex-row mt-5 pt-5'>
                 {% comment %} venue icon and name {% endcomment %}
@@ -563,7 +563,7 @@
                             6:00 PM 23rd March, 2024
                         </h1>
                     </div>
-                    
+
                     <div class="flex flex-col justify-center items-center my-10">
                         <h1 class="text-lg md:text-xl lg:text-2xl font-extrabold text-center" style='font-family: "League Spartan", sans-serif; color: white;'>
                             Feel free to rat out your fellow friends by providing us fun family-friendly + non family-friendly pictures and videos here :
@@ -579,7 +579,7 @@
             <div class="mx-auto">
                 <form method="post" class="flex flex-col items-center justify-center" id='invite-form'>
                     {% csrf_token %}
-            
+
                     {% if form.non_field_errors %}
                         {% for error in form.non_field_errors %}
                             <div role="alert" class="alert alert-error mt-1">
@@ -588,10 +588,10 @@
                         {% endfor %}
                     {% endif %}
                     <br>
-            
+
                     <div class="my-2 mx-auto w-full sm:w-1/2 md:w-1/3 lg:w-1/3 text-lg md:text-xl lg:text-2xl flex items-center justify-between">
 
-                        <label for="{{ form.coming_farewell.id_for_label }}" class='text-3xl md:text-4xl lg:text-5xl'>Are you coming?</label> 
+                        <label for="{{ form.coming_farewell.id_for_label }}" class='text-3xl md:text-4xl lg:text-5xl'>Are you coming?</label>
                         <div class="checkbox-wrapper-5">
                             <div class="check">
                                 {{ form.coming_farewell }}
@@ -608,7 +608,7 @@
                     </div>
 
                     <br>
-            
+
                     <div class="w-full md:w-1/2 mt-5 mx-auto flex justify-center">
                         <button class="mt-10 w-full lg:w-1/2 mx-auto registerBtn submit-btn" type="submit" style='border-radius: 10px; border: 2px solid #f19af3;'>
                             <span></span>
@@ -620,13 +620,13 @@
                     </div>
                 </form>
             </div>
-            
-            
-            
+
+
+
         </div>
     </section>
-    
-    
+
+
 {% if messages %}
 {% for message in messages %}
     <div class="toast toast-start message-fade-away z-40">
@@ -693,7 +693,7 @@
 
     if (check5.checked) {
         submitBtn.textContent = 'Confirm and add to calendar';
-        
+
     } else {
         submitBtn.textContent = 'Confirm';
     }
@@ -731,7 +731,7 @@
             heart.style.transform = 'scale(1)';
         }, 1300);
 
-        setTimeout(() => {    
+        setTimeout(() => {
             isLarge = true;
             setInterval(() => {
                 if (isLarge) {
@@ -750,7 +750,7 @@
 
         setTimeout(() => {
             flicker(flux);
-        }, 2900); 
+        }, 2900);
     }
 </script>
 
@@ -782,4 +782,3 @@
 </body>
 
 </html>
-
