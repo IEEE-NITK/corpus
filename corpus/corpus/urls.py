@@ -45,6 +45,7 @@ urlpatterns = [
     path("farewell/", include("farewell.urls")),
     path("virtual_expo/", include("virtual_expo.urls")),
     path("blog/", include("blog.urls")),
+    path("athenaeum/", include("athenaeum.urls")),
 ]
 
 if settings.DEBUG:
