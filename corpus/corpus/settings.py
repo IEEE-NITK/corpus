@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "robotrix.apps.RobotrixConfig",
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
+    "events.apps.EventsConfig",
 ]
 
 MIDDLEWARE = [
