@@ -26,14 +26,17 @@ class Event(models.Model):
     linkedin_url = models.URLField(blank=True)
     location = models.CharField(null=False, max_length=32)
     category = models.CharField(null=False, choices=CATEGORIES)
-    society = models.ForeignKey(Society)
+    society = models.ForeignKey(Society, on_delete=models.CASCADE)
     visibility = models.CharField(blank=True, choices=VISIBILITIES)
     poc = models.ManyToManyField(ExecutiveMember, related_name="events")
     created_at = models.DateTimeField(null=False)
 
+    def __str__(self):
+        return f"{self.title} | {self.society.name}"
+
 
 class Report(models.Model):
-    event = models.OneToOneField(Event, null=False)
+    event = models.OneToOneField(Event, null=False, on_delete=models.CASCADE)
     objective = models.CharField(max_length=128, null=False)
     description = models.TextField(null=False)
     resources = models.JSONField(null=True)
@@ -47,14 +50,14 @@ class Report(models.Model):
 
 
 class Volunteer(models.Model):
-    event = models.ForeignKey(Event, null=False)
-    exec_member = models.OneToOneField(ExecutiveMember, null=False)
+    event = models.ForeignKey(Event, null=False, on_delete=models.CASCADE)
+    exec_member = models.OneToOneField(ExecutiveMember, null=False, on_delete=models.CASCADE)
 
 
 class Budget(models.Model):
-    event = models.OneToOneField(Event, null=False)
+    event = models.OneToOneField(Event, null=False, on_delete=models.CASCADE)
     item = models.CharField(null=False, max_length=255)
     description = models.TextField()
-    cost = models.DoubleField(null=False)
+    cost = models.DecimalField(max_digits=12, decimal_places=2, null=False)
     source = models.URLField()
 
