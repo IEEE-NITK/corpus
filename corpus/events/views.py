@@ -11,7 +11,7 @@ def dashboard(request):
     }
     return render(request, "events/dashboard.html", context)
 
-def create_event(request):
+def new(request):
     if request.method == "POST":
         event_form = EventForm(request.POST)
         if event_form.is_valid():
@@ -22,11 +22,12 @@ def create_event(request):
             # messages.error(request, ("Error creating event. Please try again."))
         return redirect("dashboard")
     
-    event_form = EventForm()
+    else:
+        event_form = EventForm()
     context = {
         "event_form": event_form
     }
-    return render(request, "events/create_event.html", context)
+    return render(request, "events/new.html", context)
 
 def manage_event(request):
     return render(request, "events/manage_event.html")
