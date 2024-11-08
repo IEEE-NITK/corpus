@@ -52,7 +52,7 @@ class CorpusUserAdmin(UserAdmin):
 
 class ExecutiveMemberAdmin(admin.ModelAdmin):
     fieldsets = (
-        (None, {"fields": ("user", "sig")}),
+        (None, {"fields": ("user", "sig", "date_joined")}),
         (
             "NITK Related Details",
             {
