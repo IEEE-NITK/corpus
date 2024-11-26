@@ -1,6 +1,7 @@
-from farewell.models import Senior
 import random
 import string
+
+from farewell.models import Senior
 
 names = [
     "Harish Ravi Kale",
@@ -65,7 +66,7 @@ names = [
     "Sunaina Sunil",
     "Juvva Srinithya",
     "Raghwendra Pratap Yadav",
-    "Sukrit Dass T M"
+    "Sukrit Dass T M",
 ]
 
 email_addresses = [
@@ -131,7 +132,7 @@ email_addresses = [
     "sunainasunil.201me357@nitk.edu.in",
     "juvvasrinithya.201mt023@nitk.edu.in",
     "raghw.201mt044@nitk.edu.in",
-    "tmsdass.201mt056@nitk.edu.in"
+    "tmsdass.201mt056@nitk.edu.in",
 ]
 
 # test
@@ -152,16 +153,22 @@ print("Cleared the Senior table")
 url_ids = []
 
 for name in names:
-    url_id = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+    url_id = "".join(random.choices(string.ascii_letters + string.digits, k=5))
     # make sure its unique
     while url_id in url_ids:
-        url_id = ''.join(random.choices(string.ascii_letters + string.digits, k=5))
+        url_id = "".join(random.choices(string.ascii_letters + string.digits, k=5))
     url_ids.append(url_id)
-    
+
 print("Generated unique url_ids")
-    
-    
+
+
 for name, url_id, email_address in zip(names, url_ids, email_addresses):
-    Senior.objects.create(name=name, url_id=url_id, email_id=email_address, coming_farewell=False, coming_afterparty=False)
-    
+    Senior.objects.create(
+        name=name,
+        url_id=url_id,
+        email_id=email_address,
+        coming_farewell=False,
+        coming_afterparty=False,
+    )
+
 print("Added data to the Senior table")
