@@ -1,0 +1,80 @@
+{% extends "events/base.html" %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "events/header.html" %}
+    <div class="m-10 p-5 prose max-w-none">
+        <div class="flex justify-center">
+            <a href="{% url 'events_core_dashboard' %}" class="btn btn-success rounded-full px-2 py-1">
+                Go to Core Dashboard
+            </a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="table">
+              <!-- head -->
+              <thead>
+                <tr>
+                  <th><h1>Title</h1></th>
+                  <th><h1>Start Time</h1></th>
+                  <th><h1>End Time</h1></th>
+                  <th><h1>Society</h1></th>
+                  <th><h1>POCs</h1></th>
+                  <th><h1>Created At</h1></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- row 1 -->
+                {% for event in events %}
+                <tr>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      <div>
+                        <div class="font-bold"><h2>{{ event.title }}</h2></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {{ event.start_time }}
+                  </td>
+                  <td>
+                    {{ event.end_time }}
+                  </td>
+                  <td>
+                    <div class="flex items-center gap-3">
+                      {% for soc in event.society.all %}
+                        <a class="btn btn-secondary w-16 py-0.5">
+                            {{ soc.name }}
+                        </a>
+                      {% empty %}
+
+                      {% endfor %}
+                    </div>
+                  </td>
+                  <td>
+                    <ul>
+                      {% for pc in event.poc.all %}
+                      <li>{{ pc.user.first_name }} {{ pc.user.last_name }}</li>
+                      {% empty %}
+                      No poc
+                      {% endfor %}
+                    </ul>
+                  </td>
+                  <td>
+                    {{ event.created_at }}
+                  </td>
+                  <th>
+                    <button class="btn btn-ghost btn-xs">details</button>
+                  </th>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+    </div>
+    
+{% endblock %}

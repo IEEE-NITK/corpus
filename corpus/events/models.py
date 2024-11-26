@@ -28,8 +28,8 @@ class Event(models.Model):
     linkedin_url = models.URLField(blank=True)
     location = models.CharField(null=False, max_length=32)
     category = models.ForeignKey(EventCategory, null=False, on_delete=models.CASCADE)
-    society = models.ManyToManyField(Society, on_delete=models.CASCADE)
-    visibility = models.CharField(max_length=1, choices=VISIBILITIES)
+    society = models.ManyToManyField(Society)
+    visibility = models.CharField(max_length=8, choices=VISIBILITIES)
     poc = models.ManyToManyField(ExecutiveMember, related_name="events")
     created_at = models.DateTimeField(null=False, auto_now_add=True)
     updated_at = models.DateTimeField(null=False, auto_now=True)
@@ -49,7 +49,7 @@ class Report(models.Model):
     iic_report_url = models.URLField(null=True)
     dsw_report_url = models.URLField(null=True)
     created_at = models.DateTimeField(null=False)
-    created_by = models.ForeignKey(ExecutiveMember, null=False, on_delete=models.DO_NOTHING)
+    created_by = models.ForeignKey(ExecutiveMember, null=True, on_delete=models.DO_NOTHING, related_name="report_creator")
 
 
 class Volunteer(models.Model):
