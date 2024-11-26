@@ -1,0 +1,20 @@
+{% extends 'events/base.html' %}
+
+{% block title %}
+    Core Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="m-10 p-5 prose max-w-none">
+        <div class="flex justify-center">
+            <a href="{% url 'new' %}" class="btn btn-success rounded-full px-2 py-1">
+                Create New Event
+            </a>
+        </div>
+
+        <div>
+            !!! STUFF !!!
+        </div>
+    </div>
+{% endblock %}

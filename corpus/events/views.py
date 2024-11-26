@@ -11,15 +11,20 @@ def dashboard(request):
     }
     return render(request, "events/dashboard.html", context)
 
+def core_dashboard(request):
+    return render(request, "events/core_dashboard.html")
+
 def new(request):
     if request.method == "POST":
         event_form = EventForm(request.POST)
         if event_form.is_valid():
-            event_form.save()
+            instance = event_form.save(commit=False)
+            instance.save()
+            event_form.save_m2m()
             messages.success(request, ("New event created!"))
         else:
             print(event_form.errors)
-            # messages.error(request, ("Error creating event. Please try again."))
+            messages.error(request, ("Error creating event. Please try again."))
         return redirect("dashboard")
     
     else:
