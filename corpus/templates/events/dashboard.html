@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include "events/header.html" %}
+    {% include "events/header.html" with text="Events" %}
     <div class="m-10 p-5 prose max-w-none">
         <div class="flex justify-center">
             <a href="{% url 'events_core_dashboard' %}" class="btn btn-success rounded-full px-2 py-1">
@@ -48,7 +48,7 @@
                   <td>
                     <div class="flex items-center gap-3">
                       {% for soc in event.society.all %}
-                        <a class="btn btn-secondary w-16 py-0.5">
+                        <a class="btn btn-info w-16 py-0.5">
                             {{ soc.name }}
                         </a>
                       {% empty %}
@@ -69,7 +69,7 @@
                     {{ event.created_at }}
                   </td>
                   <th>
-                    <button class="btn btn-ghost btn-xs">details</button>
+                    <a class="btn btn-warning btn-md">Show</a>
                   </th>
                 </tr>
                 {% endfor %}
