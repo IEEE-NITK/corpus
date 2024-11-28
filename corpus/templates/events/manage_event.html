@@ -5,8 +5,12 @@
     <h1 class="text-2xl font-bold mb-4">Update Event</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}   
+        {{ form.as_p }}
+        <br/>
         <div class="flex justify-evenly">
+            <a href="{% url 'events_core_dashboard' %}" class="btn border-primary btn-danger rounded-md px-4 py-2 m-4">
+                Back to Core Dashboard
+            </a>
             <button
                 type="submit"
                 class="btn btn-primary rounded-md px-4 py-2 m-4">
