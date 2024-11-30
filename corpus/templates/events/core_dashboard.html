@@ -5,11 +5,13 @@
     {{ block.super }}
 {% endblock %}
 
+{% load static %}
+
 {% block content %}
     {% include "events/header.html" with text="Events Core Dashboard" %}
     <div class="m-10 p-5 prose max-w-none">
         <div class="flex justify-between">
-            <a href="{% url 'dashboard' %}" class="btn btn-info rounded-full px-2 py-1">
+            <a href="{% url 'events_dashboard' %}" class="btn btn-info rounded-full px-2 py-1">
                 Go back to Events
             </a>
             <a href="{% url 'new' %}" class="btn btn-success rounded-full px-2 py-1">
@@ -51,8 +53,8 @@
                   <td>
                     <div class="flex items-center gap-3">
                       {% for soc in event.society.all %}
-                        <a class="btn btn-info w-16 py-0.5">
-                            {{ soc.name }}
+                      <a href="{% url 'sig' soc.sigs.first.name.lower %}" class="btn btn-info w-16 py-0.5">
+                        {{ soc.name }}
                         </a>
                       {% empty %}
 
@@ -72,7 +74,7 @@
                     {{ event.created_at }}
                   </td>
                   <th>
-                    <a class="btn btn-warning btn-md">Show</a>
+                    <a href="{% url 'show_event' event.id %}" class="btn btn-warning btn-md">Show</a>
                     <a href="{% url 'manage_event' event.id %}" class="btn btn-primary btn-md">Manage</a>   
                   </th>
                 </tr>
@@ -81,4 +83,8 @@
             </table>
         </div>
     </div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
