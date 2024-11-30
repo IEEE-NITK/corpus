@@ -5,14 +5,18 @@
     {{ block.super }}
 {% endblock %}
 
+{% load static %}
+
 {% block content %}
     {% include "events/header.html" with text="Events" %}
     <div class="m-10 p-5 prose max-w-none">
+      {% if admin %}
         <div class="flex justify-center">
             <a href="{% url 'events_core_dashboard' %}" class="btn btn-success rounded-full px-2 py-1">
                 Go to Core Dashboard
             </a>
         </div>
+      {% endif %}
         
         <div class="overflow-x-auto">
             <table class="table">
@@ -48,11 +52,10 @@
                   <td>
                     <div class="flex items-center gap-3">
                       {% for soc in event.society.all %}
-                        <a class="btn btn-info w-16 py-0.5">
+                        <a href="{% url 'sig' soc.sigs.first.name.lower %}" class="btn btn-info w-16 py-0.5">
                             {{ soc.name }}
                         </a>
                       {% empty %}
-
                       {% endfor %}
                     </div>
                   </td>
@@ -69,12 +72,18 @@
                     {{ event.created_at }}
                   </td>
                   <th>
-                    <a class="btn btn-warning btn-md">Show</a>
-                  </th>
+                    <a href="{% url 'show_event' event.id %}"class="btn btn-warning btn-md">Show</a>
+                  </th>         
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+          </div>
     </div>
     
 {% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/index.js' %}"></script>
+{% endblock %}
+

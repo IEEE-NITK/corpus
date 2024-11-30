@@ -2,15 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from corpus.decorators import ensure_group_membership
+
 # Create your views here.
 
 def dashboard(request):
+    is_events_admin = request.user.groups.filter(name="events_admin").exists() if request.user.is_authenticated else False
+
     events = Event.objects.all()
     context = {
-        "events": events
+        "events": events,
+        "admin": is_events_admin,
     }
     return render(request, "events/dashboard.html", context)
 
+@login_required
+@ensure_group_membership(group_names=["events_admin"])
 def core_dashboard(request):
     events = Event.objects.all()
     context = {
@@ -18,7 +26,8 @@ def core_dashboard(request):
     }
     return render(request, "events/core_dashboard.html", context)
 
-
+@login_required
+@ensure_group_membership(group_names=["events_admin"])
 def new(request):
     if request.method == "POST":
         event_form = EventForm(request.POST)
@@ -39,6 +48,8 @@ def new(request):
     }
     return render(request, "events/new.html", context)
 
+@login_required
+@ensure_group_membership(group_names=["events_admin"])
 def manage_event(request, pk):
     event = get_object_or_404(Event, id=pk)
 
@@ -59,6 +70,17 @@ def manage_event(request, pk):
     }
     return render(request, "events/manage_event.html", context)
 
+def show_event(request, pk):
+    event = get_object_or_404(Event, id=pk)
+    is_events_admin = request.user.groups.filter(name="events_admin").exists() if request.user.is_authenticated else False
+    context = {
+        "event": event,
+        "is_events_admin": is_events_admin,
+    }
+    return render(request, "events/show_event.html", context)
+
+@login_required
+@ensure_group_membership(group_names=["events_admin"])
 def delete_event(request, pk):
     event = get_object_or_404(Event, id=pk)
     event.delete()
