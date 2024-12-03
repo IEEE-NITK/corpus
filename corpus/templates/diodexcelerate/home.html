@@ -1,0 +1,200 @@
+{% extends 'diodeXcelerate/base.html' %}
+
+{% load static %}
+
+{% block title %} diodeXcelerate {% endblock %}
+
+{% block content %}
+    <div class="prose max-w-none w-full flex flex-row">
+        <div class="w-full px-10 md:px-20">
+            <section id="hero" class="text-center py-5 flex flex-col lg:flex-row items-center justify-between w-full">
+                <!-- Logo -->
+                <div class="w-full lg:w-1/4 mb-4 lg:mb-0 flex justify-center">
+                    <img src="{% static 'img/diodexcelerate_logo.png' %}" alt="Diodexcelerate Logo" class="max-w-full h-auto">
+                </div>
+
+                <!-- Titles -->
+                <div class="w-full lg:w-1/2 flex flex-col items-center justify-center mb-4 lg:mb-0">
+                    <h1 class="text-center text-3xl lg:text-4xl font-bold">Diodexcelerate</h1>
+                    <h2 class="text-center text-xl lg:text-2xl mt-2">Empowering Innovation: From Circuits to Intelligence</h2>
+                </div>
+
+                <!-- Powered By -->
+                <div class="w-full lg:w-1/4 flex flex-col items-center justify-center space-y-2">
+                    <p class="text-center text-white font-bold">Powered By</p>
+                    <img src="https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/branding-guidelines/logos/blue/Unstop-Logo-Blue.svg" alt="Unstop Logo" class="max-h-24">
+                </div>
+            </section>
+
+            <section id="about" class="py-5 px-5">
+                <h2>What is DiodeXcelerate?</h2>
+                <p>
+                    DiodeXcelerate by IEEE NITK is where creativity powers innovation!
+                    This national-level hackathon series challenges minds across power systems,
+                    IoT, AI, and robotics to solve real-world problems. With the theme Empowering
+                    Innovation: From Circuits to Intelligence it's a platform to redefine technology,
+                    showcase skills, and shape groundbreaking solutions. Innovate, collaborate, and
+                    electrify the future!
+                </p>
+            </section>
+
+            <section id="sub-events" class="py-5 px-5 space-y-6  text-white">
+                <h2 class="flex justify-center">Events</h2>
+                <div class="event-card opacity-0 transform translate-y-10 transition-all duration-700 ease-out bg-white bg-opacity-40 backdrop-blur-lg p-5 rounded-3xl shadow-lg">
+                    <h3 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-green-500 to-purple-600">
+                        Robotrix
+                    </h3>
+                    <p>Automate innovation and engineer the future of robotics</p>
+                    <p class="mb-2">Robotrix is the flagship event of our Robotics and Automation Society (RAS) Chapter at NITK,This initiative aims to introduce students to the principles of robot control using Coppeliasim, a leading simulation platform. Over the two weeks, participants will engage in expert talks, workshops, and assignments, culminating in a 24-hour hackathon. The event is open to 1st and 2nd year students of B.Tech programs across all colleges in India.                    </p>
+                    <p class="font-semibold">Dates: 14th Dec - 21st Dec</p>
+                    <a href="{% url 'robotrix_home' %}" class="btn btn-primary mt-2">Register Here</a>
+                </div>
+                <div class="event-card opacity-0 transform translate-y-10 transition-all duration-700 ease-out bg-white bg-opacity-40 backdrop-blur-lg p-5 rounded-3xl shadow-lg">
+                    <h3 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-green-500 to-purple-600">
+                        Embedathon
+                    </h3>
+                    <p>Showcase your skills in embedded systems and IoT to win the future.</p
+                    <p class="mb-2">Embedathon is a Hackathon challenge hosted by IEEE NITK student branch in association with CAS Society. It presents you with an interesting problem statement to ensure a fun-filled learning experience. This is the seventh edition of the event promising to be bigger and better. In addition to the problem statement, resources, workshops and talks will also be conducted prior to the final event to enhance your experience with us!
+                    </p>
+                    <p class="font-semibold">Dates: 26th Dec - 12th Jan</p>
+                    <a href="{% url 'embedathon_home' %}" class="btn btn-primary mt-2">Register Here</a>
+                </div>
+                <div class="event-card opacity-0 transform translate-y-10 transition-all duration-700 ease-out bg-white bg-opacity-40 backdrop-blur-lg p-5 rounded-3xl shadow-lg">
+                    <h3 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-green-500 to-purple-600">
+                        Impulse
+                    </h3>
+                    <p class="mb-2">Dive into signal processing and AI to solve today's toughest challenges</p>
+                    <p>Impulse is a first of its kind, 24-hour signal processing hackathon conducted by IEEE NITK student branch in association with IEEE NITK SPS student chapter. It presents you with interesting problem statements to ensure a fun-filled learning experience. In addition to the hackathon, a workshop will also be conducted prior to the final event to enhance your experience with us! </p>
+                    <p class="font-semibold">Dates: 15th Jan - 19th Jan</p>
+                    <a href="{% url 'impulse_home' %}" class="btn btn-primary mt-2">Register Here</a>
+                </div>
+                <div class="event-card opacity-0 transform translate-y-10 transition-all duration-700 ease-out bg-white bg-opacity-40 backdrop-blur-lg p-5 rounded-3xl shadow-lg">
+                    <h3 class="font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-green-500 to-purple-600">
+                        Electrika
+                    </h3>
+                    <p class="mb-2">Showcase your prowess in power electronics and energize the future</p>
+                    <p> Our event is designed to offer participants a profound understanding of power electronics while making the process of designing power electronics circuits an enjoyable and educational experience. We aim to acquaint participants with the intricacies of designing these circuits, making learning both engaging and informative.</p>
+                    <p class="font-semibold">Dates: 24th Jan - 1st Feb</p>
+                    <a href="{% url 'electrika_home' %}" class="btn btn-primary mt-2">Register Here</a>
+                </div>
+            </section>
+
+            <section id="faqs" class="px-5 py-5">
+                <h2>FAQs</h2>
+                <div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
+                        <div class="collapse-title text-xl font-medium">
+                            Who is eligible to register?
+                        </div>
+                        <div class="collapse-content">
+                            <p>This is going to be a pan-India event so all the <strong>1st and  2nd
+                                B.E/B.Tech/B.Sc
+                                students</strong> from <strong>any</strong> college can register for the event.</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            Is there a necessity for students to be from EEE or ECE backgrounds?
+                        </div>
+                        <div class="collapse-content">
+                            <p>It is <strong>not necessary</strong> to have any previous background in EEE or ECE.
+                                Students who are curious and want to get hands-on experience with
+                                hardware are welcome to apply.</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            How will hardware subtasks be made accessible for students outside NITK?
+                        </div>
+                        <div class="collapse-content">
+                            <p>Hardware kits would be made available to the students outside NITK via courier delivery.
+                                We expect kits to be handled very carefully throughout the competition and sent back
+                                after the completion of it.</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            How many members per team?
+                        </div>
+                        <div class="collapse-content">
+                            <p>Students can apply in a team of 2 or 3. Only one hardware kit will be provided to each
+                                team.</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            How can we prepare for the event?
+                        </div>
+                        <div class="collapse-content">
+                            <p>Brush up on your knowledge of basics of popular microcontrollers, and basic
+                                electronics.</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            What benefits would I get by registering for the event?
+                        </div>
+                        <div class="collapse-content">
+                            <p>Expert talks conducted during the competition are open for <strong>all</strong>
+                                registering participants!</p>
+                        </div>
+                    </div>
+                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+                        <div class="collapse-title text-xl font-medium">
+                            Will students be given participation certificates for the event?
+                        </div>
+                        <div class="collapse-content">
+                            <p>Yes! Participation certificates will be given to participants.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="logos" class="flex">
+                <img class="w-1/4 md:w-1/4 lg:w-1/4 mx-auto" src="{% static 'img/robotrix/robotrix_logo.png' %}" alt="Robotrix Logo">
+                <img class="w-1/4 md:w-1/4 lg:w-1/4 mx-auto" src="{% static 'img/electrika/electricaLogo.png' %}" alt="Electrika Logo">
+                <img class="w-1/2 md:w-1/3 lg:w-1/4 mx-auto" src="{% static 'img/logo/impulse_2024.png' %}" alt="Impulse Logo">
+            </section>
+
+            <section class="py-6 px-4 rounded-lg shadow-lg max-w-lg mx-auto">
+                <h2 class="text-2xl font-semibold text-center text-white mb-4">For Queries, Contact</h2>
+                <div class="flex items-center mb-3">
+                    <span class="font-medium text-white w-1/3">Name:</span>
+                    <span class="text-white">Omkar Patil</span>
+                </div>
+                <div class="flex items-center mb-3">
+                    <span class="font-medium text-white w-1/3">Email:</span>
+                    <a href="mailto:omkarpatil.211ec131@nitk.edu.in" class="text-blue-500 hover:text-blue-700">omkarpatil.211ec131@nitk.edu.in</a>
+                </div>
+                <div class="flex items-center mb-3">
+                    <span class="font-medium text-white w-1/3">Mobile:</span>
+                    <a href="tel:+919579053654" class="text-blue-500 hover:text-blue-700">9579053654</a>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventCards = document.querySelectorAll('.event-card');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.remove('opacity-0', 'translate-y-10');
+                            entry.target.classList.add('opacity-100', 'translate-y-0');
+                        }, index * 200);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            eventCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+{% endblock %}
