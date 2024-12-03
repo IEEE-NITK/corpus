@@ -33,7 +33,7 @@ class Event(models.Model):
     poc = models.ManyToManyField(ExecutiveMember, related_name="events")
     created_at = models.DateTimeField(null=False, auto_now_add=True)
     updated_at = models.DateTimeField(null=False, auto_now=True)
-    event_parent = models.ForeignKey('self', null=True, blank=True, related_name="sub_events", on_delete=models.CASCADE)
+    parent_event = models.ForeignKey('self', null=True, blank=True, related_name="sub_events", on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.title} | {self.society.first().name}"

@@ -10,80 +10,103 @@
 {% block content %}
     {% include "events/header.html" with text="Events" %}
     <div class="m-10 p-5 prose max-w-none">
-      {% if admin %}
+        {% if admin %}
         <div class="flex justify-center">
             <a href="{% url 'events_core_dashboard' %}" class="btn btn-success rounded-full px-2 py-1">
                 Go to Core Dashboard
             </a>
         </div>
-      {% endif %}
-        
+        {% endif %}
+
         <div class="overflow-x-auto">
             <table class="table">
               <!-- head -->
               <thead>
                 <tr>
-                  <th><h1>Title</h1></th>
-                  <th><h1>Start Time</h1></th>
-                  <th><h1>End Time</h1></th>
-                  <th><h1>Society</h1></th>
-                  <th><h1>POCs</h1></th>
-                  <th><h1>Created At</h1></th>
+                  <th>Title</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
+                  <th>Society</th>
+                  <th>POCs</th>
+                  <th>Created At</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                <!-- row 1 -->
                 {% for event in events %}
+                <!-- Event Row -->
                 <tr>
                   <td>
-                    <div class="flex items-center gap-3">
-                      <div>
-                        <div class="font-bold"><h2>{{ event.title }}</h2></div>
-                      </div>
-                    </div>
+                    <div class="font-bold"><h2>{{ event.title }}</h2></div>
                   </td>
+                  <td>{{ event.start_time }}</td>
+                  <td>{{ event.end_time }}</td>
                   <td>
-                    {{ event.start_time }}
-                  </td>
-                  <td>
-                    {{ event.end_time }}
-                  </td>
-                  <td>
-                    <div class="flex items-center gap-3">
-                      {% for soc in event.society.all %}
-                        <a href="{% url 'sig' soc.sigs.first.name.lower %}" class="btn btn-info w-16 py-0.5">
-                            {{ soc.name }}
-                        </a>
-                      {% empty %}
-                      {% endfor %}
-                    </div>
+                    {% for soc in event.society.all %}
+                      <a href="{% url 'sig' soc.sigs.first.name.lower %}" class="btn btn-info w-16 py-0.5">
+                          {{ soc.name }}
+                      </a>
+                    {% endfor %}
                   </td>
                   <td>
                     <ul>
                       {% for pc in event.poc.all %}
                       <li>{{ pc.user.first_name }} {{ pc.user.last_name }}</li>
                       {% empty %}
-                      No poc
+                      No POC
                       {% endfor %}
                     </ul>
                   </td>
+                  <td>{{ event.created_at }}</td>
                   <td>
-                    {{ event.created_at }}
+                    <a href="{% url 'show_event' event.id %}" class="btn btn-md btn-warning">Show</a>
+                    <button onclick="toggleSubEvents({{ event.id }})" class="btn btn-md btn-secondary">
+                      Sub-events
+                    </button>
                   </td>
-                  <th>
-                    <a href="{% url 'show_event' event.id %}"class="btn btn-warning btn-md">Show</a>
-                  </th>         
                 </tr>
+
+                {% for sub_event in event.sub_events.all %}
+                <tr class="hidden sub-event-row-{{ event.id }}">
+                  <td class="pl-10">
+                    <div class="text-gray-600 text-sm">{{ sub_event.title }}</div>
+                  </td>
+                  <td class="text-sm">{{ sub_event.start_time }}</td>
+                  <td class="text-sm">{{ sub_event.end_time }}</td>
+                  <td class="text-sm text-gray-500">Sub-event of {{ event.title }}</td>
+                  <td>
+                    <ul>
+                    {% for pc in sub_event.poc.all %}
+                      <li>{{ pc.user.first_name }} {{ pc.user.last_name }}</li>
+                    {% empty %}
+                    No POC
+                    {% endfor %}
+                    </ul>
+                  </td>
+                  <td> {{ sub_event.created_at }} </td>
+                  <td>
+                    <a href="{% url 'show_event' sub_event.id %}" class="btn btn-sm btn-warning">Show</a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr class="hidden sub-event-row-{{ event.id }}">
+                  <td colspan="7" class="pl-10 text-sm text-gray-500">No sub-events available</td>
+                </tr>
+                {% endfor %}
                 {% endfor %}
               </tbody>
             </table>
           </div>
     </div>
-    
 {% endblock %}
 
 {% block script %}
-  <script src="{% static 'js/index.js' %}"></script>
+<script>
+  function toggleSubEvents(eventId) {
+    const subEventRows = document.querySelectorAll(`.sub-event-row-${eventId}`);
+    subEventRows.forEach(row => {
+      row.classList.toggle('hidden');
+    });
+  }
+</script>
 {% endblock %}
-

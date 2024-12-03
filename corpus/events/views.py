@@ -10,7 +10,7 @@ from corpus.decorators import ensure_group_membership
 def dashboard(request):
     is_events_admin = request.user.groups.filter(name="events_admin").exists() if request.user.is_authenticated else False
 
-    events = Event.objects.all()
+    events = Event.objects.filter(parent_event=None)
     context = {
         "events": events,
         "admin": is_events_admin,
@@ -20,7 +20,7 @@ def dashboard(request):
 @login_required
 @ensure_group_membership(group_names=["events_admin"])
 def core_dashboard(request):
-    events = Event.objects.all()
+    events = Event.objects.filter(parent_event=None)
     context = {
         "events": events
     }
@@ -39,7 +39,7 @@ def new(request):
         else:
             print(event_form.errors)
             messages.error(request, ("Error creating event. Please try again."))
-        return redirect("dashboard")
+        return redirect("events_core_dashboard")
     
     else:
         event_form = EventForm()
@@ -72,9 +72,11 @@ def manage_event(request, pk):
 
 def show_event(request, pk):
     event = get_object_or_404(Event, id=pk)
+    sub_events = Event.objects.filter(parent_event=event).order_by("start_time")
     is_events_admin = request.user.groups.filter(name="events_admin").exists() if request.user.is_authenticated else False
     context = {
         "event": event,
+        "sub_events": sub_events,
         "is_events_admin": is_events_admin,
     }
     return render(request, "events/show_event.html", context)

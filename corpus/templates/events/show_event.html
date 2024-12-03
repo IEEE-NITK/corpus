@@ -49,7 +49,7 @@
                         <h1 class="text-xl font-bold text-white-700">Start Date</h1>
                         <h2 class="text-lg text-white-600">{{ event.start_time }}</h2>
                       </div>
-                  
+
                       <!-- End Date -->
                       <div class="p-3 rounded-full text-white shadow-md bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,7 +60,7 @@
                         <h1 class="text-xl font-bold text-white-700">End Date</h1>
                         <h2 class="text-lg text-white-600">{{ event.end_time }}</h2>
                       </div>
-                  
+
                       <!-- Location -->
                       <div class="p-3 rounded-full text-white shadow-md bg-green-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
@@ -76,7 +76,7 @@
                       <div class="p-3 rounded-full text-white shadow-md bg-purple-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                        </svg>                          
+                        </svg>
                       </div>
                       <div>
                         <h1 class="text-xl font-bold text-white-700">Type of Event</h1>
@@ -84,7 +84,33 @@
                       </div>
                     </div>
                   </div>
-                  
+
+                {% if sub_events %}
+                <h2 class="card-title my-4 text-4xl">Timeline</h2>
+                <section id="schedule" class="px-5 py-5">
+                    <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                        {% for sb in sub_events %}
+                        <li class="m-0">
+                            <div class="timeline-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                                    <path fill-rule="evenodd"
+                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div
+                                class="{% if forloop.counter|divisibleby:2 %}timeline-end md:text-start{% else %}timeline-start md:text-end{% endif %} mb-10">
+                                <div class="flex justify-center">{{ sb.start_time }}</div>
+                                <a class="btn btn-sm btn-secondary" href="{% url 'show_event' sb.id %}">{{ sb.title }}</a>
+                            </div>
+                            <hr/>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+                {% endif %}
+
+
                 <a class="m-4 btn btn-warning btn-lg"> Go to event </a>
                 <h2 class="card-title my-4 text-4xl"> Contact </h2>
                 <div class="flex justify-center m-4">
@@ -102,7 +128,7 @@
                         <a href="{% url 'events_dashboard' %}" class="btn btn-md btn-danger"> Go back to Dashboard </a>
                     {% endif %}
                 </div>
-                {% comment %} urls, category {% endcomment %}                  
+                {% comment %} urls, category {% endcomment %}
             </div>
         </div>
     </div>
