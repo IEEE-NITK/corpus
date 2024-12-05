@@ -1,0 +1,13 @@
+Tailwind HTML File
+
+This file will be used to reference classes that are used indirectly in HTML templates.
+For example, we define CSS class names to be used in forms in the Python code.
+Tailwind will not know to reference these classes unless we define them in a file that is included in a HTML template.
+
+This file will never be referenced within Django, so feel free to add any classes that aren't referenced in HTML here.
+
+<p class="mt-1 w-full rounded-md shadow-sm"></p>
+<p class="input input-bordered focus:input-primary"></p>
+<p class="checkbox checkbox-primary"></p>
+<p class="radio radio-primary"></p>
+<p class="select select-bordered focus:select-primary"></p>
