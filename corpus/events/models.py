@@ -34,6 +34,7 @@ class Event(models.Model):
     created_at = models.DateTimeField(null=False, auto_now_add=True)
     updated_at = models.DateTimeField(null=False, auto_now=True)
     parent_event = models.ForeignKey('self', null=True, blank=True, related_name="sub_events", on_delete=models.CASCADE)
+    created_by = models.ForeignKey(ExecutiveMember, null=True, blank=True, related_name='created_events', on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.title} | {self.society.first().name}"

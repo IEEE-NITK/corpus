@@ -58,7 +58,7 @@
                       {% endfor %}
                     </ul>
                   </td>
-                  <td>{{ event.created_at }}</td>
+                  <td>{{ event.created_at }} by {{ event.created_by }}</td>
                   <td>
                     <a href="{% url 'show_event' event.id %}" class="btn btn-md btn-warning">Show</a>
                     {% if event.sub_events.all %}
