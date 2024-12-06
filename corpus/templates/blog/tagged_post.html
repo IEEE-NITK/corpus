@@ -1,0 +1,68 @@
+{% extends "./base.html" %}
+
+{% block title %}
+{{required_tag}}
+{% endblock %}
+
+{% block content %}
+<div class="m-10 p-5 sm:border rounded-lg flex flex-col items-center justify-center gap-2">
+    <h1 class="text-3xl">Blogs from {{required_tag}}</h1>
+    <div>
+        {% for tag in tags %}
+            {% if tag == required_tag %}
+                <a class="btn btn-sm btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
+            {% else %}  
+                <a class="btn btn-sm btn-outline btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="m-10">
+    <div class="my-2 py-5 sm:px-10 sm:border rounded-lg">
+        <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:max-w-[70rem]">
+            {% for post in page_obj %}
+                <article class="card p-1 m-0 bg-base-100 border hover:shadow-2xl">
+                    <a href="{% url 'full_post' post.slug %}">
+                    <div class="card-body">
+                        <h2 class="card-title">{{post.title}}</h2>
+                        <p>by {{post.author}}</p>
+                        <p>{{post.published_date}}</p>
+                        <p>{{post.description}}</p>
+                        <div class="card-actions justify-end">
+                            {% for tag in post.blog_tag.all %}
+                                {% if forloop.counter0|divisibleby:2 %}
+                                    <div class="badge badge-outline badge-secondary">{{ tag.tag_name }}</div>
+                                {% else %}
+                                    <div class="badge badge-outline badge-primary">{{ tag.tag_name }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </a>
+                </article>
+            {% endfor %}
+            </div>
+
+        <div class="my-2 py-3 sm:px-3 flex justify-center">
+            <div class="join w-fit">
+                <span class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a class="join-item btn btn-outline btn-primary btn-sm md:btn-md" href="?page=1">first</a>
+                            <a class="join-item btn btn-outline btn-primary btn-sm md:btn-md" href="?page={{ page_obj.previous_page_number }}">&laquo</a>
+                        {% endif %}
+
+                        <span class="current">
+                            <p class="join-item btn btn-diasabled btn-primary btn-sm md:btn-md">{{ page_obj.number }}</p>
+                        </span>
+
+                        {% if page_obj.has_next %}
+                           <a class="join-item btn btn-outline btn-primary btn-sm md:btn-md" href="?page={{ page_obj.next_page_number }}">&raquo</a>
+                           <a class="join-item btn btn-outline btn-primary btn-sm md:btn-md" href="?page={{ page_obj.paginator.num_pages }}">last</a>
+                        {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
