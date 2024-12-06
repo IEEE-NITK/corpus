@@ -17,7 +17,7 @@
             </a>
         </div>
         {% endif %}
-        <hr/>
+        <br/>
         <div class="border border-gray-300 rounded-lg">
         <div class="overflow-x-auto m-4">
             <table class="table">
@@ -61,9 +61,11 @@
                   <td>{{ event.created_at }}</td>
                   <td>
                     <a href="{% url 'show_event' event.id %}" class="btn btn-md btn-warning">Show</a>
-                    <button onclick="toggleSubEvents({{ event.id }})" class="btn btn-md btn-secondary">
-                      Sub-events
-                    </button>
+                    {% if event.sub_events.all %}
+                      <button onclick="toggleSubEvents({{ event.id }})" class="btn btn-md btn-secondary">
+                        Sub-Events
+                      </button>
+                    {% endif %}
                   </td>
                 </tr>
 
