@@ -18,6 +18,7 @@ class EventForm(CorpusModelForm):
     class Meta:
         model = Event
         fields = "__all__"
+        exclude = ["created_by"]
         widgets = {
             'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),

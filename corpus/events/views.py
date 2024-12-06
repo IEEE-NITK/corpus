@@ -33,6 +33,7 @@ def new(request):
         event_form = EventForm(request.POST)
         if event_form.is_valid():
             instance = event_form.save(commit=False)
+            instance.created_by = get_object_or_404(ExecutiveMember, user=request.user)
             instance.save()
             event_form.save_m2m()
             messages.success(request, ("New event created!"))
