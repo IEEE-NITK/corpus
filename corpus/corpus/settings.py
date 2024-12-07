@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "virtual_expo.apps.VirtualExpoConfig",
     "events.apps.EventsConfig",
     "blog",
+    "newsletter.apps.NewsletterConfig",
 ]
 
 MIDDLEWARE = [

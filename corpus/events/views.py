@@ -4,6 +4,8 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from corpus.decorators import ensure_group_membership
+from newsletter.models import NewsPost
+from datetime import datetime
 
 # Create your views here.
 
@@ -36,6 +38,8 @@ def new(request):
             instance.created_by = get_object_or_404(ExecutiveMember, user=request.user)
             instance.save()
             event_form.save_m2m()
+            newspost = NewsPost.objects.create(date=datetime.now(), event=instance)
+            newspost.save()
             messages.success(request, ("New event created!"))
         else:
             print(event_form.errors)

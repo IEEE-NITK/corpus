@@ -48,6 +48,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("athenaeum/", include("athenaeum.urls")),
     path("events/", include("events.urls")),
+    path("newsletter/", include("newsletter.urls")),
 ]
 
 if settings.DEBUG:
