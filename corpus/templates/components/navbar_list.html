@@ -68,6 +68,10 @@
                 </a>
             </li>
             <hr class="border-2 border-blue-500" />
+                <a href="{% url 'diodexcelerate_home' %}">
+                    DiodeXcelerate
+                </a>
+            </li>
             <li>
                 <a href="{% url 'embedathon_home' %}">
                     Embedathon
@@ -103,7 +107,7 @@
 </li>
 
 <li>
-    <a href="https://ieee-nitk.github.io/blog/">
+    <a href="{% url 'post_list' %}">
         Blog
     </a>
 </li>
