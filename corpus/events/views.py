@@ -4,7 +4,7 @@ from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from corpus.decorators import ensure_group_membership
-
+from django.utils.timezone import now
 # Create your views here.
 
 def dashboard(request):
@@ -74,11 +74,13 @@ def manage_event(request, pk):
 def show_event(request, pk):
     event = get_object_or_404(Event, id=pk)
     sub_events = Event.objects.filter(parent_event=event).order_by("start_time")
+    is_completed = True if event.end_time < now() else False
     is_events_admin = request.user.groups.filter(name="events_admin").exists() if request.user.is_authenticated else False
     context = {
         "event": event,
         "sub_events": sub_events,
         "is_events_admin": is_events_admin,
+        "is_completed": is_completed,
     }
     return render(request, "events/show_event.html", context)
 

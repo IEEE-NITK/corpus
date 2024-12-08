@@ -27,7 +27,9 @@
   <section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
     <h1 class="text-4xl lg:text-5xl">About {{ event.title }}</h1>
     <p class="flex justify-center">{{ event.description|linebreaksbr|safe }}</p>
-    <a href="{{ event.registration_url }}" class="btn btn-lg btn-success">Register</a>
+    {% if not is_completed %}
+      <a href="{{ event.registration_url }}" class="btn btn-lg btn-success">Register</a>
+    {% endif %}
   </section>
 
   <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
