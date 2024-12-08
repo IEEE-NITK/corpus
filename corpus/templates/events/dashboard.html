@@ -19,6 +19,9 @@
         {% endif %}
         <br/>
         <div class="border border-gray-300 rounded-lg">
+          {% if not events %}
+          <h1 class="m-4 text-xl text-center">No events available</h1>
+          {% else %}
         <div class="overflow-x-auto m-4">
             <table class="table">
               <!-- head -->
@@ -96,7 +99,8 @@
                   <td colspan="7" class="pl-10 text-sm text-gray-500">No sub-events available</td>
                 </tr>
                 {% endfor %}
-                {% endfor %}
+              {% endfor %}
+              {% endif %}
               </tbody>
             </table>
           </div>

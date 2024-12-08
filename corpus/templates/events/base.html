@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 <head>
-    <link rel="stylesheet" href="{% static 'css/events.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/events.css' %}" />
 </head>
 {% block title %}
- Events
+  Events
 {% endblock %}
 
 {% block script %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const theme = "";
-            const currTheme = localStorage.getItem("corpusTheme");
-            const themeButton = document.getElementById("dark-mode-button");
-            themeButton.remove();
-            localStorage.setItem("corpusThemeArchive", currTheme);
-            localStorage.setItem("corpusTheme", theme);
-            document.documentElement.setAttribute("data-theme", theme);
-        });
-
-        window.addEventListener("beforeunload", function (event) {
-            const oldTheme = localStorage.getItem("corpusThemeArchive");
-            localStorage.setItem("corpusTheme", oldTheme);
-        })
-    </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const theme = ''
+      const currTheme = localStorage.getItem('corpusTheme')
+      const themeButton = document.getElementById('dark-mode-button')
+      themeButton.remove()
+      localStorage.setItem('corpusThemeArchive', currTheme)
+      localStorage.setItem('corpusTheme', theme)
+      document.documentElement.setAttribute('data-theme', theme)
+    })
+    
+    window.addEventListener('beforeunload', function (event) {
+      const oldTheme = localStorage.getItem('corpusThemeArchive')
+      localStorage.setItem('corpusTheme', oldTheme)
+    })
+  </script>
 {% endblock %}

@@ -3,39 +3,37 @@
 {% load static %}
 
 {% block content %}
-<div class="container mx-auto mt-8">
+  <div class="container mx-auto mt-8">
     <h1 class="text-2xl font-bold mb-4">Update Event</h1>
-    {% include 'events/eventform.html' with action="Update" event=event event_form=form %}
+    {% include 'events/eventform.html' with action='Update' event=event event_form=form %}
     <div class="flex justify-evenly">
-        <a href="{% url 'events_core_dashboard' %}" class="btn border-primary btn-danger rounded-md px-4 py-2 m-4">
-            Back to Core Dashboard
-        </a>
-        <a onclick="openModal({{ event.id }})"class="btn btn-error rounded-md px-4 py-2 m-4"> Delete Event </a>
+      <a href="{% url 'events_core_dashboard' %}" class="btn border-primary btn-danger rounded-md px-4 py-2 m-4">Back to Core Dashboard</a>
+      <a onclick="openModal({{ event.id }})" class="btn btn-error rounded-md px-4 py-2 m-4">Delete Event</a>
     </div>
-    <br/>
+    <br />
     <div id="deleteModal" class="modal">
-        <div class="modal-box">
-            <h3 class="font-bold text-lg">Confirm Deletion</h3>
-            <p class="py-4">Are you sure you want to delete this event?</p>
-            <div class="modal-action">
-                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-                <a href="{% url 'delete_event' event.id %}" id="confirmDelete" class="btn btn-error">Delete</a>
-            </div>
+      <div class="modal-box">
+        <h3 class="font-bold text-lg">Confirm Deletion</h3>
+        <p class="py-4">Are you sure you want to delete this event?</p>
+        <div class="modal-action">
+          <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+          <a href="{% url 'delete_event' event.id %}" id="confirmDelete" class="btn btn-error">Delete</a>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-    let eventId = null;
+  <script>
+    let eventId = null
     function openModal(id) {
-        eventId = id;
-        document.getElementById("deleteModal").classList.add("modal-open");
+      eventId = id
+      document.getElementById('deleteModal').classList.add('modal-open')
     }
-
+    
     function closeModal() {
-        document.getElementById("deleteModal").classList.remove("modal-open");
+      document.getElementById('deleteModal').classList.remove('modal-open')
     }
-</script>
+  </script>
 {% endblock %}
 
 {% block script %}

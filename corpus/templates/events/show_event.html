@@ -2,141 +2,133 @@
 {% load static %}
 
 {% block title %}
-{{event.title}}
+  {{ event.title }}
 {% endblock %}
 
 {% block content %}
-<section class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+  <section class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
     <div id="particles-js" class="h-[50vh] w-full"></div>
     <div class="flex flex-col lg:flex-row gap-20 justify-between mx-auto items-center">
-        {% for society in event.society.all %}
-            <a href="{{ society.url }}">
-                {% if society.dark_image %}
-                    <img src="{% static society.image %}" class="padding-10 light-logo h-16 lg:h-28 inline">
-                    <img src="{% static society.dark_image %}" class="padding-10 dark-logo h-16 lg:h-28 inline">
-                    {% else %}
-                    <img src="{% static society.image %}" class="padding-10 h-16 lg:h-28 inline">
-                {% endif %}
-            </a>
-        {% empty %}
-        {% endfor %}
-    </div>
-</section>
+      {% for society in event.society.all %}
+        <a href="{{ society.url }}">
+          {% if society.dark_image %}
+            <img src="{% static society.image %}" class="padding-10 light-logo h-16 lg:h-28 inline" />
+            <img src="{% static society.dark_image %}" class="padding-10 dark-logo h-16 lg:h-28 inline" />
+          {% else %}
+            <img src="{% static society.image %}" class="padding-10 h-16 lg:h-28 inline" />
+          {% endif %}
+        </a>
+      {% empty %}
 
-<!-- About Event Section -->
-<section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
-    <h1 class="text-4xl lg:text-5xl">About {{event.title}}</h1>
-    <p class="flex justify-center">
-        {{event.description|linebreaksbr|safe}}
-    </p>
-    <a href="{{ event.registration_url }}" class="btn btn-lg btn-success"> Register </a>
-</section>
-<!-- Event Section -->
-<section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <h1 class="text-4xl lg:text-5xl">About {{ event.title }}</h1>
+    <p class="flex justify-center">{{ event.description|linebreaksbr|safe }}</p>
+    <a href="{{ event.registration_url }}" class="btn btn-lg btn-success">Register</a>
+  </section>
+
+  <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
     <div class="flex gap-8 justify-center not-prose lg:flex-row flex-col">
-        <div class="card bg-base-100 shadow-xl basis-2/3">
-            <div class="card-body align-items items-center text-center">
-                <h2 class="card-title my-4 text-4xl">Details</h2>
-                <div class="m-10 p-5 prose max-w-none w-2/4 border border-gray-300 rounded-lg ">
-                    <div class="grid grid-cols-[auto,1fr] items-center gap-x-4 gap-y-6">
-                      <!-- Start Date -->
-                      <div class="p-3 rounded-full text-white shadow-md bg-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10m-4 4v5l3 3m-6-3h6" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h1 class="text-xl font-bold text-white-700">Start Date</h1>
-                        <h2 class="text-lg text-white-600">{{ event.start_time }}</h2>
-                      </div>
-
-                      <!-- End Date -->
-                      <div class="p-3 rounded-full text-white shadow-md bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-1 3h2v5m-3-5h4v5l-3 3m0 0l-3-3m0 0H9" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h1 class="text-xl font-bold text-white-700">End Date</h1>
-                        <h2 class="text-lg text-white-600">{{ event.end_time }}</h2>
-                      </div>
-
-                      <!-- Location -->
-                      <div class="p-3 rounded-full text-white shadow-md bg-green-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h1 class="text-xl font-bold text-white-700">Location</h1>
-                        <h2 class="text-lg text-white-600">{{ event.location }}</h2>
-                      </div>
-
-                      <div class="p-3 rounded-full text-white shadow-md bg-purple-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <h1 class="text-xl font-bold text-white-700">Type of Event</h1>
-                        <h2 class="text-lg text-white-600">{{ event.category }}</h2>
-                      </div>
-                    </div>
-                  </div>
-
-                {% if sub_events %}
-                <h2 class="card-title my-4 text-4xl">Timeline</h2>
-                <section id="schedule" class="px-5 py-5">
-                    <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-                        {% for sb in sub_events %}
-                        <li class="m-0">
-                            <div class="timeline-middle">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                                    <path fill-rule="evenodd"
-                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                          clip-rule="evenodd"/>
-                                </svg>
-                            </div>
-                            <div
-                                class="{% if forloop.counter|divisibleby:2 %}timeline-end md:text-start{% else %}timeline-start md:text-end{% endif %} mb-10">
-                                <div class="flex justify-center">{{ sb.start_time }}</div>
-                                <a class="btn btn-sm btn-secondary" href="{% url 'show_event' sb.id %}">{{ sb.title }}</a>
-                            </div>
-                            <hr/>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </section>
-                {% endif %}
-
-
-                <a class="m-4 btn btn-warning btn-lg"> Go to event </a>
-                <h2 class="card-title my-4 text-4xl"> Contact </h2>
-                <div class="flex justify-center m-4">
-                    <ul class="list-inline">
-                        {% for pc in event.poc.all %}
-                            <li> {{ pc.user.first_name }} {{ pc.user.last_name }} - {{ pc.user.phone_no }} </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
-                <div class="flex justify-between">
-                    {% if is_events_admin %}
-                        <a href="{% url 'events_core_dashboard' %}" class="btn btn-md btn-danger"> Go back to Dashboard </a>
-                    {% else %}
-                        <a href="{% url 'events_dashboard' %}" class="btn btn-md btn-danger"> Go back to Dashboard </a>
-                    {% endif %}
-                </div>
-                {% comment %} urls, category {% endcomment %}
+      <div class="card bg-base-100 shadow-xl basis-2/3">
+        <div class="card-body align-items items-center text-center">
+          <h2 class="card-title my-4 text-4xl">Details</h2>
+          <div class="m-10 p-5 prose max-w-none w-2/4 border border-gray-300 rounded-lg">
+            <div class="grid grid-cols-[auto,1fr] items-center gap-x-4 gap-y-6">
+              <div class="p-3 rounded-full text-white shadow-md bg-blue-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 4h10m-4 4v5l3 3m-6-3h6" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-xl font-bold text-white-700">Start Date</h1>
+                <h2 class="text-lg text-white-600">{{ event.start_time }}</h2>
+              </div>
+              <div class="p-3 rounded-full text-white shadow-md bg-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm-1 3h2v5m-3-5h4v5l-3 3m0 0l-3-3m0 0H9" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-xl font-bold text-white-700">End Date</h1>
+                <h2 class="text-lg text-white-600">{{ event.end_time }}</h2>
+              </div>
+              <div class="p-3 rounded-full text-white shadow-md bg-green-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-xl font-bold text-white-700">Location</h1>
+                <h2 class="text-lg text-white-600">{{ event.location }}</h2>
+              </div>
+              <div class="p-3 rounded-full text-white shadow-md bg-purple-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-xl font-bold text-white-700">Type of Event</h1>
+                <h2 class="text-lg text-white-600">{{ event.category }}</h2>
+              </div>
             </div>
+          </div>
+
+          {% if sub_events %}
+            <h2 class="card-title my-4 text-4xl">Timeline</h2>
+            <section id="schedule" class="px-5 py-5">
+              <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                {% for sb in sub_events %}
+                  <li class="m-0">
+                    <div class="timeline-middle">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <div class="{% if forloop.counter|divisibleby:2 %}
+                        timeline-end md:text-start
+                      {% else %}
+                        timeline-start md:text-end
+                      {% endif %} mb-10">
+                      <div class="flex justify-center">{{ sb.start_time }}</div>
+                      <a class="btn btn-sm btn-secondary" href="{% url 'show_event' sb.id %}">{{ sb.title }}</a>
+                    </div>
+                    <hr />
+                  </li>
+                {% endfor %}
+              </ul>
+            </section>
+          {% endif %}
+
+          {% comment %} <a class="m-4 btn btn-warning btn-lg">Go to event</a> {% endcomment %}
+          <h2 class="card-title my-4 text-4xl">Contact</h2>
+          <div class="flex justify-center m-4">
+            <ul class="list-inline">
+              {% for pc in event.poc.all %}
+                <li>{{ pc.user.first_name }} {{ pc.user.last_name }} - {{ pc.user.phone_no }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="flex justify-between">
+            {% if is_events_admin %}
+              <a href="{% url 'events_core_dashboard' %}" class="btn btn-md btn-danger">Go back to Dashboard</a>
+            {% else %}
+              <a href="{% url 'events_dashboard' %}" class="btn btn-md btn-danger">Go back to Dashboard</a>
+            {% endif %}
+          </div>
+          {% comment %}TODO - social media urls, event page{% endcomment %}
         </div>
+      </div>
     </div>
-</section>
+  </section>
 {% endblock %}
 
 {% block script %}
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script src="https://unpkg.com/typeit"></script>
-<script src="{% static 'js/index.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/typeit"></script>
+  <script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
