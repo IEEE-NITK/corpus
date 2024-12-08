@@ -38,8 +38,8 @@ def new(request):
             event_form.save_m2m()
             messages.success(request, ("New event created!"))
         else:
-            print(event_form.errors)
-            messages.error(request, ("Error creating event. Please try again."))
+            for error in event_form.errors.values():
+                messages.error(request, error)
         return redirect("events_core_dashboard")
     
     else:
@@ -60,8 +60,8 @@ def manage_event(request, pk):
             form.save()
             messages.success(request, ("Event updated successfully!"))
         else:
-            print(form.errors)
-            messages.error(request, ("Error updating event. Please try again."))
+            for error in form.errors.values():
+                messages.error(request, error)
         return redirect("events_core_dashboard")
     else:
         form = EventForm(instance=event)

@@ -5,22 +5,13 @@
 {% block content %}
 <div class="container mx-auto mt-8">
     <h1 class="text-2xl font-bold mb-4">Update Event</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br/>
-        <div class="flex justify-evenly">
-            <a href="{% url 'events_core_dashboard' %}" class="btn border-primary btn-danger rounded-md px-4 py-2 m-4">
-                Back to Core Dashboard
-            </a>
-            <button
-                type="submit"
-                class="btn btn-primary rounded-md px-4 py-2 m-4">
-                Update Event
-            </button>
-            <a onclick="openModal({{ event.id }})"class="btn btn-error rounded-md px-4 py-2 m-4"> Delete Event </a>
-        </div>
-    </form>
+    {% include 'events/eventform.html' with action="Update" event=event event_form=form %}
+    <div class="flex justify-evenly">
+        <a href="{% url 'events_core_dashboard' %}" class="btn border-primary btn-danger rounded-md px-4 py-2 m-4">
+            Back to Core Dashboard
+        </a>
+        <a onclick="openModal({{ event.id }})"class="btn btn-error rounded-md px-4 py-2 m-4"> Delete Event </a>
+    </div>
     <br/>
     <div id="deleteModal" class="modal">
         <div class="modal-box">

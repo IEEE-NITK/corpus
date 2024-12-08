@@ -13,7 +13,7 @@
 <div class="container mx-auto mt-8">
     <h1 class="text-2xl font-bold mb-4">Create Event</h1>
     <p class="text-white-600">Fill out the form below to create a new event. Use <strong>ctrl+click</strong> to select multiple options in the required fields</p>
-    <p class="text-white-600">Fields marked with an asterisk (*) are mandatory</p>
+    {% comment %} <p class="text-white-600">Fields marked with an asterisk (*) are mandatory</p>
     <br/>
     <div class="border border-white-300 rounded-lg">
         <form method="post" class="m-4">
@@ -27,7 +27,8 @@
                 </button>
             </div>
         </form>
-    </div>
+    </div> {% endcomment %}
+    {% include 'events/eventform.html' with action="Create" %}
     <div>
         <a href="{% url 'events_core_dashboard' %}" class="btn btn-accent rounded-md px-4 py-2 mt-4">
             Go back to Dashboard
