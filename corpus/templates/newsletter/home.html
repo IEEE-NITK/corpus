@@ -1,0 +1,158 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+
+{% block title %}
+    Newsletter
+{% endblock %}
+{% block content %}
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .post-bar:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+    }
+
+    .post-bar {
+        transition: transform 0.3s ease;
+    }
+
+    .carousel {
+        scroll-behavior: smooth;
+    }
+
+</style>
+
+{% include 'newsletter/header.html' %}
+<div class="flex flex-col lg:flex-row justify-center gap-0">
+    <!-- What's New Section -->
+    <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
+        <h1 class="text-center my-10 text-2xl md:text-4xl lg:text-5xl">What's New?</h1>
+        <div class="m-5 md:m-10 p-5 md:p-10 overflow-y-auto scrollbar-hide">
+            <a href="{% url 'diodexcelerate_home' %}"
+                class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
+                rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:via-purple-500 dark:to-primary-500 dark:text-white
+                from-purple-400 via-purple-500 to-blue-500 text-white">
+                <span class="indicator-item badge badge-accent">new</span>
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">DiodeXcelerate</h2>
+                <p class="text-md text-right md:text-xl lg:text-xl">14th December - 1st February</p>
+            </a>
+            <a href="{% url 'robotrix_home' %}"
+                class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
+                rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:via-purple-500 dark:to-primary-500 dark:text-white
+                from-purple-400 via-purple-500 to-blue-500 text-white">
+                <span class="indicator-item badge badge-accent">new</span>
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Robotrix</h2>
+                <p class="text-md text-right md:text-xl lg:text-xl">14th December</p>
+            </a>
+            <a
+                class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
+                rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:via-purple-500 dark:to-primary-500 dark:text-white
+                from-purple-400 via-purple-500 to-blue-500 text-white">
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Research Rehashed</h2>
+                <p class="text-md text-right md:text-xl lg:text-xl">To Be Announced</p>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider divider-accent dark:divider-secondary text-pink-500 dark:text-blue-500 divider-horizontal">&</div>
+
+    <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
+        <h1 class="my-10 text-center text-2xl md:text-4xl lg:text-5xl">Recent Events</h1>
+        <div class="relative w-full mx-auto">
+            <div class="carousel rounded-lg overflow-hidden relative mb-10" id="carousel">
+                <div id="slide1" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/techit.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Tech it Easy Quiz - 4th October</h1>
+                    </div>
+                </div>
+                <div id="slide2" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/codered.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">CodeRed CTF - 31st August</h1>
+                    </div>
+                </div>
+                <div id="slide3" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/research.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Intro to Research Paper Reading - 8th November</h1>
+                    </div>
+                </div>
+                <div id="slide4" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/execom.jpeg' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Executive Committee Meeting I</h1>
+                    </div>
+                </div>
+                <div id="slide5" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/cad.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Introduction to CAD- 24th October</h1>
+                    </div>
+                </div>
+                <button id="prevButton" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-l-lg z-10">
+                    ❮
+                </button>
+                <button id="nextButton" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-r-lg z-10">
+                    ❯
+                </button>
+            </div>
+        </div>
+    </section>
+    
+</div>
+
+
+{% endblock %}
+
+{% block script %}
+<script>
+    const carousel = document.getElementById("carousel");
+    const slides = carousel.getElementsByClassName("carousel-item");
+    const prevButton = document.getElementById("prevButton");
+    const nextButton = document.getElementById("nextButton");
+
+    let currentSlide = 0;
+
+    const showSlide = (index) => {
+      Array.from(slides).forEach((slide, i) => {
+        slide.classList.toggle("hidden", i !== index);
+        slide.classList.toggle("block", i === index);
+      });
+    };
+
+    const nextSlide = () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    };
+
+    const prevSlide = () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    };
+
+    nextButton.addEventListener("click", nextSlide);
+    prevButton.addEventListener("click", prevSlide);
+
+    // Auto Slide Logic
+    setInterval(nextSlide, 3000); // Change slide every 3 seconds
+
+    // Initialize
+    showSlide(currentSlide);
+</script>
+
+{% endblock %}
