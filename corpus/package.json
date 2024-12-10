@@ -1,5 +1,9 @@
 {
   "author": "",
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^44.0.0",
+    "ckeditor": "^4.12.1"
+  },
   "description": "",
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
