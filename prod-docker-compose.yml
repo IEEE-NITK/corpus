@@ -84,7 +84,21 @@ services:
       - nginx
     networks:
       - corpus_network
-    command: certonly --webroot --webroot-path=/var/www/certbot -d ieee.nitk.ac.in --agree-tos --email anirudhprabhakaran3@gmail.com  --non-interactive
+    command: certonly --webroot --webroot-path=/var/www/certbot -d ieee.nitk.ac.in --agree-tos --email anirudhprabhakaran3@gmail.com --non-interactive
+
+backup:
+  build: .
+  restart: "no"
+  depends_on:
+    postgres:
+      condition: service_healthy
+  volumes:
+    - ./backups:/backups
+  env_file:
+    - .env
+  networks:
+    - corpus_network
+  entrypoint: ["/corpus/backup.sh"]
 
 networks:
   corpus_network:

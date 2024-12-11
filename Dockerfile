@@ -11,7 +11,9 @@ RUN mkdir /corpus
 WORKDIR /corpus
 
 # Install dependencies
-RUN apt-get update && apt-get install -y gcc libpq-dev sqlite3
+RUN apt-get update && \
+    apt-get install -y gcc libpq-dev sqlite3 postgresql-client rclone && \
+    apt-get clean
 
 # Install Python dependencies
 COPY corpus/requirements.txt .
@@ -26,7 +28,11 @@ COPY env.example .env
 # Copy the application
 COPY corpus/ .
 
-RUN chmod +x start_dev.sh
+# Copy the backup script
+COPY scripts/backup.sh /corpus/backup.sh
+
+# Make scripts executable
+RUN chmod +x start_dev.sh backup.sh
 
 EXPOSE 8000
 ENTRYPOINT [ "/corpus/start_dev.sh" ]
