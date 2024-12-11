@@ -7,6 +7,7 @@ from django.urls import path
 from .views import signin
 from .views import signout
 from .views import signup
+from .views import custom_404_view
 
 urlpatterns = [
     path("signup/", signup, name="accounts_signup"),
@@ -31,3 +32,5 @@ urlpatterns = [
         name="password_reset_complete",
     ),
 ]
+
+handler404 = custom_404_view

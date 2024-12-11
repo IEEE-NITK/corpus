@@ -1,0 +1,160 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | IEEE-NITK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --ieee-blue-primary: #0071BC;
+            --ieee-blue-secondary: #4D87BD;
+            --ieee-blue-light: #7EBAE7;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+        body {
+            background: oklch(0.5686 0.255 257.57);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .error-container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+            animation: float 4s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        .error-container:hover {
+            transform: scale(1.05) rotate3d(1, 1, 1, 5deg);
+        }
+        .ieee-logo {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            opacity: 0.8;
+            animation: wiggle 2s infinite;
+        }
+        .error-number {
+            font-size: 10rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, white, var(--ieee-blue-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            margin-top: 40px;
+            animation: glitch 3s infinite;
+        }
+        .error-message {
+            color: white;
+            font-size: 1.5rem;
+            margin-top: 1rem;
+            opacity: 0.9;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 0.9; transform: translateY(0); }
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background: var(--ieee-blue-secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.3);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .back-link:hover {
+            background: var(--ieee-blue-light);
+            transform: translateY(-5px);
+        }
+        .ieee-text {
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 2rem;
+                width: 95%;
+                margin: 0 10px;
+            }
+            .error-number {
+                font-size: 6rem;
+                margin-top: 20px;
+            }
+            .error-message {
+                font-size: 1.2rem;
+            }
+            .back-link {
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-number {
+                font-size: 4rem;
+            }
+            .error-message {
+                font-size: 1rem;
+            }
+            .back-link {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container flex flex-col">
+        <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="dark-logo">
+        <div>
+            <div class="error-number">404</div>
+            <h1 class="text-4xl text-white mb-4">Page Not Found</h1>
+            <p class="error-message">Oops! The page you are looking for seems to have wandered off.</p>
+            <a href="/" class="back-link bg-white text-black">Return to Homepage</a>
+            <p class="ieee-text">Powered by IEEE-NITK Student Branch</p>
+        <div/>
+    </div>
+</body>
+</html>
