@@ -1,0 +1,2 @@
+# Run backup.sh at 2 AM every day
+0 2 * * * /corpus/backup.sh >> /var/log/cron.log 2>&1
