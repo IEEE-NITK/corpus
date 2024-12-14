@@ -80,6 +80,3 @@ def signout(request):
     logout(request)
     messages.success(request, "Successfully signed out.")
     return redirect("index")
-
-def custom_404_view(request, exception):
-    return render(request, '404.html', status=404)
