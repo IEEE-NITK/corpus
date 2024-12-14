@@ -1,301 +1,372 @@
-{% extends 'embedathon/base.html' %}
-{% load static %}
+{% extends 'embedathon/base.html' %} 
+{% load static %} {% block title %} Home {{block.super}}{% endblock %} {% block content %}
 
-{% block title %}
-    Home
-    {{ block.super }}
-{% endblock %}
+<div class="relative w-full h-screen">
+  
+  <img class="absolute inset-0 w-full h-full object-cover opacity-25" 
+       src="{% static 'img/embedathon/background.jpg' %}" 
+       alt="Background" />
 
-{% block content %}
-    <div class="prose max-w-none flex flex-row">
-        <div class="md:basis-1/6"></div>
-        <div class="px-10 md:px-0 md:basis-4/6">
-            <section id="hero" class="text-center py-5">
-                <h1>Embedathon</h1>
-                <h2>24-hr Embedded Systems Hackathon</h2>
-                <h2>26th December, 2024 - 12th January, 2025</h2>
-                <a role="button" href="{% url 'embedathon_index' %}"
-                   class="btn btn-wide btn-primary font-bold no-underline">Register</a>
-            </section>
+  <div class="relative flex flex-col items-center justify-center h-full text-white">
+    <section id="hero" class=" sticky top-10 bottom-10 text-center px-10 md:px-0">
+      <h1 class="text-7xl font-bold">Embedathon</h1>
+      <h2 class="mt-4 text-5xl">24-hr Embedded Systems Hackathon</h2>
+      <h2 class="mt-2 text-2xl">26th December, 2024 - 12th January, 2025</h2>
+      <div class="my-11">
+        <svg class="h-8 w-8 text-white mx-auto"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </section>
+  </div>
 
-            <section id="about" class="py-5 px-5">
-                <h2>What is Embedathon?</h2>
-                <p>
-                    Embedathon is our flagship task-based Hackathon challenge hosted by IEEE NITK student branch in
-                    association with CAS Society. It presents you with an interesting problem statement to ensure a
-                    fun-filled learning experience. This is the seventh edition of the event promising to be bigger and
-                    better. In addition to the problem statement, resources, workshops and talks will also be conducted
-                    prior to the final event to enhance your experience with us!
-                </p>
-            </section>
 
-            <section id="prizes" class="py-5 px-5">
-                <h2>Prizes</h2>
-                <p>
-                    Prizes for the winners will include exciting hardware components and circuits, with the specific
-                    kits chosen in accordance with the prize distribution.
-                </p>
-                <ol>
-                    <li>The winning team will receive a kit worth <strong>Rs. 5000</strong>.</li>
-                    <li>The 1st runner-up will receive a kit worth <strong>Rs. 3000</strong>.</li>
-                    <li>The 2nd runner-up will receive a kit worth <strong>Rs. 2000</strong>.</li>
-                </ol>
-                <p>
-                    These hardware kits serve as both recognition for the participants' achievements and valuable tools
-                    to further enhance their skills in the field of Embedded Systems.
-                </p>
-            </section>
+    
+  </div>
+</div>
 
-            <section id="workshops" class="py-5 px-5">
-                <h2>Workshops</h2>
-                <div class="flex flex-col md:flex-row justify-between content-center gap-4">
-                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
-                        <div class="card-body">
-                            <h2 class="card-title">Image Processing using OpenCV</h2>
-                            <strong>10th Jan, 2025 at 6:30PM</strong>
-                            <div class="card-actions">
-                                <a href="https://rb.gy/vjfnmb" class="btn btn-primary no-underline">
-                                    <strong>Workshop Link</strong>
-                                </a>
-                                <a href="https://drive.google.com/drive/folders/1k3VXRj_B8IvBBtiQgOSYMKrCXEvupe9P"
-                                   class="btn btn-secondary no-underline">
-                                    <strong>Workshop Resources</strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
-                        <div class="card-body">
-                            <h2 class="card-title">Introduction to Embedded Systems</h2>
-                            <strong>15th Jan, 2025 at 6:30PM</strong>
-                            <div class="card-actions">
-                                <a href="https://rb.gy/xdc2xa" class="btn btn-primary no-underline">
-                                    <strong>Workshop Link</strong>
-                                </a>
-                                <a href="https://drive.google.com/drive/folders/1kdWR79gdNzQCzPDh7Ffp-1JwBMiR3rVR?usp=drive_link"
-                                   class="btn btn-secondary no-underline">
-                                    <strong>Workshop Resources</strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section id="speakers" class="py-5 px-5">
-                <h2>Speakers</h2>
-                <div class="flex flex-col md:flex-row justify-between content-center gap-4">
-                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
-                        <figure>
-                            <img src="{% static 'img/embedathon/P_V_Ananda_Mohan.jpg' %}" alt="P.V. Ananda Mohan"
-                                 class="h-96 rounded-md"/>
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title">Light Weight Cryptography for IoT</h2>
-                            <span>By P.V. Ananda Mohan</span>
-                            <span>Technology Advisor at Center for Development of Advanced Computing (CDAC)</span>
-                            <strong>3rd Jan, 2025 at 6:00PM</strong>
-                            <div class="card-actions">
-                                <a href="https://rb.gy/ciaa6q" class="btn btn-primary no-underline">
-                                    <strong>Session Link</strong>
-                                </a>
-                                <a href="https://drive.google.com/drive/folders/1Nnq8WbO17oH7kHY13Vj4XgYYCUXuWVhY?usp=drive_link"
-                                   class="btn btn-secondary no-underline">
-                                    <strong>Session Resources</strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-base-100 shadow-xl basis-1/2 border">
-                        <figure>
-                            <img src="{% static 'img/embedathon/Surinder_Sood.jpg' %}" alt="Surinder Sood"
-                                 class="h-96 rounded-md"/>
-                        </figure>
-                        <div class="card-body">
-                            <h2 class="card-title">Design and Validation of Hybrid Systems</h2>
-                            <span>By Surinder Sood</span>
-                            <span>Principal Engineer at ARM</span>
-                            <span>PhD in Cyber Physical Systems, University of Auckland</span>
-                            <strong>5th Jan, 2025 at 6:00PM</strong>
-                            <div class="card-actions">
-                                <a href="https://rb.gy/a4dvll" class="btn btn-primary no-underline">
-                                    <strong>Session Link</strong>
-                                </a>
-                                <a href="https://drive.google.com/drive/folders/166RWAdKPtBCJBYDJMFmrhlSwX-oCSs6V?usp=drive_link"
-                                   class="btn btn-secondary no-underline">
-                                    <strong>Session Resources</strong>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <section id="schedule" class="px-5 py-5">
-                <h2>Timeline</h2>
-                <ul class="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
-                    <li class="m-0">
-                        <div class="timeline-middle">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                 class="h-5 w-5">
-                                <path fill-rule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="timeline-start md:text-end mb-10">
-                            <div class="font-black">Week 1</div>
-                            Expert Talks and <strong>Round 1 online test</strong>.
-                        </div>
-                        <hr/>
-                    </li>
-                    <li class="m-0">
-                        <hr/>
-                        <div class="timeline-middle">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                 class="h-5 w-5">
-                                <path fill-rule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="timeline-end mb-10">
-                            <div class="font-black">Week 2</div>
-                            Workshops and Software Subtask
-                        </div>
-                        <hr/>
-                    </li>
-                    <li class="m-0">
-                        <hr/>
-                        <div class="timeline-middle">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                 class="h-5 w-5">
-                                <path fill-rule="evenodd"
-                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                      clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <div class="timeline-start md:text-end mb-10">
-                            <div class="font-black">Week 3</div>
-                            Hardware Subtask, and final hackathon <strong>at NITK Campus</strong>.
-                        </div>
-                        <hr/>
-                    </li>
-                </ul>
-            </section>
 
-            <section id="faqs" class="px-5 py-5">
-                <h2>FAQs</h2>
-                <div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
-                        <div class="collapse-title text-xl font-medium">
-                            Who is eligible to register?
-                        </div>
-                        <div class="collapse-content">
-                            <p>This is going to be a pan-India event so all the <strong>1st, 2nd and 3rd Year
-                                B.E/B.Tech/B.Sc
-                                students</strong> from <strong>any</strong> college can register for the event.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            Is there a registration fee?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Free registrations for teams that have at least <strong>one</strong> IEEE student member,
-                                and for all teams comprising students <strong>from</strong> the National Institute of
-                                Technology Karnataka, Surathkal.</p>
-                            <p>Registration fee of <strong>Rs. 200/-</strong> for teams with no IEEE student members or
-                                do not belong to the National Institute of Technology Karnataka, Surathkal.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            Is there a necessity for students to be from EEE or ECE backgrounds?
-                        </div>
-                        <div class="collapse-content">
-                            <p>It is <strong>not necessary</strong> to have any previous background in EEE or ECE.
-                                Students who are curious about embedded systems and want to get hands-on experience with
-                                hardware are welcome to apply.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            What is the selection process for the round 1 online test?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Round 1 online test would be conducted over HackerEarth. The test would be covering
-                                topics such as aptitude and basic electronics.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            How will hardware subtasks be made accessible for students outside NITK?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Hardware kits would be made available to the students outside NITK via courier delivery.
-                                We expect kits to be handled very carefully throughout the competition and sent back
-                                after the completion of it.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            How many members per team?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Students can apply in a team of 2 or 3. Only one hardware kit will be provided to each
-                                team.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            Will the final 24-hour hackathon be conducted in offline mode? Will there be any
-                            accommodation arranged for students coming to NITK?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Final hackathon is in hybrid (both offline and online) mode, teams need not come to NITK
-                                campus for final hackathon and kits will be sent. If you choose to come to campus,
-                                travel
-                                and accommodation will <strong>not</strong> be arranged. Students have to make the
-                                travel and
-                                accommodation arrangements themselves. Refreshments will be provided.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            How can we prepare for the event?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Brush up on your knowledge of basics of popular microcontrollers, and basic
-                                electronics.</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            What benefits would I get by registering for the event?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Expert talks conducted during the competition are open for <strong>all</strong>
-                                registering participants!</p>
-                        </div>
-                    </div>
-                    <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
-                        <div class="collapse-title text-xl font-medium">
-                            Will students be given participation certificates for the event?
-                        </div>
-                        <div class="collapse-content">
-                            <p>Yes! Participation certificates will be given to students who clear round 1.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+<div class="prose max-w-none flex flex-row  items-center justify-center mx-11 space-x-5 my-11">
 
-            <section id="contact" class="px-5 py-5">
-                <h2>Contact</h2>
-                <p>For any queries, you can contact <strong>Adithya Kasal</strong> or <strong>Mayank Singh</strong>, IEEE NITK CAS Secretaries. You can
-                    reach out with your enquiries at <a href="mailto:embedathon@gmail.com">embedathon@gmail.com</a>.</p>
-            </section>
+  <img src="{% static 'img/embedathon/Embedathon.png' %}" alt="Embedathon" class="w-auto h-96 mx-auto       cursor-pointer rounded-xl
+    translate-x-[10px] translate-y-[0px] translate-z-[70px] shadow-[rgba(0,0,0,0.4)_-30px_30px_15px_5px] my-6" />
+
+  <section id="about" class="py-5 px-5 pt-0 m-0 text-center flex-1">
+
+    <h2 class="mt-11">What is Embedathon?</h2>
+    <p class="text-justify">
+      Embedathon is our flagship task-based Hackathon challenge hosted by IEEE
+      NITK student branch in association with CAS Society. It presents you
+      with an interesting problem statement to ensure a fun-filled learning
+      experience. This is the seventh edition of the event promising to be
+      bigger and better. In addition to the problem statement, resources,
+      workshops and talks will also be conducted prior to the final event to
+      enhance your experience with us!
+    </p>
+
+    <a role="button" href="{% url 'embedathon_index' %}" class="btn btn-wide text-xl font-bold px-5 py-2 inline-flex justify-center whitespace-nowrap rounded-lg px-3.5 py-2.5 text-base font-medium text-black bg-primary from-primary-800 to-primary-700 from-primary-200 to-primary-100 hover:bg-primary shadow focus:outline-none focus:ring focus:ring-primary-500/50 focus-visible:outline-none focus-visible:ring focus-visible:ring-primary-500/50 relative before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white/.5)_50%,transparent_75%,transparent_100%)] before:bg-[linear-gradient(45deg,transparent_25%,theme(colors.white)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:[transition:background-position_0s_ease] hover:before:bg-[position:-100%_0,0_0] hover:before:duration-[1500ms]
+    font-bold no-underline mt-10 animate-bounce">Register</a>
+
+  </section>
+
+</div>
+
+
+<div class="prose max-w-none flex flex-row">
+  <div class="md:basis-1/6"></div>
+
+  <div class="px-10 md:px-0 md:basis-4/6">
+
+
+
+    <section id="prizes" class="py-5 px-5">
+      <h2>Prizes</h2>
+      <p class="text-justify">
+        Prizes for the winners will include exciting hardware components and
+        circuits, with the specific kits chosen in accordance with the prize
+        distribution.
+      </p>
+      <ol>
+        <li>
+          The winning team will receive a kit worth <strong>Rs. 5000</strong>.
+        </li>
+        <li>
+          The 1st runner-up will receive a kit worth <strong>Rs. 3000</strong>.
+        </li>
+        <li>
+          The 2nd runner-up will receive a kit worth <strong>Rs. 2000</strong>.
+        </li>
+      </ol>
+      <p>
+        These hardware kits serve as both recognition for the participants'
+        achievements and valuable tools to further enhance their skills in the
+        field of Embedded Systems.
+      </p>
+    </section>
+
+    <section id="workshops" class="py-5 px-5">
+      <h2>Workshops</h2>
+      <div class="flex flex-col md:flex-row justify-between content-center gap-4  ">
+        <div
+          class="card bg-base-100 basis-1/2 border shadow-[rgba(0,0,0,0.2)_-10px_10px_2px_2px] m-2 border-2">
+          <div class="card-body ">
+            <h2 class="card-title">Encryption Methodology</h2>
+            <strong>2nd Jan, 2025 at 6:30PM</strong>
+            <div class="card-actions">
+              <a href="https://meet.google.com/gpr-ujrw-xzi" class="btn btn-primary no-underline">
+                <strong>Workshop Link</strong>
+              </a>
+              <a href="" class="btn btn-secondary no-underline">
+                <strong>Workshop Resources</strong>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="md:basis-1/6"></div>
+        <div class="card bg-base-100 basis-1/2 border-2 shadow-[rgba(0,0,0,0.2)_-10px_10px_2px_2px] m-2">
+          <div class="card-body">
+            <h2 class="card-title">Introduction to Microcontrollers</h2>
+            <strong>4th Jan, 2025 at 6:30PM</strong>
+            <div class="card-actions">
+              <a href="https://meet.google.com/wqc-ehxm-zqs" class="btn btn-primary no-underline">
+                <strong>Workshop Link</strong>
+              </a>
+              <a href="" class="btn btn-secondary no-underline">
+                <strong>Workshop Resources</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="speakers" class="py-5 px-5">
+      <h2>Expert Talks</h2>
+      <div class="flex flex-col md:flex-row justify-between content-center gap-4">
+        <div class="card bg-base-100 basis-1/2 border-2 shadow-[rgba(0,0,0,0.2)_-10px_10px_2px_2px] m-2">
+          <figure>
+            <img src="{% static 'img/embedathon/Vishwas_Mysore.jpg' %}" alt="Vishwas Mysore"
+              class="h-96 rounded-md" />
+          </figure>
+          <div class="card-body">
+            <h2 class="card-title">Cryptocurrency and Fraud Risk</h2>
+            <span>By Vishwas Mysore</span>
+            <span>
+              Director Solutioning at <a href="https://www.bureau.id/">Bureau</a>
+              <br>
+              Leading Sales, Presales and Consulting efforts in Credit Scoring and Alternative Credit Scoring across India and global markets for over 8 years now.
+            </span>
+            <strong>26th Dec, 2025 | 5:30PM - 9:00PM</strong>
+            <div class="card-actions">
+              <a href="https://meet.google.com/kms-qigr-nkw" class="btn btn-primary no-underline">
+                <strong>Session Link</strong>
+              </a>
+              <a href="" class="btn btn-secondary no-underline">
+                <strong>Session Resources</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <section id="schedule" class="px-5 py-5">
+      <h2>Timeline</h2>
+
+      <ul class="timeline timeline-vertical">
+        <li class="m-0">
+          <div class="timeline-start md:text-end mb-10">
+            <div class="font-black">Week 1</div>
+            Expert Talks and <strong>Round 1 online test</strong>.
+          </div>
+          <div class="timeline-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+              class="text-primary h-5 w-5">
+              <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <hr class="bg-primary" />
+        </li>
+        <li class="m-0">
+          <hr class="bg-primary" />
+          <div class="timeline-middle">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="text-primary h-5 w-5">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="timeline-end mb-10 ml-2">
+              <div class="font-black">Week 2</div>
+              Workshops and Software Subtask
+            </div>
+            <hr class="bg-primary" />
+          </li>
+          <li class="m-0">
+            <hr class="bg-primary" />
+            <div class="timeline-start md:text-end mb-10 mr-2">
+              <div class="font-black">Week 3</div>
+              Hardware Subtask, and final hackathon <strong>at NITK Campus</strong>.
+            </div>
+            <div class="timeline-middle">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="text-primary h-5 w-5">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+            <hr class="bg-white" />
+          </li>
+          <li class="m-0">
+            <hr class="bg-white" />
+            <div class="timeline-middle">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="timeline-end timeline-box">Week 4</div>
+            <hr class="bg-white" />
+          </li>
+          <li class="m-0">
+            <hr class="bg-white" />
+            <div class="timeline-start timeline-box">Week 5</div>
+            <div class="timeline-middle">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="faqs" class="px-5 py-5">
+        <h2>FAQs</h2>
+        <div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200">
+            <div class="collapse-title text-xl font-medium">
+              Who is eligible to register?
+            </div>
+            <div class="collapse-content">
+              <p>
+                This is going to be a pan-India event so all the
+                <strong>1st, 2nd and 3rd Year B.E/B.Tech/B.Sc students</strong>
+                from <strong>any</strong> college can register for the event.
+              </p>
+            </div>
+
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              Is there a registration fee?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Free registrations for teams that have at least
+                <strong>one</strong> IEEE student member, and for all teams
+                comprising students <strong>from</strong> the National Institute
+                of Technology Karnataka, Surathkal.
+              </p>
+              <p>
+                Registration fee of <strong>Rs. 200/-</strong> for teams with no
+                IEEE student members or do not belong to the National Institute of
+                Technology Karnataka, Surathkal.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              Is there a necessity for students to be from EEE or ECE backgrounds?
+            </div>
+            <div class="collapse-content">
+              <p>
+                It is <strong>not necessary</strong> to have any previous
+                background in EEE or ECE. Students who are curious about embedded
+                systems and want to get hands-on experience with hardware are
+                welcome to apply.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              What is the selection process for the round 1 online test?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Round 1 online test would be conducted over HackerEarth. The test
+                would be covering topics such as aptitude and basic electronics.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              How will hardware subtasks be made accessible for students outside
+              NITK?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Hardware kits would be made available to the students outside NITK
+                via courier delivery. We expect kits to be handled very carefully
+                throughout the competition and sent back after the completion of
+                it.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              How many members per team?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Students can apply in a team of 2 or 3. Only one hardware kit will
+                be provided to each team.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              Will the final 24-hour hackathon be conducted in offline mode? Will
+              there be any accommodation arranged for students coming to NITK?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Final hackathon is in hybrid (both offline and online) mode, teams
+                need not come to NITK campus for final hackathon and kits will be
+                sent. If you choose to come to campus, travel and accommodation
+                will <strong>not</strong> be arranged. Students have to make the
+                travel and accommodation arrangements themselves. Refreshments
+                will be provided.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              How can we prepare for the event?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Brush up on your knowledge of basics of popular microcontrollers,
+                and basic electronics.
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              What benefits would I get by registering for the event?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Expert talks conducted during the competition are open for
+                <strong>all</strong> registering participants!
+              </p>
+            </div>
+          </div>
+          <div tabindex="0" class="collapse collapse-arrow border border-base-300 bg-base-200 my-1">
+            <div class="collapse-title text-xl font-medium">
+              Will students be given participation certificates for the event?
+            </div>
+            <div class="collapse-content">
+              <p>
+                Yes! Participation certificates will be given to students who
+                clear round 1.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="px-5 py-5">
+        <h2>Contact</h2>
+        <p>For any queries, you can contact <strong>Adithya Kasal</strong> or <strong>Mayank Singh</strong>, IEEE NITK
+          CAS Secretaries. You can
+          reach out with your enquiries at <a href="mailto:embedathon@gmail.com">embedathon@gmail.com</a>.</p>
+      </section>
     </div>
-{% endblock %}
+    <div class="md:basis-1/6"></div>
+  </div>
+  {% endblock %}
