@@ -50,7 +50,7 @@ urlpatterns = [
     path("athenaeum/", include("athenaeum.urls")),
 ]
 
-handler404 = lambda request: render(request, '404.html', status=404)
+handler404 = lambda request, exception: render(request, '404.html', status=404)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
