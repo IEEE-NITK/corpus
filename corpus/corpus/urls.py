@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import include
 from django.urls import path
 from django.views.decorators.cache import never_cache
+from django.shortcuts import render
 
 urlpatterns = [
     path(
@@ -49,6 +50,8 @@ urlpatterns = [
     path("athenaeum/", include("athenaeum.urls")),
     path("newsletter/", include("newsletter.urls")),
 ]
+
+handler404 = lambda request, exception: render(request, '404.html', status=404)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
