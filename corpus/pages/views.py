@@ -45,3 +45,6 @@ def sig(request, sig_name):
 
 def farewell(request):
     return render(request, "pages/farewell.html")
+
+def custom_404(request, exception):
+    return render(request, "404.html", status=404)
