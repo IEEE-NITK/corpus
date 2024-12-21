@@ -38,12 +38,15 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("", include("pages.urls")),
     path("embedathon/", include("embedathon.urls")),
+    path("diodexcelerate/", include("diodexcelerate.urls")),
     path("impulse/", include("impulse.urls")),
     path("electrika/", include("electrika.urls")),
     path("skyward_expedition/", include("skyward_expedition.urls")),
     path("robotrix/", include("robotrix.urls")),
     path("farewell/", include("farewell.urls")),
     path("virtual_expo/", include("virtual_expo.urls")),
+    path("blog/", include("blog.urls")),
+    path("athenaeum/", include("athenaeum.urls")),
 ]
 
 if settings.DEBUG:
