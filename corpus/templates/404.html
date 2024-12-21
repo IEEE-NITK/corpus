@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}404 - Page Not Found | IEEE-NITK{% endblock %}
+
+{% block content %}
+
+<style>
+    @keyframes ieee404-wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+    }
+    @keyframes ieee404-glitch {
+        2%, 64% { transform: translate(2px, 0) skew(0deg); }
+        4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+        62% { transform: translate(0, 0) skew(5deg); }
+    }
+
+    .error404-body {
+        height: 100vh;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        overflow: hidden;
+        perspective: 1000px;
+        {% comment %} background: oklch(0.5686 0.255 257.57); {% endcomment %}
+    }
+
+    .error404-container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        border-radius: 20px;
+        padding: 3rem;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        opacity: 0.9;
+        max-width: 600px;
+        width: 90%;
+        position: relative;
+        overflow: hidden;
+        animation: ieee404-float 4s ease-in-out infinite;
+        transition: all 0.3s ease;
+    }
+
+    .error404-ieee-logo {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        opacity: 0.8;
+        animation: ieee404-wiggle 2s infinite;
+    }
+
+    .error404-number-dark{
+        font-size: 10rem;
+        font-weight: bold;
+        background: linear-gradient(45deg, white, #7EBAE7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        margin-top: 10px;
+        animation: ieee404-glitch 3s infinite;
+    }
+
+    .error404-number-light {
+        font-size: 10rem;
+        font-weight: bold;
+        background: linear-gradient(45deg, #2B2B2B, #0056b3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+        margin-top: 10px;
+        animation: ieee404-glitch 3s infinite;
+    }
+
+    @keyframes ieee404-fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 0.9; transform: translateY(0); }
+    }
+
+    .error404-back-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 12px 24px;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        animation: ieee404-pulse 2s infinite;
+    }
+
+    @keyframes ieee404-pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+        .error404-container {
+            padding: 2rem;
+            width: 95%;
+            margin: 0 10px;
+        }
+        .error404-number {
+            font-size: 6rem;
+            margin-top: 20px;
+        }
+        .error404-message {
+            font-size: 1.2rem;
+        }
+        .error404-back-link {
+            padding: 10px 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .error404-number {
+            font-size: 4rem;
+        }
+        .error404-message {
+            font-size: 1rem;
+        }
+        .error404-back-link {
+            padding: 8px 16px;
+        }
+    }
+</style>
+
+<div class="error404-body bg-base-200 w-screen flex items-center justify-center ">
+    <div class="error404-container flex flex-col items-center justify-center">
+        <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="light-logo">
+        <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="dark-logo">
+        <div>
+            <div class="error404-number-dark dark-logo">404</div>
+            <div class="error404-number-light light-logo">404</div>
+            <h1 class="text-4xl text-justify flex justify-center">Page Not Found</h1>
+            <p class="error404-message flex items-center text-2xl mt-4">Oops! The page you are looking for seems to have wandered off.</p>
+            <div class="flex flex-col items-center">
+                <a href="/" class="error404-back-link bg-[#0056b3] text-justify fond-bold dark-logo">Return to Homepage</a>
+                <a href="/" class="error404-back-link bg-white text-black fond-bold light-logo">Return to Homepage</a>
+                <button onclick="history.back()" class="error404-back-link bg-[#0056b3] text-justify dark-logo">Go Back</button>
+                <button onclick="history.back()" class="error404-back-link bg-white text-black light-logo">Go Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
