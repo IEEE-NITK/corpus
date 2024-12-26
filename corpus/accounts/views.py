@@ -12,6 +12,7 @@ from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
 from .models import ExecutiveMember
 from virtual_expo.models import Report, ReportMember
+from blog.models import Post
 
 # Create your views here.
 
@@ -90,11 +91,14 @@ def profile(request, roll_no):
     # Get Virtual Expo Reports
     reports = Report.objects.filter(reportmember__member=exec_member)
 
+    # Get Blogs written by the Executive Member
+    blogs = Post.objects.filter(author=exec_member)
 
     args = {
         "exec_member": exec_member,
         "user": user,
-        "reports": reports
+        "reports": reports,
+        "blogs": blogs,
     }
 
     return render(request, "accounts/profile.html", args)

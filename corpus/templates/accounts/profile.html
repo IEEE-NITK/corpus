@@ -70,10 +70,22 @@
             <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
                 <div class="collapse-title text-xl font-bold">Blogs Published</div>
                 <div class="collapse-content">
-                    <!-- Todo after blogs are implemented
-                    <p>tabindex="0" attribute is necessary to make the div focusable</p>
-                    -->
-                    Coming Soon!
+                    {% if blogs %}
+                    <div class="grid grid-cols-1 gap-5">
+                        <ul class="list-disc p-5">
+                            {% for blog in blogs %}
+                                <li>
+                                    <h3 class="font-bold">{{ blog.title }}</h3>
+                                    <p>{{ blog.description }}</p>
+                                    <p>Published on: {{ blog.published_date|date:"M d, Y" }}</p>
+                                    <a href="/blog/{{ blog.slug }}" class="link link-primary">Read More</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    No blogs available yet. Check back soon!
+                {% endif %}
                 </div>
             </div>
             <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
@@ -83,7 +95,7 @@
                         <div class="font-bold">GitHub</div>
                         <div>
                             {% if exec_member.github %}
-                                <a href="https://github.com/{{ exec_member.github }}">{{ exec_member.github }}</a>
+                                <a href="{% url 'full_post' slug=blog.slug %}" class="link link-primary">Read More</a>
                             {% else %}
                                 None
                             {% endif %}
