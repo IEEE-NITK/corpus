@@ -6,10 +6,13 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
 from .models import ExecutiveMember
+from virtual_expo.models import Report, ReportMember
+from blog.models import Post
 
 # Create your views here.
 
@@ -80,3 +83,22 @@ def signout(request):
     logout(request)
     messages.success(request, "Successfully signed out.")
     return redirect("index")
+
+def profile(request, roll_no):
+    exec_member = get_object_or_404(ExecutiveMember, roll_number=roll_no)
+    user = exec_member.user
+
+    # Get Virtual Expo Reports
+    reports = Report.objects.filter(reportmember__member=exec_member)
+
+    # Get Blogs written by the Executive Member
+    blogs = Post.objects.filter(author=exec_member)
+
+    args = {
+        "exec_member": exec_member,
+        "user": user,
+        "reports": reports,
+        "blogs": blogs,
+    }
+
+    return render(request, "accounts/profile.html", args)
