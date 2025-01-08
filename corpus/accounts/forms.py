@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import User
+from .models import ExecutiveMember
 
 
 class CorpusCreationForm(UserCreationForm):
@@ -61,3 +62,34 @@ class CorpusLoginForm(AuthenticationForm):
         if username:
             username = username.lower()
         return username
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['phone_no', 'gender', 'email', 'profile_pic']
+        widgets = {
+            'phone_no': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'gender': forms.Select(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'profile_pic': forms.ClearableFileInput(attrs={'multiple': False}),
+
+        }
+
+class ExecutiveMemberForm(forms.ModelForm):
+    class Meta:
+        model = ExecutiveMember
+        fields = [
+            'edu_email', 'roll_number', 'reg_number', 'minor_branch',
+            'ieee_number', 'ieee_email', 'linkedin', 'github', 'is_nep'
+        ]
+        widgets = {
+            'edu_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
+            'roll_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
+            'reg_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
+            'minor_branch': forms.Select(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'ieee_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black','required': True}),
+            'ieee_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'linkedin': forms.URLInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'github': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'is_nep': forms.CheckboxInput(),
+        }

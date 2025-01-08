@@ -20,6 +20,13 @@
                 <h2 class="my-1">Core Post comes here</h2>
             -->
             <h3 class="m-0">{{ exec_member.sig }}</h3>
+
+            <!-- Edit Profile Link -->
+            <div class="text-center my-4">
+                <a href="{% url 'edit_profile' roll_no=user.executivemember.roll_number %}" class="btn btn-primary">
+                    Edit Profile
+                </a>
+            </div>
         </div>
 
         <!-- Div with other information about the person -->
@@ -31,7 +38,7 @@
                         <div class="font-bold">Name</div>
                         <div>{{ user }}</div>
                         <div class="font-bold">Date Joined</div>
-                        <div>{{ exec_member.date_joined.date }}</div>
+                        <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
                     </div>
                 </div>
             </div>
@@ -92,25 +99,39 @@
                 <div class="collapse-title text-xl font-bold">Links</div>
                 <div class="collapse-content">
                     <div class="grid grid-cols-2 gap-5">
+                        <!-- GitHub Section -->
                         <div class="font-bold">GitHub</div>
                         <div>
-                            {% if exec_member.github %}
-                                <a href="{% url 'full_post' slug=blog.slug %}" class="link link-primary">Read More</a>
+                            {% if exec_member.hide_github %}
+                                --
                             {% else %}
-                                None
+                                {% if exec_member.github %}
+                                    <a href="https://github.com/{{ exec_member.github }}" class="link link-primary" target="_blank">GitHub Profile</a>
+                                {% else %}
+                                    None
+                                {% endif %}
                             {% endif %}
                         </div>
+
+                        <!-- LinkedIn Section -->
                         <div class="font-bold">LinkedIn</div>
                         <div>
-                            {% if exec_member.linedin %}
-                                <a href="{{ exec_member.linkedin }}">{{ exec_member.linkedin }}</a>
+                            {% if exec_member.hide_linkedin %}
+                                --
                             {% else %}
-                                None
+                                {% if exec_member.linkedin %}
+                                    <a href="{{ exec_member.linkedin }}" class="link link-primary" target="_blank">LinkedIn Profile</a>
+                                {% else %}
+                                    None
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
     </div>
+
+
 {% endblock %}

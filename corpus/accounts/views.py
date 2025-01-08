@@ -4,15 +4,20 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
+from .forms import UserForm
+from .forms import ExecutiveMemberForm
 from .models import ExecutiveMember
+# from .models import User
 from virtual_expo.models import Report, ReportMember
 from blog.models import Post
+
 
 # Create your views here.
 
@@ -102,3 +107,55 @@ def profile(request, roll_no):
     }
 
     return render(request, "accounts/profile.html", args)
+
+@login_required
+def edit_profile(request, roll_no):
+    user = request.user  # Get the currently logged-in user
+    
+    # Check if the user has an associated ExecutiveMember record
+    try:
+        executive_member = ExecutiveMember.objects.get(roll_number=roll_no, user=user)
+    except ExecutiveMember.DoesNotExist:
+        executive_member = None  # Handle the case where the user is not an ExecutiveMember
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, request.FILES, instance=user)
+        if executive_member:
+            executive_member_form = ExecutiveMemberForm(request.POST, instance=executive_member)
+        else:
+            executive_member_form = ExecutiveMemberForm(request.POST)
+        
+        if user_form.is_valid() and executive_member_form.is_valid():
+            user_form.save()
+            # Handle hiding GitHub/LinkedIn if checkboxes are selected
+            hide_linkedin = request.POST.get('hide_linkedin', False)
+            hide_github = request.POST.get('hide_github', False)
+            
+            if hide_linkedin:
+                executive_member.hide_linkedin = True
+            else:
+                executive_member.hide_linkedin = False
+            
+            if hide_github:
+                executive_member.hide_github = True
+            else:
+                executive_member.hide_github = False
+            executive_member_form.save()
+            return redirect('accounts_profile', roll_no=roll_no)
+
+    else:
+        user_form = UserForm(instance=user)
+        if executive_member:
+            executive_member_form = ExecutiveMemberForm(instance=executive_member)
+        else:
+            executive_member_form = ExecutiveMemberForm()
+
+    return render(
+        request,
+        'accounts/edit_profile.html',
+        {
+            'user_form': user_form,
+            'executive_member_form': executive_member_form,
+            'exec_member': executive_member,
+        }
+    )
