@@ -12,7 +12,7 @@
             {% csrf_token %}
 
             <!-- Personal Information Section -->
-            <div class="card bg-gray-100 border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all">
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">Personal Information</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -27,10 +27,10 @@
                             <div class="flex justify-end mb-4">
                                 {% if user.profile_pic %}
                                     <img src="{{ user.profile_pic.url }}" 
-                                         alt="{{ user }}" class="rounded-full w-24 h-24 object-cover shadow-lg" id="profilePicPreview">
+                                         alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
                                 {% else %}
                                     <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}" 
-                                         alt="{{ user }}" class="rounded-full w-24 h-24 object-cover shadow-lg" id="profilePicPreview">
+                                         alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
                                 {% endif %}
                             </div>
                             
@@ -70,7 +70,7 @@
 
             {% if executive_member_form %}
             <!-- NITK Details Card -->
-            <div class="card bg-gray-100 border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">NITK Details</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -103,7 +103,7 @@
             </div>
 
             <!-- IEEE Details Card -->
-            <div class="card bg-gray-100 border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">IEEE Details</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -124,7 +124,7 @@
             </div>
 
             <!-- Socials Card -->
-            <div class="card bg-gray-100 border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">Socials</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -159,18 +159,41 @@
                 </div>
             </div>
             {% endif %}
-            
-            <!-- Buttons Section -->
-            <div class="mt-6 flex justify-between gap-16">
-                <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to save these changes?')">Save Changes</button>
-                <a href="{% url 'accounts_profile' roll_no=exec_member.roll_number %}" 
-                   class="btn btn-secondary" 
-                   onclick="return confirm('Are you sure you want to go back? All unsaved changes will be lost!')">
-                   Go Back
-                </a>
+
+            <!-- Save Changes Modal -->
+            <div id="saveChangesModal" class="modal" aria-hidden="true">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirm Save Changes</h3>
+                    <p>Are you sure you want to save these changes?</p>
+                    <div class="modal-action mt-4 flex justify-center gap-4">
+                        <button type="submit" class="btn btn-primary" id="confirmSaveChanges">Yes, Save</button>
+                        <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+
+            <!-- Go Back Modal -->
+            <div id="goBackModal" class="modal" aria-hidden="true">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirm Go Back</h3>
+                    <p>Are you sure you want to go back? All unsaved changes will be lost!</p>
+                    <div class="modal-action mt-4 flex justify-center gap-4">
+                        <a href="{% url 'accounts_profile' roll_no=exec_member.roll_number %}" class="btn btn-primary">Yes, Go Back</a>
+                        <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Buttons Section -->
+            <div class="mt-6 flex justify-center gap-4">
+                <button type="button" class="btn btn-primary" id="openSaveChangesModal">Save Changes</button>
+                <button type="button" class="btn btn-secondary" id="openGoBackModal">Go Back</button>
+            </div>
+
+    </form>
+</div>
+
 
     <script>
         // Preview image before uploading
@@ -205,6 +228,38 @@
             // Hide the clear image button again
             this.style.display = 'none';
         });
+
+        // Show Save Changes modal
+        document.getElementById('openSaveChangesModal').addEventListener('click', function() {
+            const modal = document.getElementById('saveChangesModal');
+            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
+            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+        });
+
+        // Show Go Back modal
+        document.getElementById('openGoBackModal').addEventListener('click', function() {
+            const modal = document.getElementById('goBackModal');
+            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
+            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+        });
+
+        // Close modal when clicking the close button
+        document.querySelectorAll('.modal-close').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.removeAttribute('open');  // Remove the 'open' attribute to hide the modal
+                modal.setAttribute('aria-hidden', 'true');  // Make it accessible
+            });
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.removeAttribute('open');  // Remove 'open' attribute when clicking outside
+                e.target.setAttribute('aria-hidden', 'true');  // Make it accessible
+            }
+        });
+
     </script>
 
 {% endblock %}

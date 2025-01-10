@@ -7,18 +7,15 @@
 {% block content %}
     <div class="w-5/6 md:w-2/3 my-10 mx-auto flex flex-col md:flex-row gap-8">
         <!-- Div with image, name, society and core member position if any -->
-        <div class="w-full md:w-1/3 prose text-center p-5 border border-neutral rounded-lg md:border-none">
+        <div class="w-full md:w-1/3 prose text-center p-5 border-0 sm:border border-neutral rounded-lg">
             {% if user.profile_pic %}
-                <img src="{{ user.profile_pic.url }}" alt="{{ user }}" class="rounded rounded-full w-64 h-64 mx-auto"/>
+                <img src="{{ user.profile_pic.url }}" alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% else %}
                 <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
-                     alt="{{ user }}" class="rounded rounded-full w-64 h-64 mx-auto"/>
+                     alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% endif %}
 
             <h1 class="my-2">{{ user }}</h1>
-            <!-- Todo
-                <h2 class="my-1">Core Post comes here</h2>
-            -->
             <h3 class="m-0">{{ exec_member.sig }}</h3>
 
             <!-- Edit Profile Link -->
@@ -30,35 +27,41 @@
         </div>
 
         <!-- Div with other information about the person -->
-        <div class="w-full md:w-2/3 p-5 border border-neutral rounded-lg flex flex-col gap-2">
-            <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
+        <div class="w-full md:w-2/3 p-5 border-0 sm:border border-neutral rounded-lg flex flex-col gap-2">
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Personal Information</div>
                 <div class="collapse-content">
                     <div class="grid grid-cols-2 gap-5">
                         <div class="font-bold">Name</div>
                         <div>{{ user }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-5">
                         <div class="font-bold">Date Joined</div>
                         <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
                     </div>
                 </div>
             </div>
-            <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">IEEE Membership Information</div>
                 <div class="collapse-content">
                     <div class="grid grid-cols-2 gap-5">
                         <div class="font-bold">IEEE Membership Number</div>
                         <div>{{ exec_member.ieee_number }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-5">
                         <div class="font-bold">IEEE Membership Email</div>
                         <div>{{ exec_member.ieee_email }}</div>
                     </div>
                 </div>
             </div>
-            <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Reports Published</div>
                 <div class="collapse-content">
                     {% if reports %}
                         <div class="grid grid-cols-1 gap-5">
-                            <ul class="list-disc p-5">
+                            <ul class="list-disc p-5 space-y-6">
                                 {% for report in reports %}
                                     <li>
                                         <a href="{% url 'virtual_expo_report' report_id=report.id %}"
@@ -74,28 +77,30 @@
                     {% endif %}
                 </div>
             </div>
-            <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Blogs Published</div>
                 <div class="collapse-content">
                     {% if blogs %}
-                    <div class="grid grid-cols-1 gap-5">
-                        <ul class="list-disc p-5">
-                            {% for blog in blogs %}
-                                <li>
-                                    <h3 class="font-bold">{{ blog.title }}</h3>
-                                    <p>{{ blog.description }}</p>
-                                    <p>Published on: {{ blog.published_date|date:"M d, Y" }}</p>
-                                    <a href="/blog/{{ blog.slug }}" class="link link-primary">Read More</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% else %}
-                    No blogs available yet. Check back soon!
-                {% endif %}
+                        <div class="grid grid-cols-1 gap-5">
+                            <ul class="list-disc p-5 space-y-6">
+                                {% for blog in blogs %}
+                                    <li>
+                                        <h3 class="font-bold">{{ blog.title }}</h3>
+                                        <p>{{ blog.description }}</p>
+                                        <p>Published on: {{ blog.published_date|date:"M d, Y" }}</p>
+                                        <a href="/blog/{{ blog.slug }}" class="link link-primary">Read More</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        No blogs available yet. Check back soon!
+                    {% endif %}
                 </div>
             </div>
-            <div tabindex="0" class="collapse collapse-arrow border-base-300 bg-base-200 border">
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Links</div>
                 <div class="collapse-content">
                     <div class="grid grid-cols-2 gap-5">
@@ -112,7 +117,9 @@
                                 {% endif %}
                             {% endif %}
                         </div>
+                    </div>
 
+                    <div class="mt-8 grid grid-cols-2 gap-5">
                         <!-- LinkedIn Section -->
                         <div class="font-bold">LinkedIn</div>
                         <div>
@@ -126,12 +133,9 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                    </div>
-                    
+                    </div>   
                 </div>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

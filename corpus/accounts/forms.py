@@ -68,9 +68,9 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['phone_no', 'gender', 'email', 'profile_pic']
         widgets = {
-            'phone_no': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
-            'gender': forms.Select(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
-            'email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'phone_no': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
+            'gender': forms.Select(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
+            'email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
             'profile_pic': forms.ClearableFileInput(attrs={'multiple': False}),
 
         }
@@ -83,13 +83,13 @@ class ExecutiveMemberForm(forms.ModelForm):
             'ieee_number', 'ieee_email', 'linkedin', 'github', 'is_nep'
         ]
         widgets = {
-            'edu_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
-            'roll_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
-            'reg_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black', 'required': True}),
-            'minor_branch': forms.Select(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
-            'ieee_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black','required': True}),
-            'ieee_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
-            'linkedin': forms.URLInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
-            'github': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 text-black'}),
+            'edu_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
+            'roll_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
+            'reg_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
+            'minor_branch': forms.Select(attrs={'class': 'rounded-lg border-gray-300 bg-base-200 w-full',}),
+            'ieee_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200','required': True}),
+            'ieee_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
+            'linkedin': forms.URLInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
+            'github': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
             'is_nep': forms.CheckboxInput(),
         }
