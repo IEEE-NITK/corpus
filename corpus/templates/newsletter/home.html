@@ -41,24 +41,24 @@
                 class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
                 rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
                 from-purple-400 to-blue-500 text-white">
-                <span class="indicator-item badge badge-accent">new</span>
                 <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">DiodeXcelerate</h2>
-                <p class="text-md text-right md:text-xl lg:text-xl">14th December - 1st February</p>
+                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">14th December - 1st February</p>
             </a>
-            <a href="{% url 'robotrix_home' %}"
+            <a href="https://docs.google.com/presentation/d/1dQqRI5gafo0r-8OQZ2UANm69wFmesk0l/edit#slide=id.p1"
                 class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
                 rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
                 from-purple-400 to-blue-500 text-white">
                 <span class="indicator-item badge badge-accent">new</span>
-                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Robotrix</h2>
-                <p class="text-md text-right md:text-xl lg:text-xl">14th December</p>
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Student Membership Drive</h2>
+                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">11th - 13th January 2025</p>
             </a>
-            <a
+            <a href="{% url 'impulse_home' %}"
                 class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
                 rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
                 from-purple-400 to-blue-500 text-white">
-                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Research Rehashed</h2>
-                <p class="text-md text-right md:text-xl lg:text-xl">To Be Announced</p>
+                <span class="indicator-item badge badge-accent">new</span>
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Impulse</h2>
+                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">17th - 19th January 2025</p>
             </a>
         </div>
     </section>
@@ -84,24 +84,31 @@
                     </div>
                 </div>
                 <div id="slide3" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/research.png' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Intro to Research Paper Reading - 8th November</h1>
-                    </div>
-                </div>
-                <div id="slide4" class="carousel-item relative w-full">
                     <img src="{% static 'img/newsletter/execom.jpeg' %}" 
                          class="object-cover w-[1400px] h-[700px] mx-auto" />
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                         <h1 class="text-4xl text-white text-center">Executive Committee Meeting I</h1>
                     </div>
                 </div>
-                <div id="slide5" class="carousel-item relative w-full">
+                <div id="slide4" class="carousel-item relative w-full">
                     <img src="{% static 'img/newsletter/cad.png' %}" 
                          class="object-cover w-[1400px] h-[700px] mx-auto" />
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                         <h1 class="text-4xl text-white text-center">Introduction to CAD- 24th October</h1>
+                    </div>
+                </div>
+                <div id="slide5" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/membership.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Student Membership Talk - 11th January</h1>
+                    </div>
+                </div>
+                <div id="slide6" class="carousel-item relative w-full">
+                    <img src="{% static 'img/newsletter/eureka_diode.png' %}" 
+                         class="object-cover w-[1400px] h-[700px] mx-auto" />
+                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                        <h1 class="text-4xl text-white text-center">Timekeeper's Gambit Eureka - 29th October</h1>
                     </div>
                 </div>
                 <button id="prevButton" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-l-lg z-10">
