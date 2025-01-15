@@ -43,7 +43,7 @@ def new_report(request):
         form = ReportForm(request.POST, request.FILES)
         if form.is_valid():
             report = form.save(commit=False)
-            report.created_at = timezone.now()
+            report.created_at = timezone.localtime()
             report.save()
 
             ReportMember.objects.create(report=report, member=request.exec_member)
@@ -148,7 +148,7 @@ def approver_dashboard(request):
         report = Report.objects.get(pk=report_id)
         if report.approver == request.exec_member:
             report.approved = True
-            report.approved_at = timezone.now()
+            report.approved_at = timezone.localtime()
             report.save()
             messages.success(request, "Report marked as approved!")
             return redirect("virtual_expo_members_approver_dashboard")

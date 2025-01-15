@@ -45,7 +45,6 @@ def sig(request, sig_name):
 
     return render(request, "pages/sig.html", args)
 
-
 @module_enabled("teampage")
 def team(request):
     active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
@@ -134,7 +133,6 @@ def team(request):
         "faculty": faculty,
     }
     return render(request, "pages/team.html", context)
-
 
 def farewell(request):
     return render(request, "pages/farewell.html")
