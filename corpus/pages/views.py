@@ -1,10 +1,11 @@
 from accounts.models import ExecutiveMember
 from accounts.models import Faculty
-from config.models import SIG
+from config.models import SIG, ModuleConfiguration
 from config.models import Society
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-
+from corpus.decorators import module_enabled
+from django.db.models import Q
 
 def index(request):
     # Get all societies to render on landing page Societies section
@@ -45,14 +46,31 @@ def sig(request, sig_name):
     return render(request, "pages/sig.html", args)
 
 
+@module_enabled("teampage")
 def team(request):
+    active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
+
+    reg_years = []
+    for key, value in active_batches.items():
+        reg_years.append((value % 100) - 4) # Get the year indicated by their roll no / reg no
+
+    # Query object to check whether the reg_number starts with any of the years in the present config
+    query = Q()
+    for prefix in reg_years:
+        query |= Q(reg_number__startswith=prefix)
+    
+    # Executive Members
+    members = ExecutiveMember.objects.filter(query)
+
     # ExeCom Members
-    ieee_core = ExecutiveMember.objects.filter(
-        core__isnull=False, core__post__is_execom=True, core__post__is_sac=False
+    ieee_core = members.filter(
+        core__isnull=False, 
+        core__post__is_execom=True, 
+        core__post__is_sac=False,  
     ).order_by("core__post__priority")
 
     # CompSoc Core Members
-    compsoc_core = ExecutiveMember.objects.filter(
+    compsoc_core = members.filter(
         core__isnull=False,
         sig__name="CompSoc",
         core__post__is_execom=False,
@@ -60,15 +78,15 @@ def team(request):
     ).order_by("core__post__priority")
 
     # Diode Core Members
-    diode_core = ExecutiveMember.objects.filter(
+    diode_core = members.filter(
         core__isnull=False,
         sig__name="Diode",
         core__post__is_execom=False,
-        core__post__is_sac=False,
+        core__post__is_sac=False,    
     ).order_by("core__post__priority")
 
     # Piston Core Members
-    piston_core = ExecutiveMember.objects.filter(
+    piston_core = members.filter(
         core__isnull=False,
         sig__name="Piston",
         core__post__is_execom=False,
@@ -76,28 +94,29 @@ def team(request):
     ).order_by("core__post__priority")
 
     # SAC Core Members
-    sac_core = ExecutiveMember.objects.filter(
-        core__isnull=False, core__post__is_execom=False, core__post__is_sac=True
+    sac_core = members.filter(
+        core__isnull=False, 
+        core__post__is_execom=False, 
+        core__post__is_sac=True,
     ).order_by("core__post__priority")
 
     # Faculty Members
     faculty = Faculty.objects.all()
 
-    # Executive Members
     compsoc_members = (
-        ExecutiveMember.objects.filter(sig__name="CompSoc")
+        members.filter(sig__name="CompSoc")
         .exclude(pk__in=ieee_core.values("pk"))
         .exclude(pk__in=compsoc_core.values("pk"))
         .exclude(pk__in=sac_core.values("pk"))
     )
     diode_members = (
-        ExecutiveMember.objects.filter(sig__name="Diode")
+        members.filter(sig__name="Diode")
         .exclude(pk__in=ieee_core.values("pk"))
         .exclude(pk__in=diode_core.values("pk"))
         .exclude(pk__in=sac_core.values("pk"))
     )
     piston_members = (
-        ExecutiveMember.objects.filter(sig__name="Piston")
+        members.filter(sig__name="Piston")
         .exclude(pk__in=ieee_core.values("pk"))
         .exclude(pk__in=piston_core.values("pk"))
         .exclude(pk__in=sac_core.values("pk"))
