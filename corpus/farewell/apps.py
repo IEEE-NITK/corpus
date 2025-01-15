@@ -2,5 +2,5 @@ from django.apps import AppConfig
 
 
 class FarewellConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'farewell'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "farewell"

@@ -56,7 +56,7 @@
                                 </td>
                                 <td>
                                     {% if report.approved %}
-                                        <a href="#" class="btn btn-primary px-3 py-1">View Report</a>
+                                        <a href="{% url 'virtual_expo_report' report_id=report.id %}" class="btn btn-primary px-3 py-1">View Report</a>
                                     {% else %}
                                         <a href="{% url 'virtual_expo_preview_report' report_id=report.id %}"
                                            class="btn btn-neutral px-3 py-1">

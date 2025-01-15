@@ -144,7 +144,7 @@ class ExecutiveMember(models.Model):
     )
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(
-        verbose_name="Date Joined", default=timezone.now()
+        default=timezone.localtime, verbose_name="Date Joined"
     )
 
     def save(self, *args, **kwargs):
