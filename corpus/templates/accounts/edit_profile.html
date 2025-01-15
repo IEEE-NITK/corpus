@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Edit Profile | {{ user }}
+{% endblock %}
+
+{% block content %}
+    <div class="container mx-auto my-10 p-6">
+        <h2 class="text-3xl font-bold text-center mb-6">Edit Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            <!-- Personal Information Section -->
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all">
+                <div class="card-body">
+                    <h3 class="card-title text-xl font-semibold mb-4">Personal Information</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <!-- Profile Picture Section (Preview and Input) -->
+                        <div class="form-control w-full flex flex-col items-center">
+                            <label class="label">
+                                <span class="label-text">Profile Picture</span>
+                            </label>
+
+                            <!-- Profile Picture Preview -->
+                            <div class="flex justify-end mb-4">
+                                {% if user.profile_pic %}
+                                    <img src="{{ user.profile_pic.url }}" 
+                                         alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
+                                {% else %}
+                                    <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}" 
+                                         alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
+                                {% endif %}
+                            </div>
+                            
+
+                            <!-- Clear Image Button -->
+                            <button type="button" class="btn btn-secondary text-sm px-1 py-1" id="clearImageButton" style="display:none;">Clear Image</button>
+
+                        </div>
+
+                        <!-- Other Personal Information Fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {% for field in user_form %}
+                                <div class="form-control w-full">
+                                    <label class="label">
+                                        <span class="label-text">{{ field.label }}</span>
+                                    </label>
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="text-red-500 text-sm mt-1">
+                                            {% for error in field.errors %}
+                                                {{ error }}
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    {% if field.help_text %}
+                                        <label class="label">
+                                            <span class="label-text-alt">{{ field.help_text }}</span>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            {% if executive_member_form %}
+            <!-- NITK Details Card -->
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+                <div class="card-body">
+                    <h3 class="card-title text-xl font-semibold mb-4">NITK Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.edu_email.label }}</span>
+                            </label>
+                            {{ executive_member_form.edu_email }}
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.roll_number.label }}</span>
+                            </label>
+                            {{ executive_member_form.roll_number }}
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.reg_number.label }}</span>
+                            </label>
+                            {{ executive_member_form.reg_number }}
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.minor_branch.label }}</span>
+                            </label>
+                            {{ executive_member_form.minor_branch }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IEEE Details Card -->
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+                <div class="card-body">
+                    <h3 class="card-title text-xl font-semibold mb-4">IEEE Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.ieee_number.label }}</span>
+                            </label>
+                            {{ executive_member_form.ieee_number }}
+                        </div>
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">{{ executive_member_form.ieee_email.label }}</span>
+                            </label>
+                            {{ executive_member_form.ieee_email }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Socials Card -->
+            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+                <div class="card-body">
+                    <h3 class="card-title text-xl font-semibold mb-4">Socials</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- LinkedIn Field -->
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">LinkedIn</span>
+                            </label>
+                            {{ executive_member_form.linkedin }}
+                            <label class="flex items-center mt-2 cursor-pointer">
+                                <input type="checkbox" name="hide_linkedin" 
+                                    class="mr-2"
+                                    {% if exec_member.hide_linkedin %}checked{% endif %}>
+                                <span>Hide LinkedIn?</span>
+                            </label>
+                        </div>
+
+                        <!-- GitHub Field -->
+                        <div class="form-control w-full">
+                            <label class="label">
+                                <span class="label-text">GitHub</span>
+                            </label>
+                            {{ executive_member_form.github }}
+                            <label class="flex items-center mt-2 cursor-pointer">
+                                <input type="checkbox" name="hide_github" 
+                                    class="mr-2"
+                                    {% if exec_member.hide_github %}checked{% endif %}>
+                                <span>Hide GitHub?</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Save Changes Modal -->
+            <div id="saveChangesModal" class="modal" aria-hidden="true">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirm Save Changes</h3>
+                    <p>Are you sure you want to save these changes?</p>
+                    <div class="modal-action mt-4 flex justify-center gap-4">
+                        <button type="submit" class="btn btn-primary" id="confirmSaveChanges">Yes, Save</button>
+                        <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Go Back Modal -->
+            <div id="goBackModal" class="modal" aria-hidden="true">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirm Go Back</h3>
+                    <p>Are you sure you want to go back? All unsaved changes will be lost!</p>
+                    <div class="modal-action mt-4 flex justify-center gap-4">
+                        <a href="{% url 'accounts_profile' roll_no=exec_member.roll_number %}" class="btn btn-primary">Yes, Go Back</a>
+                        <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Buttons Section -->
+            <div class="mt-6 flex justify-center gap-4">
+                <button type="button" class="btn btn-primary" id="openSaveChangesModal">Save Changes</button>
+                <button type="button" class="btn btn-secondary" id="openGoBackModal">Go Back</button>
+            </div>
+
+    </form>
+</div>
+
+
+    <script>
+        // Preview image before uploading
+        document.getElementById('id_profile_pic').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('profilePicPreview');
+            const clearButton = document.getElementById('clearImageButton');
+            
+            if (file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                
+                reader.readAsDataURL(file);
+
+                // Show the clear image button
+                clearButton.style.display = 'inline-block';
+            }
+        });
+
+        // Clear image functionality
+        document.getElementById('clearImageButton').addEventListener('click', function() {
+            const fileInput = document.getElementById('id_profile_pic');
+            fileInput.value = ''; // Clear the file input
+
+            // Reset preview to default
+            const preview = document.getElementById('profilePicPreview');
+            preview.src = 'https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}';
+
+            // Hide the clear image button again
+            this.style.display = 'none';
+        });
+
+        // Show Save Changes modal
+        document.getElementById('openSaveChangesModal').addEventListener('click', function() {
+            const modal = document.getElementById('saveChangesModal');
+            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
+            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+        });
+
+        // Show Go Back modal
+        document.getElementById('openGoBackModal').addEventListener('click', function() {
+            const modal = document.getElementById('goBackModal');
+            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
+            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+        });
+
+        // Close modal when clicking the close button
+        document.querySelectorAll('.modal-close').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.removeAttribute('open');  // Remove the 'open' attribute to hide the modal
+                modal.setAttribute('aria-hidden', 'true');  // Make it accessible
+            });
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.removeAttribute('open');  // Remove 'open' attribute when clicking outside
+                e.target.setAttribute('aria-hidden', 'true');  // Make it accessible
+            }
+        });
+
+    </script>
+
+{% endblock %}
