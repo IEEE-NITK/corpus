@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
+{% block title %}
+   Teams
+{% endblock %}
+
 {% load static %}
+
 {% block style %}
 <head>
    <link rel="stylesheet", href="{% static 'css/team.css' %}", type="text/css">
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 </head>
 {% endblock %}
+
 {% block content %}
-<div class="title">
-   <h1> Teams </h1>
-</div>
+<section
+    class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-[50vh] w-full"></div>
+    <div class="hero-content text-center flex-col">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Teams</h1>
+    </div>
+</section>
+{% comment %} <div class="title">
+   <h1> Teams {{ active_batches }} </h1>
+</div> {% endcomment %}
 <div class="center mt-10 align-center">
    <div role="tablist" class="tabs tabs-boxed tabs-lg">
       <!-- Tab links -->
@@ -392,5 +405,26 @@
 
    // Get the element with id="defaultOpen" and click on it
    document.getElementById("IEEE-tab").click();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script>
+    var slider = tns({
+        "container": '#slider-div',
+        "items": 3,
+        "nav": true,
+        "controls": false,
+        "speed": 300,
+        "autoplay": true,
+        "autoplayText": [
+            " ",
+            " "
+        ],
+        "autoplayHoverPause": false,
+        "autoplayTimeout": 4000,
+        "swipeAngle": false,
+        "mouseDrag": true,
+
+    })
 </script>
 {% endblock %}
