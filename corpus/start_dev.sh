@@ -1,4 +1,4 @@
-cd#! /bin/bash
+#! /bin/bash
 
 export DJANGO_SUPERUSER_PASSWORD=admin
 
