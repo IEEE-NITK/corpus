@@ -1,5 +1,28 @@
-<div class="min-h-[30vh] bg-secondary text-secondary-content flex justify-center items-center">
-    <h1 class="font-extrabold text-6xl">
-        Blog
-    </h1>
+{% load static %}
+
+
+<div class="relative min-h-[30vh] text-secondary-content flex justify-center items-center h-96 ">
+    <img class="h-screen opacity-90"src="{% static 'img/blog/header_bg.jpg' %}">
+    <h1 class="absolute font-extrabold text-9xl text-white blogHeader">
+        IEEE Blogs
+    </h1> 
+
+    
+    <div class="absolute text-white p-5 mt-64 blog_tags">
+        <div class="mt-10 rounded-lg flex justify-center gap-2">
+            <h1 class="font-bold text-3xl"> Click to see blogs from {{required_tag}}</h1>
+        </div>
+        <div class="my-7 rounded-lg flex justify-center gap-2">
+            {% for tag in tags %}
+
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-gradient-to-br from-[#1CB5E0] from-0% to-[#000851] to-100% hover:shadow-lg ">
+                <a class="relative px-5 py-2.5 rounded-md group-hover:bg-opacity-0 text-white"  href="{% url 'tagged_blog' tag.id %}">
+                    {{tag.tag_name}}
+                </a>
+            </button>
+          
+            {% endfor %}
+        </div>
+    </div> 
 </div>
+
