@@ -232,31 +232,31 @@
         // Show Save Changes modal
         document.getElementById('openSaveChangesModal').addEventListener('click', function() {
             const modal = document.getElementById('saveChangesModal');
-            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
-            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+            modal.setAttribute('open', 'true');
+            modal.setAttribute('aria-hidden', 'false');
         });
 
         // Show Go Back modal
         document.getElementById('openGoBackModal').addEventListener('click', function() {
             const modal = document.getElementById('goBackModal');
-            modal.setAttribute('open', 'true');  // Add 'open' attribute to show the modal
-            modal.setAttribute('aria-hidden', 'false');  // Make it accessible
+            modal.setAttribute('open', 'true');
+            modal.setAttribute('aria-hidden', 'false');
         });
 
         // Close modal when clicking the close button
         document.querySelectorAll('.modal-close').forEach(function(button) {
             button.addEventListener('click', function() {
                 const modal = this.closest('.modal');
-                modal.removeAttribute('open');  // Remove the 'open' attribute to hide the modal
-                modal.setAttribute('aria-hidden', 'true');  // Make it accessible
+                modal.removeAttribute('open');
+                modal.setAttribute('aria-hidden', 'true');
             });
         });
 
         // Close modal when clicking outside of it
         window.addEventListener('click', function(e) {
             if (e.target.classList.contains('modal')) {
-                e.target.removeAttribute('open');  // Remove 'open' attribute when clicking outside
-                e.target.setAttribute('aria-hidden', 'true');  // Make it accessible
+                e.target.removeAttribute('open');
+                e.target.setAttribute('aria-hidden', 'true');
             }
         });
 
