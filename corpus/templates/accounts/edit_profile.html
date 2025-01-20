@@ -228,13 +228,7 @@
             // Hide the clear image button again
             this.style.display = 'none';
         });
-
-        // // Show Save Changes modal
-        // document.getElementById('openSaveChangesModal').addEventListener('click', function() {
-        //     const modal = document.getElementById('saveChangesModal');
-        //     modal.setAttribute('open', 'true');
-        //     modal.setAttribute('aria-hidden', 'false');
-        // });
+        
         document.getElementById('openSaveChangesModal').addEventListener('click', function() {
             const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
             let isValid = true;
