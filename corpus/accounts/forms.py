@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
+from django.forms.widgets import ClearableFileInput
 
 from .models import User
 from .models import ExecutiveMember
@@ -63,6 +64,15 @@ class CorpusLoginForm(AuthenticationForm):
             username = username.lower()
         return username
 
+class CustomClearableFileInput(ClearableFileInput):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context["widget"]["initial_text"] = 'Clear'
+        context["widget"]["clear_checkbox_label"] = ''
+        if context["widget"]["is_initial"]:
+            context["widget"]["value"] = ''
+        return context
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
@@ -71,9 +81,10 @@ class UserForm(forms.ModelForm):
             'phone_no': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
             'gender': forms.Select(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
             'email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'profile_pic': forms.ClearableFileInput(attrs={'multiple': False}),
+            'profile_pic': CustomClearableFileInput(attrs={'multiple': False}),
 
         }
+
 
 class ExecutiveMemberForm(forms.ModelForm):
     class Meta:
