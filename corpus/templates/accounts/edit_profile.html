@@ -229,11 +229,35 @@
             this.style.display = 'none';
         });
 
-        // Show Save Changes modal
+        // // Show Save Changes modal
+        // document.getElementById('openSaveChangesModal').addEventListener('click', function() {
+        //     const modal = document.getElementById('saveChangesModal');
+        //     modal.setAttribute('open', 'true');
+        //     modal.setAttribute('aria-hidden', 'false');
+        // });
         document.getElementById('openSaveChangesModal').addEventListener('click', function() {
-            const modal = document.getElementById('saveChangesModal');
-            modal.setAttribute('open', 'true');
-            modal.setAttribute('aria-hidden', 'false');
+            const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+            let isValid = true;
+
+            requiredFields.forEach(function(field) {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('border-red-500');  // Add red border for missing input
+                } else {
+                    field.classList.remove('border-red-500');  // Remove red border if input is provided
+                }
+            });
+
+            if (isValid) {
+                const modal = document.getElementById('saveChangesModal');
+                modal.setAttribute('open', 'true');
+                modal.setAttribute('aria-hidden', 'false');
+            } else {
+                const form = document.querySelector('form');
+                if (form) {
+                    form.reportValidity();
+                }
+            }
         });
 
         // Show Go Back modal
