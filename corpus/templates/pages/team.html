@@ -20,9 +20,6 @@
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Teams</h1>
     </div>
 </section>
-{% comment %} <div class="title">
-   <h1> Teams {{ active_batches }} </h1>
-</div> {% endcomment %}
 <div class="center mt-10 align-center">
    <div role="tablist" class="tabs tabs-boxed tabs-lg">
       <!-- Tab links -->
@@ -50,11 +47,11 @@
                   <p class="card-post">{{ fac.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     {% if fac.linkedin is not Blank %}
                      <div class="card-actions">
+                        {% if fac.linkedin %}
                         <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                         {% endif %}
-                        {% if fac.website is not Blank %}
+                        {% if fac.website %}
                         <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
                         {% endif %}
                      </div>
@@ -80,8 +77,12 @@
                   <p class="card-post">{{ member.core.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{ member.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{ member.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% if member.linkedin %}
+                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  {% endif %}
+                  {% if member.github %}
+                     <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -108,12 +109,12 @@
                   <h2 class="card-title">{{fac.user}}</h2>
                   <p class="card-post">{{fac.society}} {{ fac.post.name }}</p>
                   <br/>
-                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
-                     <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     {% if fac.linkedin %}
+                        <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
-                     {% if fac.website is not Blank %}
-                     <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
+                     {% if fac.website %}
+                        <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
                      {% endif %}
                   </div>
                </div>
@@ -137,8 +138,12 @@
                   <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% if member.linkedin %}
+                        <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     {% endif %}
+                     {% if member.github %}
+                        <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% endif %}
                   </div>
                </div>
             </div>
@@ -160,8 +165,12 @@
                   <h2 class="card-title">{{member.user}}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% if member.linkedin %}
+                        <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     {% endif %}
+                     {% if member.github %}
+                        <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% endif %}
                   </div>
                </div>
             </div>
@@ -186,11 +195,11 @@
                   <h2 class="card-title">{{fac.user}}</h2>
                   <p class="card-post">{{fac.society}} {{ fac.post.name }}</p>
                   <br/>
-                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
+                     {% if fac.linkedin %}
                      <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
-                     {% if fac.website is not Blank %}
+                     {% if fac.website %}
                      <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
                      {% endif %}
                   </div>
@@ -215,8 +224,12 @@
                   <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
+                  {% if member.linkedin %}
                      <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
+                  {% if member.github %}
+                     <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -238,8 +251,12 @@
                   <h2 class="card-title">{{member.user}}</h2>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% if member.linkedin %}
+                        <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                     {% endif %}
+                     {% if member.github %}
+                        <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                     {% endif %}
                   </div>
                </div>
             </div>
@@ -264,11 +281,11 @@
                   <h2 class="card-title">{{fac.user}}</h2>
                   <p class="card-post">{{fac.society}} {{fac.post.name}}</p>
                   <br/>
-                  {% if fac.linkedin is not Blank %}
                   <div class="card-actions">
+                     {% if fac.linkedin %}
                      <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                      {% endif %}
-                     {% if fac.website is not Blank %}
+                     {% if fac.website %}
                      <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
                      {% endif %}
                   </div>
@@ -293,8 +310,12 @@
                   <h2 class="card-post">{% if member.core.society %} {{ member.core.society }} {{ member.core.post.name }} {% else %} {{ member.core.post.name }} {% endif %}</h2>
                   <br/>
                   <div class="card-actions">
+                  {% if member.linkedin %}
                      <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
+                  {% if member.github %}
+                     <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -316,8 +337,12 @@
                   <h2 class="card-title">{{member.user}}</h2>
                   <br/>
                   <div class="card-actions">
+                  {% if member.linkedin %}
                      <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
+                  {% if member.github %}
+                     <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -343,14 +368,12 @@
                   <p class="card-post">{{ fac.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     {% if fac.linkedin is not Blank %}
-                     <div class="card-actions">
+                        {% if fac.linkedin %}
                         <a href="{{fac.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
                         {% endif %}
-                        {% if fac.website is not Blank %}
+                        {% if fac.website %}
                         <a href="{{fac.website}}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-link"></i></a>
                         {% endif %}
-                     </div>
                   </div>
                </div>
             {% endif %}
@@ -372,8 +395,12 @@
                   <p class="card-post">{{ member.core.post.name }}</p>
                   <br/>
                   <div class="card-actions">
-                     <a href="{{ member.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
-                     <a href="{{ member.github }}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% if member.linkedin %}
+                     <a href="{{member.linkedin}}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+                  {% endif %}
+                  {% if member.github %}
+                  <a href="https://www.github.com/{{member.github}}" target="_blank" class="btn btn-lg btn-outline"><i class="fab fa-github fa-2x"></i></a>
+                  {% endif %}
                   </div>
                </div>
             </div>
@@ -386,25 +413,12 @@
 {% block script %}
 <script>
    function openPage(pageName, elmnt, tabName) {
-     // Hide all elements with class="tabcontent" by default */
-     var i, tabcontent, tablinks;
-     tabcontent = document.getElementsByClassName("tab-content");
-     for (i = 0; i < tabcontent.length; i++) {
-       tabcontent[i].style.display = "none";
-     }
-
-   tablinks = document.getElementsByClassName("tab");
-   for (i = 0; i < tablinks.length; i++) {
-     tablinks[i].classList.remove("tab-active");
-   }
-
-     // Show the specific tab content
-     document.getElementById(pageName).style.display = "block";
-     document.getElementById(tabName).classList.add("tab-active");
-   }
-
-   // Get the element with id="defaultOpen" and click on it
-   document.getElementById("IEEE-tab").click();
+      $(".tab-content").hide();
+      $(".tab").removeClass("tab-active");
+      $("#" + pageName).show();
+      $("#" + tabName).addClass("tab-active");
+    }
+    $("#IEEE-tab").click();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
