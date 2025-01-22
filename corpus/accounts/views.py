@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import PermissionDenied
 
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
@@ -91,7 +92,7 @@ def signout(request):
 
 def profile(request, roll_no):
     exec_member = get_object_or_404(ExecutiveMember, roll_number=roll_no)
-    user = exec_member.user
+    profile_user = exec_member.user
 
     # Get Virtual Expo Reports
     reports = Report.objects.filter(reportmember__member=exec_member)
@@ -101,7 +102,8 @@ def profile(request, roll_no):
 
     args = {
         "exec_member": exec_member,
-        "user": user,
+        "profile_user": profile_user,
+        "curr_user": request.user,
         "reports": reports,
         "blogs": blogs,
     }
@@ -116,14 +118,11 @@ def edit_profile(request, roll_no):
     try:
         executive_member = ExecutiveMember.objects.get(roll_number=roll_no, user=user)
     except ExecutiveMember.DoesNotExist:
-        executive_member = None  # Handle the case where the user is not an ExecutiveMember
+        raise PermissionDenied("You are not authorized to edit this profile.")
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=user)
-        if executive_member:
-            executive_member_form = ExecutiveMemberForm(request.POST, instance=executive_member)
-        else:
-            executive_member_form = ExecutiveMemberForm(request.POST)
+        executive_member_form = ExecutiveMemberForm(request.POST, instance=executive_member)
         
         if user_form.is_valid() and executive_member_form.is_valid():
             user_form.save()
@@ -145,10 +144,7 @@ def edit_profile(request, roll_no):
 
     else:
         user_form = UserForm(instance=user)
-        if executive_member:
-            executive_member_form = ExecutiveMemberForm(instance=executive_member)
-        else:
-            executive_member_form = ExecutiveMemberForm()
+        executive_member_form = ExecutiveMemberForm(instance=executive_member)
 
     return render(
         request,
