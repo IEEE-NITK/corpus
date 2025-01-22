@@ -1,29 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ user }} | Profile
+    {{ profile_user }} | Profile
 {% endblock %}
 
 {% block content %}
     <div class="w-5/6 md:w-2/3 my-10 mx-auto flex flex-col md:flex-row gap-8">
         <!-- Div with image, name, society and core member position if any -->
         <div class="w-full md:w-1/3 prose text-center p-5 border-0 sm:border border-neutral rounded-lg">
-            {% if user.profile_pic %}
-                <img src="{{ user.profile_pic.url }}" alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
+            {% if profile_user.profile_pic %}
+                <img src="{{ profile_user.profile_pic.url }}" alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% else %}
                 <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
-                     alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
+                     alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% endif %}
 
-            <h1 class="my-2">{{ user }}</h1>
+            <h1 class="my-2">{{ profile_user }}</h1>
             <h3 class="m-0">{{ exec_member.sig }}</h3>
 
-            <!-- Edit Profile Link -->
-            <div class="text-center my-4">
-                <a href="{% url 'edit_profile' roll_no=user.executivemember.roll_number %}" class="btn btn-primary">
-                    Edit Profile
-                </a>
-            </div>
+            {% if curr_user == profile_user %}
+                <!-- Edit Profile Link -->
+                <div class="text-center my-4">
+                    <a href="{% url 'edit_profile' roll_no=profile_user.executivemember.roll_number %}" class="btn btn-primary">
+                        Edit Profile
+                    </a>
+                </div>
+            {% endif %}
         </div>
 
         <!-- Div with other information about the person -->
@@ -33,7 +35,7 @@
                 <div class="collapse-content">
                     <div class="grid grid-cols-2 gap-5">
                         <div class="font-bold">Name</div>
-                        <div>{{ user }}</div>
+                        <div>{{ profile_user }}</div>
                     </div>
                     <div class="mt-8 grid grid-cols-2 gap-5">
                         <div class="font-bold">Date Joined</div>

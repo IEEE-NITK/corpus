@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.forms.widgets import ClearableFileInput
 
+from corpus.forms import CorpusModelForm
+
 from .models import User
 from .models import ExecutiveMember
 
@@ -67,26 +69,22 @@ class CorpusLoginForm(AuthenticationForm):
 class CustomClearableFileInput(ClearableFileInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
+        context["widget"]["attrs"]["style"] = "color: oklch(var(--bc)/1);"
         context["widget"]["initial_text"] = 'Clear'
         context["widget"]["clear_checkbox_label"] = ''
         if context["widget"]["is_initial"]:
             context["widget"]["value"] = ''
         return context
 
-class UserForm(forms.ModelForm):
+class UserForm(CorpusModelForm):
     class Meta:
         model = User
         fields = ['phone_no', 'gender', 'email', 'profile_pic']
         widgets = {
-            'phone_no': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'gender': forms.Select(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
             'profile_pic': CustomClearableFileInput(attrs={'multiple': False}),
-
         }
 
-
-class ExecutiveMemberForm(forms.ModelForm):
+class ExecutiveMemberForm(CorpusModelForm):
     class Meta:
         model = ExecutiveMember
         fields = [
@@ -94,13 +92,8 @@ class ExecutiveMemberForm(forms.ModelForm):
             'ieee_number', 'ieee_email', 'linkedin', 'github', 'is_nep'
         ]
         widgets = {
-            'edu_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
-            'roll_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
-            'reg_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200', 'required': True}),
-            'minor_branch': forms.Select(attrs={'class': 'rounded-lg border-gray-300 bg-base-200 w-full',}),
-            'ieee_number': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200','required': True}),
-            'ieee_email': forms.EmailInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'linkedin': forms.URLInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'github': forms.TextInput(attrs={'class': 'rounded-lg border-gray-300 bg-base-200'}),
-            'is_nep': forms.CheckboxInput(),
+            'edu_email': forms.EmailInput(attrs={'required': True}),
+            'roll_number': forms.TextInput(attrs={'required': True}),
+            'reg_number': forms.TextInput(attrs={'required': True}),
+            'ieee_number': forms.TextInput(attrs={'required': True}),
         }

@@ -142,8 +142,8 @@ class ExecutiveMember(models.Model):
     github = models.CharField(
         max_length=39, blank=True, null=True, verbose_name="GitHub Username"
     )
-    hide_github = models.BooleanField(default=False)
-    hide_linkedin = models.BooleanField(default=False)
+    hide_github = models.BooleanField(default=False, null=True, blank=True)
+    hide_linkedin = models.BooleanField(default=False, null=True, blank=True)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(
         default=timezone.localtime, verbose_name="Date Joined"
