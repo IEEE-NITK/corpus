@@ -55,3 +55,9 @@ class FileValidator(object):
             and self.min_size == other.min_size
             and self.content_types == other.content_types
         )
+
+def validate_image(image):
+    file_size = image.file.size
+    limit = 5 * 1024 * 1024  # 5 MB limit
+    if file_size > limit:
+        raise ValidationError("Image size exceeds 5MB.")

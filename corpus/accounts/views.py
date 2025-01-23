@@ -117,8 +117,10 @@ def edit_profile(request, roll_no):
     # Check if the user has an associated ExecutiveMember record
     try:
         executive_member = ExecutiveMember.objects.get(roll_number=roll_no, user=user)
+        # executive_member = get_object_or_404(ExecutiveMember, roll_number=roll_no, user=user)
     except ExecutiveMember.DoesNotExist:
-        raise PermissionDenied("You are not authorized to edit this profile.")
+        messages.warning(request, "You are not authorized to edit this profile.")
+        return redirect("index")
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, request.FILES, instance=user)

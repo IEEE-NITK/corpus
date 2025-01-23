@@ -11,7 +11,7 @@ from .validators import validate_nitk_email
 from .validators import validate_phone_number
 from .validators import validate_reg_number
 from .validators import validate_roll_number
-from .validators import validate_image
+from corpus.validators import validate_image
 
 
 class UserManager(BaseUserManager):
