@@ -196,36 +196,48 @@
 
 
     <script>
-        // Preview image before uploading
-        document.getElementById('id_profile_pic').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('profilePicPreview');
-            const clearButton = document.getElementById('clearImageButton');
-            
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                }
-                
-                reader.readAsDataURL(file);
+        document.addEventListener("DOMContentLoaded", function() {
+            const maxFileSize = 5 * 1024 * 1024;
+            const fileInput = document.getElementById("id_profile_pic");
+            const preview = document.getElementById("profilePicPreview");
+            const currfilesrc = preview.src;
+            const clearButton = document.getElementById("clearImageButton");
 
-                // Show the clear image button
-                clearButton.style.display = 'inline-block';
-            }
+            fileInput.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+
+                if (file) {
+                    if (file.size > maxFileSize) {
+                        alert("File size is too big. Please upload a file smaller than 2MB.");
+                        
+                        fileInput.value = "";
+
+                        preview.src = currfilesrc;
+                        
+                        clearButton.style.display = "none";
+                    } else {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            preview.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(file);
+
+                        clearButton.style.display = "block";
+                    }
+                }
+            });
         });
 
         // Clear image functionality
         document.getElementById('clearImageButton').addEventListener('click', function() {
             const fileInput = document.getElementById('id_profile_pic');
-            fileInput.value = ''; // Clear the file input
+            fileInput.value = '';
 
-            // Reset preview to default
             const preview = document.getElementById('profilePicPreview');
             preview.src = 'https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}';
 
-            // Hide the clear image button again
             this.style.display = 'none';
         });
         
@@ -236,9 +248,6 @@
             requiredFields.forEach(function(field) {
                 if (!field.value.trim()) {
                     isValid = false;
-                    field.classList.add('border-red-500');  // Add red border for missing input
-                } else {
-                    field.classList.remove('border-red-500');  // Remove red border if input is provided
                 }
             });
 
