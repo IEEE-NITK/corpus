@@ -47,4 +47,3 @@ def validate_ieee_email(value):
     if not value.endswith("@ieee.org"):
         raise ValidationError("Email must end with @ieee.org")
     email_validator(value)
-

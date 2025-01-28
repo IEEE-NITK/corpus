@@ -26,14 +26,14 @@
                             <!-- Profile Picture Preview -->
                             <div class="flex justify-end mb-4">
                                 {% if user.profile_pic %}
-                                    <img src="{{ user.profile_pic.url }}" 
+                                    <img src="{{ user.profile_pic.url }}"
                                          alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
                                 {% else %}
-                                    <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}" 
+                                    <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
                                          alt="{{ user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full shadow-lg" id="profilePicPreview">
                                 {% endif %}
                             </div>
-                            
+
 
                             <!-- Clear Image Button -->
                             <button type="button" class="btn btn-secondary text-sm px-1 py-1" id="clearImageButton" style="display:none;">Clear Image</button>
@@ -134,8 +134,8 @@
                                 <span class="label-text">LinkedIn</span>
                             </label>
                             {{ executive_member_form.linkedin }}
-                            <label class="flex items-center mt-2 cursor-pointer">
-                                <input type="checkbox" name="hide_linkedin" 
+                            <label class="flex items-center mt-2 gap-4">
+                                <input type="checkbox" name="hide_linkedin"
                                     class="mr-2"
                                     {% if exec_member.hide_linkedin %}checked{% endif %}>
                                 <span>Hide LinkedIn?</span>
@@ -148,8 +148,8 @@
                                 <span class="label-text">GitHub</span>
                             </label>
                             {{ executive_member_form.github }}
-                            <label class="flex items-center mt-2 cursor-pointer">
-                                <input type="checkbox" name="hide_github" 
+                            <label class="flex items-center mt-2 gap-4">
+                                <input type="checkbox" name="hide_github"
                                     class="mr-2"
                                     {% if exec_member.hide_github %}checked{% endif %}>
                                 <span>Hide GitHub?</span>
@@ -183,8 +183,6 @@
                     </div>
                 </div>
             </div>
-
-
             <!-- Buttons Section -->
             <div class="mt-6 flex justify-center gap-4">
                 <button type="button" class="btn btn-primary" id="openSaveChangesModal">Save Changes</button>
@@ -194,99 +192,84 @@
     </form>
 </div>
 
-
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const maxFileSize = 5 * 1024 * 1024;
-            const fileInput = document.getElementById("id_profile_pic");
-            const preview = document.getElementById("profilePicPreview");
-            const currfilesrc = preview.src;
-            const clearButton = document.getElementById("clearImageButton");
+        $(document).ready(function() {
+            const maxFileSize = "{{ max_image_size }}";
+            const $fileInput = $("#id_profile_pic");
+            const $preview = $("#profilePicPreview");
+            const currfilesrc = $preview.attr("src");
+            const $clearButton = $("#clearImageButton");
 
-            fileInput.addEventListener("change", function(event) {
+            $fileInput.change(function(event) {
                 const file = event.target.files[0];
 
                 if (file) {
                     if (file.size > maxFileSize) {
-                        alert("File size is too big. Please upload a file smaller than 2MB.");
-                        
-                        fileInput.value = "";
+                        alert("File size is too big. Please upload a file smaller than 5MB.");
 
-                        preview.src = currfilesrc;
-                        
-                        clearButton.style.display = "none";
+                        $fileInput.val("");
+
+                        $preview.attr("src", currfilesrc);
+
+                        $clearButton.hide();
                     } else {
                         const reader = new FileReader();
-                        
+
                         reader.onload = function(e) {
-                            preview.src = e.target.result;
+                            $preview.attr("src", e.target.result);
                         };
 
                         reader.readAsDataURL(file);
 
-                        clearButton.style.display = "block";
+                        $clearButton.show();
                     }
                 }
             });
-        });
 
-        // Clear image functionality
-        document.getElementById('clearImageButton').addEventListener('click', function() {
-            const fileInput = document.getElementById('id_profile_pic');
-            fileInput.value = '';
+            // Clear image functionality
+            $clearButton.click(function() {
+                $fileInput.val('');
+                $preview.attr("src", "{{ user.profile_pic.url }}");
+                $(this).hide();
+            });
 
-            const preview = document.getElementById('profilePicPreview');
-            preview.src = 'https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}';
+            // Open save changes modal
+            $('#openSaveChangesModal').click(function() {
+                const $requiredFields = $('input[required], select[required], textarea[required]');
+                let isValid = true;
 
-            this.style.display = 'none';
-        });
-        
-        document.getElementById('openSaveChangesModal').addEventListener('click', function() {
-            const requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-            let isValid = true;
+                $requiredFields.each(function() {
+                    if (!$(this).val().trim()) {
+                        isValid = false;
+                    }
+                });
 
-            requiredFields.forEach(function(field) {
-                if (!field.value.trim()) {
-                    isValid = false;
+                if (isValid) {
+                    $('#saveChangesModal').attr('open', 'true').attr('aria-hidden', 'false');
+                } else {
+                    $('form')[0]?.reportValidity();
                 }
             });
 
-            if (isValid) {
-                const modal = document.getElementById('saveChangesModal');
-                modal.setAttribute('open', 'true');
-                modal.setAttribute('aria-hidden', 'false');
-            } else {
-                const form = document.querySelector('form');
-                if (form) {
-                    form.reportValidity();
+            // Show Go Back modal
+            $('#openGoBackModal').click(function() {
+                $('#goBackModal').attr('open', 'true').attr('aria-hidden', 'false');
+            });
+
+            // Close modal when clicking the close button
+            $('.modal-close').click(function() {
+                const $modal = $(this).closest('.modal');
+                $modal.removeAttr('open').attr('aria-hidden', 'true');
+            });
+
+            // Close modal when clicking outside of it
+            $(window).click(function(e) {
+                if ($(e.target).hasClass('modal')) {
+                    $(e.target).removeAttr('open').attr('aria-hidden', 'true');
                 }
-            }
-        });
-
-        // Show Go Back modal
-        document.getElementById('openGoBackModal').addEventListener('click', function() {
-            const modal = document.getElementById('goBackModal');
-            modal.setAttribute('open', 'true');
-            modal.setAttribute('aria-hidden', 'false');
-        });
-
-        // Close modal when clicking the close button
-        document.querySelectorAll('.modal-close').forEach(function(button) {
-            button.addEventListener('click', function() {
-                const modal = this.closest('.modal');
-                modal.removeAttribute('open');
-                modal.setAttribute('aria-hidden', 'true');
             });
         });
-
-        // Close modal when clicking outside of it
-        window.addEventListener('click', function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.removeAttribute('open');
-                e.target.setAttribute('aria-hidden', 'true');
-            }
-        });
-
     </script>
+
 
 {% endblock %}

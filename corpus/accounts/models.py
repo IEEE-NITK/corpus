@@ -1,4 +1,5 @@
 from config.models import SIG
+from constants import validate_image
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -11,7 +12,6 @@ from .validators import validate_nitk_email
 from .validators import validate_phone_number
 from .validators import validate_reg_number
 from .validators import validate_roll_number
-from corpus.validators import validate_image
 
 
 class UserManager(BaseUserManager):
@@ -57,9 +57,13 @@ class User(AbstractUser):
     )
     gender = models.CharField(max_length=1, choices=GENDERS)
     email = models.EmailField(unique=True, verbose_name="Personal Email")
-    profile_pic = models.ImageField(upload_to="accounts/profile/pics",
-                                    validators=[validate_image],
-                                    blank=True, null=True, default=None)
+    profile_pic = models.ImageField(
+        upload_to="accounts/profile/pics",
+        validators=[validate_image],
+        blank=True,
+        null=True,
+        default=None,
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -142,8 +146,8 @@ class ExecutiveMember(models.Model):
     github = models.CharField(
         max_length=39, blank=True, null=True, verbose_name="GitHub Username"
     )
-    hide_github = models.BooleanField(default=False, null=True, blank=True)
-    hide_linkedin = models.BooleanField(default=False, null=True, blank=True)
+    hide_github = models.BooleanField(default=False)
+    hide_linkedin = models.BooleanField(default=False)
     is_nep = models.BooleanField(default=False, verbose_name="Is NEP Member?")
     date_joined = models.DateTimeField(
         default=timezone.localtime, verbose_name="Date Joined"

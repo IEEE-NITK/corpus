@@ -33,11 +33,11 @@
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Personal Information</div>
                 <div class="collapse-content">
-                    <div class="grid grid-cols-2 gap-5">
+                    <div class="grid grid-cols-2 gap-1">
                         <div class="font-bold">Name</div>
                         <div>{{ profile_user }}</div>
                     </div>
-                    <div class="mt-8 grid grid-cols-2 gap-5">
+                    <div class="mt-8 grid grid-cols-2 gap-1">
                         <div class="font-bold">Date Joined</div>
                         <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
                     </div>
@@ -47,13 +47,17 @@
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">IEEE Membership Information</div>
                 <div class="collapse-content">
-                    <div class="grid grid-cols-2 gap-5">
+                    <div class="grid grid-cols-2 gap-1">
                         <div class="font-bold">IEEE Membership Number</div>
                         <div>{{ exec_member.ieee_number }}</div>
                     </div>
-                    <div class="mt-8 grid grid-cols-2 gap-5">
+                    <div class="mt-8 grid grid-cols-2 gap-1">
                         <div class="font-bold">IEEE Membership Email</div>
                         <div>{{ exec_member.ieee_email }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <div class="font-bold">NEP Member</div>
+                        <div>{{ exec_member.is_nep }}</div>
                     </div>
                 </div>
             </div>
@@ -62,7 +66,7 @@
                 <div class="collapse-title text-xl font-bold">Reports Published</div>
                 <div class="collapse-content">
                     {% if reports %}
-                        <div class="grid grid-cols-1 gap-5">
+                        <div class="grid grid-cols-1 gap-1">
                             <ul class="list-disc p-5 space-y-6">
                                 {% for report in reports %}
                                     <li>
@@ -84,7 +88,7 @@
                 <div class="collapse-title text-xl font-bold">Blogs Published</div>
                 <div class="collapse-content">
                     {% if blogs %}
-                        <div class="grid grid-cols-1 gap-5">
+                        <div class="grid grid-cols-1 gap-1">
                             <ul class="list-disc p-5 space-y-6">
                                 {% for blog in blogs %}
                                     <li>
@@ -105,7 +109,7 @@
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Links</div>
                 <div class="collapse-content">
-                    <div class="grid grid-cols-2 gap-5">
+                    <div class="grid grid-cols-2 gap-1">
                         <!-- GitHub Section -->
                         <div class="font-bold">GitHub</div>
                         <div>
@@ -121,7 +125,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-8 grid grid-cols-2 gap-5">
+                    <div class="mt-8 grid grid-cols-2 gap-1">
                         <!-- LinkedIn Section -->
                         <div class="font-bold">LinkedIn</div>
                         <div>
@@ -135,7 +139,7 @@
                                 {% endif %}
                             {% endif %}
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </div>
         </div>

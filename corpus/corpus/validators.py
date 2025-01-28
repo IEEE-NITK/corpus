@@ -56,6 +56,7 @@ class FileValidator(object):
             and self.content_types == other.content_types
         )
 
+
 def validate_image(image):
     file_size = image.file.size
     limit = 5 * 1024 * 1024  # 5 MB limit
