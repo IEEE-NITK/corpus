@@ -1,4 +1,5 @@
 import magic
+from constants import MAX_IMAGE_SIZE
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from django.utils.deconstruct import deconstructible
@@ -59,6 +60,6 @@ class FileValidator(object):
 
 def validate_image(image):
     file_size = image.file.size
-    limit = 5 * 1024 * 1024  # 5 MB limit
+    limit = MAX_IMAGE_SIZE
     if file_size > limit:
         raise ValidationError("Image size exceeds 5MB.")

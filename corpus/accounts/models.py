@@ -1,5 +1,4 @@
 from config.models import SIG
-from constants import validate_image
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -12,6 +11,7 @@ from .validators import validate_nitk_email
 from .validators import validate_phone_number
 from .validators import validate_reg_number
 from .validators import validate_roll_number
+from corpus.validators import validate_image
 
 
 class UserManager(BaseUserManager):
