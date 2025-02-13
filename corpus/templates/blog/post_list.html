@@ -1,7 +1,12 @@
 {% extends "./base.html" %}
+{% load static %}
 
 {% block title %}
 IEEE Blogs
+{% endblock %}
+
+{% block scripts%}
+    <script src="{% static 'js/blog/post_list.js'%}" defer></script>
 {% endblock %}
 
 {% block content %}
@@ -9,24 +14,15 @@ IEEE Blogs
     {% include "./header.html" %}
 </header>
 
-<div class="m-10 p-5 align-center sm:border rounded-lg">
-    <div class="m-10 rounded-lg flex justify-center gap-2">
-        <h1 class="text-3xl"> Click to see blogs from {{required_tag}}</h1>
-    </div>
-    <div class="m-10 rounded-lg flex justify-center gap-2">
-        {% for tag in tags %}
-        <a class="btn btn-sm btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
-        {% endfor %}
-    </div>
-</div>
-
 <div class="m-10">
-    <div class="my-2 py-5 sm:px-10 sm:border rounded-lg">
+  
+    <div class="my-2 py-5 sm:px-10 ">
         <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:max-w-[70rem]">
         {% for post in page_obj %}
-            <article class="card p-1 m-0 bg-base-100 border hover:shadow-2xl">
+            <article class="card p-1 m-0 bg-[#F0F8FF] border-slate-200 border-2 dark:border-0 shadow-md dark:bg-gradient-to-r from-[#4b6cb7] from-0% to-[#182848] to-100% hover:shadow-2xl hover:shadow-[#000000ba]">
                 <a href="{% url 'full_post' post.slug %}">
-                <div class="card-body">
+                
+                <div class="card-body text-slate-950 dark:text-white ">
                     <h2 class="card-title">{{post.title}}</h2>
                     <p>by {{post.author}}</p>
                     <p>{{post.published_date}}</p>
