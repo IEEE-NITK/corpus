@@ -230,7 +230,7 @@
             $clearButton.click(function() {
                 $fileInput.val('');
 
-                $preview.attr("src", "{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}/static/images/default-profile.png{% endif %}");
+                $preview.attr("src", currfilesrc);
 
                 $(this).hide();
             });
