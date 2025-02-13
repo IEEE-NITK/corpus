@@ -12,7 +12,7 @@
             {% csrf_token %}
 
             <!-- Personal Information Section -->
-            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all">
+            <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">Personal Information</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -70,7 +70,7 @@
 
             {% if executive_member_form %}
             <!-- NITK Details Card -->
-            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">NITK Details</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -103,7 +103,7 @@
             </div>
 
             <!-- IEEE Details Card -->
-            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">IEEE Details</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -124,7 +124,7 @@
             </div>
 
             <!-- Socials Card -->
-            <div class="card bg-gray-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
+            <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
                     <h3 class="card-title text-xl font-semibold mb-4">Socials</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -229,7 +229,9 @@
             // Clear image functionality
             $clearButton.click(function() {
                 $fileInput.val('');
-                $preview.attr("src", "{{ user.profile_pic.url }}");
+
+                $preview.attr("src", "{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}/static/images/default-profile.png{% endif %}");
+
                 $(this).hide();
             });
 
