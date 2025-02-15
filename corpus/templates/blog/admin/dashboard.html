@@ -1,0 +1,87 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Admin Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "blog/header.html" with text="Admin Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <div class="w-full">
+                        <label for="{{ form.author.id_for_label }}">Author Name</label>
+                        {{ form.author }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.sig.id_for_label }}" class="block font-semibold mb-1">SIG</label>
+                        <div class="flex flex-wrap gap-3">
+                            {% for checkbox in form.sig %}
+                                <label class="flex items-center space-x-2 text-sm">
+                                    <input type="checkbox" class="w-3.5 h-3.5 border border-gray-500 rounded-sm cursor-pointer"
+                                        name="{{ checkbox.data.name }}"
+                                        id="{{ checkbox.data.attrs.id }}"
+                                        value="{{ checkbox.data.value }}"
+                                        {% if checkbox.data.attrs.checked %}checked{% endif %}>
+                                    <span>{{ checkbox.choice_label }}</span>
+                                </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="p-5 border rounded-lg overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>SIGs</th>
+                    <th>Approval Status</th>
+                    <th>Approver</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for blog in blogs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ blog.title }}</td>
+                        <td class="flex gap-4">
+                            {% for tag in blog.blog_tag.all %}
+                                {{ tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if blog.approved %}
+                                <div class="badge badge-success">Approved</div>
+                            {% elif blog.ready_for_approval %}
+                                <div class="badge badge-info">Under Review</div>
+                            {% else %}
+                                <div class="badge badge-warning">Not Submitted</div>
+                            {% endif %}
+                        </td>
+                        <td>{{ blog.approver }}</td>
+                        <td class="flex gap-4 justify-start items-center">
+                            <a href="{% url 'blog_preview_blog' slug=blog.slug %}"
+                               class="btn btn-primary">
+                                Preview Report
+                            </a>
+                            {% if not report.approved %}
+                                <a href="{% url 'blog_admin_manage' blog_id=blog.id %}"
+                                   class="btn btn-primary">Manage</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
