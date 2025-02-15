@@ -1,0 +1,55 @@
+<tbody>
+                    {% if blogs %}
+                        {% for blog in blogs %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ blog.title }}</td>
+                                <td>
+                                    {% for tag in blog.blog_tag.all %}
+                                        {{ tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% if blog.approved %}
+                                        <div class="badge badge-success">Approved</div>
+                                    {% elif blog.ready_for_approval %}
+                                        <div class="badge badge-info">Under Review</div>
+                                    {% else %}
+                                        <div class="badge badge-warning">Not Submitted</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if blog.approved %}
+                                        <a href="{% url 'virtual_expo_report' blog_id=blog.id %}" class="btn btn-primary px-3 py-1">View Blog</a>
+                                    {% else %}
+                                        <a href="{% url 'virtual_expo_preview_report' blog_id=blog.id %}"
+                                           class="btn btn-neutral px-3 py-1">
+                                            Preview Blog
+                                        </a>
+                                        <a href="{% url 'virtual_expo_members_edit_report' blog_id=blog.id %}"
+                                           class="btn btn-primary px-3 py-1">Edit</a>
+                                    {% endif %}
+                                    {% if not blog.ready_for_approval %}
+                                        <a href="{% url 'virtual_expo_members_add_members' blog_id=blog.id %}"
+                                           class="btn btn-secondary px-3 py-1">
+                                            Add Members
+                                        </a>
+                                        <form method="post" action="{% url 'blog_dashboard' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                                            <button type="submit" class="btn btn-success px-4 py-1">
+                                                Send for review
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No reports yet. Create your first one!
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>

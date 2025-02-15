@@ -9,6 +9,16 @@ IEEE Blogs
     {% include "./header.html" %}
 </header>
 
+<div class="m-2 p-2 ">
+    {% if exec_member %}
+    <div class="mb-5 flex justify-left">
+        <a href="{% url 'blog_dashboard' %}" class="btn btn-accent rounded-full px-4 py-2">
+            Go to Members Dashboard
+        </a>
+    </div>
+    {% endif %}
+</div>
+
 <div class="m-10 p-5 align-center sm:border rounded-lg">
     <div class="m-10 rounded-lg flex justify-center gap-2">
         <h1 class="text-3xl"> Click to see blogs from {{required_tag}}</h1>

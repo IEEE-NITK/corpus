@@ -11,6 +11,10 @@
 {% endblock %}
 
 {% block content %}
+{% if preview %}
+    <div class="alert alert-error">This is a preview.</div>
+{% endif %}
+
 {% load markdown_extras %}
     <div class="m-10 p-5 border rounded-lg">
     <div class="text-4xl font-bold my-2" style="word-break: break-all;" id="title">{{individual_post.title}}</div>
@@ -27,10 +31,14 @@
     <div class="my-2 prose max-w-none" id="details">{{individual_post.text|render_function}}</div>
 
     </div>
-    <div class="m-10 p-5 border rounded-lg flex justify-center items-center">
-        <a href="{% url 'post_list' %}"
-           class="text-3xl font-bold underline underline-offset-4 text-center">
-            Check out more blogs!
-        </a>
-    </div>
+    {% if not preview %}
+        <div class="m-10 p-5 border rounded-lg flex justify-center items-center">
+            <a href="{% url 'post_list' %}"
+            class="text-3xl font-bold underline underline-offset-4 text-center">
+                Check out more blogs!
+            </a>
+        </div>
+    {% else %}
+        <a href="{{ request.META.HTTP_REFERER|escape }}" class="m-10 btn btn-info">Back</a>
+    {% endif %}
 {% endblock %}
