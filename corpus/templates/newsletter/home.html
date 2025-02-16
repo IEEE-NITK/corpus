@@ -37,80 +37,50 @@
     <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
         <h1 class="text-center my-10 text-2xl md:text-4xl lg:text-5xl">What's New?</h1>
         <div class="m-5 md:m-10 p-5 md:p-10 overflow-y-auto scrollbar-hide">
-            <a href="{% url 'diodexcelerate_home' %}"
+            {% for announcement in announcements %}
+            <a href="{{ announcement.link }}"
                 class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
                 rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
                 from-purple-400 to-blue-500 text-white">
-                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">DiodeXcelerate</h2>
-                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">14th December - 1st February</p>
+                {% if forloop.counter is 1 %}
+                    <span class="indicator-item badge badge-accent">new</span>
+                {% endif %}
+                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">{{ announcement.title }}</h2>
+                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">
+                    {% if announcement.start_date and announcement.end_date %}
+                        {{ announcement.start_date }} - {{ announcement.end_date }}</p>
+                    {% elif announcement.start_date %}
+                        {{ announcement.start_date }}
+                    {% elif announcement.end_date %}
+                        {{ announcement.end_date }}
+                    {% else %}
+                        Coming Soon
+                    {% endif %}
+                </p>
             </a>
-            <a href="https://docs.google.com/presentation/d/1dQqRI5gafo0r-8OQZ2UANm69wFmesk0l/edit#slide=id.p1"
-                class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
-                rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
-                from-purple-400 to-blue-500 text-white">
-                <span class="indicator-item badge badge-accent">new</span>
-                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Student Membership Drive</h2>
-                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">11th - 13th January 2025</p>
-            </a>
-            <a href="{% url 'impulse_home' %}"
-                class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300 
-                rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
-                from-purple-400 to-blue-500 text-white">
-                <span class="indicator-item badge badge-accent">new</span>
-                <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">Impulse</h2>
-                <p class="mt-4 text-md text-right md:text-xl lg:text-xl">17th - 19th January 2025</p>
-            </a>
+            {% endfor %}
         </div>
     </section>
 
-    <div class="divider divider-accent dark:divider-secondary text-pink-500 dark:text-blue-500 divider-horizontal">&</div>
+    <div class="divider divider-accent dark:divider-secondary text-pink-500 dark:text-blue-500 divider-horizontal"></div>
 
     <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
         <h1 class="my-10 text-center text-2xl md:text-4xl lg:text-5xl">Recent Events</h1>
         <div class="relative w-full mx-auto">
             <div class="carousel rounded-lg overflow-hidden relative mb-10" id="carousel">
-                <div id="slide1" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/techit.png' %}" 
+                {% for event in events %}
+                <div id="slide{{ forloop.counter }}" class="carousel-item relative w-full">
+                    {% if event.image %}
+                        <img src="{{ event.image.url }}"
+                    {% else %}
+                        <img src="{% static "img/newsletter/default.jpg" %}"
+                    {% endif %}
                          class="object-cover w-[1400px] h-[700px] mx-auto" />
                     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Tech it Easy Quiz - 4th October</h1>
+                        <h1 class="text-4xl text-white text-center">{{ event.title }} - {{ event.date }}</h1>
                     </div>
                 </div>
-                <div id="slide2" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/codered.png' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">CodeRed CTF - 31st August</h1>
-                    </div>
-                </div>
-                <div id="slide3" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/execom.jpeg' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Executive Committee Meeting I</h1>
-                    </div>
-                </div>
-                <div id="slide4" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/cad.png' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Introduction to CAD- 24th October</h1>
-                    </div>
-                </div>
-                <div id="slide5" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/membership.png' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Student Membership Talk - 11th January</h1>
-                    </div>
-                </div>
-                <div id="slide6" class="carousel-item relative w-full">
-                    <img src="{% static 'img/newsletter/eureka_diode.png' %}" 
-                         class="object-cover w-[1400px] h-[700px] mx-auto" />
-                    <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <h1 class="text-4xl text-white text-center">Timekeeper's Gambit Eureka - 29th October</h1>
-                    </div>
-                </div>
+                {% endfor %}
                 <button id="prevButton" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-l-lg z-10">
                     ❮
                 </button>
@@ -122,10 +92,7 @@
     </section>
     
 </div>
-
-
 {% endblock %}
-
 {% block script %}
 <script>
     const carousel = document.getElementById("carousel");
