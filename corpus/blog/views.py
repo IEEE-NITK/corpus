@@ -1,12 +1,10 @@
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import redirect,render,get_object_or_404
 from django.template import Context
 from django.template import Template
 from django.core.paginator import Paginator
-from django.shortcuts import render
 from django.utils import timezone
 
 from .models import Post
@@ -43,7 +41,8 @@ def post_list(request, specific_tag=None):
 
 
 def full_post(request, slug):
-    individual_post = Post.objects.filter(published_date__lte=timezone.now()).get(
+    individual_post = get_object_or_404(
+        Post.objects.filter(published_date__lte=timezone.now()),
         slug=slug
     )
     return render(request, "blog/full_post.html", {"individual_post": individual_post})

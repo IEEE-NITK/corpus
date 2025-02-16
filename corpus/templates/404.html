@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}404 - Page Not Found | IEEE-NITK{% endblock %}
+
+{% block content %}
+<div class="min-h-screen w-full flex items-center justify-center p-4">
+    <div class="error404-body flex items-center justify-center sm:m-5 w-full sm:w-[80%] md:w-[60%] lg:w-[40%] h-[600px] sm:h-[700px] rounded-2xl text-center">
+        <div class="error404-container flex flex-col items-center justify-evenly h-full rounded-3xl p-4 sm:p-6 w-[95%] sm:w-[90%] relative bg-white/10 dark:bg-black/10 backdrop-blur-md shadow-lg border border-white/20 dark:border-white/10">
+            <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="light-logo w-[200px] sm:w-[250px] md:w-[300px] h-[70px] sm:h-[85px] md:h-[100px]">
+            <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="dark-logo w-[200px] sm:w-[250px] md:w-[300px] h-[70px] sm:h-[85px] md:h-[100px]">
+            <div class="flex flex-col items-center gap-6"> 
+                <div class="text-6xl sm:text-8xl md:text-[10rem] font-bold bg-gradient-to-r from-white to-blue-400 text-transparent bg-clip-text mb-2 sm:mb-4 hidden dark:block">404</div>
+                <div class="text-6xl sm:text-8xl md:text-[10rem] font-bold bg-gradient-to-r from-gray-900 to-blue-700 text-transparent bg-clip-text mb-2 sm:mb-4 dark:hidden">404</div>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl text-justify flex justify-center">Page Not Found</h1>
+                <p class="error404-message flex items-center justify-center text-lg sm:text-xl md:text-2xl mt-2 sm:mt-4 px-2">Oops! The page you are looking for seems to have wandered off.</p>
+                <div class="flex flex-col items-center gap-2 mt-3 sm:mt-5">
+                    <a href="/" class="btn-primary bg-[#0056b3] p-2 rounded-3xl fond-bold dark-logo hover:text-white text-sm sm:text-base w-[200px] sm:w-auto">Return to Homepage</a>
+                    <a href="/" class="btn-primary bg-white p-2 rounded-3xl text-black fond-bold light-logo text-sm sm:text-base w-[200px] sm:w-auto">Return to Homepage</a>
+                    <button onclick="history.back()" class="btn-primary bg-[#0056b3] p-2 rounded-3xl dark-logo hover:text-white text-sm sm:text-base w-[200px] sm:w-auto">Go Back</button>
+                    <button onclick="history.back()" class="btn-primary p-2 rounded-3xl bg-white text-black light-logo text-sm sm:text-base w-[200px] sm:w-auto">Go Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
