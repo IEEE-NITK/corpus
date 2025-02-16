@@ -1,0 +1,21 @@
+{% load static %}
+<div class="margins">
+    <div class="card card-bordered w-96 bg-base-300 shadow-xl">
+       <figure class="px-10 pt-10">
+          <img class="profile-pic" {% if member.profile_picture %} src="{{ member.profile_picture.url }}" {% else %} src="{% static 'img/default_profile_picture.png' %}" {% endif %} alt="photo" class="rounded-xl" />
+       </figure>
+       <div class="card-body items-center text-center">
+          <h2 class="card-title">{{ member.user }}</h2>
+          <br />
+          <div class="card-actions">
+             {% if member.linkedin %}
+             <a href="{{ member.linkedin }}" target="_blank" class="btn btn-outline btn-lg"><i class="fab fa-2x fa-linkedin"></i></a>
+             {% endif %}
+             {% if member.github %}
+             <a href="{{ member.github }}" target="_blank" class="btn btn-outline btn-lg"><i class="fa fa-2x fa-github"></i></a>
+             {% endif %}
+          </div>
+       </div>
+    </div>
+ </div>
+ 
