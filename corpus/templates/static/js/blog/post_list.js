@@ -13,7 +13,6 @@ gsap.from([cards[0], cards[1], cards[2], header, tagged_blogs], {
 
 });
 
-
 const animateCards = Array.from(cards).slice(3); 
 
 gsap.from(animateCards, {
@@ -29,4 +28,3 @@ gsap.from(animateCards, {
     ease: 'power2.out',
     
 });
-
