@@ -1,5 +1,9 @@
 <div class="min-h-[30vh] bg-secondary text-secondary-content flex justify-center items-center">
     <h1 class="font-extrabold text-6xl">
-        Blog
+        {% if text %}
+            {{ text }}
+        {% else %}
+            Blog
+    {% endif %}
     </h1>
 </div>

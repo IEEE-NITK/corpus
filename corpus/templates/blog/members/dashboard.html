@@ -1,0 +1,96 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Members Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "blog/header.html" with text="Members Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5">
+            <h1 class=" my-2 text-4xl font-bold">My Blogs</h1>
+            <div>
+                <a href="{% url 'blog_new_blog' %}"
+                   class="btn btn-accent px-3 py-1 rounded-full my-2">
+                    Create a new blog
+                </a>
+                <a href="{% url 'blog_approver_dashboard' %}"
+                   class="btn btn-secondary px-3 py-1 rounded-full my-2">
+                    Go to Approver Dashboard
+                </a>
+                {% if admin %}
+                    <a href="{% url 'blog_admin_dashboard' %}"
+                       class="btn btn-primary px-3 py-1 rounded-full my-2">
+                        Go to Admin Dashboard
+                    </a>
+                {% endif %}
+            </div>
+            <div class="overflow-x-auto my-2 border rounded-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Sig Tags</th>
+                        <th>Approval Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if blogs %}
+                        {% for blog in blogs %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ blog.title }}</td>
+                                <td>
+                                    {% for tag in blog.blog_tag.all %}
+                                        {{ tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% if blog.approved %}
+                                        <div class="badge badge-success">Approved</div>
+                                    {% elif blog.ready_for_approval %}
+                                        <div class="badge badge-info">Under Review</div>
+                                    {% else %}
+                                        <div class="badge badge-warning">Not Submitted</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if blog.approved %}
+                                        <a href="{% url 'full_post' slug=blog.slug %}" class="btn btn-primary px-3 py-1">View Blog</a>
+                                    {% else %}
+                                        <a href="{% url 'blog_preview_blog' slug=blog.slug %}"
+                                           class="btn btn-neutral px-3 py-1">
+                                            Preview Blog
+                                        </a>
+                                        <a href="{% url 'blog_edit_blog' slug=blog.slug %}"
+                                           class="btn btn-primary px-3 py-1">Edit</a>
+                                    {% endif %}
+                                    {% if not blog.ready_for_approval %}
+                                        <form method="post" action="{% url 'blog_dashboard' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                                            <button type="submit" class="btn btn-success px-4 py-1">
+                                                Send for review
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No blogs yet. Create your first one!
+                            </td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
