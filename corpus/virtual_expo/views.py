@@ -66,3 +66,4 @@ def preview_report(request, report_id):
     args = {"report": report, "members": report_members, "preview": True}
 
     return render(request, "virtual_expo/report.html", args)
+

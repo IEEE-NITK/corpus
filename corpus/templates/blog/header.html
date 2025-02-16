@@ -1,19 +1,42 @@
 {% load static %}
 
 
-<div class="relative min-h-[30vh] text-secondary-content flex justify-center items-center h-96">
-    <img class="h-screen opacity-90"src="{% static 'img/blog/header_bg.jpg' %}">
-    <h1 class="absolute font-extrabold text-9xl blogHeader text-white">
-        IEEE Blogs
+<div class="relative min-h-[30vh] text-secondary-content flex justify-center items-center h-96 ">
+    <img class="absolute min-w-full h-full lg:h-screen object-cover opacity-90"src="{% static 'img/blog/header_bg.jpg' %}">
+    <h1 class="absolute text-4xl md:text-6xl lg:text-7xl font-extrabold text-white blogHeader text-center">
+        {%if required_tag%}
+            Blogs from {{required_tag}}
+        {%else%}
+            IEEE Blogs
+        {%endif%}
     </h1> 
-    {% comment %} <div class="m-10 p-5 align-center sm:border rounded-lg">
-        <div class="m-10 rounded-lg flex justify-center gap-2">
-            <h1 class="text-3xl"> Click to see blogs from {{required_tag}}</h1>
-        </div>
-        <div class="m-10 rounded-lg flex justify-center gap-2">
+
+    
+    <div class="absolute text-white p-5 mt-64 blog_tags">
+        
+        <div class="my-7 rounded-lg flex justify-center gap-2">
             {% for tag in tags %}
-            <a class="btn btn-sm btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
+                {% if tag == required_tag%}
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-[#00b4d8] dark:bg-[#3f37c9] hover:shadow-lg ">
+                    <a class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white  outline outline-2 outline-transparent hover:outline-white"  href="{% url 'tagged_blog' tag.id %}">
+                        {{tag.tag_name}}
+                    </a>
+                </button>
+              
+                {%else%}
+
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-[#a2d2ff] dark:bg-[#023e8a] hover:shadow-lg  outline outline-2 outline-transparent hover:outline-white">
+                    <a class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white"  href="{% url 'tagged_blog' tag.id %}">
+                        {{tag.tag_name}}
+                    </a>
+                </button>
+
+                {% endif %} 
             {% endfor %}
         </div>
-    </div>  {% endcomment %}
+    </div> 
 </div>
+
+
+
+

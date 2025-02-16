@@ -14,3 +14,5 @@ urlpatterns = [
     path("members/", include("virtual_expo.member_urls")),
     path("admin/", include("virtual_expo.admin_urls")),
 ]
+
+

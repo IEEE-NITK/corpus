@@ -1,17 +1,18 @@
 const cards = document.querySelectorAll('.card');
-// console.log(cards) 
 
 const header = document.querySelector('.blogHeader');
+const tagged_blogs = document.querySelector('.blog_tags');
 
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.from([cards[0], cards[1], cards[2], header], {
+gsap.from([cards[0], cards[1], cards[2], header, tagged_blogs], {
     opacity: 0,
     y:30,
     duration: 1.5,
     ease: 'power1.out',
 
 });
+
 
 const animateCards = Array.from(cards).slice(3); 
 

@@ -54,3 +54,4 @@ class ReportMember(models.Model):
 
     def __str__(self):
         return f"{self.report} - {self.member}"
+
