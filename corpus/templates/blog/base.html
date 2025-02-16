@@ -111,8 +111,7 @@
     {% endblock %}
     <link rel="stylesheet" href="{% static 'css/tailwind-min.css' %}"/>
     <style>
-        {% block body_style%}{%endblock%}
-        
+        body,
         html {
             margin: 0;
             padding: 0;
@@ -121,7 +120,7 @@
     </style>
 </head>
 
-<body >
+<body>
 
 {% include "components/navbar.html" %}
 
