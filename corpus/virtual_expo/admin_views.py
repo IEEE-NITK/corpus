@@ -59,6 +59,3 @@ def manage(request, report_id):
     args = {"report": report, "form": form, "members": members}
 
     return render(request, "virtual_expo/admin/manage.html", args)
-
-
-
