@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    "newsletter.apps.NewsletterConfig",
 ]
 
 MIDDLEWARE = [

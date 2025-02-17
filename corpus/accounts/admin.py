@@ -12,7 +12,7 @@ class CorpusUserAdmin(UserAdmin):
         (None, {"fields": ("email", "password")}),
         (
             "Personal Info",
-            {"fields": ("first_name", "last_name", "phone_no", "gender")},
+            {"fields": ("first_name", "last_name", "phone_no", "gender", "profile_pic")},
         ),
         (
             "Permissions",
