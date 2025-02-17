@@ -64,11 +64,12 @@ def edit_announcement(request, pk):
 
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])
-def archive_announcement(request, pk):
+def toggle_announcement(request, pk):
     announcement = get_object_or_404(Announcement, pk=pk)
-    announcement.archived = True
+    announcement.archived = not announcement.archived
     announcement.save()
-    messages.success(request, "Announcement archived successfully")
+    string = "archived" if announcement.archived else "unarchived"
+    messages.success(request, f"Announcement {string} successfully")
     return redirect('newsletter_manage_announcements')
 
 @module_enabled(module_name="newsletter")

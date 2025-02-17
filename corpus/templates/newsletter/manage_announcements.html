@@ -41,7 +41,11 @@
                 </td>
                 <td class="whitespace-nowrap px-6 py-4">
                   <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
-                  <a href="{% url 'newsletter_archive_announcement' announcement.id %}"  class="btn btn-warning">Archive</a>
+                  {% if announcement.archived %}
+                    <a href="{% url 'newsletter_toggle_announcement' announcement.id %}"  class="btn btn-warning">Unarchive</a>
+                  {% else %}
+                    <a href="{% url 'newsletter_toggle_announcement' announcement.id %}"  class="btn btn-warning">Archive</a>
+                  {% endif %}
                   <a href="{% url 'newsletter_delete_announcement' announcement.id %}"  class="btn btn-primary">Delete</a>
                 </td>
               </tr>
@@ -59,3 +63,8 @@
   
 
 {% endblock %}
+
+{% block dark_mode_toggle %}
+    {% include "components/dark_mode_toggle.html" %}
+{% endblock %}
+
