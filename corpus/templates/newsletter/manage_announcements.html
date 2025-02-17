@@ -1,0 +1,61 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+
+{% block title %}
+    Newsletter | Announcements
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center my-10 text-2xl md:text-4xl">Manage Announcements</h1>
+<div class="flex justify-center">    
+    <a href="{% url 'newsletter_new_announcement' %}" class="btn btn-primary">Make a new announcement</a>
+</div>
+<div class="flex justify-center flex-col mb-6">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="flex justify-center min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-1/2 text-left font-light text-surface dark:text-white">
+            <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
+              <tr>
+                <th scope="col" class="text-2xl px-6 py-4">#</th>
+                <th scope="col" class="text-2xl px-6 py-4">Title</th>
+                <th scope="col" class="text-2xl px-6 py-4">Start Date</th>
+                <th scope="col" class="text-2xl px-6 py-4">End Date</th>
+                <th scope="col" class="text-2xl px-6 py-4">Timing</th>
+                <th scope="col" class="text-2xl px-6 py-4">Archived?</th>
+                <th scope="col" class="text-2xl px-6 py-4">Link</th>
+                <th scope="col" class="text-2xl px-6 py-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for announcement in announcements %}
+              <tr class="border-b border-neutral-200 dark:border-white/10">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">{{ forloop.counter }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.title }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.start_date }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.end_date }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.timing }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.archived }}</td>
+                <td class="whitespace-nowrap px-6 py-4">
+                  <a href="{{ announcement.link }}" class="btn btn-accent" target="_blank">Go to Link</a>
+                </td>
+                <td class="whitespace-nowrap px-6 py-4">
+                  <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
+                  <a href="{% url 'newsletter_archive_announcement' announcement.id %}"  class="btn btn-warning">Archive</a>
+                  <a href="{% url 'newsletter_delete_announcement' announcement.id %}"  class="btn btn-primary">Delete</a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center py-4 text-gray-500">No announcements found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+{% endblock %}
