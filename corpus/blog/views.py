@@ -39,12 +39,9 @@ def post_list(request, specific_tag=None):
         },
     )
 
-
 def full_post(request, slug):
     individual_post = get_object_or_404(
         Post.objects.filter(published_date__lte=timezone.now()),
         slug=slug
     )
     return render(request, "blog/full_post.html", {"individual_post": individual_post})
-
-
