@@ -8,13 +8,11 @@ TAG_CHOICES = [
     ("Piston", "Piston"),
 ]
 
-
 class Tag(models.Model):
     tag_name = models.CharField(max_length=50, choices=TAG_CHOICES)
 
     def __str__(self):
         return str(self.tag_name)
-
 
 class Post(models.Model):
     blog_tag = models.ManyToManyField(Tag)
