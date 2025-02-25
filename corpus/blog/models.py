@@ -1,4 +1,5 @@
 from accounts.models import ExecutiveMember
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils import timezone
 
@@ -24,7 +25,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, null=True)
     description = models.CharField(max_length=400)
     author_github = models.CharField(max_length=70, blank=True)
-    text = models.TextField()
+    text = RichTextUploadingField(blank=False, null=False)
     created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(null=True)
 
