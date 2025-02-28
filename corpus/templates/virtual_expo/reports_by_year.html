@@ -34,7 +34,7 @@
                     <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl h-full">
                         <a href="{% url 'virtual_expo_report' report_id=report.id %}" class="block">
                             <div class="relative overflow-hidden h-full group">
-                                <img src="https://media.istockphoto.com/id/1267021092/photo/funny-winking-kitten.jpg?s=612x612&w=0&k=20&c=9PoFYkqKZ30F_ubxX90_azwsR22ENwrFnOjxV0RaoTo=" 
+                                <img src="{{ report.thumbnail.url }}" 
                                      alt="Thumbnail for {{ report.title }}"
                                      class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110 brightness-75"/>
                                 
