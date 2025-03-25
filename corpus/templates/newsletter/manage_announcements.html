@@ -39,14 +39,23 @@
                 <td class="whitespace-nowrap px-6 py-4">
                   <a href="{{ announcement.link }}" class="btn btn-accent" target="_blank">Go to Link</a>
                 </td>
-                <td class="whitespace-nowrap px-6 py-4">
+                <td class="whitespace-nowrap flex gap-3 px-6 py-4">
                   <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
                   {% if announcement.archived %}
-                    <a href="{% url 'newsletter_toggle_announcement' announcement.id %}"  class="btn btn-warning">Unarchive</a>
+                  <form action="{% url 'newsletter_edit_announcement' announcement.id %}?archive=false"  method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-warning">Unarchive</button>
+                    </form>
                   {% else %}
-                    <a href="{% url 'newsletter_toggle_announcement' announcement.id %}"  class="btn btn-warning">Archive</a>
+                  <form action="{% url 'newsletter_edit_announcement' announcement.id %}?archive=true"  method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-warning">Archive</button>
+                  </form>
                   {% endif %}
-                  <a href="{% url 'newsletter_delete_announcement' announcement.id %}"  class="btn btn-primary">Delete</a>
+                  <form action="{% url 'newsletter_delete_announcement' announcement.id %}"  method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                  </form>
                 </td>
               </tr>
               {% empty %}

@@ -52,11 +52,24 @@ def edit_announcement(request, pk):
     announcement = get_object_or_404(Announcement, pk=pk)
 
     if request.method == "POST":
-        form = AnnouncementForm(request.POST, instance=announcement)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Announcement updated successfully")
+        if request.GET.get('archive') == "true":
+            announcement.archived = True
+            announcement.save()
+            string = "archived" if announcement.archived else "unarchived"
+            messages.success(request, f"Announcement {string} successfully")
             return redirect('newsletter_manage_announcements')
+        elif request.GET.get('archive') == "false":
+            announcement.archived = False
+            announcement.save()
+            string = "archived" if announcement.archived else "unarchived"
+            messages.success(request, f"Announcement {string} successfully")
+            return redirect('newsletter_manage_announcements')
+        else:
+            form = AnnouncementForm(request.POST, instance=announcement)
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Announcement updated successfully")
+                return redirect('newsletter_manage_announcements')
     else:
         form = AnnouncementForm(instance=announcement)
 
@@ -75,10 +88,14 @@ def toggle_announcement(request, pk):
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])
 def delete_announcement(request, pk):
-    announcement = get_object_or_404(Announcement, pk=pk)
-    announcement.delete()
-    messages.success(request, "Announcement deleted successfully")
-    return redirect('newsletter_manage_announcements')
+    if request.method == "POST":
+        announcement = get_object_or_404(Announcement, pk=pk)
+        announcement.delete()
+        messages.success(request, "Announcement deleted successfully")
+        return redirect('newsletter_manage_announcements')
+    else:
+        messages.warning(request, "Incorrect Request Method. Contact Administrator")
+        return redirect('newsletter_manage_announcements')
 
 
     

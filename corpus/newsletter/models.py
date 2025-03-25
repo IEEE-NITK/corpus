@@ -9,6 +9,7 @@ class Announcement(models.Model):
     link = models.URLField(null=True, blank=True)
     archived = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.title} | {self.start_date} - {self.end_date}"
@@ -20,6 +21,7 @@ class Event(models.Model):
     image = models.ImageField(null=False, blank=True, upload_to="newsletter/images")
     archived = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.title} | {self.date}"
