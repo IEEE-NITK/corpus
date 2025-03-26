@@ -12,7 +12,7 @@ from .validators import validate_phone_number
 from .validators import validate_reg_number
 from .validators import validate_roll_number
 from corpus.validators import validate_image
-
+import os
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
@@ -39,7 +39,6 @@ class UserManager(BaseUserManager):
     def users(self):
         return self.filter(is_active=True)
 
-
 class User(AbstractUser):
     GENDERS = [
         ("M", "Male"),
@@ -47,6 +46,13 @@ class User(AbstractUser):
         ("O", "Other"),
         ("N", "Prefer not to disclose"),
     ]
+
+    def get_upload_path(instance, filename):
+        if os.getenv("ENVIRONMENT") == "PRODUCTION":
+            return f"media/accounts/profile/pics/{filename}"
+        else:
+            return f"accounts/profile/pics/{filename}" 
+    
 
     username = None
     phone_no = models.CharField(
@@ -58,7 +64,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDERS)
     email = models.EmailField(unique=True, verbose_name="Personal Email")
     profile_pic = models.ImageField(
-        upload_to="accounts/profile/pics",
+        upload_to=get_upload_path,
         validators=[validate_image],
         blank=True,
         null=True,
