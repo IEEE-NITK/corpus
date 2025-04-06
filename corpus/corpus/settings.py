@@ -214,14 +214,13 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
 
 CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar_DefaultToolbarConfig": [
             {
                 "name": "format",
-                "items": [
-                    "Format",
-                ],
+                "items": ["Format"],
             },
             {
                 "name": "extra",
@@ -230,6 +229,7 @@ CKEDITOR_CONFIGS = {
                     "Unlink",
                     "Blockquote",
                     "Image",
+                    "UploadImage",
                     "Table",
                     "CodeSnippet",
                     "Mathjax",
@@ -238,10 +238,7 @@ CKEDITOR_CONFIGS = {
             },
             {
                 "name": "source",
-                "items": [
-                    "Maximize",
-                    "Source",
-                ],
+                "items": ["Maximize", "Source"],
             },
             {
                 "name": "basicstyles",
@@ -256,10 +253,7 @@ CKEDITOR_CONFIGS = {
             },
             {
                 "name": "clipboard",
-                "items": [
-                    "Undo",
-                    "Redo",
-                ],
+                "items": ["Undo", "Redo"],
             },
             {
                 "name": "paragraph",
@@ -277,32 +271,31 @@ CKEDITOR_CONFIGS = {
             },
         ],
         "toolbar": "DefaultToolbarConfig",
-        "removeDialogTabs": ";".join(
-            [
-                "image:advanced",
-                "image:Link",
-                "link:upload",
-                "table:advanced",
-                "tableProperties:advanced",
-            ]
-        ),
+        "removeDialogTabs": ";".join([
+            "image:advanced",
+            "image:Link",
+            "link:upload",
+            "table:advanced",
+            "tableProperties:advanced",
+        ]),
         "linkShowTargetTab": False,
         "linkShowAdvancedTab": False,
         "height": "250px",
         "width": "auto",
-        "forcePasteAsPlainText ": True,
+        "forcePasteAsPlainText": True,
         "mathJaxClass": "mathjax-latex",
-        "mathJaxLib": """
-            https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG
-        """,
-        "extraPlugins": ",".join(
-            [
-                "mathjax",
-                "codesnippet",
-                "image2",
-                "embed",
-                "tableresize",
-            ]
-        ),
+        "mathJaxLib": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
+        "extraPlugins": ",".join([
+            "mathjax",
+            "codesnippet",
+            "image2",
+            "uploadimage",
+            "embed",
+            "uploadimage",
+            "tableresize",
+        ]),
+        "filebrowserUploadUrl": "/ckeditor/upload/?responseType=json",
+        "filebrowserBrowseUrl": "/ckeditor/browse/",
     }
 }
+
