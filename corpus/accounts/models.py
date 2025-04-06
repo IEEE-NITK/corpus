@@ -47,13 +47,6 @@ class User(AbstractUser):
         ("N", "Prefer not to disclose"),
     ]
 
-    def get_upload_path(instance, filename):
-        if os.getenv("ENVIRONMENT") == "PRODUCTION":
-            return f"media/accounts/profile/pics/{filename}"
-        else:
-            return f"accounts/profile/pics/{filename}" 
-    
-
     username = None
     phone_no = models.CharField(
         max_length=15,
@@ -64,7 +57,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDERS)
     email = models.EmailField(unique=True, verbose_name="Personal Email")
     profile_pic = models.ImageField(
-        upload_to=get_upload_path,
+        upload_to="accounts/profile/pics",
         validators=[validate_image],
         blank=True,
         null=True,
