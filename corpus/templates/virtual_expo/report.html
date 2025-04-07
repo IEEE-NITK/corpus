@@ -29,8 +29,26 @@
                     {% endfor %}
                 </div>
             </div>
-
+            
             <div class="p-8">
+                <!-- abstract section here -->
+                {% if report.abstract %}
+                    <div class="mb-8 bg-gray-50 p-6 rounded-lg border-l-4 border-blue-600 light-logo">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">Abstract</h2>
+                        <div class="prose prose-blue max-w-none">
+                            {{ report.abstract | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if report.abstract %}
+                    <div class="mb-8 p-6 rounded-lg border-l-4 bg-gray-700 border-gray-200 dark-logo">
+                        <h2 class="text-xl font-semibold text-white mb-3">Abstract</h2>
+                        <div class="prose prose-blue max-w-none text-white">
+                            {{ report.abstract | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+                
                 <div class="prose prose-lg max-w-none">
                     {{ report.content | safe }}
                 </div>
