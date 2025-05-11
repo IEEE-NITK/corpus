@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include "blog/header.html" with text="New Blog" %}
+    {% include "blog/header2.html" with text="New Blog" %}
     <div class="m-10">
         <form method="post" enctype="multipart/form-data" action="{% url 'blog_new_blog' %}">
             {% csrf_token %}

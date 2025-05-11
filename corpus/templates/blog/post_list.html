@@ -1,47 +1,39 @@
 {% extends "./base.html" %}
+{% load static %}
 
 {% block title %}
-IEEE Blogs
+IEEE Blogs {% if required_tag %}| {{required_tag}}{% endif %}
 {% endblock %}
+
+{% block scripts%}
+    <script src="{% static 'js/blog/post_list.js'%}" defer></script>
+{% endblock %}
+
+{% block body_style%}
+
+{% endblock%}
 
 {% block content %}
 <header>
     {% include "./header.html" %}
 </header>
 
-<div class="m-2 p-2 ">
-    {% if exec_member %}
-    <div class="mb-5 flex justify-left">
-        <a href="{% url 'blog_dashboard' %}" class="btn btn-accent rounded-full px-4 py-2">
-            Go to Members Dashboard
-        </a>
-    </div>
-    {% endif %}
-</div>
-
-<div class="m-10 p-5 align-center sm:border rounded-lg">
-    <div class="m-10 rounded-lg flex justify-center gap-2">
-        <h1 class="text-3xl"> Click to see blogs from {{required_tag}}</h1>
-    </div>
-    <div class="m-10 rounded-lg flex justify-center gap-2">
-        {% for tag in tags %}
-        <a class="btn btn-sm btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
-        {% endfor %}
-    </div>
-</div>
-
 <div class="m-10">
-    <div class="my-2 py-5 sm:px-10 sm:border rounded-lg">
+
+    <div class="my-2 py-5 sm:px-10 ">
         <div class="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:max-w-[70rem]">
         {% for post in page_obj %}
-            <article class="card p-1 m-0 bg-base-100 border hover:shadow-2xl">
+            <article class="card p-1 m-0 bg-[#F0F8FF] border-slate-200 border-2 dark:border-0 shadow-sm dark:bg-gradient-to-r from-[#4b6cb7] from-0% to-[#182848] to-100% hover:shadow-lg hover:shadow-[#000000ba] dark:hover:shadow-2xl">
                 <a href="{% url 'full_post' post.slug %}">
-                <div class="card-body">
-                    <h2 class="card-title">{{post.title}}</h2>
-                    <p>by {{post.author}}</p>
-                    <p>{{post.published_date}}</p>
-                    <p>{{post.description}}</p>
-                    <div class="card-actions justify-end">
+
+                <div class="card-body text-slate-950 dark:text-white ">
+                    <h2 class="card-title text-2xl font-bold">{{post.title}}</h2>
+                    <p class="text-md text-zinc-600 dark:text-gray-300 mt-1">by {{post.author}}</p>
+                    <p class="text-sm text-zinc-500 dark:text-gray-400">{{post.published_date}}</p>
+                    <p class="mt-3 text-md leading-relaxed mb-6">{{post.description}}</p>
+                    <div class="flex-grow"></div>
+
+                    <div class="card-actions justify-end mt-6 absolute right-8 bottom-8 ">
                         {% for tag in post.blog_tag.all %}
                             {% if forloop.counter0|divisibleby:2 %}
                                 <div class="badge badge-outline badge-secondary">{{ tag.tag_name }}</div>
@@ -49,6 +41,7 @@ IEEE Blogs
                                 <div class="badge badge-outline badge-primary">{{ tag.tag_name }}</div>
                             {% endif %}
                         {% endfor %}
+
                     </div>
                 </div>
                 </a>

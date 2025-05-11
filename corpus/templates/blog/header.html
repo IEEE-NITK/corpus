@@ -1,9 +1,41 @@
-<div class="min-h-[30vh] bg-secondary text-secondary-content flex justify-center items-center">
-    <h1 class="font-extrabold text-6xl">
-        {% if text %}
-            {{ text }}
-        {% else %}
-            Blog
-    {% endif %}
+{% load static %}
+
+<div class="relative min-h-[30vh] text-secondary-content flex justify-center items-center h-96 ">
+    <img class="absolute min-w-full h-full lg:h-screen object-cover opacity-90"src="{% static 'img/blog/header_bg.jpg' %}">
+    <h1 class="absolute text-4xl md:text-6xl lg:text-7xl font-extrabold text-white blogHeader text-center">
+        {%if required_tag%}
+            Blogs from {{required_tag}}
+        {%else%}
+            IEEE Blogs
+        {%endif%}
     </h1>
+
+    <div class="absolute text-white p-5 mt-64 blog_tags">
+
+        <div class="my-7 rounded-lg flex justify-center gap-2">
+            {% for tag in tags %}
+                {% if tag == required_tag%}
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-[#00b4d8] dark:bg-[#3f37c9] hover:shadow-lg ">
+                    <a class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white  outline outline-2 outline-transparent hover:outline-white"  href="{% url 'tagged_blog' tag.id %}">
+                        {{tag.tag_name}}
+                    </a>
+                </button>
+
+                {%else%}
+
+                <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-[#a2d2ff] dark:bg-[#023e8a] hover:shadow-lg  outline outline-2 outline-transparent hover:outline-white">
+                    <a class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white"  href="{% url 'tagged_blog' tag.id %}">
+                        {{tag.tag_name}}
+                    </a>
+                </button>
+
+                {% endif %}
+            {% endfor %}
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-secondary hover:shadow-lg outline outline-2 outline-white hover:scale-[1.02] transition-transform duration-150">
+                <a href="{% url 'blog_dashboard' %}" class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white">
+                    Go to Members Dashboard
+                </a>
+            </button>
+        </div>
+    </div>
 </div>

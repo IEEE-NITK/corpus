@@ -1,4 +1,3 @@
-from accounts.models import ExecutiveMember
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -8,17 +7,18 @@ from .models import Post
 from .models import Tag
 
 
-# view for the blog list page
-def post_list(request):
-    try:
-        ExecutiveMember.objects.get(user=request.user.id)
-        exec_member = True
-    except ExecutiveMember.DoesNotExist:
-        exec_member = False
-
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
-        "-published_date"
-    )
+# view for the blog list page (also handles blog filtering based on SIG)
+def post_list(request, specific_tag=None):
+    if specific_tag:
+        posts = Post.objects.filter(
+            blog_tag=specific_tag, published_date__lte=timezone.now()
+        ).order_by("-published_date")
+        required_tag = Tag.objects.get(id=specific_tag)
+    else:
+        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
+            "-published_date"
+        )
+        required_tag = None
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -28,9 +28,9 @@ def post_list(request):
         "blog/post_list.html",
         {
             "posts": posts,
-            "tags": tags,
+            "required_tag": required_tag,
             "page_obj": page_obj,
-            "exec_member": exec_member,
+            "tags": tags,
         },
     )
 

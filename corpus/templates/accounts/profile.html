@@ -144,4 +144,47 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            const $collapses = $('.collapse');
+
+            $collapses.each(function() {
+                const $collapse = $(this);
+                const $title = $collapse.find('.collapse-title');
+                const $content = $collapse.find('.collapse-content');
+
+                // Toggle collapse on title click, but close others
+                $title.on('click', function(e) {
+                    e.stopPropagation();
+
+                    // Close all other collapses
+                    $collapses.not($collapse).removeClass('collapse-open');
+
+                    // Toggle the clicked one
+                    $collapse.toggleClass('collapse-open');
+                });
+
+                // Prevent collapse from closing when clicking content
+                $content.on('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                // Prevent collapse from closing when clicking links
+                $content.find('a').on('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            // Close collapse when clicking outside
+            $(document).on('click', function(e) {
+                $collapses.each(function() {
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0) {
+                        $(this).removeClass('collapse-open');
+                    }
+                });
+            });
+        });
+    </script>
+
 {% endblock %}
