@@ -1,0 +1,105 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Edit {{ blog.title }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "blog/header2.html" with text=blog.title %}
+    <div class="m-10">
+        <form method="post" enctype="multipart/form-data"
+              action="{% url 'blog_edit_blog' slug=blog.slug %}">
+            {% csrf_token %}
+            {{ form.media }}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="w-full my-2">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.title.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.slug.id_for_label }}">Slug</label>
+                {{ form.slug }}
+                {% if form.slug.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.slug.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="w-full my-2">
+                <label for="{{ form.abstract.id_for_label }}">Description</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.description.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="w-full my-2">
+                <label for="{{ form.blog_tag.id_for_label }}">Select Blog Tags</label>
+
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in form.blog_tag.field.queryset %}
+                        <label for="tag_{{ tag.id }}" class="flex items-center space-x-2">
+                            <input type="checkbox" id="tag_{{ tag.id }}" name="blog_tag" value="{{ tag.id }}"
+                                class="w-4 h-4 accent-blue-500 rounded cursor-pointer"
+                                {% if tag.id in form.blog_tag.value %}checked{% endif %}>
+                            <span class="text-sm">{{ tag.tag_name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                {% if form.blog_tag.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.blog_tag.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.content.id_for_label }}">Content</label>
+                <div>
+                    {{ form.text | safe }}
+                </div>
+                {% if form.text.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.text.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="my-5">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Approver Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "blog/header2.html" with text="Approver Dashboard" %}
+    <div class="m-10 p-5 border rounded-lg">
+        <h1 class="text-4xl font-bold my-2">Approval Requests</h1>
+        <div class="overflow-x-auto my-2">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Blog Sigs</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if blogs %}
+                    {% for blog in blogs %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ blog.title }}</td>
+                            <td>
+                                {% for tag in blog.blog_tag.all %}
+                                    {{ tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="flex flex-row gap-4">
+                                <a href="{% url 'blog_preview_blog' slug=blog.slug %}"
+                                   class="btn btn-primary">
+                                    Preview Blog
+                                </a>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                                    <button type="submit" class="btn btn-secondary px-3 py-1">Mark as Approved</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No approval requests yet!</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
