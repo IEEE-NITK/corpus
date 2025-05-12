@@ -1,0 +1,23 @@
+<div class="flex justify-center">    
+    <form method="POST" action="" class="w-1/2 m-6 space-y-4">
+        {% csrf_token %}
+        <label class="block text-lg font-semibold" for="title">Title</label>
+        {{ form.title }}
+
+        <label class="block text-lg font-semibold" for="start_date">Start Date</label>
+        {{ form.start_date }}
+
+        <label class="block text-lg font-semibold" for="end_date">End Date</label>
+        {{ form.end_date }}
+
+        <label class="block text-lg font-semibold" for="timing">Timing</label>
+        {{ form.timing }}
+
+        <label class="block text-lg font-semibold" for="link">Link</label>
+        {{ form.link }}
+
+        <button type="submit" class="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600">
+            Submit
+        </button>
+    </form>
+</div>
