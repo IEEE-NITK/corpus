@@ -287,8 +287,7 @@ CKEDITOR_CONFIGS = {
         "width": "auto",
         "forcePasteAsPlainText": True,
         "mathJaxClass": "mathjax-latex",
-        "mathJaxLib": 
-        "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
+        "mathJaxLib": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
         "extraPlugins": ",".join(
             [
                 "mathjax",
