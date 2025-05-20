@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    "smp",
 ]
 
 MIDDLEWARE = [
@@ -271,31 +272,35 @@ CKEDITOR_CONFIGS = {
             },
         ],
         "toolbar": "DefaultToolbarConfig",
-        "removeDialogTabs": ";".join([
-            "image:advanced",
-            "image:Link",
-            "link:upload",
-            "table:advanced",
-            "tableProperties:advanced",
-        ]),
+        "removeDialogTabs": ";".join(
+            [
+                "image:advanced",
+                "image:Link",
+                "link:upload",
+                "table:advanced",
+                "tableProperties:advanced",
+            ]
+        ),
         "linkShowTargetTab": False,
         "linkShowAdvancedTab": False,
         "height": "250px",
         "width": "auto",
         "forcePasteAsPlainText": True,
         "mathJaxClass": "mathjax-latex",
-        "mathJaxLib": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
-        "extraPlugins": ",".join([
-            "mathjax",
-            "codesnippet",
-            "image2",
-            "uploadimage",
-            "embed",
-            "uploadimage",
-            "tableresize",
-        ]),
+        "mathJaxLib": 
+        "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
+        "extraPlugins": ",".join(
+            [
+                "mathjax",
+                "codesnippet",
+                "image2",
+                "uploadimage",
+                "embed",
+                "uploadimage",
+                "tableresize",
+            ]
+        ),
         "filebrowserUploadUrl": "/ckeditor/upload/?responseType=json",
         "filebrowserBrowseUrl": "/ckeditor/browse/",
     }
 }
-
