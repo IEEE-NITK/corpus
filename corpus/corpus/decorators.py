@@ -94,7 +94,7 @@ def ensure_view_current_envision():
 
             can_view_current_envision = exec_member or config.get(
                 "view_current_envision")
-            kwargs['can_view_current_envision'] = can_view_current_envision
+            kwargs['can_view_current_envision '] = can_view_current_envision
             return view_func(request, *args, **kwargs)
         return wrapper
     return decorator

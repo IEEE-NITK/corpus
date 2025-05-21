@@ -31,7 +31,7 @@ def home(request):
 
 
 @ensure_view_current_envision()
-def reports_by_year(request, year, can_view_current_envision):
+def reports_by_year(request, year, *, can_view_current_envision):
     reports = Report.objects.filter(year=year, approved=True).order_by("-pk")
     config = ModuleConfiguration.objects.get(module_name="virtual_expo").module_config
 
@@ -61,7 +61,7 @@ def reports_by_year(request, year, can_view_current_envision):
 
 
 @ensure_view_current_envision()
-def report(request, report_id, can_view_current_envision):
+def report(request, report_id, *, can_view_current_envision):
     report = get_object_or_404(Report, pk=report_id)
     if not can_view_current_envision and report.year == datetime.now().year:
         config = ModuleConfiguration.objects.get(module_name="virtual_expo").module_config
