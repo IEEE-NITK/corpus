@@ -15,6 +15,12 @@
                    class="btn btn-accent px-3 py-1 rounded-full my-2">
                     Create a new program
                 </a>
+                {% if admin %}
+                    <a href="{% url 'smp_admin_dashboard' %}"
+                       class="btn btn-primary px-3 py-1 rounded-full my-2">
+                        Go to Coordinator Dashboard
+                    </a>
+                {% endif %}
             </div>
             <div class="overflow-x-auto my-2 border rounded-lg">
                 <table class="table">
@@ -60,7 +66,7 @@
                                         </button>
                                     {% else %}
                                         <a href="{% url 'smp_mentors_add_members' program_id=program.id %}" class="btn btn-secondary px-3 py-1">
-                                            Add Members
+                                            Add Mentors
                                         </a>
                                         <button type="button"
                                                 class="btn btn-success px-4 py-1 openConfirmModal"

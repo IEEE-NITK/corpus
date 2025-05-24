@@ -34,7 +34,9 @@
                                     {{ submission.submitted_at }}
                                 </td>
                                 <td>
-                                    {{ submission.link }}
+                                   <a href="{{ submission.link }}" target="_blank" class="text-blue-600 hover:underline break-words">
+                                        {{ submission.link }}
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

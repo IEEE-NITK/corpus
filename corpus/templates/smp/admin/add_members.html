@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include "smp/header.html" with text="Add Mentors" %}
+    {% include "smp/header.html" with text="Add Members" %}
     <div class="m-10">
         <div class="overflow-x-auto my-2 border rounded-lg">
             <h2>Mentors:</h2>
@@ -71,7 +71,7 @@
             </table>
         </div>
         <div class="my-2 p-5 border rounded-lg">
-            <form method="post" action="{% url 'smp_mentors_add_members' program_id=program.id %}">
+            <form method="post" action="{% url 'smp_admin_add_members' program_id=program.id %}">
                 {% csrf_token %}
 
                 {% if form.non_field_errors %}
@@ -94,9 +94,21 @@
                     {% endif %}
                 </div>
 
+                <div class="w-full my-2">
+                    <label for="{{ form.member_type.id_for_label }}">Member Type</label>
+                    {{ form.member_type }}
+                    {% if form.member_type.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.member_type.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
                 <div class="my-5">
                     <button type="submit" class="btn btn-primary" name="add">Add</button>
-                    <a href="{% url 'smp_mentors_dashboard' %}"
+                    <a href="{% url 'smp_admin_dashboard' %}"
                        class="btn btn-success px-4 py-1">
                         Back To Home
                     </a>

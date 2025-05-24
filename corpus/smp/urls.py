@@ -11,7 +11,6 @@ urlpatterns = [
         views.preview_program,
         name="smp_preview_program",
     ),
-    path("mentors/", include("smp.mentor_urls")),
     path("program/<int:program_id>/upload_list", views.upload_list, name="upload_list"),
     path(
         "program/upload/<int:upload_id>/submissions",
@@ -24,4 +23,6 @@ urlpatterns = [
         views.create_submission,
         name="create_submission",
     ),
+    path("mentors/", include("smp.mentor_urls")),
+    path("admin/", include("smp.admin_urls")),
 ]

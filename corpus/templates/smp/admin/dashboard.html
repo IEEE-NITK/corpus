@@ -1,0 +1,70 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Program Coordinator Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Program Coordinator Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <div class="w-full">
+                        <label for="{{ form.sig.id_for_label }}">SIG</label>
+                        {{ form.sig }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.year.id_for_label }}">Year</label>
+                        {{ form.year }}
+                    </div>
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="p-5 border rounded-lg overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>SIGs</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for program in programs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ program.title }}</td>
+                        <td>{{ program.year }}</td>
+                        <td class="flex gap-4">
+                            {% for sig in program.sigs %}
+                                <div class="badge badge-secondary">{{ sig }}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <div class="flex gap-4 justify-start items-center">
+                                <a href="{% url 'smp_preview_program' program_id=program.id %}"
+                                class="btn btn-primary">
+                                    Preview Program
+                                </a>
+                                <a href="{% url 'smp_admin_add_members' program_id=program.id %}"
+                                class="btn btn-primary">
+                                    Add Members
+                                </a>
+                                <a href="{% url 'smp_admin_manage' program_id=program.id %}"
+                                   class="btn btn-primary">Manage</a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

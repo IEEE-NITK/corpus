@@ -2,7 +2,6 @@ from accounts.models import ExecutiveMember
 from config.models import SIG
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
@@ -155,19 +154,52 @@ def view_submission(request, upload_id):
             user=request.user, assignment=upload
         ).first()
 
-        if request.method == "POST":
-            if submission:
-                form = SubmissionForm(request.POST, instance=submission)
-            else:
-                # Create the submission instance with assignment and user pre-set
-                submission = Submission(user=request.user, assignment=upload)
-                form = SubmissionForm(request.POST, instance=submission)
+        form = None  # Ensure form is defined in all paths
 
-            if form.is_valid():
-                form.save()
-                messages.success(request, "Submission successful!")
+        if request.method == "POST":
+            if "add" in request.POST:
+                if submission:
+                    form = SubmissionForm(request.POST, instance=submission)
+                else:
+                    submission = Submission(user=request.user, assignment=upload)
+                    form = SubmissionForm(request.POST, instance=submission)
+
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Submission successful!")
+                    return redirect("upload_list", program_id=program.id)
+
+            elif "delete" in request.POST:
+                submission_id_str = request.POST.get("submission_id")
+                if submission_id_str and submission_id_str.isdigit():
+                    submission_id = int(submission_id_str)
+                    try:
+                        submission_to_delete = Submission.objects.get(
+                            id=submission_id, assignment=upload
+                        )
+
+                        if (
+                            submission_to_delete.user == request.user
+                            or request.user in mentors
+                        ):
+                            submission_to_delete.delete()
+                            messages.success(
+                                request, "Submission deleted successfully."
+                            )
+                        else:
+                            messages.error(
+                                request,
+                                "You do not have permission to delete this submission.",
+                            )
+                    except Submission.DoesNotExist:
+                        messages.error(request, "Submission does not exist.")
+                else:
+                    messages.error(request, "Invalid submission id.")
+
                 return redirect("upload_list", program_id=program.id)
-        else:
+
+        # If form is still None (e.g., GET request or after delete), initialize it
+        if form is None:
             form = SubmissionForm(instance=submission)
 
         return render(
@@ -206,29 +238,27 @@ def create_submission(request, upload_id):
         messages.error(request, "Only mentees can submit assignments.")
         return redirect("smp_program", program_id=program.id)
 
-    existing_submission = Submission.objects.filter(
-        user=request.user, assignment=upload
-    ).first()
-    if existing_submission:
+    submission = Submission.objects.filter(user=request.user, assignment=upload).first()
+
+    if submission:
         messages.info(request, "You have already submitted this assignment.")
         return redirect("view_submission", upload_id=upload.id)
 
     if request.method == "POST":
-        form = SubmissionForm(request.POST)
-        submission = form.save(commit=False)
-        submission.user = request.user
-        submission.assignment = upload
+        if submission:
+            form = SubmissionForm(request.POST, instance=submission)
+        else:
+            submission = Submission(user=request.user, assignment=upload)
+            form = SubmissionForm(request.POST, instance=submission)
 
         if form.is_valid():
-            try:
-                submission.full_clean()
-                submission.save()
-                messages.success(request, "Submission saved successfully.")
-                return redirect("view_submission", upload_id=upload.id)
-            except ValidationError as e:
-                form.add_error(None, e)
+            form.save()
+            messages.success(request, "Submission saved successfully.")
+            return redirect("view_submission", upload_id=upload.id)
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
-        form = SubmissionForm()
+        form = SubmissionForm(instance=submission)
 
     return render(
         request,

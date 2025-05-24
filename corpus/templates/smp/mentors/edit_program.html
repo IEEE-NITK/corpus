@@ -8,8 +8,14 @@
 {% block content %}
     {% include "smp/header.html" with text=program.title %}
     <div class="m-10">
-        <form method="post" enctype="multipart/form-data"
-              action="{% url 'smp_mentors_edit_program' program_id=program.id %}">
+        {% if admin %}
+            <form method="post" enctype="multipart/form-data"
+                action="{% url 'smp_admin_manage' program_id=program.id %}">
+        {% else %}
+            <form method="post" enctype="multipart/form-data"
+                action="{% url 'smp_mentors_edit_program' program_id=program.id %}">
+        {% endif %}
+
             {% csrf_token %}
             {{ form.media }}
 
@@ -79,24 +85,6 @@
                         <div role="alert" class="alert alert-error">
                             {{ form.description.errors }}
                         </div>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="form-control w-full my-2">
-                <label class="label cursor-pointer">
-                    <span class="label-text">Hide Program</span>
-                </label>
-                <label class="flex items-center gap-3">
-                    <input type="checkbox" name="{{ form.hide_program.name }}"
-                        id="{{ form.hide_program.id_for_label }}"
-                        class="checkbox checkbox-md checkbox-square"
-                        {% if form.hide_program.value %}checked{% endif %}>
-                    <span>Hide Program</span>
-                </label>
-                {% if form.hide_program.errors %}
-                    <div role="alert" class="alert alert-error mt-1">
-                        <span>{{ form.hide_program.errors }}</span>
                     </div>
                 {% endif %}
             </div>

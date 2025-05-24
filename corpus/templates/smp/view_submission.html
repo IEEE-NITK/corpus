@@ -17,18 +17,36 @@
                             <th class="px-4 py-2 text-left">Title</th>
                             <th class="px-4 py-2 text-left">Link</th>
                             <th class="px-4 py-2 text-left">Submitted At</th>
+                            <th class="px-4 py-2 text-left">Action</th>
                         </tr>
                     </thead>
                     <tbody class="bg-base-100 divide-y divide-neutral">
-                        <tr class="hover:bg-base-200 transition duration-200">
-                            <td class="px-4 py-3 font-medium text-base-content">{{ submission.title }}</td>
-                            <td class="px-4 py-3">
-                                <a href="{{ submission.link }}" target="_blank" class="text-blue-600 hover:underline break-words">
-                                    {{ submission.link|truncatechars:40 }}
-                                </a>
-                            </td>
-                            <td class="px-4 py-3">{{ submission.submitted_at|date:"M d, Y H:i" }}</td>
-                        </tr>
+                        {% if submission and submission.id %}
+                            <tr class="hover:bg-base-200 transition duration-200">
+                                <td class="px-4 py-3 font-medium text-base-content">{{ submission.title }}</td>
+                                <td class="px-4 py-3">
+                                    <a href="{{ submission.link }}" target="_blank" class="text-blue-600 hover:underline break-words">
+                                        {{ submission.link|truncatechars:40 }}
+                                    </a>
+                                </td>
+                                <td class="px-4 py-3">{{ submission.submitted_at|date:"M d, Y H:i" }}</td>
+                                <td>
+                                    <form method="post" onsubmit="return confirm('Are you sure you want to delete this submission?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                                        <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="delete">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="px-4 py-3 text-center text-gray-500">
+                                    No submission available.
+                                </td>
+                            </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -72,7 +90,7 @@
                 </div>
 
                 <div class="my-5">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="add">Submit</button>
                     <a href="{% url 'upload_list' program_id=program.id%}"
                        class="btn btn-success px-4 py-1">
                         Back To Uploads

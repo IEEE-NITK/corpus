@@ -1,3 +1,4 @@
+from accounts.models import User
 from config.models import SIG
 from django import forms
 from smp.models import Program
@@ -44,7 +45,12 @@ class ProgramForm(CorpusModelForm):
 class ProgramMemberForm(CorpusModelForm):
     class Meta:
         model = ProgramMember
-        fields = ["member", "member_type"]
+        fields = ["member"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        executive_users = User.objects.filter(executivemember__isnull=False).distinct()
+        self.fields["member"].queryset = executive_users
 
 
 class UploadForm(CorpusModelForm):
@@ -57,3 +63,9 @@ class SubmissionForm(CorpusModelForm):
     class Meta:
         model = Submission
         fields = ["title", "link"]
+
+
+class AdminProgramMemberForm(CorpusModelForm):
+    class Meta:
+        model = ProgramMember
+        fields = ["member", "member_type"]

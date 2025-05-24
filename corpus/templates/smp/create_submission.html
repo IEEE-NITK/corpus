@@ -11,7 +11,7 @@
         <div class="overflow-x-auto my-2 border rounded-lg">
             <div class="min-w-full divide-y divide-neutral">
                 <h2>Create Submission for {{ upload.title }}</h2>
-                <form method="post" action="{% url 'view_submission' upload_id=upload.id %}">
+                <form method="post" action="{% url 'create_submission' upload_id=upload.id %}">
                     {% csrf_token %}
 
                     {% if form.non_field_errors %}
