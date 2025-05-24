@@ -1,0 +1,53 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Uploads
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Uploads" %}
+    <div class="m-10">
+        <div class="overflow-x-auto my-2 border rounded-lg">
+            <h2>Uploads:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Upload Name</th>
+                    <th>Uploaded By</th>
+                    <th>Upload Time</th>
+                    <th>Upload Type</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for upload in uploads %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ upload.title }}</td>
+                        <td>{{ upload.upload_user.user }}</td>
+                        <td>{{ upload.uploaded_at }}</td>
+                        <td>{{ upload.upload_type }}</td>
+                        <td>
+                            <a href="{% url 'view_upload' upload_id=upload.id %}" class="btn btn-primary px-5 py-1 rounded-full">
+                                View
+                            </a>
+                            {% if upload.upload_type == 'Assignment' %}
+                                <a href="{% url 'view_submission' upload_id=upload.id %}" class="btn btn-primary px-5 py-1 rounded-full">
+                                    View Submissions
+                                </a>
+                                {% if member_type == "Mentee" %}
+                                    <a href="{% url 'create_submission' upload_id=upload.id %}" class="btn btn-success px-5 py-1 rounded-full">
+                                        Upload Submission
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
