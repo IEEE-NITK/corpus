@@ -108,18 +108,37 @@ def add_members(request, program_id):
     form = ProgramMemberForm(initial={"program": program})
 
     if request.method == "POST":
-        if "add" in request.POST:
-            form = ProgramMemberForm(request.POST)
-            form.instance.program = program
-            if form.is_valid():
-                try:
-                    form.save()
-                except IntegrityError:
-                    messages.error(request, "Member already added to the program.")
-                    return redirect("smp_mentors_add_members", program_id=program.id)
+        if request.method == "POST":
+            if "add" in request.POST:
+                form = ProgramMemberForm(request.POST)
+                form.instance.program = program
 
-                messages.success(request, "Member added to program.")
-                return redirect("smp_mentors_add_members", program_id=program.id)
+                if form.is_valid():
+                    member = form.cleaned_data["member"]
+                    member_type = form.cleaned_data["member_type"]
+
+                    # If the member_type is Mentor, ensure they are an ExecutiveMember
+                    if (
+                        member_type == "Mentor"
+                        and not ExecutiveMember.objects.filter(user=member).exists()
+                    ):
+                        messages.error(
+                            request, "Only Executive Members can be added as mentors."
+                        )
+                        return redirect(
+                            "smp_mentors_add_members", program_id=program.id
+                        )
+
+                    try:
+                        form.save()
+                    except IntegrityError:
+                        messages.error(request, "Member already added to the program.")
+                        return redirect(
+                            "smp_mentors_add_members", program_id=program.id
+                        )
+
+                    messages.success(request, "Member added to program.")
+                    return redirect("smp_mentors_add_members", program_id=program.id)
         elif "edit" in request.POST:
             program_id = int(request.POST.get("program_id"))
             member_id = int(request.POST.get("member_id"))
