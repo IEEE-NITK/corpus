@@ -1,0 +1,54 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Submission
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Submissions" %}
+    <div class="m-10">
+        <div class="my-2 p-5">
+            <div class="overflow-x-auto my-2 border rounded-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Submission Title</th>
+                        <th>Submitted By</th>
+                        <th>Submitted At</th>
+                        <th>Submission Link</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if submissions %}
+                        {% for submission in submissions %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ submission.title }}</td>
+                                <td>
+                                    {{ submission.user }}
+                                </td>
+                                <td>
+                                    {{ submission.submitted_at }}
+                                </td>
+                                <td>
+                                    {{ submission.link }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No submissions yet. Come back later!
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

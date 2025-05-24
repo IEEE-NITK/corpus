@@ -1,0 +1,56 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    {{ program.title }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <article class="shadow-lg rounded-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white">
+                <h1 class="text-4xl font-bold break-words leading-tight">{{ upload.title }}</h1>
+                <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-blue-400 rounded-full text-sm font-medium">
+                            {{ upload.upload_type }}
+                        </span>
+                </div>
+            </div>
+
+            <div class="p-8">
+
+                <div class="prose prose-lg max-w-none">
+                    {{ upload.content | safe }}
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-gray-200"></div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gray-50 rounded-lg p-6 light-logo">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Uploaded By</h3>
+                            <div class="space-y-2">
+                                <span class="text-gray-700">{{ upload.upload_user }}</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-6 dark-logo">
+                            <h3 class="text-lg font-medium text-white mb-4">Uploaded By</h3>
+                            <div class="space-y-2">
+                                <span class="text-gray-300">{{ upload.upload_user }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-8">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-8 text-center">
+                <a href="{% url 'smp_mentors_add_upload' program_id=program.id %}"
+                   class="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                    View More Uploads
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

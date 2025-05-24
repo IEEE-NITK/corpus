@@ -1,0 +1,143 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Mentors Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Mentors Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5">
+            <h1 class=" my-2 text-4xl font-bold">My Programs</h1>
+            <div>
+                <a href="{% url 'smp_mentors_new_program' %}"
+                   class="btn btn-accent px-3 py-1 rounded-full my-2">
+                    Create a new program
+                </a>
+            </div>
+            <div class="overflow-x-auto my-2 border rounded-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Visibility Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if programs %}
+                        {% for program in programs %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ program.title }}</td>
+                                <td>
+                                    {% if not program.hide_program %}
+                                        <div class="badge badge-success">Visible</div>
+                                    {% else %}
+                                        <div class="badge badge-warning">Hidden</div>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'smp_mentors_edit_program' program_id=program.id %}"
+                                       class="btn btn-primary px-3 py-1">Edit</a>
+                                    {% if not program.hide_program %}
+                                        <a href="{% url 'smp_program' program_id=program.id %}" class="btn btn-primary px-3 py-1">View Program</a>
+                                    {% else %}
+                                        <a href="{% url 'smp_preview_program' program_id=program.id %}"
+                                           class="btn btn-neutral px-3 py-1">
+                                            Preview Program
+                                        </a>
+                                    {% endif %}
+                                    {% if not program.hide_program %}
+                                        <button type="button"
+                                            class="btn btn-warning px-4 py-1 openConfirmModal"
+                                            data-program-id="{{ program.id }}"
+                                            data-action="hide_program">
+                                            Hide Program
+                                        </button>
+                                    {% else %}
+                                        <a href="{% url 'smp_mentors_add_members' program_id=program.id %}" class="btn btn-secondary px-3 py-1">
+                                            Add Members
+                                        </a>
+                                        <button type="button"
+                                                class="btn btn-success px-4 py-1 openConfirmModal"
+                                                data-program-id="{{ program.id }}"
+                                                data-action="show_program">
+                                            Show Program
+                                        </button>
+                                    {% endif %}
+                                    <a href="{% url 'smp_mentors_add_upload' program_id=program.id %}" class="btn btn-secondary px-3 py-1">
+                                       Manage Uploads
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No programs yet. Create your first one!
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+                <!-- Confirm Modal -->
+                <dialog id="confirmModal" class="modal">
+                    <div class="modal-box">
+                        <h3 class="text-lg font-bold" id="modalTitle">Confirm Changes</h3>
+                        <p id="modalMessage">Are you sure you want to proceed?</p>
+                        <form method="post" action="{% url 'smp_mentors_dashboard' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="program_id" id="modalProgramId">
+                        <input type="hidden" name="action" id="modalAction">
+                        <div class="modal-action mt-4 flex justify-center gap-4">
+                            <button type="submit" class="btn btn-primary">Yes, Confirm</button>
+                            <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                        </div>
+                        </form>
+                    </div>
+                </dialog>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery Script -->
+    <script>
+$(document).ready(function () {
+    const confirmModal = document.getElementById('confirmModal');
+
+    $('.openConfirmModal').click(function () {
+        const programId = $(this).data('program-id');
+        const action = $(this).data('action');
+
+        $('#modalProgramId').val(programId);
+        $('#modalAction').val(action);
+
+        if (action === 'hide_program') {
+            $('#modalTitle').text('Confirm Hide Program');
+            $('#modalMessage').text('Are you sure you want to hide this program?');
+        } else if (action === 'show_program') {
+            $('#modalTitle').text('Confirm Show Program');
+            $('#modalMessage').text('Are you sure you want to make this program visible?');
+        } else {
+            $('#modalTitle').text('Confirm Action');
+            $('#modalMessage').text('Are you sure you want to proceed?');
+        }
+
+        confirmModal.showModal();
+    });
+
+    $('#cancelModal').click(function () {
+        confirmModal.close();
+    });
+});
+</script>
+
+
+
+
+
+{% endblock %}

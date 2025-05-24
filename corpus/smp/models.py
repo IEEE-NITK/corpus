@@ -2,6 +2,7 @@ from accounts.models import ExecutiveMember
 from accounts.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 from config.models import SIG
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
@@ -11,9 +12,9 @@ class Program(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False)
     abstract = models.TextField(blank=False, null=False)
     thumbnail = models.ImageField(
-        upload_to="virtual_expo/reports/thumbnails", blank=False, null=False
+        upload_to="smp/programs/thumbnails", blank=False, null=False
     )
-    sig = models.ForeignKey(SIG, blank=False, null=False, on_delete=models.CASCADE)
+    # sig = models.ForeignKey(SIG, blank=False, null=False, on_delete=models.CASCADE)
     description = RichTextUploadingField(blank=False, null=False)
     year = models.PositiveSmallIntegerField(blank=False, null=False)
     hide_program = models.BooleanField(default=False)
@@ -27,8 +28,13 @@ class Program(models.Model):
         ).distinct()
 
     def mentees(self):
-        return ExecutiveMember.objects.filter(
-            user__programmember__program=self, user__programmember__member_type="Mentee"
+        return User.objects.filter(
+            programmember__program=self, programmember__member_type="Mentee"
+        ).distinct()
+
+    def sigs(self):
+        return SIG.objects.filter(
+            executivemember__user__programmember__program=self
         ).distinct()
 
 
@@ -49,14 +55,17 @@ class ProgramMember(models.Model):
         unique_together = (("program", "member"),)
 
     def __str__(self):
-        return f"{self.report} - {self.member}"
+        return f"{self.program} - {self.member}"
 
 
 class Upload(models.Model):
     UPLOAD_TYPE_CHOICES = [("Assignment", "Assignment"), ("Resource", "Resource")]
     title = models.CharField(max_length=255, blank=False, null=False)
     upload_user = models.ForeignKey(
-        User, blank=False, null=False, on_delete=models.CASCADE
+        ExecutiveMember, blank=False, null=False, on_delete=models.CASCADE
+    )
+    program = models.ForeignKey(
+        Program, blank=False, null=False, on_delete=models.CASCADE
     )
     upload_type = models.CharField(
         max_length=10, choices=UPLOAD_TYPE_CHOICES, blank=False, null=False
@@ -72,7 +81,8 @@ class Upload(models.Model):
 
 
 class Submission(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255, null=False, blank=False)
+    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
     assignment = models.ForeignKey(
         Upload, on_delete=models.CASCADE, related_name="submissions"
     )
@@ -84,7 +94,6 @@ class Submission(models.Model):
 
     def clean(self):
         # Enforce that assignment is of type "Assignment"
-        from django.core.exceptions import ValidationError
 
         if self.assignment.upload_type != "Assignment":
             raise ValidationError("You can only submit to an Assignment.")

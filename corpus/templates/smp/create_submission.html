@@ -1,0 +1,60 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Add Members
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Create Submission" %}
+    <div class="m-10">
+        <div class="overflow-x-auto my-2 border rounded-lg">
+            <div class="min-w-full divide-y divide-neutral">
+                <h2>Create Submission for {{ upload.title }}</h2>
+                <form method="post" action="{% url 'view_submission' upload_id=upload.id %}">
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <div role="alert" class="alert alert-error mt-1">
+                                <span>{{ error }}</span>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="w-full my-2">
+                        <label for="{{ form.title.id_for_label }}">Title</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="my-1">
+                                <div role="alert" class="alert alert-error">
+                                    {{ form.title.errors }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="w-full my-2">
+                        <label for="{{ form.link.id_for_label }}">Submission Link</label>
+                        {{ form.link }}
+                        {% if form.link.errors %}
+                            <div class="my-1">
+                                <div role="alert" class="alert alert-error">
+                                    {{ form.link.errors }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="my-5">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{% url 'upload_list' program_id=program.id%}"
+                        class="btn btn-success px-4 py-1">
+                            Back To Uploads
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
