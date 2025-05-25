@@ -10,14 +10,13 @@ from django.db import models
 
 class Program(models.Model):
     title = models.CharField(max_length=200, blank=False, null=False)
-    abstract = models.TextField(blank=False, null=False)
+    abstract = models.TextField(blank=True, null=True)
     thumbnail = models.ImageField(
         upload_to="smp/programs/thumbnails", blank=False, null=False
     )
-    # sig = models.ForeignKey(SIG, blank=False, null=False, on_delete=models.CASCADE)
-    description = RichTextUploadingField(blank=False, null=False)
+    description = RichTextUploadingField(blank=True, null=True)
     year = models.PositiveSmallIntegerField(blank=False, null=False)
-    hide_program = models.BooleanField(default=False)
+    hide_program = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -55,7 +54,7 @@ class ProgramMember(models.Model):
         unique_together = (("program", "member"),)
 
     def __str__(self):
-        return f"{self.program} - {self.member}"
+        return f"{self.program} - {self.member.username}"
 
 
 class Upload(models.Model):

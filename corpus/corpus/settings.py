@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
-    "smp",
+    "smp.apps.SmpConfig",
 ]
 
 MIDDLEWARE = [

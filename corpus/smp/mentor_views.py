@@ -18,8 +18,6 @@ from corpus.decorators import ensure_exec_membership
 
 @login_required
 @ensure_exec_membership()
-@login_required
-@ensure_exec_membership()
 def dashboard(request):
     programs = Program.objects.filter(
         programmember__member=request.exec_member.user
