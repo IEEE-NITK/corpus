@@ -54,7 +54,7 @@ class ProgramMember(models.Model):
         unique_together = (("program", "member"),)
 
     def __str__(self):
-        return f"{self.program} - {self.member.username}"
+        return f"{self.program} - {self.member}"
 
 
 class Upload(models.Model):
