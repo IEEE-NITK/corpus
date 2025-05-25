@@ -1,9 +1,11 @@
+from accounts.models import ExecutiveMember
 from accounts.models import User
 from config.models import SIG
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.db.models import Count
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from smp.forms import AdminProgramMemberForm
@@ -20,6 +22,27 @@ from corpus.decorators import ensure_group_membership
 def dashboard(request):
     programs = Program.objects.all().order_by("-pk")
 
+    if request.method == "POST":
+        program_id = int(request.POST.get("program_id"))
+        action = request.POST.get("action")
+        program = get_object_or_404(Program, pk=program_id)
+
+        if action == "hide_program":
+            if not program.hide_program:
+                program.hide_program = True
+                program.save()
+                messages.success(request, "Program has been hidden.")
+        elif action == "show_program":
+            if program.hide_program:
+                program.hide_program = False
+                program.save()
+                messages.success(request, "Program is now visible.")
+        elif action == "delete_program":
+            program.delete()
+            messages.success(request, "Program has been deleted.")
+
+        return redirect("smp_admin_dashboard")
+
     form = ProgramFilterForm(request.GET)
     if form.is_valid():
         try:
@@ -32,7 +55,6 @@ def dashboard(request):
                 ).filter(sig_count__gte=2)
             elif sig != 0:
                 sig_obj = SIG.objects.filter(pk=sig).first()
-
                 if sig_obj:
                     programs = programs.annotate(
                         sig_count=Count(
@@ -41,9 +63,9 @@ def dashboard(request):
                     ).filter(
                         sig_count=1, programmember__member__executivemember__sig=sig_obj
                     )
-
         except (ValueError, TypeError):
             pass
+
     programs = programs.distinct()
     args = {"programs": programs, "form": form}
 
@@ -64,6 +86,16 @@ def add_members(request, program_id):
             form = AdminProgramMemberForm(request.POST)
             form.instance.program = program
             if form.is_valid():
+                member = form.cleaned_data["member"]
+                member_type = form.cleaned_data["member_type"]
+
+                if member_type == "Mentor":
+                    if not ExecutiveMember.objects.filter(user=member).exists():
+                        messages.error(
+                            request, "Only Executive Members can be added as mentors."
+                        )
+                        return redirect("smp_admin_add_members", program_id=program.id)
+
                 try:
                     form.save()
                 except IntegrityError:

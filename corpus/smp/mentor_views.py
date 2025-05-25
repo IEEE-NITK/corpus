@@ -53,11 +53,21 @@ def dashboard(request):
 @login_required
 @ensure_exec_membership()
 def new_program(request):
+
+    existing_program = Program.objects.filter(
+        programmember__member=request.user
+    ).first()
+
+    if existing_program:
+        messages.info(request, "You have already have a program.")
+        return redirect("smp_mentors_dashboard")
+
     form = ProgramForm()
 
     if request.method == "POST":
         form = ProgramForm(request.POST, request.FILES)
         if form.is_valid():
+
             program = form.save(commit=False)
             program.hide_program = True
             program.save()
@@ -69,9 +79,7 @@ def new_program(request):
             messages.success(request, "Program saved successfully!")
             return redirect("smp_mentors_dashboard")
 
-    args = {"form": form}
-
-    return render(request, "smp/mentors/new_program.html", args)
+    return render(request, "smp/mentors/new_program.html", {"form": form})
 
 
 @login_required
