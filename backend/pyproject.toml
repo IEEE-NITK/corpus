@@ -1,0 +1,11 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Backend for Corpus, IEEE NITK"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "djangorestframework>=3.16.0",
+    "djangorestframework-simplejwt>=5.5.0",
+    "python-magic>=0.4.27",
+]
