@@ -156,6 +156,7 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
 # Corpus Settings
+FRONTEND_URL = "https://ieee.nitk.ac.in"
 AUTH_USER_MODEL = "accounts.User"
 AUTHENTICATION_BACKENDS = [
     "accounts.backend.CorpusAuthBackend", # For JWT
