@@ -7,5 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "djangorestframework>=3.16.0",
     "djangorestframework-simplejwt>=5.5.0",
+    "pillow>=11.2.1",
+    "psycopg>=3.2.9",
     "python-magic>=0.4.27",
 ]

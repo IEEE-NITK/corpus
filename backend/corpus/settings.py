@@ -142,6 +142,10 @@ REST_FRAMEWORK = {
     ]
 }
 
+SIMPLE_JWT = {
+    "TOKEN_OBTAIN_SERIALIZER": "accounts.serializers.CorpusTokenObtainPairSerializer"
+}
+
 # Email Settings
 EMAIL_PROTOCOL = os.environ.get("EMAIL_PROTOCOL")
 EMAIL_BACKEND = f"django.core.mail.backends.{EMAIL_PROTOCOL}.EmailBackend"
@@ -154,7 +158,8 @@ EMAIL_USE_SSL = True
 # Corpus Settings
 AUTH_USER_MODEL = "accounts.User"
 AUTHENTICATION_BACKENDS = [
-    "accounts.backend.CorpusAuthBackend",
+    "accounts.backend.CorpusAuthBackend", # For JWT
+    "django.contrib.auth.backends.ModelBackend" # For Django Admin
 ]
 PASSWORD_RESET_TIMEOUT = 86400
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

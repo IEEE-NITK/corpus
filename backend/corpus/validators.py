@@ -1,5 +1,5 @@
 import magic
-from constants import MAX_IMAGE_SIZE
+from .constants import MAX_IMAGE_SIZE
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from django.utils.deconstruct import deconstructible
