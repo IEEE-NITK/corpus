@@ -181,6 +181,3 @@ cython_debug/
 # JS Toolchain
 node_modules/
 tailwind-min.css
-
-
-
