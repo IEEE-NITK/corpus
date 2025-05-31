@@ -49,6 +49,36 @@ services:
     environment:
       - ENVIRONMENT=DEVELOPMENT
       - EMAIL_PROTOCOL=console
+      
+  
+  redis:
+    image: redis:7.0-alpine
+    restart: always
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - corpus_network
+      
+  celery:
+    build:
+      context: corpus
+      dockerfile: dev-Dockerfile
+    command: celery -A corpus worker --loglevel=info
+    volumes:
+      - ./corpus:/corpus
+    depends_on:
+      - redis
+    networks:
+      - corpus_network
+    env_file:
+      - .env
+
+
 
   jstoolchain:
     build:
