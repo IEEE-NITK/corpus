@@ -1,0 +1,112 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Uploads
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Uploads" %}
+    <div class="m-10">
+        <div class="overflow-x-auto my-2 border rounded-lg">
+            <h2>Uploads:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Upload Name</th>
+                    <th>Uploaded By</th>
+                    <th>Upload Time</th>
+                    <th>Upload Type</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for upload in uploads %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ upload.title }}</td>
+                        <td>{{ upload.upload_user.user }}</td>
+                        <td>{{ upload.uploaded_at }}</td>
+                        <td>{{ upload.upload_type }}</td>
+                        <td>
+                            <a href="{% url 'view_upload' upload_id=upload.id %}" class="btn btn-primary px-5 py-1 rounded-full">
+                                View
+                            </a>
+
+                            <form method="post" onsubmit="return confirm('Are you sure you want to delete this upload?');">
+                                {% csrf_token %}
+                                <input type="hidden" name="upload_id" value="{{ upload.id }}">
+                                <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="delete">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="post" action="{% url 'smp_mentors_add_upload' program_id=program.id %}">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div role="alert" class="alert alert-error mt-1">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="w-full my-2">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.title.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.upload_type.id_for_label }}">Upload Type</label>
+                    {{ form.upload_type }}
+                    {% if form.upload_type.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.upload_type.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.content.id_for_label }}">Content</label>
+                    <div>
+                        {{ form.content | safe }}
+                    </div>
+                    {% if form.content.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.content.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="my-5">
+                    <button type="submit" class="btn btn-primary" name="add">Upload</button>
+                    <a href="{% url 'smp_mentors_dashboard' %}"
+                       class="btn btn-success px-4 py-1">
+                        Back To Home
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
