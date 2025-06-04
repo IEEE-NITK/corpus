@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    "celery",
 ]
 
 MIDDLEWARE = [
@@ -193,6 +194,19 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "gmailapppassword")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
+
+# Celery Settings
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+# CELERY_BROKER_URL="redis://default:AZZ-AAIjcDExZTljY2M1NTI5MmU0OGMxOGUzMDYwNmRlZjhkZGRjZXAxMA@divine-puma-38526.upstash.io:6379"
+# CELERY_RESULT_BACKEND = "redis://default:AZZ-AAIjcDExZTljY2M1NTI5MmU0OGMxOGUzMDYwNmRlZjhkZGRjZXAxMA@divine-puma-38526.upstash.io:6379"
+CELERY_TIMEZONE='UTC'
+CELERY_ACCEPT_CONTENT=['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+
 USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None
 
 SENTRY_DSN = os.environ.get("SENTRY_DSN")
@@ -298,4 +312,5 @@ CKEDITOR_CONFIGS = {
         "filebrowserBrowseUrl": "/ckeditor/browse/",
     }
 }
+
 

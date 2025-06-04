@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y gcc libpq-dev sqlite3
 COPY corpus/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
+
 RUN pip install --no-cache-dir python-dotenv==1.0.0
 
 # Set environment variables
