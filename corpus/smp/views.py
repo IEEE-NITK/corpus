@@ -97,12 +97,32 @@ def preview_program(request, program_id):
 @login_required
 def upload_list(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
+    user = request.user
 
-    try:
-        program_member = ProgramMember.objects.get(program=program, member=request.user)
-    except ProgramMember.DoesNotExist:
+    is_member = ProgramMember.objects.filter(program=program, member=user).exists()
+    is_coordinator = user.groups.filter(name__in=["smp_coordinator"]).exists()
+
+    if not is_member and not is_coordinator:
         messages.error(request, "You have not been added to this program.")
         return redirect("smp_program", program_id=program.id)
+
+    if is_coordinator:
+        member_type = "Mentor"
+    else:
+        program_member = ProgramMember.objects.get(program=program, member=request.user)
+        member_type = program_member.member_type
+
+    if member_type == "Mentor":
+
+        if request.method == "POST":
+            upload_id = int(request.POST.get("upload_id"))
+            upload = Upload.objects.get(id=upload_id)
+
+            if "delete" in request.POST:
+                upload.delete()
+                messages.success(request, "Upload has been deleted.")
+
+            return redirect("upload_list", program_id=program.id)
 
     uploads = Upload.objects.filter(program=program).order_by("-uploaded_at")
     return render(
@@ -113,7 +133,7 @@ def upload_list(request, program_id):
             "mentors": program.mentors(),
             "mentees": program.mentees(),
             "uploads": uploads,
-            "member_type": program_member.member_type,
+            "member_type": member_type,
         },
     )
 
@@ -121,40 +141,64 @@ def upload_list(request, program_id):
 @login_required
 def view_upload(request, upload_id):
     upload = get_object_or_404(Upload, id=upload_id)
+    user = request.user
+    program = upload.program
+
+    is_member = ProgramMember.objects.filter(program=program, member=user).exists()
+    is_coordinator = user.groups.filter(name__in=["smp_coordinator"]).exists()
+
+    if not is_member and not is_coordinator:
+        messages.error(request, "You have not been added to this program.")
+        return redirect("smp_program", program_id=program.id)
+
     return render(
         request,
         "smp/mentors/view_upload.html",
-        {"upload": upload, "program": upload.program},
+        {"upload": upload, "program": program},
     )
 
 
 @login_required
 def view_submission(request, upload_id):
     upload = get_object_or_404(Upload, id=upload_id)
+    user = request.user
     program = upload.program
 
-    try:
-        ProgramMember.objects.get(program=program, member=request.user)
-    except ProgramMember.DoesNotExist:
-        messages.error(request, "You are not a part of this program.")
+    is_member = ProgramMember.objects.filter(program=program, member=user).exists()
+    is_coordinator = user.groups.filter(name__in=["smp_coordinator"]).exists()
+
+    if not is_member and not is_coordinator:
+        messages.error(request, "You have not been added to this program.")
         return redirect("smp_program", program_id=program.id)
 
     mentors = program.mentors()
     mentor_users = [mentor.user for mentor in mentors]
     mentees = program.mentees()
 
-    if request.user in mentor_users:
+    if user in mentor_users or is_coordinator:
         submissions = Submission.objects.filter(assignment=upload)
+
+        if request.method == "POST":
+            submission_id = int(request.POST.get("submission_id"))
+            submission = Submission.objects.get(id=submission_id, assignment=upload)
+
+            if "delete" in request.POST:
+                submission.delete()
+                messages.success(request, "Program has been deleted.")
+
+            return redirect("view_submission", upload_id=upload.id)
         return render(
-            request, "smp/mentors/submission_list.html", {"submissions": submissions}
+            request,
+            "smp/mentors/submission_list.html",
+            {"submissions": submissions, "admin": is_coordinator},
         )
 
-    elif request.user in mentees:
+    elif user in mentees:
         submission = Submission.objects.filter(
             user=request.user, assignment=upload
         ).first()
 
-        form = None  # Ensure form is defined in all paths
+        form = None
 
         if request.method == "POST":
             if "add" in request.POST:
@@ -210,6 +254,7 @@ def view_submission(request, upload_id):
                 "submission": submission,
                 "form": form,
                 "program": program,
+                "admin": is_coordinator,
             },
         )
 

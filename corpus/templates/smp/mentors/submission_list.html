@@ -19,6 +19,9 @@
                         <th>Submitted By</th>
                         <th>Submitted At</th>
                         <th>Submission Link</th>
+                        {% if admin %}
+                        <th>Action</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
@@ -38,6 +41,17 @@
                                         {{ submission.link }}
                                     </a>
                                 </td>
+                                {% if admin %}
+                                <td>
+                                   <form method="post" onsubmit="return confirm('Are you sure you want to delete this submission?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                                        <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="delete">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                         {% else %}

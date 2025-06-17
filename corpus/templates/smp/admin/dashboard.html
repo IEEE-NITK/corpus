@@ -80,13 +80,17 @@
                                 </a>
 
                                 <button type="button"
-                                        class="btn btn-error px-4 py-1 openConfirmModal"
-                                        data-program-id="{{ program.id }}"
-                                        data-action="delete_program">
-                                    Delete
-                                </button>
+                                class="btn btn-error px-4 py-1 openConfirmModal"
+                                data-program-id="{{ program.id }}"
+                                data-action="delete_program">
+                                Delete
+                            </button>
 
-                                <a href="{% url 'smp_admin_manage' program_id=program.id %}" class="btn btn-primary">Manage</a>
+                            <a href="{% url 'smp_admin_manage' program_id=program.id %}" class="btn btn-primary">
+                                Manage</a>
+                            <a href="{% url 'upload_list' program_id=program.id %}" class="btn btn-primary">
+                                Manage Uploads
+                            </a>
                             </div>
                         </td>
                     </tr>

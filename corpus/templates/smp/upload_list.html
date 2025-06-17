@@ -44,6 +44,15 @@
                                         </a>
                                     {% endif %}
                                 {% endif %}
+                                {% if member_type == "Mentor" %}
+                                    <form method="post" onsubmit="return confirm('Are you sure you want to delete this submission?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="upload_id" value="{{ upload.id }}">
+                                        <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="delete">
+                                            Remove
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
