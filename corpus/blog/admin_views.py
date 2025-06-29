@@ -4,6 +4,7 @@ from blog.forms import BlogFilterForm
 from blog.models import Post
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
@@ -18,11 +19,11 @@ def dashboard(request):
 
     form = BlogFilterForm(request.GET)
     if form.is_valid():
-        print("Selected SIGs:", form.cleaned_data.get("sig"))
 
         author_id = int(form.cleaned_data.get("author"))
         if author_id != 0:
-            blogs = blogs.filter(author=ExecutiveMember.objects.get(pk=author_id))
+            author = get_object_or_404(ExecutiveMember, pk=author_id)
+            blogs = blogs.filter(author=author)
 
         sig_ids = form.cleaned_data.get("sig")
         if sig_ids:
@@ -35,7 +36,7 @@ def dashboard(request):
 @login_required
 @ensure_group_membership(group_names=["blog_admin"])
 def manage(request, blog_id):
-    blog = Post.objects.get(pk=blog_id)
+    blog = get_object_or_404(Post, pk=blog_id)
     form = AdminBlogForm(instance=blog)
 
     if request.method == "POST":
