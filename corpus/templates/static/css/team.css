@@ -1,0 +1,59 @@
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    align-content: space-between;
+    align-content: center;
+    text-align: center;
+  }
+
+.profile-pic {
+    height: 150px;
+    width: 170px;
+    border-radius: 50%;
+  }
+
+.title {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 50px;
+  }
+
+.section-heading {
+    margin-top: 20px;
+    font-family: 'Ubuntu';
+    font-style: normal;
+    text-align: center;
+    font-size: 30px;
+  }
+
+.margins {
+    margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 15px;
+  }
+
+.card-post {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: normal;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 25px;
+  }
+
+.card-title {
+    font-family: 'Ubuntu';
+    font-style: normal;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 25px;
+  }
