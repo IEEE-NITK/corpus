@@ -1,0 +1,35 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Home
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" %}
+    <div class="m-10 p-5 prose max-w-none">
+        {% if exec_member %}
+            <a href="{% url 'smp_mentors_dashboard' %}" class="btn btn-accent rounded-full px-2 py-1">
+                Go to Mentors Dashboard
+            </a>
+        {% endif %}
+        <p>
+            Welcome to IEEE NITK's Summer Mentorship Programes!
+            We are grateful for the opportunity to share our knowledge
+            and skills through the Summer Mentorship Programs, and thrilled
+            to support the growth and learning of aspiring minds each year.
+        </p>
+        <p>
+            Programs can be seen using the following links,
+            seperated by year.
+        </p>
+        <ul>
+            {% for year in years %}
+                <li>
+                    <a href="{% url 'smp_programs_by_year' year=year %}"
+                       class="underline underline-offset-4">{{ year }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
