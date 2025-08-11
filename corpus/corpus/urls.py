@@ -39,6 +39,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("embedathon/", include("embedathon.urls")),
     path("diodexcelerate/", include("diodexcelerate.urls")),
+    path("entwine/", include("entwine.urls")),
     path("impulse/", include("impulse.urls")),
     path("electrika/", include("electrika.urls")),
     path("skyward_expedition/", include("skyward_expedition.urls")),

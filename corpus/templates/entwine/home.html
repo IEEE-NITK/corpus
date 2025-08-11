@@ -1,0 +1,113 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Entwine: Forged to Fly{% endblock %}
+
+{% block content %}
+<div class="entwine-container" style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif; color: #fff; background: linear-gradient(135deg, #1a0a00 0%, #2a1200 100%); min-height: 100vh;">
+    <!-- Hero Section -->
+    <section style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 60vh; padding: 3rem 1rem 2rem 1rem; text-align: center; position: relative;">
+        <img src="{% static 'img/entwine/dragon-left.png' %}" alt="Dragon" style="position: absolute; left: 0; top: 30px; width: 160px; opacity: 0.7; pointer-events: none; z-index: 0;" />
+        <h1 style="font-size: 3rem; font-weight: 700; letter-spacing: 0.1em; color: #ffae42; margin-bottom: 0.5rem; z-index: 1;">ENTWINE</h1>
+        <span style="font-size: 1.5rem; color: #ff6600; font-weight: 500; z-index: 1;">Forged to Fly</span>
+        <p style="font-size: 1.1rem; margin: 1.5rem 0 1rem 0; color: #ffd9b3; max-width: 600px; z-index: 1;">Where engineering meets creativity and simulation. A CAD-design and CFD event by IEEE NITK.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; z-index: 1;">
+            <span style="background: #ff6600; color: #fff; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem;">CAD Design</span>
+            <span style="background: #ffae42; color: #fff; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem;">CFD Simulation</span>
+            <span style="background: #ff6f00; color: #fff; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 1rem;">Aerodynamics</span>
+        </div>
+        <a href="#register" style="display: inline-block; background: #ff6600; color: #fff; font-weight: 600; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; margin-top: 1.5rem; transition: background 0.2s; z-index: 1;">Register Now</a>
+        <div style="margin-top: 2.5rem; z-index: 1;">
+            <p style="font-size: 0.95rem; color: #ffae42; margin-bottom: 0.5rem;">Powered By</p>
+            <img src="https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/branding-guidelines/logos/blue/Unstop-Logo-Blue.svg" alt="Unstop Logo" style="height:48px;width:auto;">
+        </div>
+    </section>
+
+    <!-- Event Description -->
+    <section style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem 1rem 1rem;">
+        <h2 style="font-size: 1.6rem; font-weight: 600; color: #ffae42; margin-bottom: 1rem; text-align: center;">About the Event</h2>
+        <p style="font-size: 1rem; color: #ffd9b3; line-height: 1.7; text-align: center;">
+            Entwine: Forged to Fly is a technical event that challenges students to design using CAD tools and analyze using CFD software. It encourages creative, interdisciplinary thinking in engineering design and aerodynamics.
+        </p>
+    </section>
+
+    <!-- Specifications -->
+    <section style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem 1rem 1rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 600; color: #ffae42; margin-bottom: 1.2rem; text-align: center;">Event Details</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+            <div style="background: #2a1200; border-radius: 10px; box-shadow: 0 2px 8px rgba(255,102,0,0.08); padding: 1.5rem 2rem; min-width: 220px; flex: 1 1 220px; max-width: 260px;">
+                <h3 style="font-size: 1.1rem; color: #ff6600; margin-bottom: 0.5rem;">When</h3>
+                <p style="color: #ffd9b3;">August 2025</p>
+            </div>
+            <div style="background: #2a1200; border-radius: 10px; box-shadow: 0 2px 8px rgba(255,102,0,0.08); padding: 1.5rem 2rem; min-width: 220px; flex: 1 1 220px; max-width: 260px;">
+                <h3 style="font-size: 1.1rem; color: #ff6600; margin-bottom: 0.5rem;">Who</h3>
+                <ul style="color: #ffd9b3; font-size: 1rem; padding-left: 1.2rem; margin: 0;">
+                    <li>UG students (1st-3rd year)</li>
+                    <li>Max 3 per team</li>
+                    <li>Register on Corpus, team up on event site</li>
+                </ul>
+            </div>
+            <div style="background: #2a1200; border-radius: 10px; box-shadow: 0 2px 8px rgba(255,102,0,0.08); padding: 1.5rem 2rem; min-width: 220px; flex: 1 1 220px; max-width: 260px;">
+                <h3 style="font-size: 1.1rem; color: #ff6600; margin-bottom: 0.5rem;">How</h3>
+                <p style="color: #ffd9b3;">Register individually on Corpus, create teams on the event site.</p>
+            </div>
+        </div>
+        <div style="background: #1a0a00; border-radius: 10px; margin: 2rem auto 0 auto; padding: 1.5rem 2rem; max-width: 700px;">
+            <h3 style="font-size: 1.1rem; color: #ffae42; margin-bottom: 0.5rem;">Challenge Format</h3>
+            <ul style="color: #ffd9b3; font-size: 1rem; padding-left: 1.2rem; margin: 0;">
+                <li><b>Section 1: Ideation & Design (CAD Modeling)</b><br>
+                    Participants must design a CAD model for the problem statement provided under the constraints specified. The team is free to choose any CAD software (Fusion 360, Onshape, SolidWorks, etc.).
+                </li>
+                <li style="margin-top:1rem;"><b>Section 2: Simulation & Aerodynamic Evaluation (CFD in ANSYS Fluent)</b><br>
+                    Once the design is finalized, teams must analyze the aerodynamic surface using CFD simulations in ANSYS Fluent.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem 1rem 1rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 600; color: #ffae42; margin-bottom: 1.2rem; text-align: center;">Timeline</h2>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid #ffae42;">
+                <span style="color: #ff6600; font-weight: 500;">Aug 12, 2025</span>
+                <span style="color: #ffd9b3;">Registration Opens & Team Formation</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid #ffae42;">
+                <span style="color: #ff6600; font-weight: 500;">Aug 15, 2025</span>
+                <span style="color: #ffd9b3;">Problem Statement & Rulebook</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0; border-bottom: 1px solid #ffae42;">
+                <span style="color: #ff6600; font-weight: 500;">Aug 31, 2025</span>
+                <span style="color: #ffd9b3;">Submission Deadline</span>
+            </li>
+            <li style="display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 0;">
+                <span style="color: #ff6600; font-weight: 500;">Sep 15, 2025</span>
+                <span style="color: #ffd9b3;">Results Announced</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Prizes -->
+    <section style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem 1rem 1rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 600; color: #ffae42; margin-bottom: 1.2rem; text-align: center;">Prizes</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; justify-content: center;">
+            <div style="background: #2a1200; border-radius: 10px; box-shadow: 0 2px 8px rgba(255,102,0,0.08); padding: 1.5rem 2rem; min-width: 220px; flex: 1 1 220px; max-width: 260px; text-align: center;">
+                <h3 style="font-size: 1.2rem; color: #ffae42; margin-bottom: 0.5rem;">₹10,000 Prize Pool</h3>
+                <p style="color: #ffd9b3;">Top 3 teams + certificates</p>
+            </div>
+            <div style="background: #2a1200; border-radius: 10px; box-shadow: 0 2px 8px rgba(255,102,0,0.08); padding: 1.5rem 2rem; min-width: 220px; flex: 1 1 220px; max-width: 260px; text-align: center;">
+                <h3 style="font-size: 1.1rem; color: #ffae42; margin-bottom: 0.5rem;">Participation Certificates</h3>
+                <p style="color: #ffd9b3;">For all successful submissions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 2.5rem 1rem 2rem 1rem; text-align: center;">
+        <h2 style="font-size: 2rem; font-weight: 700; color: #ffae42; margin-bottom: 0.7rem;">Ready to Forge Your Flight?</h2>
+        <p style="font-size: 1.1rem; color: #ffd9b3;">Join the ranks of engineering dragons.</p>
+    </section>
+</div>
+{% endblock %}
