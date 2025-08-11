@@ -1,6 +1,5 @@
 # IEEE NITK Corpus
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/IEEE-NITK/corpus/main.svg)](https://results.pre-commit.ci/latest/github/IEEE-NITK/corpus/main)
 
 A Django based web application to manage all things IEEE NITK.
 
