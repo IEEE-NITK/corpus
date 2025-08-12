@@ -1,0 +1,107 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Add Members
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Add Mentors" %}
+    <div class="m-10">
+        <div class="overflow-x-auto my-2 border rounded-lg">
+            <h2>Mentors:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>SIG</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for mentor in mentors %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ mentor.user }}</td>
+                        <td>{{ mentor.sig }}</td>
+                        <td>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="program_id" value="{{ program.id }}"/>
+                                <input type="hidden" name="member_id" value="{{ mentor.user.pk }}"/>
+                                <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="edit">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="overflow-x-auto my-2 border rounded-lg">
+            <h2>Mentees:</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for mentee in mentees %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ mentee }}</td>
+                        <td>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="program_id" value="{{ program.id }}"/>
+                                <input type="hidden" name="member_id" value="{{ mentee.pk }}"/>
+                                <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="edit">
+                                    Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="post" action="{% url 'smp_mentors_add_members' program_id=program.id %}">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div role="alert" class="alert alert-error mt-1">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="w-full my-2">
+                    <label for="{{ form.member.id_for_label }}">Mentor</label>
+                    {{ form.member }}
+                    {% if form.member.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.member.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="my-5">
+                    <button type="submit" class="btn btn-primary" name="add">Add</button>
+                    <a href="{% url 'smp_mentors_dashboard' %}"
+                       class="btn btn-success px-4 py-1">
+                        Back To Home
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -49,6 +49,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("athenaeum/", include("athenaeum.urls")),
     path("newsletter/", include("newsletter.urls")),
+    path("smp/", include("smp.urls")),
 ]
 
 if settings.DEBUG:

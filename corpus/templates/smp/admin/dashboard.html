@@ -1,0 +1,152 @@
+{% extends "virtual_expo/base.html" %}
+
+{% block title %}
+    Program Coordinator Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Program Coordinator Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <div class="w-full">
+                        <label for="{{ form.sig.id_for_label }}">SIG</label>
+                        {{ form.sig }}
+                    </div>
+                    <div class="w-full">
+                        <label for="{{ form.year.id_for_label }}">Year</label>
+                        {{ form.year }}
+                    </div>
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="p-5 border rounded-lg overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>SIGs</th>
+                    <th>Visibility Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for program in programs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ program.title }}</td>
+                        <td>{{ program.year }}</td>
+                        <td class="flex gap-4">
+                            {% for sig in program.sigs %}
+                                <div class="badge badge-secondary">{{ sig }}</div>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if not program.hide_program %}
+                                <div class="badge badge-success">Visible</div>
+                            {% else %}
+                                <div class="badge badge-warning">Hidden</div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="flex gap-4 justify-start items-center">
+                                <a href="{% url 'smp_preview_program' program_id=program.id %}" class="btn btn-primary">
+                                    Preview Program
+                                </a>
+                                {% if not program.hide_program %}
+                                    <button type="button"
+                                            class="btn btn-warning px-4 py-1 openConfirmModal"
+                                            data-program-id="{{ program.id }}"
+                                            data-action="hide_program">
+                                        Hide Program
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            class="btn btn-success px-4 py-1 openConfirmModal"
+                                            data-program-id="{{ program.id }}"
+                                            data-action="show_program">
+                                        Show Program
+                                    </button>
+                                {% endif %}
+                                <a href="{% url 'smp_admin_add_members' program_id=program.id %}" class="btn btn-primary">
+                                    Add Members
+                                </a>
+
+                                <button type="button"
+                                class="btn btn-error px-4 py-1 openConfirmModal"
+                                data-program-id="{{ program.id }}"
+                                data-action="delete_program">
+                                Delete
+                            </button>
+
+                            <a href="{% url 'smp_admin_manage' program_id=program.id %}" class="btn btn-primary">
+                                Manage</a>
+                            <a href="{% url 'upload_list' program_id=program.id %}" class="btn btn-primary">
+                                Manage Uploads
+                            </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <!-- Confirm Modal -->
+            <dialog id="confirmModal" class="modal">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold" id="modalTitle">Confirm Changes</h3>
+                    <p id="modalMessage">Are you sure you want to proceed?</p>
+                    <form method="post" action="{% url 'smp_admin_dashboard' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="program_id" id="modalProgramId">
+                    <input type="hidden" name="action" id="modalAction">
+                    <div class="modal-action mt-4 flex justify-center gap-4">
+                        <button type="submit" class="btn btn-primary">Yes, Confirm</button>
+                        <button type="button" class="btn btn-secondary" id="cancelModal">Cancel</button>
+                    </div>
+                    </form>
+                </div>
+            </dialog>
+        </div>
+    </div>
+
+    <script>
+$(document).ready(function () {
+    const confirmModal = document.getElementById('confirmModal');
+
+    $('.openConfirmModal').click(function () {
+        const programId = $(this).data('program-id');
+        const action = $(this).data('action');
+
+        $('#modalProgramId').val(programId);
+        $('#modalAction').val(action);
+
+        if (action === 'hide_program') {
+            $('#modalTitle').text('Confirm Hide Program');
+            $('#modalMessage').text('Are you sure you want to hide this program?');
+        } else if (action === 'show_program') {
+            $('#modalTitle').text('Confirm Show Program');
+            $('#modalMessage').text('Are you sure you want to make this program visible?');
+        } else if (action === 'delete_program') {
+            $('#modalTitle').text('Confirm Delete Program');
+            $('#modalMessage').text('This action is irreversible. Are you sure you want to delete this program?');
+        } else {
+            $('#modalTitle').text('Confirm Action');
+            $('#modalMessage').text('Are you sure you want to proceed?');
+        }
+
+        confirmModal.showModal();
+    });
+
+    $('#cancelModal').click(function () {
+        confirmModal.close();
+    });
+});
+</script>
+{% endblock %}

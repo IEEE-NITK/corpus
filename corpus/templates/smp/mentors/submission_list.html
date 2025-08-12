@@ -1,0 +1,70 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Submission
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text="Submissions" %}
+    <div class="m-10">
+        <div class="my-2 p-5">
+            <div class="overflow-x-auto my-2 border rounded-lg">
+                <table class="table">
+                    <!-- head -->
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Submission Title</th>
+                        <th>Submitted By</th>
+                        <th>Submitted At</th>
+                        <th>Submission Link</th>
+                        {% if admin %}
+                        <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if submissions %}
+                        {% for submission in submissions %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ submission.title }}</td>
+                                <td>
+                                    {{ submission.user }}
+                                </td>
+                                <td>
+                                    {{ submission.submitted_at }}
+                                </td>
+                                <td>
+                                   <a href="{{ submission.link }}" target="_blank" class="text-blue-600 hover:underline break-words">
+                                        {{ submission.link }}
+                                    </a>
+                                </td>
+                                {% if admin %}
+                                <td>
+                                   <form method="post" onsubmit="return confirm('Are you sure you want to delete this submission?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="submission_id" value="{{ submission.id }}">
+                                        <button type="submit" class="btn btn-error px-5 py-1 rounded-full" name="delete">
+                                            Remove
+                                        </button>
+                                    </form>
+                                </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                No submissions yet. Come back later!
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

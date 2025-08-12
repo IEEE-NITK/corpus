@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ profile_user }} | Profile
+{% endblock %}
+
+{% block content %}
+    <div class="w-5/6 md:w-2/3 my-10 mx-auto flex flex-col md:flex-row gap-8">
+        <!-- Div with image, name, society and core member position if any -->
+        <div class="w-full md:w-1/3 prose text-center p-5 border-0 sm:border border-neutral rounded-lg">
+            {% if profile_user.profile_pic %}
+                <img src="{{ profile_user.profile_pic.url }}" alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
+            {% else %}
+                <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
+                     alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
+            {% endif %}
+
+            <h1 class="my-2">{{ profile_user }}</h1>
+            <h3 class="m-0">{{ exec_member.sig }}</h3>
+
+            {% if curr_user == profile_user %}
+                <!-- Edit Profile Link -->
+                <div class="text-center my-4">
+                    <a href="{% url 'edit_profile' roll_no=profile_user.executivemember.roll_number %}" class="btn btn-primary">
+                        Edit Profile
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Div with other information about the person -->
+        <div class="w-full md:w-2/3 p-5 border-0 sm:border border-neutral rounded-lg flex flex-col gap-2">
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                <div class="collapse-title text-xl font-bold">Personal Information</div>
+                <div class="collapse-content">
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="font-bold">Name</div>
+                        <div>{{ profile_user }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <div class="font-bold">Date Joined</div>
+                        <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                <div class="collapse-title text-xl font-bold">IEEE Membership Information</div>
+                <div class="collapse-content">
+                    <div class="grid grid-cols-2 gap-1">
+                        <div class="font-bold">IEEE Membership Number</div>
+                        <div>{{ exec_member.ieee_number }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <div class="font-bold">IEEE Membership Email</div>
+                        <div>{{ exec_member.ieee_email }}</div>
+                    </div>
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <div class="font-bold">NEP Member</div>
+                        <div>{{ exec_member.is_nep }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                <div class="collapse-title text-xl font-bold">Reports Published</div>
+                <div class="collapse-content">
+                    {% if reports %}
+                        <div class="grid grid-cols-1 gap-1">
+                            <ul class="list-disc p-5 space-y-6">
+                                {% for report in reports %}
+                                    <li>
+                                        <a href="{% url 'virtual_expo_report' report_id=report.id %}"
+                                           class="link link-primary">
+                                            [{{ report.year }}] {{ report.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        No reports available yet. Check back soon!
+                    {% endif %}
+                </div>
+            </div>
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                <div class="collapse-title text-xl font-bold">Blogs Published</div>
+                <div class="collapse-content">
+                    {% if blogs %}
+                        <div class="grid grid-cols-1 gap-1">
+                            <ul class="list-disc p-5 space-y-6">
+                                {% for blog in blogs %}
+                                    <li>
+                                        <h3 class="font-bold">{{ blog.title }}</h3>
+                                        <p>{{ blog.description }}</p>
+                                        <p>Published on: {{ blog.published_date|date:"M d, Y" }}</p>
+                                        <a href="/blog/{{ blog.slug }}" class="link link-primary">Read More</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        No blogs available yet. Check back soon!
+                    {% endif %}
+                </div>
+            </div>
+
+            <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                <div class="collapse-title text-xl font-bold">Links</div>
+                <div class="collapse-content">
+                    <div class="grid grid-cols-2 gap-1">
+                        <!-- GitHub Section -->
+                        <div class="font-bold">GitHub</div>
+                        <div>
+                            {% if exec_member.hide_github %}
+                                --
+                            {% else %}
+                                {% if exec_member.github %}
+                                    <a href="https://github.com/{{ exec_member.github }}" class="link link-primary" target="_blank">GitHub Profile</a>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <!-- LinkedIn Section -->
+                        <div class="font-bold">LinkedIn</div>
+                        <div>
+                            {% if exec_member.hide_linkedin %}
+                                --
+                            {% else %}
+                                {% if exec_member.linkedin %}
+                                    <a href="{{ exec_member.linkedin }}" class="link link-primary" target="_blank">LinkedIn Profile</a>
+                                {% else %}
+                                    None
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const $collapses = $('.collapse');
+
+            $collapses.each(function() {
+                const $collapse = $(this);
+                const $title = $collapse.find('.collapse-title');
+                const $content = $collapse.find('.collapse-content');
+
+                // Toggle collapse on title click, but close others
+                $title.on('click', function(e) {
+                    e.stopPropagation();
+
+                    // Close all other collapses
+                    $collapses.not($collapse).removeClass('collapse-open');
+
+                    // Toggle the clicked one
+                    $collapse.toggleClass('collapse-open');
+                });
+
+                // Prevent collapse from closing when clicking content
+                $content.on('click', function(e) {
+                    e.stopPropagation();
+                });
+
+                // Prevent collapse from closing when clicking links
+                $content.find('a').on('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            // Close collapse when clicking outside
+            $(document).on('click', function(e) {
+                $collapses.each(function() {
+                    if (!$(this).is(e.target) && $(this).has(e.target).length === 0) {
+                        $(this).removeClass('collapse-open');
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

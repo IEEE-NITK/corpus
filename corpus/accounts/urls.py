@@ -4,6 +4,8 @@ from django.contrib.auth.views import PasswordResetDoneView
 from django.contrib.auth.views import PasswordResetView
 from django.urls import path
 
+from .views import edit_profile
+from .views import profile
 from .views import signin
 from .views import signout
 from .views import signup
@@ -30,4 +32,6 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
+    path("profile/<roll_no>", profile, name="accounts_profile"),
+    path("profile/<roll_no>/edit", edit_profile, name="edit_profile"),
 ]
