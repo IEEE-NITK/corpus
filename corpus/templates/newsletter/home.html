@@ -31,17 +31,20 @@
 
 </style>
 
-{% include 'newsletter/header.html' %}
-{% if is_admin %}
 <div class="flex justify-center">
-    <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-primary text-center m-6">Manage Announcements</a>
+    {% if is_admin %}
+        <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-primary text-center m-6">Manage Announcements</a>
+    {% endif %}
+    <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary text-center m-6">Event Calendar</a>
 </div>
-{% endif %}
 <div class="flex flex-col lg:flex-row justify-center gap-0">
     <!-- What's New Section -->
     <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
         <h1 class="text-center my-10 text-2xl md:text-4xl lg:text-5xl">What's New?</h1>
-        <div class="m-5 md:m-10 p-5 md:p-10 overflow-y-auto scrollbar-hide">
+
+        <!-- Scrollable container -->
+        <div class="m-5 md:m-10 p-5 md:p-10 overflow-y-auto scrollbar-hide"
+            style="max-height: calc(4.5 * 7rem + 1rem);">
             {% for event in upcoming_events %}
                 {% if event.page_link %}
                     <a href="{{ event.page_link }}"
@@ -71,9 +74,10 @@
                 <p class="text-center text-gray-500">No events to display</p>
             {% endfor %}
         </div>
+
         {% if admin %}
             <a href="{% url 'newsletter_admin_dashboard' %}"
-                class="btn btn-primary px-3 py-1 rounded-full my-2">
+            class="btn btn-primary px-3 py-1 rounded-full my-2">
                 Go to Coordinator Dashboard
             </a>
         {% endif %}
