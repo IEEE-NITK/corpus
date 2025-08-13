@@ -7,7 +7,7 @@
 
 {% block content %}
 <h1 class="text-center my-10 text-2xl md:text-4xl">Manage Announcements</h1>
-<div class="flex justify-center">    
+<div class="flex justify-center">
     <a href="{% url 'newsletter_new_announcement' %}" class="btn btn-primary">Make a new announcement</a>
 </div>
 <div class="flex justify-center flex-col mb-6">
@@ -19,9 +19,9 @@
               <tr>
                 <th scope="col" class="text-2xl px-6 py-4">#</th>
                 <th scope="col" class="text-2xl px-6 py-4">Title</th>
+                <th scope="col" class="text-2xl px-6 py-4">Sigs</th>
                 <th scope="col" class="text-2xl px-6 py-4">Start Date</th>
                 <th scope="col" class="text-2xl px-6 py-4">End Date</th>
-                <th scope="col" class="text-2xl px-6 py-4">Timing</th>
                 <th scope="col" class="text-2xl px-6 py-4">Archived?</th>
                 <th scope="col" class="text-2xl px-6 py-4">Link</th>
                 <th scope="col" class="text-2xl px-6 py-4">Actions</th>
@@ -31,17 +31,27 @@
               {% for announcement in announcements %}
               <tr class="border-b border-neutral-200 dark:border-white/10">
                 <td class="whitespace-nowrap px-6 py-4 font-medium">{{ forloop.counter }}</td>
-                <td class="whitespace-nowrap px-6 py-4">{{ announcement.title }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.name }}</td>
+                <td class="whitespace-nowrap px-6 py-4">
+                  {% for sig in announcement.sigs.all %}
+                      {{ sig.name }}{% if not forloop.last %}, {% endif %}
+                  {% empty %}
+                      -
+                  {% endfor %}
+              </td>
                 <td class="whitespace-nowrap px-6 py-4">{{ announcement.start_date }}</td>
                 <td class="whitespace-nowrap px-6 py-4">{{ announcement.end_date }}</td>
-                <td class="whitespace-nowrap px-6 py-4">{{ announcement.timing }}</td>
-                <td class="whitespace-nowrap px-6 py-4">{{ announcement.archived }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.archive_event }}</td>
                 <td class="whitespace-nowrap px-6 py-4">
-                  <a href="{{ announcement.link }}" class="btn btn-accent" target="_blank">Go to Link</a>
+                    {% if announcement.page_link %}
+                        <a href="{{ announcement.page_link }}" class="btn btn-accent" target="_blank">Go to Link</a>
+                    {% else %}
+                        -
+                    {% endif %}
                 </td>
                 <td class="whitespace-nowrap flex gap-3 px-6 py-4">
                   <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
-                  {% if announcement.archived %}
+                  {% if announcement.archive_event %}
                   <form action="{% url 'newsletter_edit_announcement' announcement.id %}?archive=false"  method="post">
                       {% csrf_token %}
                       <button type="submit" class="btn btn-warning">Unarchive</button>
@@ -69,11 +79,10 @@
       </div>
     </div>
   </div>
-  
+
 
 {% endblock %}
 
 {% block dark_mode_toggle %}
     {% include "components/dark_mode_toggle.html" %}
 {% endblock %}
-
