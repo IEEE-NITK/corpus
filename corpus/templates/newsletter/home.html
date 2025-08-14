@@ -123,6 +123,31 @@
 
 {% block script %}
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const whatsNewContainer = document.querySelector(".scrollbar-hide");
+        let scrollSpeed = 1;
+        let scrollDelay = 30;
+
+        whatsNewContainer.innerHTML += whatsNewContainer.innerHTML;
+
+        let scrollInterval = setInterval(autoScroll, scrollDelay);
+
+        function autoScroll() {
+            if (whatsNewContainer.scrollTop >= whatsNewContainer.scrollHeight / 2) {
+                whatsNewContainer.scrollTop = 0;
+            } else {
+                whatsNewContainer.scrollTop += scrollSpeed;
+            }
+        }
+
+        whatsNewContainer.addEventListener("mouseenter", () => clearInterval(scrollInterval));
+        whatsNewContainer.addEventListener("mouseleave", () => {
+            scrollInterval = setInterval(autoScroll, scrollDelay);
+        });
+    });
+</script>
+
+<script>
     const carousel = document.getElementById("carousel");
     const slides = carousel.getElementsByClassName("carousel-item");
     const prevButton = document.getElementById("prevButton");
