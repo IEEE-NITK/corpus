@@ -1,7 +1,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 {% endblock %}
 
 <div class="drawer relative z-10">
@@ -11,63 +11,94 @@
     <div class="navbar w-full bg-primary text-primary-content flex justify-between">
 
       {# SECTION: LEFT SIDE NAVBAR MOBILE #}
-        <div class="flex-none lg:hidden">
-          <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"/>
-            </svg>
-          </label>
-        </div>
+      <div class="flex-none lg:hidden">
+        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+          </svg>
+        </label>
+      </div>
       {# !SECTION #}
 
       {# SECTION: CENTER NAVBAR MOBILE / LEFT SIDE NAVBAR DESKTOP #}
-        <div class="mx-2 px-2">
-          <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">
-            <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="dark-logo logo">
-            <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="light-logo logo">
+      <div class="mx-2 px-2">
+        <a href="{% url 'index' %}" class="btn btn-ghost normal-case text-xl">
+          <img src="{% static 'img/ieee-nitk.png' %}" alt="IEEE NITK Logo" class="dark-logo logo">
+          <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo" class="light-logo logo">
         </a>
-        </div>
+      </div>
       {# !SECTION #}
 
       {# SECTION: CENTER NAVBAR #}
-        <div class="hidden flex-none lg:block">
-          <ul class="menu menu-horizontal text-lg font-bold">
-            {% include "components/navbar_list.html" %}
-          </ul>
-        </div>
+      <div class="hidden flex-none lg:block">
+        <ul class="menu menu-horizontal text-lg font-bold">
+          {% include "components/navbar_list.html" %}
+        </ul>
+      </div>
       {# !SECTION #}
 
       {# SECTION: RIGHT SIDE NAVBAR #}
-        <div class="flex-none lg:block">
-          {#{% if user.is_authenticated %}#}
-          <!-- <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
+      <div class="flex-none lg:block">
+        {#{% if user.is_authenticated %}#}
+        <!-- <div class="w-max dropdown-content menu menu-sm mt-3 z-[1] p-2 shadow bg-base-100 rounded-box flex flex-row bg-primary text-primary-content mx-2 my-2 px-5 py-5">
               {#        {% include "components/internal_dropdown.html" %}#}
           </div>    -->
-          {# {% endif %}#}
-          {% include "components/navbar_right.html" %}
-        </div>
+        {# {% endif %}#}
+        {% include "components/navbar_right.html" %}
+      </div>
       {# !SECTION #}
     </div>
   </div>
 
   {# SECTION: DRAWER FOR MOBILE #}
-    <div class="drawer-side">
-      <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay">
-      </label>
-      <ul class="menu bg-primary text-primary-content min-h-full w-80 p-4 font-bold text-lg">
+  <div class="drawer-side">
+    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay">
+    </label>
+    <ul class="menu bg-primary text-primary-content min-h-full w-80 p-4 font-bold text-lg">
 
-        {# SECTION: CLOSE BUTTON #}
-          <div class="flex justify-end">
-            <label for="my-drawer-3" aria-label="close sidebar" class="btn btn-ghost">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </label>
-          </div>
-        {# !SECTION #}
+      {# SECTION: CLOSE BUTTON #}
+      <div class="flex justify-end">
+        <label for="my-drawer-3" aria-label="close sidebar" class="btn btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            class="inline-block h-6 w-6 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </label>
+      </div>
+      {# !SECTION #}
 
-        {% include "components/navbar_list.html" %}
-      </ul>
-    </div>
+      {% include "components/navbar_list.html" %}
+    </ul>
+  </div>
   {# !SECTION #}
 </div>
+
+{% block script %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const htmlEl = document.documentElement;
+    const darkLogo = document.querySelector(".dark-logo");
+    const lightLogo = document.querySelector(".light-logo");
+
+    function updateLogo() {
+      const theme = htmlEl.getAttribute("data-theme");
+      if (theme === "codeRed") {
+        darkLogo.style.display = "none";
+        lightLogo.style.display = "inline";
+      } else if (theme === "night") {
+        darkLogo.style.display = "inline";
+        lightLogo.style.display = "none";
+      } else {
+        darkLogo.style.display = "none";
+        lightLogo.style.display = "inline";
+      }
+    }
+
+    updateLogo();
+
+    const observer = new MutationObserver(updateLogo);
+    observer.observe(htmlEl, { attributes: true, attributeFilter: ["data-theme"] });
+  });
+</script>
+
+{% endblock %}
