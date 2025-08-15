@@ -58,7 +58,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDERS)
     email = models.EmailField(unique=True, verbose_name="Personal Email")
     profile_pic = models.ImageField(
-        upload_to="profile/pics",
+        upload_to="accounts/profile/pics",
         validators=[validate_image],
         blank=True,
         null=True,
