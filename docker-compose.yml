@@ -54,6 +54,7 @@ services:
   redis:
     image: redis:7.0-alpine
     restart: always
+    mem_limit: 256m   
     ports:
       - "6380:6379"
     healthcheck:
@@ -69,6 +70,7 @@ services:
       context: corpus
       dockerfile: dev-Dockerfile
     command: celery -A corpus worker --loglevel=info
+    mem_limit: 256m   
     volumes:
       - ./corpus:/corpus
     depends_on:
