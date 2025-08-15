@@ -47,7 +47,7 @@ class Post(models.Model):
         if self.approved and self.approved_at:
             self.published_date = self.approved_at
 
-        if self.approved and not approver:
+        if self.approved and not self.approver:
             self.approver = approver
 
         self.save()
