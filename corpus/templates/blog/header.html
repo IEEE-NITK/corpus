@@ -8,10 +8,10 @@
         {%else%}
             IEEE Blogs
         {%endif%}
-    </h1> 
+    </h1>
 
     <div class="absolute text-white p-5 mt-64 blog_tags">
-        
+
         <div class="my-7 rounded-lg flex justify-center gap-2">
             {% for tag in tags %}
                 {% if tag == required_tag%}
@@ -20,7 +20,7 @@
                         {{tag.tag_name}}
                     </a>
                 </button>
-              
+
                 {%else%}
 
                 <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-[#a2d2ff] dark:bg-[#023e8a] hover:shadow-lg  outline outline-2 outline-transparent hover:outline-white">
@@ -29,8 +29,13 @@
                     </a>
                 </button>
 
-                {% endif %} 
+                {% endif %}
             {% endfor %}
+            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-md font-extrabold rounded-lg group bg-primary hover:shadow-lg outline outline-2 outline-white hover:scale-[1.02] transition-transform duration-150">
+                <a href="{% url 'blog_dashboard' %}" class="relative px-2.5 py-2 sm:px-3.5 sm:py-3 lg:px-4 lg:py-3 rounded-md group-hover:bg-opacity-0 text-black dark:text-white">
+                    Go to Members Dashboard
+                </a>
+            </button>
         </div>
-    </div> 
+    </div>
 </div>
