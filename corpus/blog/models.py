@@ -40,12 +40,16 @@ class Post(models.Model):
     ready_for_approval = models.BooleanField(default=False)
     approved_at = models.DateTimeField(blank=True, null=True)
 
-    def publish(self):
+    def publish(self, approver=None):
         if self.approved and not self.approved_at:
             self.approved_at = timezone.now()
 
         if self.approved and self.approved_at:
             self.published_date = self.approved_at
+
+        if self.approved and not approver:
+            self.approver = approver
+
         self.save()
 
     def __str__(self):

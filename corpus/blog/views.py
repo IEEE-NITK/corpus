@@ -11,13 +11,13 @@ from .models import Tag
 def post_list(request, specific_tag=None):
     if specific_tag:
         posts = Post.objects.filter(
-            blog_tag=specific_tag, published_date__lte=timezone.now()
+            blog_tag=specific_tag, published_date__lte=timezone.now(), approved=True
         ).order_by("-published_date")
         required_tag = Tag.objects.get(id=specific_tag)
     else:
-        posts = Post.objects.filter(published_date__lte=timezone.now()).order_by(
-            "-published_date"
-        )
+        posts = Post.objects.filter(
+            published_date__lte=timezone.now(), approved=True
+        ).order_by("-published_date")
         required_tag = None
     paginator = Paginator(posts, 9)
     page_number = request.GET.get("page")
@@ -37,7 +37,8 @@ def post_list(request, specific_tag=None):
 
 def full_post(request, slug):
     individual_post = get_object_or_404(
-        Post.objects.filter(published_date__lte=timezone.now()), slug=slug
+        Post.objects.filter(published_date__lte=timezone.now(), approved=True),
+        slug=slug,
     )
     return render(request, "blog/full_post.html", {"individual_post": individual_post})
 
@@ -46,7 +47,7 @@ def full_post(request, slug):
 def tagged_blog(request, specific_tag):
     required_tag = get_object_or_404(Tag, id=specific_tag)
     specific_tag_blogs = Post.objects.filter(
-        blog_tag=specific_tag, published_date__lte=timezone.now()
+        blog_tag=specific_tag, published_date__lte=timezone.now(), approved=True
     ).order_by("-published_date")
     paginator = Paginator(specific_tag_blogs, 9)
     page_number = request.GET.get("page")

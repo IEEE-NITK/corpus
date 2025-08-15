@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
-from django.utils import timezone
 
 from corpus.decorators import ensure_group_membership
 
@@ -45,9 +44,12 @@ def manage(request, blog_id):
 
             blog = form.save(commit=False)
 
-            if blog.approved and not blog.approved_at:
-                blog.approved_at = timezone.now()
-            blog.publish()
+            try:
+                approver_member = ExecutiveMember.objects.get(user=request.user)
+            except ExecutiveMember.DoesNotExist:
+                approver_member = None
+
+            blog.publish(approver=approver_member)
 
             messages.success(request, "Blog Updated Successfully!")
             return redirect("blog_admin_dashboard")
