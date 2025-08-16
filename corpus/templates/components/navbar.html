@@ -71,34 +71,3 @@
     </div>
   {# !SECTION #}
 </div>
-
-
-{% block script %}
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const htmlEl = document.documentElement;
-    const darkLogo = document.querySelector(".dark-logo");
-    const lightLogo = document.querySelector(".light-logo");
-
-    function updateLogo() {
-      const theme = htmlEl.getAttribute("data-theme");
-      if (theme === "codeRed") {
-        darkLogo.style.display = "none";
-        lightLogo.style.display = "inline";
-      } else if (theme === "night") {
-        darkLogo.style.display = "inline";
-        lightLogo.style.display = "none";
-      } else {
-        darkLogo.style.display = "none";
-        lightLogo.style.display = "inline";
-      }
-    }
-
-    updateLogo();
-
-    const observer = new MutationObserver(updateLogo);
-    observer.observe(htmlEl, { attributes: true, attributeFilter: ["data-theme"] });
-  });
-</script>
-
-{% endblock %}

@@ -1,155 +1,20 @@
 {% extends 'codeRed/base.html' %}
 {% load static %}
 
-{% block head %}
-<link rel="stylesheet" href="{% static 'css/codered.css' %}">
-{% endblock %}
+
 
 {% block title %} CodeRed
-{%endblock %}
+{% endblock %}
 
 <!-- Change for CodeRed -->
 
 {% block style %}
-<style>
-  .hero {
-    background-color: rgba(0, 0, 0, 0.5);
-    background-image: url("{% static 'img/codeRed/Theme.png' %}");
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-  }
-
-  #nonHero {
-    background-image: url("{% static 'img/codeRed/SecondTheme.png' %}");
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-  }
-
-  #nonHero2 {
-    background-image: url("{% static 'img/codeRed/ThirdTheme.png' %}");
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-  }
-
-  /*.domain{
-    border: white 1px solid
-  }*/
-
-  /* Small screens (default full width) */
-  @media (min-width: 640px) {
-    #schedule {
-      max-width: 70%;
-    }
-  }
-
-  /* Medium screens */
-  @media (min-width: 768px) {
-    #schedule {
-      max-width: 80%;
-    }
-  }
-
-  /* Large screens */
-  @media (min-width: 1024px) {
-    #schedule {
-      max-width: 50%;
-    }
-  }
-
-  /* Extra-large screens */
-  @media (min-width: 1280px) {
-    #schedule {
-      max-width: 50%;
-    }
-  }
-
-  /*.red_btn{
-    background-color: #DC1011;
-  }
-
-  .blue_btn{
-    background-color: #0B2B64;
-  }*/
-
-  .tick {
-    background-color: currentColor;
-    -webkit-mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-    mask: url("{% static 'img/symbols/tick.svg' %}") no-repeat center;
-  }
-
-  .arrowdown {
-    background-color: currentColor;
-    -webkit-mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-    mask: url("{% static 'img/symbols/arrow_down.svg' %}") no-repeat center;
-  }
-
-  .contentBox1 {
-    background-color: #071a3c8a;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-
-  .contentBox2 {
-    background-color: #8308084c;
-    margin-top: 0.7rem;
-    margin-bottom: 0.7rem;
-  }
-
-  .typewriter {
-    overflow: hidden;
-    /* Ensures the content is not revealed until the animation */
-    /*border-right: .15em solid white; The typwriter cursor*/
-    white-space: nowrap;
-    /* Keeps the content on a single line */
-    margin: 0 auto;
-    /* Gives that scrolling effect as the typing happens */
-    /*letter-spacing: .15em; Adjust as needed*/
-    animation:
-      typing 3.5s steps(40, end),
-      blink-caret .75s step-end infinite;
-  }
-
-  /* The typing effect */
-  @keyframes typing {
-    from {
-      width: 0
-    }
-
-    to {
-      width: 100%
-    }
-  }
-
-  /*The typewriter cursor effect */
-  @keyframes blink-caret {
-
-    from,
-    to {
-      border-color: transparent
-    }
-
-    50% {
-      border-color: white;
-    }
-  }
-
-  .themeFont {
-    font-family: "Press Start 2P", system-ui;
-  }
-</style>
-
+<link rel="stylesheet" href="{% static 'css/codeRed.css' %}">
 {% endblock %} {% block content %} {% comment %} Hero Section {% endcomment %}
 <section class="hero min-h-[50vh] min-w-full">
   <div class="relative z-0 hero-content text-center flex-col pb-20">
-    <!-- TODO : Get the image for hero -->
     <br />
     <img src="{% static 'img/codeRed/CodeRedName.png' %}" alt="CodeRed Logo"  class="max-w-full h-auto" />
-    <!--{% if admin %}
-                <a href="{% url 'impulse_admin' %}" class="btn btn-primary mt-10">Admin</a>
-            {% endif %}-->
     <p class="text-xl md:text-2xl lg:text-3xl mt-10 text-white dark:text-white typewriter themeFont">
       24-Hour Hackathon
     </p>
@@ -158,7 +23,6 @@
       30<sup>th</sup> - 31<sup>st</sup> August 2025
     </p>
 
-    <!-- TODO: Provide link for the page -->
     <a href="https://ieee.nitk.ac.in/" class="btn btn-primary btn-lg mt-10 text-3xl ">Register!</a>
 
     <br />
@@ -179,7 +43,6 @@
             <u> WHAT IS CODE RED? </u>
           </h1>
           <p class="text-lg md:text-xl lg:text-2xl">
-            <!-- TODO : Change the lines -->
             <strong>Code Red</strong> is IEEE NITK Computer Society's annual flagship Capture The Flag (CTF) event
             covering multiple domains of
             Algorithms, Systems, Machine Learning, Development and much more!
@@ -204,7 +67,8 @@
   </section>
 
   <br />
-
+  
+  {% comment %} Domains Section {% endcomment %}
 <div class="flex flex-col items-center justify-center contentBox1 py-3"> 
   <h1><u>DOMAINS:</u></h1>
    <div id="schedule" class="flex not-prose flex-row flex-wrap justify-center items-center py-5"> 
@@ -246,7 +110,6 @@
 
 
 
-  {% comment %} Domains Section {% endcomment %}
 </section>
 
 <section id="nonHero2" class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
@@ -327,7 +190,6 @@
   <br>
 
   {% comment %} Organizers Section {% endcomment %}
-  <!-- TODO : Organizing images -->
   <section class="text-center contentBox2 prose px-10 lg:px-40 py-10 min-w-full">
     <div class="container mx-auto">
       <div class="section-header">
@@ -404,8 +266,23 @@
     </div>
   </section>
 </section>
-{% endblock %}
 
-<!--{% block script %}
-{{ block.super }}
-{% endblock %}-->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const htmlEl = document.documentElement;
+    const darkLogo = document.querySelector(".dark-logo");
+    const lightLogo = document.querySelector(".light-logo");
+
+    function updateLogo() {
+      const theme = htmlEl.getAttribute("data-theme");
+        darkLogo.style.display = "none";
+        lightLogo.style.display = "inline";
+    }
+    
+    updateLogo();
+    
+    const observer = new MutationObserver(updateLogo);
+    observer.observe(htmlEl, { attributes: true, attributeFilter: ["data-theme"] });
+  });
+</script>
+{% endblock %}
