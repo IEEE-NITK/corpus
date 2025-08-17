@@ -1,0 +1,290 @@
+{% extends 'codeRed/base.html' %}
+{% load static %}
+
+
+
+{% block title %} CodeRed
+{% endblock %}
+
+<!-- Change for CodeRed -->
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/codeRed.css' %}">
+{% endblock %} {% block content %} {% comment %} Hero Section {% endcomment %}
+<section class="hero min-h-[50vh] min-w-full">
+  <div class="relative z-0 hero-content text-center flex-col pb-20">
+    <br />
+    <img src="{% static 'img/codeRed/CodeRedName.png' %}" alt="CodeRed Logo"  class="max-w-full h-auto" />
+    <p class="text-xl md:text-2xl lg:text-3xl mt-10 text-white dark:text-white typewriter themeFont">
+      24-Hour Hackathon
+    </p>
+
+    <p class="text-xl md:text-2xl lg:text-3xl mt-10 text-white dark:text-white typewriter themeFont">
+      30<sup>th</sup> - 31<sup>st</sup> August 2025
+    </p>
+
+    <a href="https://ieee.nitk.ac.in/" class="btn btn-primary btn-lg mt-10 text-3xl ">Register!</a>
+
+    <br />
+    <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
+      <div class="arrowdown h-10 w-10 m-0 p-0"></div>
+    </button>
+  </div>
+</section>
+
+<section id="nonHero" class="about bg-base-300 text-center prose px-10 lg:px-40 py-10 min-w-full">
+  {% comment %} About Section {% endcomment %}
+
+  <section id="about" class="about text-center prose px-10 lg:px-40 py-10 min-w-full contentBox1">
+    <div class="about-content text-center flex-col">
+      <div class="about-container">
+        <div class="content">
+          <h1>
+            <u> WHAT IS CODE RED? </u>
+          </h1>
+          <p class="text-lg md:text-xl lg:text-2xl">
+            <strong>Code Red</strong> is IEEE NITK Computer Society's annual flagship Capture The Flag (CTF) event
+            covering multiple domains of
+            Algorithms, Systems, Machine Learning, Development and much more!
+            <br />
+            Introducing Code Red - Season 2 with more challenges and prizes on the line, you'd need a touch of daring to
+            thrive
+            this season.
+            <br />
+            The clock is already ticking.
+            <br />
+            <br>
+            <strong>
+              <span class="themeFont">
+                Your mission, should you choose to accept it.
+              </span>
+            </strong>
+            <br />
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br />
+  
+  {% comment %} Domains Section {% endcomment %}
+<div class="flex flex-col items-center justify-center contentBox1 py-3"> 
+  <h1><u>DOMAINS:</u></h1>
+   <div id="schedule" class="flex not-prose flex-row flex-wrap justify-center items-stretch py-5 w-full"> 
+    <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1"> 
+      <img src="{% static 'img/codeRed/DSA.svg' %}" alt="DSA Logo" class="dark-logo logo domain mx-auto">
+       <h2> <strong> Algorithms </strong> </h2> 
+      </div> <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+         <img src="{% static 'img/codeRed/Lock.svg' %}" alt="Systems Logo" class="dark-logo logo domain mx-auto"> 
+         <h2> <strong> Systems </strong> </h2> </div> 
+         <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1"> 
+          <img src="{% static 'img/codeRed/ML.svg' %}" alt="ML Logo" class="dark-logo logo domain mx-auto">
+           <h2> <strong> ML/AI </strong> </h2>
+           </div> <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+
+             <img src="{% static 'img/codeRed/Dev.svg' %}" alt="Dev Logo" class="dark-logo logo domain mx-auto"> 
+             <h2> <strong> Development </strong> </h2> 
+            </div> 
+            </div> 
+          </div>
+  <br>
+
+  {% comment %} Prizes Section {% endcomment %}
+  <div class="flex flex-row items-center justify-center contentBox1 py-3">
+    <section id="schedule" class="px-5 py-5">
+      <h1><u>PRIZES</u></h1>
+      <div class="text-lg md:text-xl lg:text-2xl">At the end of your mission lies a vault containing prizes worth
+        <div class="text-5xl m-2">
+          <strong>&#8377;14K+</strong>
+        </div>
+        Only <strong> three elite teams </strong> will breach its defenses, and the spoils will be divided among them.
+      </div>
+      <br>
+      <div class="text-lg md:text-xl lg:text-2xl">All agents undertaking the mission will also be given
+        <strong>
+          Participation Certificate
+        </strong>
+      </div>
+    </section>
+  </div>
+  <br>
+
+
+
+</section>
+
+<section id="nonHero2" class="about bg-base-100 text-center prose px-10 lg:px-40 py-10 min-w-full">
+
+
+  {% comment %} Schedule Section {% endcomment %}
+  <div class="flex flex-row items-center justify-center contentBox2 py-3">
+    <section id="schedule" class="px-5 py-5">
+      <h1>
+        <u> TIMELINE </u>
+      </h1>
+      <ul class="timeline timeline-vertical">
+        <li class="m-0">
+          <div class="timeline-start md:text-end mb-10 mr-2 text-lg md:text-xl lg:text-2xl">
+            <div class="font-black text-lg md:text-xl lg:text-2xl">August 29<sup>th</sup>, 6PM</div>
+            <strong>Registration closes for Code Red</strong>.
+          </div>
+          <div class="timeline-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <hr style="background-color: white" />
+        </li>
+        <li class="m-0">
+          <hr style="background-color: white" />
+          <div class="timeline-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="timeline-end md:text-end mb-10 mr-2 text-lg md:text-xl lg:text-2xl">
+            <div class="font-black text-lg md:text-xl lg:text-2xl">
+              August 30<sup>th</sup>
+            </div>
+            <strong>
+              Code Red starts
+            </strong>
+          </div>
+          <hr class="bg-white" />
+        </li>
+        <li class="m-0">
+          <hr style="background-color: white" />
+          <div class="timeline-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="timeline-end md:text-end mb-10 mr-2 text-lg md:text-xl lg:text-2xl">
+            <div class="font-black text-lg md:text-xl lg:text-2xl">
+              August 31<sup>st</sup>
+            </div>
+            <strong>
+              Code Red ends
+            </strong>
+          </div>
+          <hr class="bg-white" />
+        </li>
+        <li class="m-0">
+          <hr class="bg-white" />
+          <div class="timeline-start md:text-end mb-10 mr-2 text-lg md:text-xl lg:text-2xl">
+            <div class="font-black text-lg md:text-xl lg:text-2xl">
+              September 7<sup>th</sup>
+            </div>
+            <strong>Result announcement</strong>
+          </div>
+          <div class="timeline-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16" clip-rule="evenodd" />
+            </svg>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </div>
+
+
+  <br>
+
+  {% comment %} Organizers Section {% endcomment %}
+  <section class="text-center contentBox2 prose px-10 lg:px-40 py-10 min-w-full">
+    <div class="container mx-auto">
+      <div class="section-header">
+        <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">
+          <u>ORGANIZED BY</u>
+        </h2>
+        <div class="mx-auto text-center">
+          <div class="flex flex-wrap justify-center gap-20 align-middle">
+            <div class="mx-2 sm:my-auto my-0">
+              <a href="https://ieee.nitk.ac.in/">
+                <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK Logo"
+                  class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+              </a>
+            </div>
+            <div class="mx-2 sm:my-auto my-0">
+              <a href="https://ieee.nitk.ac.in/sig/compsoc/">
+                <img src="{% static 'img/logo/compsoc-dark.png' %}" alt="SPS Logo"
+                  class="max-w-[256px] sm:max-w-1/2 md:max-w-[192px] lg:max-w-[256px] mx-auto" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br />
+
+  <section class="text-center contentBox2 prose px-10 lg:px-40 py-10 min-w-full">
+    <div class="container mx-auto">
+      <div class="section-header">
+        <h2 class="text-xl md:text-2xl lg:text-3xl font-extrabold">
+          <u>ABOUT US</u>
+        </h2>
+        <p class="text-lg md:text-xl lg:text-2xl">The CompSoc IEEE NITK Student Branch is a vibrant community of
+          students passionate about Computer Science. We aim to foster a culture of learning and exploration of
+          diverse technologies such as Algorithms, Systems, Machine Learning, Development, Web3, and many more.
+          Through peer discussions and a variety of events, including Knowledge Sharing Sessions, CTFs, and Hackathons,
+          we strive to inspire curiosity and collaboration among our members.
+        </p>
+      </div>
+    </div>
+  </section>
+  <br />
+
+  {% comment %} Contact Section {% endcomment %}
+  <section id="contact" class="contact contentBox2 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <div class="container mx-auto">
+      <div class="section-header">
+        <h3 class="title text-xl md:text-2xl lg:text-3xl font-extrabold">
+          <u>CONTACT US</u>
+        </h3>
+        <center>
+
+          <p class="section-description text-lg md:text-xl lg:text-2xl">
+            <strong>Akshat Chaturvedi</strong> :
+            <a href="mailto:akshat.221it005@nitk.edu.in">
+              akshat.221it005@nitk.edu.in</a><br />
+            <strong>Raajan Rajesh Wankhade</strong> :
+            <a href="mailto:221ai031@nitk.edu.in">
+              221ai031@nitk.edu.in</a>
+            <br />
+            <strong>Vishal Kamath</strong> :
+            <a href="mailto:vishalkamath.221cs261@nitk.edu.in">
+              vishalkamath.221cs261@nitk.edu.in</a>
+            <br />
+            <strong>Aakarsh Bansal</strong> :
+            <a href="mailto:aakarshtwelvebansal.221ai001@nitk.edu.in">
+              aakarshtwelvebansal.221ai001@nitk.edu.in</a>
+          </p>
+        </center>
+        <br />
+      </div>
+    </div>
+  </section>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const htmlEl = document.documentElement;
+    const darkLogo = document.querySelector(".dark-logo");
+    const lightLogo = document.querySelector(".light-logo");
+
+    function updateLogo() {
+      const theme = htmlEl.getAttribute("data-theme");
+        darkLogo.style.display = "none";
+        lightLogo.style.display = "inline";
+    }
+    
+    updateLogo();
+    
+    const observer = new MutationObserver(updateLogo);
+    observer.observe(htmlEl, { attributes: true, attributeFilter: ["data-theme"] });
+  });
+</script>
+{% endblock %}
