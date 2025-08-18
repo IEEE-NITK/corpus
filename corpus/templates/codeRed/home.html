@@ -10,26 +10,39 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/codeRed.css' %}">
-{% endblock %} {% block content %} {% comment %} Hero Section {% endcomment %}
-<section class="hero min-h-[50vh] min-w-full">
-  <div class="relative z-0 hero-content text-center flex-col pb-20">
-    <br />
-    <img src="{% static 'img/codeRed/CodeRedName.png' %}" alt="CodeRed Logo"  class="max-w-full h-auto" />
-    <p class="text-xl md:text-2xl lg:text-3xl mt-10 text-white dark:text-white typewriter themeFont">
-      24-Hour Hackathon
-    </p>
+{% endblock %} 
+{% block content %} 
+{% comment %} Hero Section {% endcomment %}
 
-    <p class="text-xl md:text-2xl lg:text-3xl mt-10 text-white dark:text-white typewriter themeFont">
-      30<sup>th</sup> - 31<sup>st</sup> August 2025
-    </p>
+<section class="hero min-h-[50vh] min-w-full">
+<div class="relative z-0 hero-content text-center flex-col pb-20">
+  <br />
+  <img 
+    src="{% static 'img/codeRed/CodeRedName.png' %}" 
+    alt="CodeRed Logo" 
+    class="w-[80%] max-w-[100px] mx-auto h-auto" 
+  />
+
+  <p class="text-base sm:text-lg md:text-2xl lg:text-3xl mt-6 text-white themeFont break-words">
+    24-Hour Hackathon
+  </p>
+
+<p class="text-lg sm:text-lg md:text-xl lg:text-2xl mt-10 text-white dark:text-white typewriter themeFont break-words whitespace-normal">
+  30<sup>th</sup>-31<sup>st</sup> August
+</p>
+<p class="text-lg sm:text-lg md:text-xl lg:text-2xl mt-10 text-white dark:text-white typewriter themeFont break-words whitespace-normal">
+  2025
+</p>
 
     <a href="https://unstop.com/p/codered-2025-mission-impossible-national-institute-of-technology-nit-surathkal-1543254" class="btn btn-primary btn-lg mt-10 text-3xl ">Register!</a>
 
-    <br />
+  <br />
+
     <button onclick="smoothScroll('#about')" class="color-white text-2xl mt-10 animate-bounce">
       <div class="arrowdown h-10 w-10 m-0 p-0"></div>
     </button>
-  </div>
+</div>
+
 </section>
 
 <section id="nonHero" class="about bg-base-300 text-center prose px-10 lg:px-40 py-10 min-w-full">
@@ -246,20 +259,20 @@
         </h3>
         <center>
 
-          <p class="section-description text-lg md:text-xl lg:text-2xl">
+          <p class="section-description text-lg md:text-xl lg:text-2xl break-words">
             <strong>Akshat Chaturvedi</strong> :
-            <a href="mailto:akshat.221it005@nitk.edu.in">
+            <a href="mailto:akshat.221it005@nitk.edu.in" class="break-all">
               akshat.221it005@nitk.edu.in</a><br />
-            <strong>Raajan Rajesh Wankhade</strong> :
-            <a href="mailto:221ai031@nitk.edu.in">
-              221ai031@nitk.edu.in</a>
+            <strong>Raajan Wankhade</strong> :
+            <a href="mailto:raajan.221ai031@nitk.edu.in" class="break-all">
+              raajan.221ai031@nitk.edu.in</a>
             <br />
             <strong>Vishal Kamath</strong> :
-            <a href="mailto:vishalkamath.221cs261@nitk.edu.in">
+            <a href="mailto:vishalkamath.221cs261@nitk.edu.in" class="break-all">
               vishalkamath.221cs261@nitk.edu.in</a>
             <br />
             <strong>Aakarsh Bansal</strong> :
-            <a href="mailto:aakarshtwelvebansal.221ai001@nitk.edu.in">
+            <a href="mailto:aakarshtwelvebansal.221ai001@nitk.edu.in" class="break-all">
               aakarshtwelvebansal.221ai001@nitk.edu.in</a>
           </p>
         </center>
@@ -268,6 +281,7 @@
     </div>
   </section>
 </section>
+<!--</div>-->
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
