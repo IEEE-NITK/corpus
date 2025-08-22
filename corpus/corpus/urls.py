@@ -50,6 +50,8 @@ urlpatterns = [
     path("athenaeum/", include("athenaeum.urls")),
     path("newsletter/", include("newsletter.urls")),
     path("smp/", include("smp.urls")),
+    path("codeRed/", include("codeRed.urls")),
+    path("projectchimera/", include("chimera.urls")),
 ]
 
 if settings.DEBUG:
