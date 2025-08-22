@@ -68,7 +68,8 @@ INSTALLED_APPS = [
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
     "smp.apps.SmpConfig",
-    "codeRed.apps.CoderedConfig"
+    "codeRed.apps.CoderedConfig",
+    "chimera.apps.ChimeraConfig",
 ]
 
 MIDDLEWARE = [
