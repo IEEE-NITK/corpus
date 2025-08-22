@@ -1,0 +1,109 @@
+  .hero {
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url("/static/img/codeRed/Theme.png");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
+  #nonHero {
+    background-image: url("/static/img/codeRed/SecondTheme.png");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
+  #nonHero2 {
+    background-image: url("/static/img/codeRed/ThirdTheme.png");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+  }
+
+  @media (min-width: 640px) {
+    #schedule {
+      max-width: 70%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #schedule {
+      max-width: 80%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    #schedule {
+      max-width: 50%;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    #schedule {
+      max-width: 50%;
+    }
+  }
+
+
+  .tick {
+    background-color: currentColor;
+    -webkit-mask: url("/static/img/symbols/tick.svg") no-repeat center;
+    mask: url("/static/img/symbols/tick.svg") no-repeat center;
+  }
+
+  .arrowdown {
+    background-color: currentColor;
+    -webkit-mask: url("/static/img/symbols/arrow_down.svg") no-repeat center;
+    mask: url("/static/img/symbols/arrow_down.svg") no-repeat center;
+  }
+
+  .contentBox1 {
+    background-color: #071a3c8a;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .contentBox2 {
+    background-color: #8308084c;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .typewriter {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    margin: 0 auto;
+
+    animation:
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0
+    }
+
+    to {
+      width: 100%
+    }
+  }
+
+
+  @keyframes blink-caret {
+
+    from,
+    to {
+      border-color: transparent
+    }
+
+    50% {
+      border-color: white;
+    }
+  }
+
+  .themeFont {
+    font-family: "Press Start 2P", system-ui;
+  }

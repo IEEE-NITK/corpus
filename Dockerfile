@@ -1,7 +1,7 @@
 # IMPORTANT: This Dockerfile will be used by livecycle to
 #            generate preview environments for pull requests.
 
-FROM python:3.11.1-slim-buster
+FROM python:3.11.1-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

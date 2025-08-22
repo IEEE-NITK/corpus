@@ -39,6 +39,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("embedathon/", include("embedathon.urls")),
     path("diodexcelerate/", include("diodexcelerate.urls")),
+    path("entwine/", include("entwine.urls")),
     path("impulse/", include("impulse.urls")),
     path("electrika/", include("electrika.urls")),
     path("skyward_expedition/", include("skyward_expedition.urls")),
@@ -48,6 +49,9 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("athenaeum/", include("athenaeum.urls")),
     path("newsletter/", include("newsletter.urls")),
+    path("smp/", include("smp.urls")),
+    path("codeRed/", include("codeRed.urls")),
+    path("projectchimera/", include("chimera.urls")),
 ]
 
 if settings.DEBUG:

@@ -3,7 +3,8 @@
     <li class="font-bold text-white">
         Welcome, {{ user.first_name }} {{ user.last_name }}!
     </li>
-    <li><a>Profile</a></li>
-    <li><a>Settings</a></li>
+    {% if user.executivemember %}
+        <li><a href="{% url 'accounts_profile' roll_no=user.executivemember.roll_number %}">Profile</a></li>
+    {% endif %}
     <li><a href="{% url 'accounts_signout' %}">Logout</a></li>
 </ul>
