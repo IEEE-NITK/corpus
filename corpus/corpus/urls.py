@@ -48,6 +48,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("athenaeum/", include("athenaeum.urls")),
     path("newsletter/", include("newsletter.urls")),
+    path("projectchimera/", include("chimera.urls")),
 ]
 
 if settings.DEBUG:

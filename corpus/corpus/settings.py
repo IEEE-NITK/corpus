@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
     "newsletter.apps.NewsletterConfig",
+    "chimera.apps.ChimeraConfig",
 ]
 
 MIDDLEWARE = [
