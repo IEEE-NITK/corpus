@@ -16,6 +16,11 @@ services:
       - corpus_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    shm_size: 1g
+    deploy:
+      resources:
+        limits:
+          memory: 2g
 
   adminer:
     image: adminer
@@ -49,6 +54,11 @@ services:
     environment:
       - ENVIRONMENT=DEVELOPMENT
       - EMAIL_PROTOCOL=console
+    shm_size: 512m
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 
   jstoolchain:
     build:
