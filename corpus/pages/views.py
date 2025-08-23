@@ -51,7 +51,7 @@ def team(request):
     active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
 
     reg_years = []
-    for key, value in active_batches.items():
+    for _k, value in active_batches.items():
         reg_years.append((value % 100) - 4) # Get the year indicated by their roll no / reg no
 
     # Query object to check whether the reg_number starts with any of the years in the present config

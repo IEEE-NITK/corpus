@@ -20,7 +20,7 @@
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Teams</h1>
     </div>
 </section>
-<div class="center mt-10 align-center">
+<div class="center align-center">
    <div role="tablist" class="tabs tabs-boxed tabs-lg">
       <!-- Tab links -->
       <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
@@ -30,10 +30,10 @@
       <a role="tab" id="SAC-tab" class="tab" onclick="openPage('SAC', this, 'SAC-tab')">SAC</a>
    </div>
    <!-- Tab content -->
-   <div id="IEEE" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+   <div id="IEEE" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">IEEE Faculty</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for fac in faculty %}
             {% if fac.post.is_execom %}
               {% include './faculty_box.html' with faculty=fac %}
@@ -42,16 +42,16 @@
       </div>
       <h2 class="section-heading">IEEE Core</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in ieee_core %}
             {% include './core_box.html' with core_member=member %}
          {% endfor %}
       </div>
    </div>
-   <div id="CompSoc" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+   <div id="CompSoc" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">CompSoc Faculty</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for fac in faculty %}
             {% if fac.sig.name == "CompSoc" and fac.post.is_execom == False and fac.post.is_sac == False %}
               {% include './faculty_box.html' with faculty=fac %}
@@ -60,23 +60,23 @@
       </div>
       <h2 class="section-heading">CompSoc Core</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in compsoc_core %}
             {% include './core_box.html' with core_member=member %}
          {% endfor %}
       </div>
       <h2 class="section-heading">CompSoc Members</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in compsoc_members %}
             {% include './member_box.html' with member=member %}
          {% endfor %}
       </div>
    </div>
-   <div id="Diode" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+   <div id="Diode" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">Diode Faculty</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for fac in faculty %}
             {% if fac.sig.name == "Diode" and fac.post.is_execom == False and fac.post.is_sac == False %}
               {% include './faculty_box.html' with faculty=fac %}
@@ -85,23 +85,23 @@
       </div>
       <h2 class="section-heading">Diode Core</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in diode_core %}
             {% include './core_box.html' with core_member=member %}
          {% endfor %}
       </div>
       <h2 class="section-heading">Diode Members</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in diode_members %}
             {% include './member_box.html' with member=member %}
          {% endfor %}
       </div>
    </div>
-   <div id="Piston" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+   <div id="Piston" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">Piston Faculty</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for fac in faculty %}
             {% if fac.sig.name == "Piston" and fac.post.is_execom == False and fac.post.is_sac == False %}
               {% include './faculty_box.html' with faculty=fac %}
@@ -110,14 +110,14 @@
       </div>
       <h2 class="section-heading">Piston Core</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in piston_core %}
             {% include './core_box.html' with core_member=member %}
          {% endfor %}
       </div>
       <h2 class="section-heading">Piston Members</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in piston_members %}
             {% include './member_box.html' with member=member %}
          {% endfor %}
@@ -126,7 +126,7 @@
    <div id="SAC" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
       <h2 class="section-heading">SAC Faculty</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for fac in faculty %}
             {% if fac.post.is_sac %}
               {% include './faculty_box.html' with faculty=fac %}
@@ -135,7 +135,7 @@
       </div>
       <h2 class="section-heading">SAC Core</h2>
       <br>
-      <div class="flex-container">
+      <div class="flex flex-wrap justify-center gap-1">
          {% for member in sac_core %}
             {% include './core_box.html' with core_member=member %}
          {% endfor %}
