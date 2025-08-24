@@ -203,7 +203,7 @@ class Faculty(models.Model):
     society = models.ForeignKey(
         Society, blank=True, null=True, on_delete=models.CASCADE
     )
-    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=True, blank=True, on_delete=models.CASCADE)
     website = models.URLField(max_length=200, null=True, blank=True)
     linkedin = models.URLField(
         blank=True, null=True, verbose_name="Linkedin Profile URL"
