@@ -73,7 +73,6 @@ def report(request, report_id, *, can_view_current_envision):
             return redirect("index")
 
     report_members = ReportMember.objects.filter(report=report)
-
     args = {"report": report, "members": report_members}
 
     return render(request, "virtual_expo/report.html", args)
