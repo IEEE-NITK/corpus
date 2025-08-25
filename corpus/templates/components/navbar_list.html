@@ -165,3 +165,17 @@
         Virtual Expo
     </a>
 </li>
+
+<script>
+    document.querySelectorAll("details").forEach((targetDetail) => {
+        targetDetail.addEventListener("toggle", () => {
+            if (targetDetail.open) {
+                document.querySelectorAll("details").forEach((detail) => {
+                    if (detail !== targetDetail) {
+                        detail.removeAttribute("open");
+                    }
+                });
+            }
+        });
+    });
+</script>
