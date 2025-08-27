@@ -69,6 +69,8 @@ INSTALLED_APPS = [
     "blog",
     "smp.apps.SmpConfig",
     "celery",
+    "codeRed.apps.CoderedConfig",
+    "chimera.apps.ChimeraConfig",
 ]
 
 MIDDLEWARE = [

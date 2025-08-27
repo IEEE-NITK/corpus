@@ -1,0 +1,112 @@
+{% extends 'chimera/base.html' %}
+
+{% load static %}
+
+{% block title %} Project Chimera {% endblock %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/chimera.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero Section -->
+  <header class="hero min-h-screen flex flex-col justify-center items-center text-center p-4 relative z-0">
+    <h1 class="text-5xl sm:text-6xl md:text-8xl font-special tracking-[0.3em] glitch mb-4">
+      PROJECT <br> CHIMERA
+    </h1>
+    <h2 class="text-xl sm:text-2xl font-bold text-amber-400 mb-8 animate-pulse">
+      THE TRUTH HUMS BENEATH THE STATIC
+    </h2>
+    <a href="#case-briefing"
+    class="animate-bounce text-cyan-400 hover:text-cyan-300 transition duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="w-12 h-12 mx-auto">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 9l-7 7-7-7" />
+        </svg>
+      </a>
+  </header>
+  <!-- Main content container -->
+  <div class="min-h-screen flex items-center justify-center p-4 bg-[#0d0d0b]">
+    <div class="relative max-w-4xl w-full bg-black/40 backdrop-blur-md cyber-border rounded-lg shadow-xl overflow-hidden">
+
+      <header class="p-6 border-b border-cyan-400/30 bg-black/40 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-special tracking-[0.3em] glitch">[CLASSIFIED]</h1>
+        <p class="text-cyan-400 mt-2 text-sm sm:text-lg">Case File #CH-77: Project Chimera</p>
+      </header>
+
+      <main class="p-6 md:p-8 space-y-10">
+
+        <!-- Case Briefing -->
+        <section id="case-briefing">
+          <h2 class="text-cyan-400 text-xl sm:text-2xl font-bold mb-4 flex items-center">
+            > CASE BRIEFING
+          </h2>
+          <div id="typing-briefing"
+            class="typing text-base sm:text-lg leading-relaxed bg-black/60 p-5 rounded-md cyber-border"></div>
+        </section>
+
+        <!-- Mission -->
+        <section>
+          <h2 class="text-xl sm:text-2xl font-bold text-cyan-400 mb-4">> YOUR MISSION</h2>
+          <div class="space-y-4 text-base sm:text-lg leading-relaxed">
+            <p>As private investigators, you are our last resort. Navigate a web of lies connecting a
+              <strong class="text-white">betrayed protégé</strong>, a <strong class="text-white">corrupt pragmatist</strong>,
+              a <strong class="text-white">bankrupt investor</strong>, and a <strong class="text-white">ghost in the machine</strong>.
+            </p>
+            <p>Follow the digital breadcrumbs, solve cryptic electronic puzzles, and expose the truth behind the project's
+              horrifying side effect: <strong class="text-amber-400 text-xl glitch">"The Echo."</strong></p>
+          </div>
+        </section>
+
+        <!-- Intel -->
+        <section>
+          <h2 class="text-xl sm:text-2xl font-bold text-cyan-400 mb-4">> EVENT INTEL</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-base sm:text-lg bg-black/60 p-5 rounded-md cyber-border">
+            <div><p class="font-bold text-white">DATE</p><p>22nd Aug, 2025</p></div>
+            <div><p class="font-bold text-white">TIME</p><p>6:00 PM IST</p></div>
+            <div><p class="font-bold text-white">VENUE</p><p>Pavillion</p></div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="text-center">
+          <p class="text-lg sm:text-xl text-white mb-4">Top investigators will be rewarded with <strong class="text-amber-400">electronic goodies</strong> and other exciting prizes.</p>
+          <p class="text-lg sm:text-xl text-amber-400 mb-6 animate-pulse">The investigation is live. The stakes are global. Can you solve the case before you become the next target?</p>
+
+          <a href="https://project-chimera-app.web.app/"
+            class="btn-cyber inline-block font-bold text-lg sm:text-xl px-10 py-4 rounded-md uppercase tracking-wider hover:bg-cyan-300 hover:shadow-lg hover:shadow-cyan-500/50 transform transition duration-300 hover:scale-105">
+            Begin Investigation
+          </a>
+
+          <p class="text-xs text-gray-500 mt-4">NOTICE: Clicking will redirect you to the secure event portal.</p>
+        </section>
+      </main>
+
+      <footer class="p-4 bg-black/40 border-t border-cyan-400/30 text-center">
+        <p class="text-sm text-gray-400">Sponsored by your local IEEE Student Branch</p>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const briefingText = `SUBJECT: Dr. Aris Thorne, creator of a revolutionary clean energy device, is dead. The university calls it an accident. A frantic message from an inside source calls it murder.
+
+STATUS: The prototype is gone, and a terrifying secret is buried with it. They say Project Chimera was about power. They have no idea.`;
+
+    let i = 0;
+    function typeBriefing() {
+      if (i < briefingText.length) {
+        const char = briefingText.charAt(i);
+        document.getElementById("typing-briefing").innerHTML += (char === "\n") ? "<br/>" : char;
+        i++;
+        setTimeout(typeBriefing, 40);
+      }
+    }
+    window.onload = typeBriefing;
+  </script>
+  {% endblock %}

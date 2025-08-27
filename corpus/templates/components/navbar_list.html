@@ -79,6 +79,11 @@
                 </a>
             </li>
             <li>
+                <a href="{% url 'projectchimera_home' %}">
+                    Project Chimera
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'athenaeum_home' %}">
                     Athenaeum
                 </a>
@@ -103,30 +108,10 @@
                     Robotrix
                 </a>
             </li>
-        </ul>
-    </details>
-</li>
-
-<li>
-    <details>
-        <summary>
-            Membership Drive
-        </summary>
-        <ul class='bg-primary'>
             <li>
-                <a target="blank" href="https://docs.google.com/forms/d/e/1FAIpQLScAzhOiDL90wkp6X2tpSGMCryqkSoNs7pU8dIN9re520KoVng/viewform?usp=dialog">
-                    Registration Form
-                </a>
-            </li>
-            <li>
-                <a target="blank" href="https://chat.whatsapp.com/GWXK515WoWU5zD25owq11u">
-                    Whatsapp Group
-                </a>
-            </li>
-            <li>
-                <a target="blank" href="https://docs.google.com/presentation/d/1dQqRI5gafo0r-8OQZ2UANm69wFmesk0l/edit?usp=sharing&ouid=101688199798423722086&rtpof=true&sd=true">
-                    PPT
-                </a>
+                <a href="{% url 'codeRed_home' %}">
+                Code Red
+            </a>
             </li>
         </ul>
     </details>
@@ -155,3 +140,17 @@
         Virtual Expo
     </a>
 </li>
+
+<script>
+    document.querySelectorAll("details").forEach((targetDetail) => {
+        targetDetail.addEventListener("toggle", () => {
+            if (targetDetail.open) {
+                document.querySelectorAll("details").forEach((detail) => {
+                    if (detail !== targetDetail) {
+                        detail.removeAttribute("open");
+                    }
+                });
+            }
+        });
+    });
+</script>
