@@ -6,16 +6,34 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from corpus.decorators import module_enabled
 from django.db.models import Q
+from accounts.models import ExecutiveMember
+
+def get_active_members():
+    active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
+
+    reg_years = []
+    for _k, value in active_batches.items():
+        reg_years.append((value % 100) - 4) # Get the year indicated by their roll no / reg no
+
+    # Query object to check whether the reg_number starts with any of the years in the present config
+    query = Q()
+    for prefix in reg_years:
+        query |= Q(reg_number__startswith=prefix)
+    
+    # Executive Members
+    members = ExecutiveMember.objects.filter(query)
+    return members
 
 def index(request):
     # Get all societies to render on landing page Societies section
     societies = Society.objects.all()
-
+    members_count = get_active_members().count()
     return render(
         request,
         "pages/index.html",
         {
             "societies": societies,
+            "members_count": members_count,
         },
     )
 
@@ -48,19 +66,7 @@ def sig(request, sig_name):
 
 @module_enabled("teampage")
 def team(request):
-    active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
-
-    reg_years = []
-    for _k, value in active_batches.items():
-        reg_years.append((value % 100) - 4) # Get the year indicated by their roll no / reg no
-
-    # Query object to check whether the reg_number starts with any of the years in the present config
-    query = Q()
-    for prefix in reg_years:
-        query |= Q(reg_number__startswith=prefix)
-    
-    # Executive Members
-    members = ExecutiveMember.objects.filter(query)
+    members = get_active_members()
 
     # ExeCom Members
     ieee_core = members.filter(
