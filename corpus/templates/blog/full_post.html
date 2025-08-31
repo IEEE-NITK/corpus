@@ -23,7 +23,9 @@
             <div class="badge badge-secondary">{{ tag.tag_name }}</div>
         {% endfor %}
     </div>
-    <div id="author">-by {{individual_post.author}}</div>
+    <div id="author">
+    -by <a href="{% url 'accounts_profile' roll_no=individual_post.author.roll_number %}" class="hover:underline"> {{individual_post.author}} </a>
+</div> 
     <div id="dates">published on {{individual_post.published_date}}</div>
     </div>
     <div class="mx-10 p-5 border rounded-lg">
