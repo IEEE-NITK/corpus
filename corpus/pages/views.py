@@ -35,12 +35,18 @@ def sig(request, sig_name):
     # Retrieve the related society details using the SIG instance
     societies_linked_to_sig = sig_data.societies.all()
 
+    events_linked_to_sig = sig_data.events.all().order_by('order')
+    alumnilogos_linked_to_sig = sig_data.alumni_logos.all()
+
     args = {
         "sig": sig_data,
         "societies_linked_to_sig": societies_linked_to_sig,
+        "events": events_linked_to_sig,
+        "alumni_logos": alumnilogos_linked_to_sig,
     }
 
     return render(request, "pages/sig.html", args)
+
 
 
 def farewell(request):
