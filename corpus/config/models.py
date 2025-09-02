@@ -2,7 +2,6 @@ from django.db import models
 
 DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
 
-
 class SIG(models.Model):
     """
     SIG Model.
@@ -12,8 +11,10 @@ class SIG(models.Model):
     name = models.CharField(verbose_name="Name", max_length=10, unique=True)
     about = models.TextField(verbose_name="About Us", default="")
     what_we_do = models.TextField(verbose_name="What We Do", default="")
-    slug = models.SlugField(unique=True, null=True)  # Added SlugField for url access
-
+    member_stats = models.TextField(default="")
+    event_stats = models.TextField(default="")
+    slug = models.SlugField(unique=True, null=True) 
+    sig_image = models.ImageField(verbose_name="SIG Image", blank=True, null=True)
     def __str__(self):
         return str(self.name)
 
@@ -97,3 +98,41 @@ class ModuleConfiguration(models.Model):
 
     def __str__(self):
         return self.module_name
+
+class Event(models.Model):
+    """
+    Event Model.
+    Defines all events for each SIG.
+    """
+    
+    sigs = models.ManyToManyField('SIG', related_name='events')
+    title = models.CharField(verbose_name="Title", max_length=200)
+    description = models.TextField(verbose_name="Description")
+    image = models.ImageField(verbose_name="Event Image", blank=True, null=True)
+    order = models.PositiveIntegerField(verbose_name="Display Order", default=0)
+
+    def __str__(self):
+        return f"{self.title} ({self.sig.name})"
+
+    class Meta:
+        verbose_name = "Event"
+        verbose_name_plural = "Events"
+        ordering = ['order']
+
+
+class AlumniLogo(models.Model):
+    """
+    AlumniLogo Model.
+    Defines image logos of companies that our Alumni are at related to each SIG.
+    """
+    sigs = models.ManyToManyField('SIG', related_name='alumni_logos')
+    name = models.CharField(verbose_name="Alumni Organization Name", max_length=100)
+    image = models.ImageField(verbose_name="Logo Image", upload_to="img/alumni_logos/")
+
+    def __str__(self):
+        return f"{self.name} ({self.sig.name})"
+
+    class Meta:
+        verbose_name = "Alumni Logo"
+        verbose_name_plural = "Alumni Logos"
+
