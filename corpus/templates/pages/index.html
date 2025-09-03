@@ -162,9 +162,9 @@ Home
                 </svg>
             </div>
             <div class="stat-title">Members</div>
-            <div class="stat-value text-secondary">179</div>
+            <div class="stat-value text-secondary">{{ members_count }}</div>
             <div class="stat-actions">
-                <a role="button" href="#" class="btn btn-sm btn-secondary">View Members</a>
+                <a role="button" href="{% url 'team' %}" class="btn btn-sm btn-secondary">View Members</a>
             </div>
         </div>
         <div class="stat">
