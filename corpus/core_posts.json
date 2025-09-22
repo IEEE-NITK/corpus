@@ -1,0 +1,2559 @@
+[
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T08:13:45.050Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "1",
+      "object_repr": "Convenor",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T08:13:52.096Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "2",
+      "object_repr": "Chairperson",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:25:58.550Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "3",
+      "object_repr": "Vice Chairperson",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:26:25.554Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "4",
+      "object_repr": "Secretary",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:26:45.477Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "5",
+      "object_repr": "Joint Secretary",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:27:02.684Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "6",
+      "object_repr": "Treasurer (Branch)",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:27:13.562Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "7",
+      "object_repr": "Treasurer (Intitute)",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:27:34.446Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "8",
+      "object_repr": "Chair",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:28:12.522Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "9",
+      "object_repr": "Vice Chair",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:28:27.824Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "10",
+      "object_repr": "Secretary",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:29:04.933Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "11",
+      "object_repr": "Project Head",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:29:58.676Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "12",
+      "object_repr": "Project Coordinator",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:31:10.804Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "13",
+      "object_repr": "Webmaster",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:31:20.126Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "14",
+      "object_repr": "Media Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:31:31.562Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "15",
+      "object_repr": "Outreach Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:31:42.816Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "16",
+      "object_repr": "Envision Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:31:52.097Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "17",
+      "object_repr": "Labs Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:34:10.884Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is execom\"]}}]",
+      "content_type": 38,
+      "object_id": "13",
+      "object_repr": "Webmaster",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:34:15.872Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is execom\"]}}]",
+      "content_type": 38,
+      "object_id": "14",
+      "object_repr": "Media Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:34:19.640Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is execom\"]}}]",
+      "content_type": 38,
+      "object_id": "15",
+      "object_repr": "Outreach Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:34:22.839Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is execom\"]}}]",
+      "content_type": 38,
+      "object_id": "16",
+      "object_repr": "Envision Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:34:26.037Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is execom\"]}}]",
+      "content_type": 38,
+      "object_id": "17",
+      "object_repr": "Labs Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:14.631Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is sac\"]}}]",
+      "content_type": 38,
+      "object_id": "17",
+      "object_repr": "Labs Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:17.657Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is sac\"]}}]",
+      "content_type": 38,
+      "object_id": "16",
+      "object_repr": "Envision Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:21.383Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is sac\"]}}]",
+      "content_type": 38,
+      "object_id": "15",
+      "object_repr": "Outreach Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:24.841Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is sac\"]}}]",
+      "content_type": 38,
+      "object_id": "14",
+      "object_repr": "Media Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:28.929Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Is sac\"]}}]",
+      "content_type": 38,
+      "object_id": "13",
+      "object_repr": "Webmaster",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:41:52.336Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "18",
+      "object_repr": "SAC Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:41:59.459Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]",
+      "content_type": 38,
+      "object_id": "13",
+      "object_repr": "Webmaster",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:42:03.758Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]",
+      "content_type": 38,
+      "object_id": "14",
+      "object_repr": "Media Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:42:08.687Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]",
+      "content_type": 38,
+      "object_id": "15",
+      "object_repr": "Outreach Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:42:12.865Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]",
+      "content_type": 38,
+      "object_id": "16",
+      "object_repr": "Envision Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:42:16.728Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]",
+      "content_type": 38,
+      "object_id": "17",
+      "object_repr": "Labs Lead",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:42:50.806Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "19",
+      "object_repr": "WIE Chair",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "action_flag": 1,
+      "action_time": "2024-05-16T12:43:00.561Z",
+      "change_message": "[{\"added\": {}}]",
+      "content_type": 38,
+      "object_id": "20",
+      "object_repr": "SIGHT Chair",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "action_flag": 2,
+      "action_time": "2024-05-16T12:43:15.597Z",
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]",
+      "content_type": 38,
+      "object_id": "17",
+      "object_repr": "Labs Incharge",
+      "user": 1
+    },
+    "model": "admin.logentry",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "codename": "add_logentry",
+      "content_type": 1,
+      "name": "Can add log entry"
+    },
+    "model": "auth.permission",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "codename": "change_logentry",
+      "content_type": 1,
+      "name": "Can change log entry"
+    },
+    "model": "auth.permission",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "codename": "delete_logentry",
+      "content_type": 1,
+      "name": "Can delete log entry"
+    },
+    "model": "auth.permission",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "codename": "view_logentry",
+      "content_type": 1,
+      "name": "Can view log entry"
+    },
+    "model": "auth.permission",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "codename": "add_permission",
+      "content_type": 2,
+      "name": "Can add permission"
+    },
+    "model": "auth.permission",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "codename": "change_permission",
+      "content_type": 2,
+      "name": "Can change permission"
+    },
+    "model": "auth.permission",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "codename": "delete_permission",
+      "content_type": 2,
+      "name": "Can delete permission"
+    },
+    "model": "auth.permission",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "codename": "view_permission",
+      "content_type": 2,
+      "name": "Can view permission"
+    },
+    "model": "auth.permission",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "codename": "add_group",
+      "content_type": 3,
+      "name": "Can add group"
+    },
+    "model": "auth.permission",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "codename": "change_group",
+      "content_type": 3,
+      "name": "Can change group"
+    },
+    "model": "auth.permission",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "codename": "delete_group",
+      "content_type": 3,
+      "name": "Can delete group"
+    },
+    "model": "auth.permission",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "codename": "view_group",
+      "content_type": 3,
+      "name": "Can view group"
+    },
+    "model": "auth.permission",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "codename": "add_contenttype",
+      "content_type": 4,
+      "name": "Can add content type"
+    },
+    "model": "auth.permission",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "codename": "change_contenttype",
+      "content_type": 4,
+      "name": "Can change content type"
+    },
+    "model": "auth.permission",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "codename": "delete_contenttype",
+      "content_type": 4,
+      "name": "Can delete content type"
+    },
+    "model": "auth.permission",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "codename": "view_contenttype",
+      "content_type": 4,
+      "name": "Can view content type"
+    },
+    "model": "auth.permission",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "codename": "add_session",
+      "content_type": 5,
+      "name": "Can add session"
+    },
+    "model": "auth.permission",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "codename": "change_session",
+      "content_type": 5,
+      "name": "Can change session"
+    },
+    "model": "auth.permission",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "codename": "delete_session",
+      "content_type": 5,
+      "name": "Can delete session"
+    },
+    "model": "auth.permission",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "codename": "view_session",
+      "content_type": 5,
+      "name": "Can view session"
+    },
+    "model": "auth.permission",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "codename": "add_society",
+      "content_type": 6,
+      "name": "Can add Society"
+    },
+    "model": "auth.permission",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "codename": "change_society",
+      "content_type": 6,
+      "name": "Can change Society"
+    },
+    "model": "auth.permission",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "codename": "delete_society",
+      "content_type": 6,
+      "name": "Can delete Society"
+    },
+    "model": "auth.permission",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "codename": "view_society",
+      "content_type": 6,
+      "name": "Can view Society"
+    },
+    "model": "auth.permission",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "codename": "add_moduleconfiguration",
+      "content_type": 7,
+      "name": "Can add module configuration"
+    },
+    "model": "auth.permission",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "codename": "change_moduleconfiguration",
+      "content_type": 7,
+      "name": "Can change module configuration"
+    },
+    "model": "auth.permission",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "codename": "delete_moduleconfiguration",
+      "content_type": 7,
+      "name": "Can delete module configuration"
+    },
+    "model": "auth.permission",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "codename": "view_moduleconfiguration",
+      "content_type": 7,
+      "name": "Can view module configuration"
+    },
+    "model": "auth.permission",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "codename": "add_sig",
+      "content_type": 8,
+      "name": "Can add SIG"
+    },
+    "model": "auth.permission",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "codename": "change_sig",
+      "content_type": 8,
+      "name": "Can change SIG"
+    },
+    "model": "auth.permission",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "codename": "delete_sig",
+      "content_type": 8,
+      "name": "Can delete SIG"
+    },
+    "model": "auth.permission",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "codename": "view_sig",
+      "content_type": 8,
+      "name": "Can view SIG"
+    },
+    "model": "auth.permission",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "codename": "add_user",
+      "content_type": 9,
+      "name": "Can add user"
+    },
+    "model": "auth.permission",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "codename": "change_user",
+      "content_type": 9,
+      "name": "Can change user"
+    },
+    "model": "auth.permission",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "codename": "delete_user",
+      "content_type": 9,
+      "name": "Can delete user"
+    },
+    "model": "auth.permission",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "codename": "view_user",
+      "content_type": 9,
+      "name": "Can view user"
+    },
+    "model": "auth.permission",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "codename": "add_executivemember",
+      "content_type": 10,
+      "name": "Can add executive member"
+    },
+    "model": "auth.permission",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "codename": "change_executivemember",
+      "content_type": 10,
+      "name": "Can change executive member"
+    },
+    "model": "auth.permission",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "codename": "delete_executivemember",
+      "content_type": 10,
+      "name": "Can delete executive member"
+    },
+    "model": "auth.permission",
+    "pk": 39
+  },
+  {
+    "fields": {
+      "codename": "view_executivemember",
+      "content_type": 10,
+      "name": "Can view executive member"
+    },
+    "model": "auth.permission",
+    "pk": 40
+  },
+  {
+    "fields": {
+      "codename": "add_faculty",
+      "content_type": 11,
+      "name": "Can add faculty"
+    },
+    "model": "auth.permission",
+    "pk": 41
+  },
+  {
+    "fields": {
+      "codename": "change_faculty",
+      "content_type": 11,
+      "name": "Can change faculty"
+    },
+    "model": "auth.permission",
+    "pk": 42
+  },
+  {
+    "fields": {
+      "codename": "delete_faculty",
+      "content_type": 11,
+      "name": "Can delete faculty"
+    },
+    "model": "auth.permission",
+    "pk": 43
+  },
+  {
+    "fields": {
+      "codename": "view_faculty",
+      "content_type": 11,
+      "name": "Can view faculty"
+    },
+    "model": "auth.permission",
+    "pk": 44
+  },
+  {
+    "fields": {
+      "codename": "add_core",
+      "content_type": 12,
+      "name": "Can add core"
+    },
+    "model": "auth.permission",
+    "pk": 45
+  },
+  {
+    "fields": {
+      "codename": "change_core",
+      "content_type": 12,
+      "name": "Can change core"
+    },
+    "model": "auth.permission",
+    "pk": 46
+  },
+  {
+    "fields": {
+      "codename": "delete_core",
+      "content_type": 12,
+      "name": "Can delete core"
+    },
+    "model": "auth.permission",
+    "pk": 47
+  },
+  {
+    "fields": {
+      "codename": "view_core",
+      "content_type": 12,
+      "name": "Can view core"
+    },
+    "model": "auth.permission",
+    "pk": 48
+  },
+  {
+    "fields": {
+      "codename": "add_embedathonuser",
+      "content_type": 13,
+      "name": "Can add embedathon user"
+    },
+    "model": "auth.permission",
+    "pk": 49
+  },
+  {
+    "fields": {
+      "codename": "change_embedathonuser",
+      "content_type": 13,
+      "name": "Can change embedathon user"
+    },
+    "model": "auth.permission",
+    "pk": 50
+  },
+  {
+    "fields": {
+      "codename": "delete_embedathonuser",
+      "content_type": 13,
+      "name": "Can delete embedathon user"
+    },
+    "model": "auth.permission",
+    "pk": 51
+  },
+  {
+    "fields": {
+      "codename": "view_embedathonuser",
+      "content_type": 13,
+      "name": "Can view embedathon user"
+    },
+    "model": "auth.permission",
+    "pk": 52
+  },
+  {
+    "fields": {
+      "codename": "add_team",
+      "content_type": 14,
+      "name": "Can add team"
+    },
+    "model": "auth.permission",
+    "pk": 53
+  },
+  {
+    "fields": {
+      "codename": "change_team",
+      "content_type": 14,
+      "name": "Can change team"
+    },
+    "model": "auth.permission",
+    "pk": 54
+  },
+  {
+    "fields": {
+      "codename": "delete_team",
+      "content_type": 14,
+      "name": "Can delete team"
+    },
+    "model": "auth.permission",
+    "pk": 55
+  },
+  {
+    "fields": {
+      "codename": "view_team",
+      "content_type": 14,
+      "name": "Can view team"
+    },
+    "model": "auth.permission",
+    "pk": 56
+  },
+  {
+    "fields": {
+      "codename": "add_invite",
+      "content_type": 15,
+      "name": "Can add invite"
+    },
+    "model": "auth.permission",
+    "pk": 57
+  },
+  {
+    "fields": {
+      "codename": "change_invite",
+      "content_type": 15,
+      "name": "Can change invite"
+    },
+    "model": "auth.permission",
+    "pk": 58
+  },
+  {
+    "fields": {
+      "codename": "delete_invite",
+      "content_type": 15,
+      "name": "Can delete invite"
+    },
+    "model": "auth.permission",
+    "pk": 59
+  },
+  {
+    "fields": {
+      "codename": "view_invite",
+      "content_type": 15,
+      "name": "Can view invite"
+    },
+    "model": "auth.permission",
+    "pk": 60
+  },
+  {
+    "fields": {
+      "codename": "add_announcement",
+      "content_type": 16,
+      "name": "Can add announcement"
+    },
+    "model": "auth.permission",
+    "pk": 61
+  },
+  {
+    "fields": {
+      "codename": "change_announcement",
+      "content_type": 16,
+      "name": "Can change announcement"
+    },
+    "model": "auth.permission",
+    "pk": 62
+  },
+  {
+    "fields": {
+      "codename": "delete_announcement",
+      "content_type": 16,
+      "name": "Can delete announcement"
+    },
+    "model": "auth.permission",
+    "pk": 63
+  },
+  {
+    "fields": {
+      "codename": "view_announcement",
+      "content_type": 16,
+      "name": "Can view announcement"
+    },
+    "model": "auth.permission",
+    "pk": 64
+  },
+  {
+    "fields": {
+      "codename": "add_announcement",
+      "content_type": 17,
+      "name": "Can add announcement"
+    },
+    "model": "auth.permission",
+    "pk": 65
+  },
+  {
+    "fields": {
+      "codename": "change_announcement",
+      "content_type": 17,
+      "name": "Can change announcement"
+    },
+    "model": "auth.permission",
+    "pk": 66
+  },
+  {
+    "fields": {
+      "codename": "delete_announcement",
+      "content_type": 17,
+      "name": "Can delete announcement"
+    },
+    "model": "auth.permission",
+    "pk": 67
+  },
+  {
+    "fields": {
+      "codename": "view_announcement",
+      "content_type": 17,
+      "name": "Can view announcement"
+    },
+    "model": "auth.permission",
+    "pk": 68
+  },
+  {
+    "fields": {
+      "codename": "add_impulseuser",
+      "content_type": 18,
+      "name": "Can add impulse user"
+    },
+    "model": "auth.permission",
+    "pk": 69
+  },
+  {
+    "fields": {
+      "codename": "change_impulseuser",
+      "content_type": 18,
+      "name": "Can change impulse user"
+    },
+    "model": "auth.permission",
+    "pk": 70
+  },
+  {
+    "fields": {
+      "codename": "delete_impulseuser",
+      "content_type": 18,
+      "name": "Can delete impulse user"
+    },
+    "model": "auth.permission",
+    "pk": 71
+  },
+  {
+    "fields": {
+      "codename": "view_impulseuser",
+      "content_type": 18,
+      "name": "Can view impulse user"
+    },
+    "model": "auth.permission",
+    "pk": 72
+  },
+  {
+    "fields": {
+      "codename": "add_team",
+      "content_type": 19,
+      "name": "Can add team"
+    },
+    "model": "auth.permission",
+    "pk": 73
+  },
+  {
+    "fields": {
+      "codename": "change_team",
+      "content_type": 19,
+      "name": "Can change team"
+    },
+    "model": "auth.permission",
+    "pk": 74
+  },
+  {
+    "fields": {
+      "codename": "delete_team",
+      "content_type": 19,
+      "name": "Can delete team"
+    },
+    "model": "auth.permission",
+    "pk": 75
+  },
+  {
+    "fields": {
+      "codename": "view_team",
+      "content_type": 19,
+      "name": "Can view team"
+    },
+    "model": "auth.permission",
+    "pk": 76
+  },
+  {
+    "fields": {
+      "codename": "add_invite",
+      "content_type": 20,
+      "name": "Can add invite"
+    },
+    "model": "auth.permission",
+    "pk": 77
+  },
+  {
+    "fields": {
+      "codename": "change_invite",
+      "content_type": 20,
+      "name": "Can change invite"
+    },
+    "model": "auth.permission",
+    "pk": 78
+  },
+  {
+    "fields": {
+      "codename": "delete_invite",
+      "content_type": 20,
+      "name": "Can delete invite"
+    },
+    "model": "auth.permission",
+    "pk": 79
+  },
+  {
+    "fields": {
+      "codename": "view_invite",
+      "content_type": 20,
+      "name": "Can view invite"
+    },
+    "model": "auth.permission",
+    "pk": 80
+  },
+  {
+    "fields": {
+      "codename": "add_announcement",
+      "content_type": 21,
+      "name": "Can add announcement"
+    },
+    "model": "auth.permission",
+    "pk": 81
+  },
+  {
+    "fields": {
+      "codename": "change_announcement",
+      "content_type": 21,
+      "name": "Can change announcement"
+    },
+    "model": "auth.permission",
+    "pk": 82
+  },
+  {
+    "fields": {
+      "codename": "delete_announcement",
+      "content_type": 21,
+      "name": "Can delete announcement"
+    },
+    "model": "auth.permission",
+    "pk": 83
+  },
+  {
+    "fields": {
+      "codename": "view_announcement",
+      "content_type": 21,
+      "name": "Can view announcement"
+    },
+    "model": "auth.permission",
+    "pk": 84
+  },
+  {
+    "fields": {
+      "codename": "add_electrikauser",
+      "content_type": 22,
+      "name": "Can add electrika user"
+    },
+    "model": "auth.permission",
+    "pk": 85
+  },
+  {
+    "fields": {
+      "codename": "change_electrikauser",
+      "content_type": 22,
+      "name": "Can change electrika user"
+    },
+    "model": "auth.permission",
+    "pk": 86
+  },
+  {
+    "fields": {
+      "codename": "delete_electrikauser",
+      "content_type": 22,
+      "name": "Can delete electrika user"
+    },
+    "model": "auth.permission",
+    "pk": 87
+  },
+  {
+    "fields": {
+      "codename": "view_electrikauser",
+      "content_type": 22,
+      "name": "Can view electrika user"
+    },
+    "model": "auth.permission",
+    "pk": 88
+  },
+  {
+    "fields": {
+      "codename": "add_team",
+      "content_type": 23,
+      "name": "Can add team"
+    },
+    "model": "auth.permission",
+    "pk": 89
+  },
+  {
+    "fields": {
+      "codename": "change_team",
+      "content_type": 23,
+      "name": "Can change team"
+    },
+    "model": "auth.permission",
+    "pk": 90
+  },
+  {
+    "fields": {
+      "codename": "delete_team",
+      "content_type": 23,
+      "name": "Can delete team"
+    },
+    "model": "auth.permission",
+    "pk": 91
+  },
+  {
+    "fields": {
+      "codename": "view_team",
+      "content_type": 23,
+      "name": "Can view team"
+    },
+    "model": "auth.permission",
+    "pk": 92
+  },
+  {
+    "fields": {
+      "codename": "add_invite",
+      "content_type": 24,
+      "name": "Can add invite"
+    },
+    "model": "auth.permission",
+    "pk": 93
+  },
+  {
+    "fields": {
+      "codename": "change_invite",
+      "content_type": 24,
+      "name": "Can change invite"
+    },
+    "model": "auth.permission",
+    "pk": 94
+  },
+  {
+    "fields": {
+      "codename": "delete_invite",
+      "content_type": 24,
+      "name": "Can delete invite"
+    },
+    "model": "auth.permission",
+    "pk": 95
+  },
+  {
+    "fields": {
+      "codename": "view_invite",
+      "content_type": 24,
+      "name": "Can view invite"
+    },
+    "model": "auth.permission",
+    "pk": 96
+  },
+  {
+    "fields": {
+      "codename": "add_announcement",
+      "content_type": 25,
+      "name": "Can add announcement"
+    },
+    "model": "auth.permission",
+    "pk": 97
+  },
+  {
+    "fields": {
+      "codename": "change_announcement",
+      "content_type": 25,
+      "name": "Can change announcement"
+    },
+    "model": "auth.permission",
+    "pk": 98
+  },
+  {
+    "fields": {
+      "codename": "delete_announcement",
+      "content_type": 25,
+      "name": "Can delete announcement"
+    },
+    "model": "auth.permission",
+    "pk": 99
+  },
+  {
+    "fields": {
+      "codename": "view_announcement",
+      "content_type": 25,
+      "name": "Can view announcement"
+    },
+    "model": "auth.permission",
+    "pk": 100
+  },
+  {
+    "fields": {
+      "codename": "add_seuser",
+      "content_type": 26,
+      "name": "Can add se user"
+    },
+    "model": "auth.permission",
+    "pk": 101
+  },
+  {
+    "fields": {
+      "codename": "change_seuser",
+      "content_type": 26,
+      "name": "Can change se user"
+    },
+    "model": "auth.permission",
+    "pk": 102
+  },
+  {
+    "fields": {
+      "codename": "delete_seuser",
+      "content_type": 26,
+      "name": "Can delete se user"
+    },
+    "model": "auth.permission",
+    "pk": 103
+  },
+  {
+    "fields": {
+      "codename": "view_seuser",
+      "content_type": 26,
+      "name": "Can view se user"
+    },
+    "model": "auth.permission",
+    "pk": 104
+  },
+  {
+    "fields": {
+      "codename": "add_team",
+      "content_type": 27,
+      "name": "Can add team"
+    },
+    "model": "auth.permission",
+    "pk": 105
+  },
+  {
+    "fields": {
+      "codename": "change_team",
+      "content_type": 27,
+      "name": "Can change team"
+    },
+    "model": "auth.permission",
+    "pk": 106
+  },
+  {
+    "fields": {
+      "codename": "delete_team",
+      "content_type": 27,
+      "name": "Can delete team"
+    },
+    "model": "auth.permission",
+    "pk": 107
+  },
+  {
+    "fields": {
+      "codename": "view_team",
+      "content_type": 27,
+      "name": "Can view team"
+    },
+    "model": "auth.permission",
+    "pk": 108
+  },
+  {
+    "fields": {
+      "codename": "add_invite",
+      "content_type": 28,
+      "name": "Can add invite"
+    },
+    "model": "auth.permission",
+    "pk": 109
+  },
+  {
+    "fields": {
+      "codename": "change_invite",
+      "content_type": 28,
+      "name": "Can change invite"
+    },
+    "model": "auth.permission",
+    "pk": 110
+  },
+  {
+    "fields": {
+      "codename": "delete_invite",
+      "content_type": 28,
+      "name": "Can delete invite"
+    },
+    "model": "auth.permission",
+    "pk": 111
+  },
+  {
+    "fields": {
+      "codename": "view_invite",
+      "content_type": 28,
+      "name": "Can view invite"
+    },
+    "model": "auth.permission",
+    "pk": 112
+  },
+  {
+    "fields": {
+      "codename": "add_submission",
+      "content_type": 29,
+      "name": "Can add submission"
+    },
+    "model": "auth.permission",
+    "pk": 113
+  },
+  {
+    "fields": {
+      "codename": "change_submission",
+      "content_type": 29,
+      "name": "Can change submission"
+    },
+    "model": "auth.permission",
+    "pk": 114
+  },
+  {
+    "fields": {
+      "codename": "delete_submission",
+      "content_type": 29,
+      "name": "Can delete submission"
+    },
+    "model": "auth.permission",
+    "pk": 115
+  },
+  {
+    "fields": {
+      "codename": "view_submission",
+      "content_type": 29,
+      "name": "Can view submission"
+    },
+    "model": "auth.permission",
+    "pk": 116
+  },
+  {
+    "fields": {
+      "codename": "add_announcement",
+      "content_type": 30,
+      "name": "Can add announcement"
+    },
+    "model": "auth.permission",
+    "pk": 117
+  },
+  {
+    "fields": {
+      "codename": "change_announcement",
+      "content_type": 30,
+      "name": "Can change announcement"
+    },
+    "model": "auth.permission",
+    "pk": 118
+  },
+  {
+    "fields": {
+      "codename": "delete_announcement",
+      "content_type": 30,
+      "name": "Can delete announcement"
+    },
+    "model": "auth.permission",
+    "pk": 119
+  },
+  {
+    "fields": {
+      "codename": "view_announcement",
+      "content_type": 30,
+      "name": "Can view announcement"
+    },
+    "model": "auth.permission",
+    "pk": 120
+  },
+  {
+    "fields": {
+      "codename": "add_robotrixuser",
+      "content_type": 31,
+      "name": "Can add robotrix user"
+    },
+    "model": "auth.permission",
+    "pk": 121
+  },
+  {
+    "fields": {
+      "codename": "change_robotrixuser",
+      "content_type": 31,
+      "name": "Can change robotrix user"
+    },
+    "model": "auth.permission",
+    "pk": 122
+  },
+  {
+    "fields": {
+      "codename": "delete_robotrixuser",
+      "content_type": 31,
+      "name": "Can delete robotrix user"
+    },
+    "model": "auth.permission",
+    "pk": 123
+  },
+  {
+    "fields": {
+      "codename": "view_robotrixuser",
+      "content_type": 31,
+      "name": "Can view robotrix user"
+    },
+    "model": "auth.permission",
+    "pk": 124
+  },
+  {
+    "fields": {
+      "codename": "add_team",
+      "content_type": 32,
+      "name": "Can add team"
+    },
+    "model": "auth.permission",
+    "pk": 125
+  },
+  {
+    "fields": {
+      "codename": "change_team",
+      "content_type": 32,
+      "name": "Can change team"
+    },
+    "model": "auth.permission",
+    "pk": 126
+  },
+  {
+    "fields": {
+      "codename": "delete_team",
+      "content_type": 32,
+      "name": "Can delete team"
+    },
+    "model": "auth.permission",
+    "pk": 127
+  },
+  {
+    "fields": {
+      "codename": "view_team",
+      "content_type": 32,
+      "name": "Can view team"
+    },
+    "model": "auth.permission",
+    "pk": 128
+  },
+  {
+    "fields": {
+      "codename": "add_invite",
+      "content_type": 33,
+      "name": "Can add invite"
+    },
+    "model": "auth.permission",
+    "pk": 129
+  },
+  {
+    "fields": {
+      "codename": "change_invite",
+      "content_type": 33,
+      "name": "Can change invite"
+    },
+    "model": "auth.permission",
+    "pk": 130
+  },
+  {
+    "fields": {
+      "codename": "delete_invite",
+      "content_type": 33,
+      "name": "Can delete invite"
+    },
+    "model": "auth.permission",
+    "pk": 131
+  },
+  {
+    "fields": {
+      "codename": "view_invite",
+      "content_type": 33,
+      "name": "Can view invite"
+    },
+    "model": "auth.permission",
+    "pk": 132
+  },
+  {
+    "fields": {
+      "codename": "add_senior",
+      "content_type": 34,
+      "name": "Can add senior"
+    },
+    "model": "auth.permission",
+    "pk": 133
+  },
+  {
+    "fields": {
+      "codename": "change_senior",
+      "content_type": 34,
+      "name": "Can change senior"
+    },
+    "model": "auth.permission",
+    "pk": 134
+  },
+  {
+    "fields": {
+      "codename": "delete_senior",
+      "content_type": 34,
+      "name": "Can delete senior"
+    },
+    "model": "auth.permission",
+    "pk": 135
+  },
+  {
+    "fields": {
+      "codename": "view_senior",
+      "content_type": 34,
+      "name": "Can view senior"
+    },
+    "model": "auth.permission",
+    "pk": 136
+  },
+  {
+    "fields": {
+      "codename": "add_reporttype",
+      "content_type": 35,
+      "name": "Can add report type"
+    },
+    "model": "auth.permission",
+    "pk": 137
+  },
+  {
+    "fields": {
+      "codename": "change_reporttype",
+      "content_type": 35,
+      "name": "Can change report type"
+    },
+    "model": "auth.permission",
+    "pk": 138
+  },
+  {
+    "fields": {
+      "codename": "delete_reporttype",
+      "content_type": 35,
+      "name": "Can delete report type"
+    },
+    "model": "auth.permission",
+    "pk": 139
+  },
+  {
+    "fields": {
+      "codename": "view_reporttype",
+      "content_type": 35,
+      "name": "Can view report type"
+    },
+    "model": "auth.permission",
+    "pk": 140
+  },
+  {
+    "fields": {
+      "codename": "add_report",
+      "content_type": 36,
+      "name": "Can add report"
+    },
+    "model": "auth.permission",
+    "pk": 141
+  },
+  {
+    "fields": {
+      "codename": "change_report",
+      "content_type": 36,
+      "name": "Can change report"
+    },
+    "model": "auth.permission",
+    "pk": 142
+  },
+  {
+    "fields": {
+      "codename": "delete_report",
+      "content_type": 36,
+      "name": "Can delete report"
+    },
+    "model": "auth.permission",
+    "pk": 143
+  },
+  {
+    "fields": {
+      "codename": "view_report",
+      "content_type": 36,
+      "name": "Can view report"
+    },
+    "model": "auth.permission",
+    "pk": 144
+  },
+  {
+    "fields": {
+      "codename": "add_reportmember",
+      "content_type": 37,
+      "name": "Can add report member"
+    },
+    "model": "auth.permission",
+    "pk": 145
+  },
+  {
+    "fields": {
+      "codename": "change_reportmember",
+      "content_type": 37,
+      "name": "Can change report member"
+    },
+    "model": "auth.permission",
+    "pk": 146
+  },
+  {
+    "fields": {
+      "codename": "delete_reportmember",
+      "content_type": 37,
+      "name": "Can delete report member"
+    },
+    "model": "auth.permission",
+    "pk": 147
+  },
+  {
+    "fields": {
+      "codename": "view_reportmember",
+      "content_type": 37,
+      "name": "Can view report member"
+    },
+    "model": "auth.permission",
+    "pk": 148
+  },
+  {
+    "fields": {
+      "codename": "add_post",
+      "content_type": 38,
+      "name": "Can add post"
+    },
+    "model": "auth.permission",
+    "pk": 149
+  },
+  {
+    "fields": {
+      "codename": "change_post",
+      "content_type": 38,
+      "name": "Can change post"
+    },
+    "model": "auth.permission",
+    "pk": 150
+  },
+  {
+    "fields": {
+      "codename": "delete_post",
+      "content_type": 38,
+      "name": "Can delete post"
+    },
+    "model": "auth.permission",
+    "pk": 151
+  },
+  {
+    "fields": {
+      "codename": "view_post",
+      "content_type": 38,
+      "name": "Can view post"
+    },
+    "model": "auth.permission",
+    "pk": 152
+  },
+  {
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "app_label": "config",
+      "model": "society"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "app_label": "config",
+      "model": "moduleconfiguration"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "app_label": "config",
+      "model": "sig"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "app_label": "accounts",
+      "model": "user"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "app_label": "accounts",
+      "model": "executivemember"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "app_label": "accounts",
+      "model": "faculty"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "app_label": "accounts",
+      "model": "core"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "app_label": "embedathon",
+      "model": "embedathonuser"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "app_label": "embedathon",
+      "model": "team"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "app_label": "embedathon",
+      "model": "invite"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "app_label": "embedathon",
+      "model": "announcement"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "app_label": "impulse",
+      "model": "announcement"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "app_label": "impulse",
+      "model": "impulseuser"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "app_label": "impulse",
+      "model": "team"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "app_label": "impulse",
+      "model": "invite"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 20
+  },
+  {
+    "fields": {
+      "app_label": "electrika",
+      "model": "announcement"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 21
+  },
+  {
+    "fields": {
+      "app_label": "electrika",
+      "model": "electrikauser"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 22
+  },
+  {
+    "fields": {
+      "app_label": "electrika",
+      "model": "team"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 23
+  },
+  {
+    "fields": {
+      "app_label": "electrika",
+      "model": "invite"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 24
+  },
+  {
+    "fields": {
+      "app_label": "skyward_expedition",
+      "model": "announcement"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 25
+  },
+  {
+    "fields": {
+      "app_label": "skyward_expedition",
+      "model": "seuser"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 26
+  },
+  {
+    "fields": {
+      "app_label": "skyward_expedition",
+      "model": "team"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 27
+  },
+  {
+    "fields": {
+      "app_label": "skyward_expedition",
+      "model": "invite"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 28
+  },
+  {
+    "fields": {
+      "app_label": "skyward_expedition",
+      "model": "submission"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 29
+  },
+  {
+    "fields": {
+      "app_label": "robotrix",
+      "model": "announcement"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 30
+  },
+  {
+    "fields": {
+      "app_label": "robotrix",
+      "model": "robotrixuser"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 31
+  },
+  {
+    "fields": {
+      "app_label": "robotrix",
+      "model": "team"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 32
+  },
+  {
+    "fields": {
+      "app_label": "robotrix",
+      "model": "invite"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 33
+  },
+  {
+    "fields": {
+      "app_label": "farewell",
+      "model": "senior"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 34
+  },
+  {
+    "fields": {
+      "app_label": "virtual_expo",
+      "model": "reporttype"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 35
+  },
+  {
+    "fields": {
+      "app_label": "virtual_expo",
+      "model": "report"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 36
+  },
+  {
+    "fields": {
+      "app_label": "virtual_expo",
+      "model": "reportmember"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 37
+  },
+  {
+    "fields": {
+      "app_label": "accounts",
+      "model": "post"
+    },
+    "model": "contenttypes.contenttype",
+    "pk": 38
+  },
+  {
+    "fields": {
+      "expire_date": "2024-05-30T08:13:27.684Z",
+      "session_data": ".eJxVjEsOwjAMBe-SNari2PnADjhIZDtBRUgtapoV4u5QqQvYzpt5L5O5r2PurS75XszJgDn8MmF91GkbWHXu09qGHQ3XeXn2dv6ql136K0du4_ZXQxHr8YYxBmLxImpTkFhLdQp0RAclICQmAWL00Vkii5qUyDGY9wc_rjS2:1s7WEx:_WTZTM525j260u6ht7MM1HPbhr4Wm_BRv5mo-g2pLRQ"
+    },
+    "model": "sessions.session",
+    "pk": "begryxv2z9zdkzolu9fn247ocxuk0gcj"
+  },
+  {
+    "fields": {
+      "about": "The NITK-IEEE Computer Society is a conglomeration of students with a passion for Computer Science and Information Technology. This SIG is a great platform for those who want to gain expertise in computer based technology.\r\nIn the true spirit of divide and conquer, our community intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science, in the form of 3 research groups : Intelligence, Systems and Core Computer Science.",
+      "name": "CompSoc",
+      "slug": "compsoc",
+      "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development ."
+    },
+    "model": "config.sig",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "about": "The NITK Diode SIG is a combination of the Circuits and Systems (CAS) Society, Signal Processing Society (SPS) and the Industrial Applications Society (IAS).\r\nThe SIG consists of a team of students with a strong interest in the field of Electronics and Electrical Science, and works on conceiving and pioneering solutions to fundamental and applied problems in the fields of robotics, microcontrollers and signal processing.",
+      "name": "Diode",
+      "slug": "diode",
+      "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode."
+    },
+    "model": "config.sig",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "about": "Piston is a SIG dedicated to the engineering applications of Mechanical, Civil, Chemical and Material Sciences. The SIG functions as a platform for students interested in learning and advancing specific areas of knowledge and technology. The SIG members co-operate, communicate, and organise meets, talks and conferences to discuss the latest technological advancements and applications.",
+      "name": "Piston",
+      "slug": "piston",
+      "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials."
+    },
+    "model": "config.sig",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "about": "The Women in Engineering affinity group of IEEE NITK aims to increase inclusivity and acceptance in tech on campus. We coordinate events and mentorship programs to inspire our colleagues and other women and girls to pursue a career in engineering. It is a professional organisation dedicated to promoting technical interests among women engineers and scientists.",
+      "name": "WiE",
+      "slug": "wie",
+      "what_we_do": "It was launched on February 18th 2009 by Prof. Marimuthu, the R10 WiE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally."
+    },
+    "model": "config.sig",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "about": "IEEE SIGHT caters to the guiding philosophy of IEEE - \u2018Advancing Technology for Humanity\u2019. IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
+      "name": "SIGHT",
+      "slug": "sight",
+      "what_we_do": "We focus on taking up projects in the open-source platforms. This helps us drive down the cost of the final product and make the solution affordable to a large section of people."
+    },
+    "model": "config.sig",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/compsoc-dark.png",
+      "description": "The IEEE NITK Computer Society Chapter intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science in the form of three focus groups: Intelligence, Systems and Theoretical Computer Science.",
+      "image": "img/logo/compsoc-light.png",
+      "name": "CS",
+      "sigs": [
+        1
+      ],
+      "url": "https://www.computer.org/"
+    },
+    "model": "config.society",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "The IEEE NITK Signal Processing Society Chapter focuses projects and research in areas of signal processing and machine learning. Projects undertaken here are oriented towards healthcare and solutions to humanitarian needs.",
+      "image": "img/logo/sps.png",
+      "name": "SPS",
+      "sigs": [
+        2
+      ],
+      "url": "https://signalprocessingsociety.org/"
+    },
+    "model": "config.society",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/cass-dark.png",
+      "description": "The IEEE NITK Circuits and Systems Society Chapter focuses on areas around electrical and electronic circuits with applications in healthcare, industry appliances, home appliances and electronics systems research.",
+      "image": "img/logo/cass-light.png",
+      "name": "CASS",
+      "sigs": [
+        2
+      ],
+      "url": "https://ieee-cas.org/"
+    },
+    "model": "config.society",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/ias-dark.png",
+      "description": "The IEEE IAS vision \u201cto be a world leader in the advancement of technology and dissemination of technical information to support professionals engaged in the applications of electrical and electronic engineering to industry\u201d has become possible with the professional connection of Industry Professionals in Electrical and Electronic Engineering.",
+      "image": "img/logo/ias-light.png",
+      "name": "IAS",
+      "sigs": [
+        3
+      ],
+      "url": "https://ias.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "The IEEE Photonics Society forms the hub of a vibrant technical community dedicated to transforming breakthroughs in quantum physics into the devices, systems and products to revolutionize our daily lives. From ubiquitous and inexpensive global communications via fiber optics, to lasers for medical and other applications, to flat-screen displays, to photovoltaic devices for solar energy, to LEDs for energy-efficient illumination, there are myriad examples of the society's impact on the world around us.",
+      "image": "img/logo/photonics.png",
+      "name": "PHO",
+      "sigs": [
+        3
+      ],
+      "url": "https://www.photonicssociety.org/"
+    },
+    "model": "config.society",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "The IEEE RAS Student Chapter focuses on the interdisciplinary nature of technology and engineering and strives to advance robotics and intelligent systems technology in various fields of biomedical engineering, security, industry and home automation through research and ingenuity.",
+      "image": "img/logo/ras.png",
+      "name": "RAS",
+      "sigs": [
+        2
+      ],
+      "url": "https://www.ieee-ras.org/"
+    },
+    "model": "config.society",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/grss-dark.png",
+      "description": "GRSS - The Geoscience and Remote Sensing Society (GRSS) is a technical Society of the Institute of Electrical and Electronics Engineers (IEEE). GRSS encourages its members to participate in science, engineering, applications, and education linked to the advancement of geoscience and remote sensing for the benefit of society.",
+      "image": "img/logo/grss-light.png",
+      "name": "GRSS",
+      "sigs": [
+        3
+      ],
+      "url": "https://www.grss-ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "dark_image": "img/logo/cis-dark.png",
+      "description": "The IEEE Computational Intelligence Society (CIS) is a vibrant community working towards a common goal - to unravel the mysteries of the ever-evolving field of computational intelligence with its focus on neural networks, fuzzy systems, and evolutionary computation. The society hosts conferences, publishes journals, and provides educational resources to foster learning and collaboration leading to the development of cutting-edge applications and forging the future of AI.",
+      "image": "img/logo/cis-light.png",
+      "name": "CIS",
+      "sigs": [
+        1
+      ],
+      "url": "https://cis.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "The IEEE NITK WIE is a professional organisation dedicated to promoting technical interests among women engineers and scientists. It was launched on February 18th 2009 by Prof Marimuthu, the R10 WIE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally.",
+      "image": "img/logo/wie.png",
+      "name": "WIE",
+      "sigs": [
+        4
+      ],
+      "url": "https://wie.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "dark_image": "",
+      "description": "IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
+      "image": "img/logo/sight.png",
+      "name": "SIGHT",
+      "sigs": [
+        5
+      ],
+      "url": "https://sight.ieee.org/"
+    },
+    "model": "config.society",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "date_joined": "2024-05-16T08:13:17.946Z",
+      "email": "admin@gmail.com",
+      "first_name": "",
+      "gender": "",
+      "groups": [],
+      "is_active": true,
+      "is_staff": true,
+      "is_superuser": true,
+      "last_login": "2024-05-16T08:13:27.679Z",
+      "last_name": "",
+      "password": "pbkdf2_sha256$600000$wvCjRngz47HvDotrrYeIAs$G1bTj5n+oo7caxx3IEeo1ZwEf6sBkulkTccB/jpVk8M=",
+      "phone_no": "",
+      "user_permissions": []
+    },
+    "model": "accounts.user",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Convenor",
+      "priority": 1
+    },
+    "model": "accounts.post",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Chairperson",
+      "priority": 1
+    },
+    "model": "accounts.post",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Vice Chairperson",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 3
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Secretary",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 4
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Joint Secretary",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 5
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Treasurer (Branch)",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 6
+  },
+  {
+    "fields": {
+      "is_execom": true,
+      "is_sac": false,
+      "name": "Treasurer (Intitute)",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 7
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Chair",
+      "priority": 1
+    },
+    "model": "accounts.post",
+    "pk": 8
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Vice Chair",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 9
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Secretary",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 10
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Project Head",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 11
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": false,
+      "name": "Project Coordinator",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 12
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "Webmaster",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 13
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "Media Lead",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 14
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "Outreach Lead",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 15
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "Envision Lead",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 16
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "Labs Incharge",
+      "priority": 3
+    },
+    "model": "accounts.post",
+    "pk": 17
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "SAC Lead",
+      "priority": 1
+    },
+    "model": "accounts.post",
+    "pk": 18
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "WIE Chair",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 19
+  },
+  {
+    "fields": {
+      "is_execom": false,
+      "is_sac": true,
+      "name": "SIGHT Chair",
+      "priority": 2
+    },
+    "model": "accounts.post",
+    "pk": 20
+  }
+]
