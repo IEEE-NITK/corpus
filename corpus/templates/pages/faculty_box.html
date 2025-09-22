@@ -1,22 +1,45 @@
 {% load static %}
 <div class="margins">
-    <div class="card card-bordered w-72 bg-base-300 shadow-xl">
-       <figure class="px-10 pt-10">
-          <img class="profile-pic" {% if faculty.profile_picture %} src="{{ faculty.profile_picture.url }}" {% else %} src="{% static 'img/default_profile_picture.png' %}" {% endif %} alt="photo" class="rounded-xl" />
-       </figure>
-       <div class="card-body items-center text-center">
-          <h2 class="card-title">{{ faculty.user }}</h2>
-          <p class="card-post">{{ faculty.post.name }}</p>
-          <br />
-          <div class="card-actions">
-             {% if faculty.linkedin %}
-             <a href="{{ faculty.linkedin }}" target="_blank" class="btn btn-sm btn-outline"><i class="fab fa-2x fa-linkedin"></i></a>
-             {% endif %}
-             {% if faculty.website %}
-             <a href="{{ faculty.website }}" target="_blank" class="btn btn-sm btn-outline"><i class="fa fa-2x fa-link"></i></a>
-             {% endif %}
-          </div>
-       </div>
+    <div class="card card-bordered w-72 bg-base-300 shadow-xl overflow-hidden rounded-2xl
+                hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out">
+        <div class="bg-gradient-to-r from-blue-500 to-cyan-400 dark:from-blue-700 dark:to-cyan-600 py-6 flex justify-center">
+            <img
+                class="profile-pic w-24 h-24 rounded-full border-4 border-white dark:border-neutral-900 shadow-lg object-cover object-center bg-white"
+                {% if faculty.profile_picture %}
+                    src="{{ faculty.profile_picture.url }}"
+                {% else %}
+                    src="{% static 'img/default_profile_picture.png' %}"
+                {% endif %}
+                alt="photo"
+            />
+        </div>
+        <div class="card-body items-center text-center bg-base-100 dark:bg-neutral">
+            <h2 class="card-title text-lg font-bold mb-2 text-blue-800 dark:text-blue-200">{{ faculty.user }}</h2>
+            <p class="card-post text-sm text-blue-700 dark:text-blue-300">{{ faculty.post.name }}</p>
+            <div class="card-actions flex justify-center gap-4 mt-2">
+                {% if faculty.linkedin %}
+                <a href="{{ faculty.linkedin }}" target="_blank"
+                   class="btn btn-circle btn-outline border-blue-400 text-blue-600 dark:border-blue-200 dark:text-blue-200
+                          hover:bg-blue-600 hover:text-white hover:border-blue-900
+                          dark:hover:bg-blue-400 dark:hover:text-blue-900 dark:hover:border-white transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor" class="h-6 w-6">
+                        <path d="M100.28 448H7.4V148.9h92.88zm-46.44-349.36a53.38 53.38 0 1 1 53.38-53.38 53.38 53.38 0 0 1-53.38 53.38zm394.34 349.36H354.7V302.4c0-34.7-12.46-58.4-43.55-58.4-23.75 0-37.88 16-44.1 31.4-2.27 5.5-2.84 13.2-2.84 21v151.6h-92.68s1.24-246.3 0-271.1h92.68v38.4c12.3-19 34.3-46.1 83.48-46.1 60.88 0 106.72 39.7 106.72 125.17z"/>
+                    </svg>
+                </a>
+                {% endif %}
+                {% if faculty.website %}
+                <a href="{{ faculty.website }}" target="_blank"
+                  class="btn btn-circle btn-outline border-neutral text-neutral-700 dark:text-blue-200 dark:border-blue-300
+                        hover:bg-neutral-700 hover:text-white hover:border-neutral-900
+                        dark:hover:bg-blue-400 dark:hover:text-blue-900 dark:hover:border-white transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6" viewBox="0 0 24 24">
+                     <circle cx="12" cy="12" r="10" />
+                     <line x1="2" y1="12" x2="22" y2="12" />
+                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+               </a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
- 

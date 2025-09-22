@@ -72,7 +72,7 @@ class ExecutiveMemberAdmin(admin.ModelAdmin):
             "IEEE Related Details",
             {"fields": ("ieee_number", "ieee_email", "profile_picture")},
         ),
-        ("Socials", {"fields": ("linkedin", "github")}),
+        ("Socials", {"fields": ("linkedin", "hide_linkedin", "github", "hide_github")}),
     )
     list_display = ("user", "sig", "roll_number", "edu_email", "ieee_number", "is_nep")
     search_fields = (
