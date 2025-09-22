@@ -6,7 +6,7 @@
             <img
                 class="profile-pic w-24 h-24 rounded-full border-4 border-white dark:border-neutral-900 shadow-lg object-cover object-center bg-white"
                 {% if faculty.profile_pic %}
-                    src="{{ faculty.profile_pic.url }}"
+                    src="{{ faculty.profile_picture.url }}"
                 {% else %}
                     src="{% static 'img/default_profile_picture.png' %}"
                 {% endif %}
