@@ -7,30 +7,66 @@
 
 {% block style %}
 <head>
-   <link rel="stylesheet", href="{% static 'css/team.css' %}", type="text/css">
+   <link rel="stylesheet" href="{% static 'css/team.css' %}" type="text/css">
    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+   
+   <style>
+      .team-btn:hover {
+         background: #2563eb;    /* Darker blue on hover */
+         color: #fff;
+         box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2); /* Subtle shadow highlight */
+         border-color: #1d4ed8;
+         transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+         }
+      .button-group {
+         display: flex;
+         justify-content: center;
+         gap: 1rem;
+         margin-bottom: 1.5rem;
+      }
+      .team-btn {
+         padding: 0.75rem 2rem;
+         font-size: 1.1rem;
+         background: #e0f2fe;
+         border: 1px solid #93c5fd;
+         border-radius: 0.5rem;
+         cursor: pointer;
+         font-weight: 600;
+         transition: background 0.2s, color 0.2s;
+      }
+      .team-btn.active-btn, .team-btn:focus {
+         background: #2563eb;
+         color: #fff;
+         outline: none;
+      }
+      .team-content {
+         display: none;
+      }
+      .team-content.active-content {
+         display: block;
+      }
+   </style>
 </head>
 {% endblock %}
 
 {% block content %}
-<section
-    class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+<section class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
     <div id="particles-js" class="h-[50vh] w-full"></div>
     <div class="hero-content text-center flex-col">
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Teams</h1>
     </div>
 </section>
-<div class="center align-center">
-   <div role="tablist" class="tabs tabs-boxed tabs-lg">
-      <!-- Tab links -->
-      <a role="tab" id="IEEE-tab" class="tab" onclick="openPage('IEEE', this, 'IEEE-tab')">IEEE</a>
-      <a role="tab" id="CompSoc-tab" class="tab" onclick="openPage('CompSoc', this, 'CompSoc-tab')">CompSoc</a>
-      <a role="tab" id="Diode-tab" class="tab" onclick="openPage('Diode', this, 'Diode-tab')">Diode</a>
-      <a role="tab" id="Piston-tab" class="tab" onclick="openPage('Piston', this, 'Piston-tab')">Piston</a>
-      <a role="tab" id="SAC-tab" class="tab" onclick="openPage('SAC', this, 'SAC-tab')">SAC</a>
+<div class="center mt-2 align-center">
+   <div class="button-group flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 mb-6 w-full px-2">
+      <button type="button" id="IEEE-btn" class="team-btn w-full md:w-auto" onclick="showSection('IEEE', this)">IEEE</button>
+      <button type="button" id="CompSoc-btn" class="team-btn w-full md:w-auto" onclick="showSection('CompSoc', this)">CompSoc</button>
+      <button type="button" id="Diode-btn" class="team-btn w-full md:w-auto" onclick="showSection('Diode', this)">Diode</button>
+      <button type="button" id="Piston-btn" class="team-btn w-full md:w-auto" onclick="showSection('Piston', this)">Piston</button>
+      <button type="button" id="SAC-btn" class="team-btn w-full md:w-auto" onclick="showSection('SAC', this)">SAC</button>
    </div>
-   <!-- Tab content -->
-   <div id="IEEE" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
+
+   <!-- Section contents -->
+   <div id="IEEE" class="team-content">
       <h2 class="section-heading">IEEE Faculty</h2>
       <br>
       <div class="flex flex-wrap justify-center gap-1">
@@ -48,7 +84,7 @@
          {% endfor %}
       </div>
    </div>
-   <div id="CompSoc" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
+   <div id="CompSoc" class="team-content">
       <h2 class="section-heading">CompSoc Faculty</h2>
       <br>
       <div class="flex flex-wrap justify-center gap-1">
@@ -73,7 +109,7 @@
          {% endfor %}
       </div>
    </div>
-   <div id="Diode" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
+   <div id="Diode" class="team-content">
       <h2 class="section-heading">Diode Faculty</h2>
       <br>
       <div class="flex flex-wrap justify-center gap-1">
@@ -98,7 +134,7 @@
          {% endfor %}
       </div>
    </div>
-   <div id="Piston" role="tabpanel" class="tab-content center bg-base-100 border-base-300 rounded-box p-6">
+   <div id="Piston" class="team-content">
       <h2 class="section-heading">Piston Faculty</h2>
       <br>
       <div class="flex flex-wrap justify-center gap-1">
@@ -123,7 +159,7 @@
          {% endfor %}
       </div>
    </div>
-   <div id="SAC" role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+   <div id="SAC" class="team-content">
       <h2 class="section-heading">SAC Faculty</h2>
       <br>
       <div class="flex flex-wrap justify-center gap-1">
@@ -145,13 +181,26 @@
 {% endblock %}
 {% block script %}
 <script>
-   function openPage(pageName, elmnt, tabName) {
-      $(".tab-content").hide();
-      $(".tab").removeClass("tab-active");
-      $("#" + pageName).show();
-      $("#" + tabName).addClass("tab-active");
-    }
-    $("#IEEE-tab").click();
+function showSection(sectionId, btn) {
+   // Hide all section contents
+   let contents = document.querySelectorAll('.team-content');
+   contents.forEach(div => div.classList.remove('active-content'));
+
+   // Remove active from all buttons
+   let buttons = document.querySelectorAll('.team-btn');
+   buttons.forEach(b => b.classList.remove('active-btn'));
+
+   // Show the selected section
+   document.getElementById(sectionId).classList.add('active-content');
+
+   // Style the active button
+   btn.classList.add('active-btn');
+}
+
+// Show IEEE section by default on page load
+window.onload = function() {
+   document.getElementById('IEEE-btn').click();
+};
 </script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
@@ -171,7 +220,6 @@
         "autoplayTimeout": 4000,
         "swipeAngle": false,
         "mouseDrag": true,
-
     })
 </script>
 {% endblock %}
