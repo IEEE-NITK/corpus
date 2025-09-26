@@ -67,6 +67,9 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    "smp.apps.SmpConfig",
+    "codeRed.apps.CoderedConfig",
+    "chimera.apps.ChimeraConfig",
     "newsletter.apps.NewsletterConfig",
 ]
 
@@ -161,7 +164,7 @@ STATICFILES_DIRS = [BASE_DIR / "templates/static"]
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "templates", "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -215,14 +218,13 @@ if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
 
 CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_CONFIGS = {
     "default": {
         "toolbar_DefaultToolbarConfig": [
             {
                 "name": "format",
-                "items": [
-                    "Format",
-                ],
+                "items": ["Format"],
             },
             {
                 "name": "extra",
@@ -231,6 +233,7 @@ CKEDITOR_CONFIGS = {
                     "Unlink",
                     "Blockquote",
                     "Image",
+                    "UploadImage",
                     "Table",
                     "CodeSnippet",
                     "Mathjax",
@@ -239,10 +242,7 @@ CKEDITOR_CONFIGS = {
             },
             {
                 "name": "source",
-                "items": [
-                    "Maximize",
-                    "Source",
-                ],
+                "items": ["Maximize", "Source"],
             },
             {
                 "name": "basicstyles",
@@ -257,10 +257,7 @@ CKEDITOR_CONFIGS = {
             },
             {
                 "name": "clipboard",
-                "items": [
-                    "Undo",
-                    "Redo",
-                ],
+                "items": ["Undo", "Redo"],
             },
             {
                 "name": "paragraph",
@@ -291,19 +288,21 @@ CKEDITOR_CONFIGS = {
         "linkShowAdvancedTab": False,
         "height": "250px",
         "width": "auto",
-        "forcePasteAsPlainText ": True,
+        "forcePasteAsPlainText": True,
         "mathJaxClass": "mathjax-latex",
-        "mathJaxLib": """
-            https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG
-        """,
+        "mathJaxLib": "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_SVG",
         "extraPlugins": ",".join(
             [
                 "mathjax",
                 "codesnippet",
                 "image2",
+                "uploadimage",
                 "embed",
+                "uploadimage",
                 "tableresize",
             ]
         ),
+        "filebrowserUploadUrl": "/ckeditor/upload/?responseType=json",
+        "filebrowserBrowseUrl": "/ckeditor/browse/",
     }
 }

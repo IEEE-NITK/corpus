@@ -1,0 +1,98 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    Edit {{ program.title }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with text=program.title %}
+    <div class="m-10">
+        {% if admin %}
+            <form method="post" enctype="multipart/form-data"
+                action="{% url 'smp_admin_manage' program_id=program.id %}">
+        {% else %}
+            <form method="post" enctype="multipart/form-data"
+                action="{% url 'smp_mentors_edit_program' program_id=program.id %}">
+        {% endif %}
+
+            {% csrf_token %}
+            {{ form.media }}
+
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div role="alert" class="alert alert-error mt-1">
+                        <span>{{ error }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="w-full my-2">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.title.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.abstract.id_for_label }}">Abstract</label>
+                {{ form.abstract }}
+                {% if form.abstract.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.abstract.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.thumbnail.id_for_label }}">Thumbnail</label>
+                {{ form.thumbnail }}
+                {% if form.thumbnail.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.thumbnail.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.year.id_for_label }}">Year</label>
+                {{ form.year }}
+                {% if form.year.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.year.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-full my-2">
+                <label for="{{ form.description.id_for_label }}">Description</label>
+                <div>
+                    {{ form.description | safe }}
+                </div>
+                {% if form.description.errors %}
+                    <div class="my-1">
+                        <div role="alert" class="alert alert-error">
+                            {{ form.description.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="my-5">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

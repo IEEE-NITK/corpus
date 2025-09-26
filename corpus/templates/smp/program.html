@@ -1,0 +1,156 @@
+{% extends "smp/base.html" %}
+
+{% block title %}
+    {{ program.title }}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "smp/header.html" with year=program.year %}
+
+    {% if preview %}
+        <div class="fixed top-0 left-0 w-full bg-red-500 text-white p-4 text-center z-50">
+            <span class="font-semibold">Preview Mode</span> - This is a draft version of the program
+        </div>
+    {% endif %}
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <article class="shadow-lg rounded-xl overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-8 text-white">
+                <h1 class="text-4xl font-bold break-words leading-tight">{{ program.title }}</h1>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    {% for sig in program.sigs %}
+                        <span class="px-3 py-1 bg-blue-400 rounded-full text-sm font-medium">
+                            {{ sig }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="p-8">
+                <!-- abstract section here -->
+                {% if program.abstract %}
+                    <div class="mb-8 bg-gray-50 p-6 rounded-lg border-l-4 border-blue-600 light-logo">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-3">Abstract</h2>
+                        <div class="prose prose-blue max-w-none">
+                            {{ program.abstract | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if program.abstract %}
+                    <div class="mb-8 p-6 rounded-lg border-l-4 bg-gray-700 border-gray-200 dark-logo">
+                        <h2 class="text-xl font-semibold text-white mb-3">Abstract</h2>
+                        <div class="prose prose-blue max-w-none text-white">
+                            {{ program.abstract | safe }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="prose prose-lg max-w-none">
+                    {{ program.description | safe }}
+                </div>
+
+                <div class="mt-8 mb-8">
+                    <a href="{% url 'upload_list' program_id=program.id %}" class="btn btn-primary px-3 py-1">
+                        View Uploads
+                    </a>
+                </div>
+
+                <!-- Metadata Section -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Program Information</h2>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Mentors Section -->
+                        <div class="bg-gray-50 rounded-lg p-6 light-logo">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Mentors</h3>
+                            <ul class="space-y-2">
+                                {% for mentor in mentors %}
+                                    <li class="flex items-center">
+                                        <svg class="h-5 w-5 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        <span class="text-gray-700"> <a href="{% url 'accounts_profile' roll_no=mentor.roll_number %}" class="hover:underline">{{ mentor.user }} </a></span>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-500">No mentors yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-6 dark-logo">
+                            <h3 class="text-lg font-medium text-white mb-4">Mentors</h3>
+                            <ul class="space-y-2">
+                                {% for mentor in mentors %}
+                                    <li class="flex items-center">
+                                        <svg class="h-5 w-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        <span class="text-gray-300"> <a href="{% url 'accounts_profile' roll_no=mentor.roll_number %}" class="hover:underline">{{ mentor.user }} </a></span>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-400">No mentors yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Mentees Section -->
+                        <div class="bg-gray-50 rounded-lg p-6 light-logo">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Mentees</h3>
+                            <ul class="space-y-2">
+                                {% for mentee in mentees %}
+                                    <li class="flex items-center">
+                                        <svg class="h-5 w-5 text-purple-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        <span class="text-gray-700">{{ mentee }}</span>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-500">No mentees yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="bg-gray-800 rounded-lg p-6 dark-logo">
+                            <h3 class="text-lg font-medium text-white mb-4">Mentees</h3>
+                            <ul class="space-y-2">
+                                {% for mentee in mentees %}
+                                    <li class="flex items-center">
+                                        <svg class="h-5 w-5 text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        </svg>
+                                        <span class="text-gray-300">{{ mentee }}</span>
+                                    </li>
+                                {% empty %}
+                                    <li class="text-gray-400">No mentees yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-8">
+            {% if not preview %}
+                <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl p-8 text-center">
+                    <h2 class="text-2xl font-bold text-white mb-4">Explore More Programs</h2>
+                    <a href="{% url 'smp_programs_by_year' year=program.year %}"
+                       class="inline-block bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                        View All {{ program.year }} Programs
+                    </a>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <a href="{{ request.META.HTTP_REFERER|escape }}"
+                       class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Back to Editor
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

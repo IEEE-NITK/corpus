@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+
+{% block title %} 
+| CodeRed 
+{% endblock %} 
+
+{% block script %}
+<script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            await new Promise(r => setTimeout(r, 100));
+            const themeButton = document.getElementById("dark-mode-button");
+            themeButton.remove();
+            document.documentElement.setAttribute("data-theme", "codeRed");
+        });
+    </script>
+{% endblock %}

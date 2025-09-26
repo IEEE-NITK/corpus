@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home | Project Chimera
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const theme = "synthwave";
+        const themeButton = document.getElementById("dark-mode-button");
+        themeButton.remove();
+
+    });
+
+    window.addEventListener("beforeunload", function (event) {
+        const oldTheme = localStorage.getItem("corpusThemeArchive");
+        localStorage.setItem("corpusTheme", oldTheme);
+    })
+  </script>
+{% endblock %}
