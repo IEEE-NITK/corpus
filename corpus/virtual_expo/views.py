@@ -52,7 +52,6 @@ def reports_by_year(request, year):
 def report(request, report_id):
     report = get_object_or_404(Report, pk=report_id)
     report_members = ReportMember.objects.filter(report=report)
-
     args = {"report": report, "members": report_members}
 
     return render(request, "virtual_expo/report.html", args)

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block title %}
+   Teams
+{% endblock %}
+
+{% load static %}
+
+{% block style %}
+<head>
+   <link rel="stylesheet" href="{% static 'css/team.css' %}" type="text/css">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+   
+   <style>
+      .team-btn:hover {
+         background: #2563eb;    /* Darker blue on hover */
+         color: #fff;
+         box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2); /* Subtle shadow highlight */
+         border-color: #1d4ed8;
+         transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+         }
+      .button-group {
+         display: flex;
+         justify-content: center;
+         gap: 1rem;
+         margin-bottom: 1.5rem;
+      }
+      .team-btn {
+         padding: 0.75rem 2rem;
+         font-size: 1.1rem;
+         background: #e0f2fe;
+         border: 1px solid #93c5fd;
+         border-radius: 0.5rem;
+         cursor: pointer;
+         font-weight: 600;
+         transition: background 0.2s, color 0.2s;
+      }
+      .team-btn.active-btn, .team-btn:focus {
+         background: #2563eb;
+         color: #fff;
+         outline: none;
+      }
+      .team-content {
+         display: none;
+      }
+      .team-content.active-content {
+         display: block;
+      }
+   </style>
+</head>
+{% endblock %}
+
+{% block content %}
+<section class="hero min-h-[50vh] min-w-screen bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100">
+    <div id="particles-js" class="h-[50vh] w-full"></div>
+    <div class="hero-content text-center flex-col">
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold">Teams</h1>
+    </div>
+</section>
+<div class="center mt-2 align-center">
+   <div class="button-group flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 mb-6 w-full px-2">
+      <button type="button" id="IEEE-btn" class="team-btn w-full md:w-auto" onclick="showSection('IEEE', this)">IEEE</button>
+      <button type="button" id="CompSoc-btn" class="team-btn w-full md:w-auto" onclick="showSection('CompSoc', this)">CompSoc</button>
+      <button type="button" id="Diode-btn" class="team-btn w-full md:w-auto" onclick="showSection('Diode', this)">Diode</button>
+      <button type="button" id="Piston-btn" class="team-btn w-full md:w-auto" onclick="showSection('Piston', this)">Piston</button>
+      <button type="button" id="SAC-btn" class="team-btn w-full md:w-auto" onclick="showSection('SAC', this)">SAC</button>
+   </div>
+
+   <!-- Section contents -->
+   <div id="IEEE" class="team-content">
+      <h2 class="section-heading">IEEE Faculty</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for fac in faculty %}
+            {% if fac.post.is_execom %}
+              {% include './faculty_box.html' with faculty=fac %}
+            {% endif %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">IEEE Core</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in ieee_core %}
+            {% include './core_box.html' with core_member=member %}
+         {% endfor %}
+      </div>
+   </div>
+   <div id="CompSoc" class="team-content">
+      <h2 class="section-heading">CompSoc Faculty</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for fac in faculty %}
+            {% if fac.sig.name == "CompSoc" and fac.post.is_execom == False and fac.post.is_sac == False %}
+              {% include './faculty_box.html' with faculty=fac %}
+            {% endif %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">CompSoc Core</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in compsoc_core %}
+            {% include './core_box.html' with core_member=member %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">CompSoc Members</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in compsoc_members %}
+            {% include './member_box.html' with member=member %}
+         {% endfor %}
+      </div>
+   </div>
+   <div id="Diode" class="team-content">
+      <h2 class="section-heading">Diode Faculty</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for fac in faculty %}
+            {% if fac.sig.name == "Diode" and fac.post.is_execom == False and fac.post.is_sac == False %}
+              {% include './faculty_box.html' with faculty=fac %}
+            {% endif %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">Diode Core</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in diode_core %}
+            {% include './core_box.html' with core_member=member %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">Diode Members</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in diode_members %}
+            {% include './member_box.html' with member=member %}
+         {% endfor %}
+      </div>
+   </div>
+   <div id="Piston" class="team-content">
+      <h2 class="section-heading">Piston Faculty</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for fac in faculty %}
+            {% if fac.sig.name == "Piston" and fac.post.is_execom == False and fac.post.is_sac == False %}
+              {% include './faculty_box.html' with faculty=fac %}
+            {% endif %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">Piston Core</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in piston_core %}
+            {% include './core_box.html' with core_member=member %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">Piston Members</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in piston_members %}
+            {% include './member_box.html' with member=member %}
+         {% endfor %}
+      </div>
+   </div>
+   <div id="SAC" class="team-content">
+      <h2 class="section-heading">SAC Faculty</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for fac in faculty %}
+            {% if fac.post.is_sac %}
+              {% include './faculty_box.html' with faculty=fac %}
+            {% endif %}
+         {% endfor %}
+      </div>
+      <h2 class="section-heading">SAC Core</h2>
+      <br>
+      <div class="flex flex-wrap justify-center gap-1">
+         {% for member in sac_core %}
+            {% include './core_box.html' with core_member=member %}
+         {% endfor %}
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+function showSection(sectionId, btn) {
+   // Hide all section contents
+   let contents = document.querySelectorAll('.team-content');
+   contents.forEach(div => div.classList.remove('active-content'));
+
+   // Remove active from all buttons
+   let buttons = document.querySelectorAll('.team-btn');
+   buttons.forEach(b => b.classList.remove('active-btn'));
+
+   // Show the selected section
+   document.getElementById(sectionId).classList.add('active-content');
+
+   // Style the active button
+   btn.classList.add('active-btn');
+}
+
+// Show IEEE section by default on page load
+window.onload = function() {
+   document.getElementById('IEEE-btn').click();
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+<script>
+    var slider = tns({
+        "container": '#slider-div',
+        "items": 3,
+        "nav": true,
+        "controls": false,
+        "speed": 300,
+        "autoplay": true,
+        "autoplayText": [
+            " ",
+            " "
+        ],
+        "autoplayHoverPause": false,
+        "autoplayTimeout": 4000,
+        "swipeAngle": false,
+        "mouseDrag": true,
+    })
+</script>
+{% endblock %}
