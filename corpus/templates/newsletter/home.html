@@ -4,182 +4,228 @@
 {% block title %}
     Newsletter
 {% endblock %}
+
 {% block content %}
 
-<style>
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-    }
+<body class="bg-gray-50 dark:bg-gray-900 font-sans">
+    <div class="container mx-auto px-4 py-8 md:py-12">
 
-    .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
+        <section class="mb-12 md:mb-16" aria-labelledby="recent-events-heading">
+            <h1 id="recent-events-heading" class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-2 text-center">Recent Highlights</h1>
+            <p class="text-center text-gray-500 dark:text-gray-400 mb-8">A look back at our amazing events.</p>
 
-    .post-bar:hover {
-        transform: scale(1.05);
-        transition: transform 0.3s ease;
-    }
-
-    .post-bar {
-        transition: transform 0.3s ease;
-    }
-
-    .carousel {
-        scroll-behavior: smooth;
-    }
-
-</style>
-
-<div class="flex justify-center">
-    {% if is_admin %}
-        <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-primary text-center m-6">Manage Announcements</a>
-    {% endif %}
-    <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary text-center m-6">Event Calendar</a>
-</div>
-<div class="flex flex-col lg:flex-row justify-center gap-0">
-    <!-- What's New Section -->
-    <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
-        <h1 class="text-center my-10 text-2xl md:text-4xl lg:text-5xl">What's New?</h1>
-
-        <!-- Scrollable container -->
-        <div class="m-5 md:m-10 p-5 md:p-10 overflow-y-auto scrollbar-hide"
-            style="max-height: calc(4.5 * 7rem + 1rem);">
-            {% for event in upcoming_events %}
-                {% if event.page_link %}
-                    <a href="{{ event.page_link }}"
-                    class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300
-                            rounded-lg block bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
-                            from-purple-400 to-blue-500 text-white">
+            <div class="relative w-full mx-auto shadow-2xl rounded-2xl overflow-hidden">
+                {% if recent_events %}
+                    <div id="image-carousel" class="relative w-full h-[300px] md:h-[500px] lg:h-[600px]">
+                        {% for event in recent_events %}
+                            <div class="image-carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0">
+                                <img src="{{ event.thumbnail.url }}" class="w-full h-full object-cover" alt="{{ event.name }} thumbnail" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                                <div class="absolute bottom-0 left-0 p-6 md:p-8 text-white">
+                                    <h2 class="text-2xl md:text-4xl font-bold">{{ event.name }}</h2>
+                                    <p class="mt-2 text-lg md:text-xl font-light">{{ event.start_date|date:"jS F Y" }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button id="image-prev-button" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full text-white transition-colors" aria-label="Previous Slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <button id="image-next-button" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full text-white transition-colors" aria-label="Next Slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                    </button>
                 {% else %}
-                    <div class="mb-4 post-bar indicator py-5 md:py-10 px-5 md:px-10 w-full border border-blue-300
-                                rounded-lg bg-gradient-to-r dark:from-blue-400 dark:to-primary-500 dark:text-white
-                                from-purple-400 to-blue-500 text-white">
-                {% endif %}
-
-                    {% if event.is_upcoming %}
-                        <span class="indicator-item badge badge-accent">new</span>
-                    {% endif %}
-                    <h2 class="text-center text-xl md:text-2xl lg:text-3xl w-full">{{ event.name }}</h2>
-                    <p class="mt-4 text-md text-right md:text-xl lg:text-xl">
-                        {{ event.start_date|date:"jS F" }} - {{ event.end_date|date:"jS F Y" }}
-                    </p>
-
-                {% if event.page_link %}
-                    </a>
-                {% else %}
+                    <div class="text-center py-20 bg-gray-100 dark:bg-gray-800 rounded-2xl">
+                        <p class="text-gray-500">No recent events to display</p>
                     </div>
                 {% endif %}
-            {% empty %}
-                <p class="text-center text-gray-500">No events to display</p>
-            {% endfor %}
-        </div>
+            </div>
+        </section>
 
-        {% if admin %}
-            <a href="{% url 'newsletter_admin_dashboard' %}"
-            class="btn btn-primary px-3 py-1 rounded-full my-2">
-                Go to Coordinator Dashboard
-            </a>
+        {% if is_admin %}
+            <div class="flex justify-center items-center gap-4 my-8 p-4 bg-base-200 dark:bg-gray-800 rounded-lg">
+                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-outline btn-primary">Manage Announcements</a>
+                <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary">Event Calendar</a>
+            </div>
+        {% else %}
+            <div class="text-center my-8">
+                <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary btn-wide">View Full Event Calendar</a>
+            </div>
         {% endif %}
-    </section>
 
-    <div class="divider divider-accent dark:divider-secondary text-pink-500 dark:text-blue-500 divider-horizontal">&</div>
+        <section class="mt-12 md:mt-20" aria-labelledby="whats-new-heading">
+            <h1 id="whats-new-heading" class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-2 text-center">What's New?</h1>
+            <p class="text-center text-gray-500 dark:text-gray-400 mb-8">Stay updated with our upcoming events and announcements.</p>
 
-    <!-- Recent Events Section -->
-    <section class="bg-base-300 my-10 px-5 md:px-10 shadow-xl w-full lg:w-1/2">
-        <h1 class="my-10 text-center text-2xl md:text-4xl lg:text-5xl">Recent Events</h1>
-        <div class="relative w-full mx-auto">
-            {% if recent_events %}
-                <div class="carousel rounded-lg overflow-hidden relative mb-10" id="carousel">
-                    {% for event in recent_events %}
-                        <div class="carousel-item relative w-full">
-                            <img src="{{ event.thumbnail.url }}"
-                                class="object-cover w-[1400px] h-[700px] mx-auto" />
-                            <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                                <h1 class="text-4xl text-white text-center">
-                                    {{ event.name }} - {{ event.start_date|date:"jS F" }}
-                                </h1>
-                            </div>
+            <div id="whats-new-container" class="relative w-full max-w-6xl mx-auto">
+                {% if upcoming_events %}
+                    <div class="overflow-hidden relative">
+                        <div id="whats-new-track" class="flex transition-transform duration-500 ease-in-out">
+                            {% for event in upcoming_events %}
+                                <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 p-3">
+                                    <div class="h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-l-4 border-accent overflow-hidden flex flex-col">
+                                        {% if event.is_upcoming %}
+                                            <div class="absolute top-0 right-0 m-3">
+                                                <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-accent rounded-full">NEW</span>
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="p-6 flex-grow">
+                                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">{{ event.name }}</h2>
+                                            <div class="flex items-center text-gray-500 dark:text-gray-400 mt-4">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
+                                                <span>{{ event.start_date|date:"jS F" }} - {{ event.end_date|date:"jS F Y" }}</span>
+                                            </div>
+                                        </div>
+                                        {% if event.page_link %}
+                                            <div class="p-6 bg-gray-50 dark:bg-gray-700/50 mt-auto">
+                                                <a href="{{ event.page_link }}" class="font-semibold text-primary hover:text-primary-focus dark:text-accent dark:hover:text-accent-focus transition-colors">
+                                                    Learn More &rarr;
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                    <button id="prevButton" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-l-lg z-10">
-                        ❮
+                    </div>
+
+                    <button id="whats-new-prev-button" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 p-3 bg-white dark:bg-gray-700 shadow-md rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Previous Item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
-                    <button id="nextButton" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white px-3 py-2 rounded-r-lg z-10">
-                        ❯
+                    <button id="whats-new-next-button" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 p-3 bg-white dark:bg-gray-700 shadow-md rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 transition disabled:opacity-50 disabled:cursor-not-allowed" aria-label="Next Item">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                     </button>
-                </div>
-            {% else %}
-                <p class="text-center text-gray-500">No recent events</p>
-            {% endif %}
-        </div>
-</section>
 
+                {% else %}
+                    <div class="text-center py-20 bg-gray-100 dark:bg-gray-800 rounded-2xl">
+                         <p class="text-gray-500">No upcoming events to display</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
 
-</div>
-
-
+    </div>
+</body>
 {% endblock %}
+
 
 {% block script %}
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const whatsNewContainer = document.querySelector(".scrollbar-hide");
-        let scrollSpeed = 1;
-        let scrollDelay = 30;
+document.addEventListener("DOMContentLoaded", function () {
+    // --- Image Carousel (Recent Events) ---
+    const imageCarousel = document.getElementById("image-carousel");
+    if (imageCarousel) {
+        const imageSlides = imageCarousel.getElementsByClassName("image-carousel-item");
+        const prevBtn = document.getElementById("image-prev-button");
+        const nextBtn = document.getElementById("image-next-button");
+        let currentImageSlide = 0;
+        let imageInterval;
 
-        whatsNewContainer.innerHTML += whatsNewContainer.innerHTML;
+        const showImageSlide = (index) => {
+            Array.from(imageSlides).forEach((slide, i) => {
+                slide.classList.toggle("opacity-100", i === index);
+                slide.classList.toggle("opacity-0", i !== index);
+            });
+        };
 
-        let scrollInterval = setInterval(autoScroll, scrollDelay);
+        const nextImage = () => {
+            currentImageSlide = (currentImageSlide + 1) % imageSlides.length;
+            showImageSlide(currentImageSlide);
+        };
 
-        function autoScroll() {
-            if (whatsNewContainer.scrollTop >= whatsNewContainer.scrollHeight / 2) {
-                whatsNewContainer.scrollTop = 0;
-            } else {
-                whatsNewContainer.scrollTop += scrollSpeed;
+        const prevImage = () => {
+            currentImageSlide = (currentImageSlide - 1 + imageSlides.length) % imageSlides.length;
+            showImageSlide(currentImageSlide);
+        };
+
+        const startImageAutoplay = () => {
+             imageInterval = setInterval(nextImage, 4000);
+        };
+
+        const stopImageAutoplay = () => {
+            clearInterval(imageInterval);
+        };
+
+        nextBtn.addEventListener("click", () => { stopImageAutoplay(); nextImage(); startImageAutoplay(); });
+        prevBtn.addEventListener("click", () => { stopImageAutoplay(); prevImage(); startImageAutoplay(); });
+
+        showImageSlide(currentImageSlide); // Initial slide
+        startImageAutoplay();
+    }
+
+
+    // --- Content Carousel (What's New?) ---
+    const whatsNewContainer = document.getElementById('whats-new-container');
+    if (whatsNewContainer) {
+        const track = document.getElementById('whats-new-track');
+        const items = track.querySelectorAll('.w-full');
+        const nextButton = document.getElementById('whats-new-next-button');
+        const prevButton = document.getElementById('whats-new-prev-button');
+        let currentIndex = 0;
+        let itemsPerPage = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+        const totalItems = items.length;
+        let whatsNewInterval;
+
+        const updateCarousel = () => {
+            const offset = currentIndex * (100 / itemsPerPage);
+            track.style.transform = `translateX(-${offset}%)`;
+
+            // Disable/Enable buttons
+            prevButton.disabled = currentIndex === 0;
+            nextButton.disabled = currentIndex >= totalItems - itemsPerPage;
+        };
+
+        const handleResize = () => {
+            itemsPerPage = window.innerWidth >= 1024 ? 3 : window.innerWidth >= 768 ? 2 : 1;
+            track.style.width = `${(totalItems / itemsPerPage) * 100}%`;
+            items.forEach(item => {
+                item.style.width = `${100 / totalItems}%`;
+            });
+            if (currentIndex > totalItems - itemsPerPage) {
+                currentIndex = totalItems - itemsPerPage;
             }
-        }
+            updateCarousel();
+        };
 
-        whatsNewContainer.addEventListener("mouseenter", () => clearInterval(scrollInterval));
-        whatsNewContainer.addEventListener("mouseleave", () => {
-            scrollInterval = setInterval(autoScroll, scrollDelay);
+        const slideNext = () => {
+            if (currentIndex < totalItems - itemsPerPage) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back to the start
+            }
+            updateCarousel();
+        };
+
+        const startAutoplay = () => {
+            whatsNewInterval = setInterval(slideNext, 5000);
+        };
+
+        const stopAutoplay = () => {
+            clearInterval(whatsNewInterval);
+        };
+
+        nextButton.addEventListener('click', () => {
+            if (currentIndex < totalItems - itemsPerPage) {
+                currentIndex++;
+                updateCarousel();
+            }
         });
-    });
+
+        prevButton.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        whatsNewContainer.addEventListener('mouseenter', stopAutoplay);
+        whatsNewContainer.addEventListener('mouseleave', startAutoplay);
+        window.addEventListener('resize', handleResize);
+
+        handleResize(); // Initial setup
+        startAutoplay();
+    }
+});
 </script>
-
-<script>
-    const carousel = document.getElementById("carousel");
-    const slides = carousel.getElementsByClassName("carousel-item");
-    const prevButton = document.getElementById("prevButton");
-    const nextButton = document.getElementById("nextButton");
-
-    let currentSlide = 0;
-
-    const showSlide = (index) => {
-      Array.from(slides).forEach((slide, i) => {
-        slide.classList.toggle("hidden", i !== index);
-        slide.classList.toggle("block", i === index);
-      });
-    };
-
-    const nextSlide = () => {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    };
-
-    const prevSlide = () => {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      showSlide(currentSlide);
-    };
-
-    nextButton.addEventListener("click", nextSlide);
-    prevButton.addEventListener("click", prevSlide);
-
-    // Auto Slide Logic
-    setInterval(nextSlide, 3000); // Change slide every 3 seconds
-
-    // Initialize
-    showSlide(currentSlide);
-</script>
-
 {% endblock %}
