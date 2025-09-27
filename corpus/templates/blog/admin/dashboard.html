@@ -11,10 +11,44 @@
         <div class="my-2 p-5 border rounded-lg">
             <form method="get">
                 <div class="flex flex-row gap-4">
-                    <div class="w-full">
-                        <label for="{{ form.author.id_for_label }}">Author Name</label>
-                        {{ form.author }}
+                    <!-- Author Dropdown -->
+                    <div class="w-full relative">
+                        <label for="author-dropdown" class="block font-semibold mb-1">Author Name</label>
+                        <div class="relative">
+                            <!-- Dropdown button -->
+                            <button type="button"
+                                    id="author-dropdown-button"
+                                    class="w-full bg-white border border-neutral rounded-md px-3 py-2 text-black text-left flex justify-between items-center focus:outline-none">
+                                <span id="author-dropdown-label">Select Author</span>
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="author-dropdown-menu"
+                                 class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg hidden max-h-60 overflow-y-auto">
+                                <!-- Search box -->
+                                <div class="p-2">
+                                    <input type="text" id="author-search" placeholder="Search author..."
+                                           class="w-full px-2 py-1 border border-gray-300 rounded-md text-black text-sm focus:outline-none">
+                                </div>
+
+                                <!-- Author options -->
+                                <div id="author-options" class="max-h-48 overflow-y-auto">
+                                    {% for value, label in form.author.field.choices %}
+                                        <div class="author-option px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-black"
+                                             data-value="{{ value }}">
+                                            {{ label }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="{{ form.author.name }}" id="author-hidden" value="{{ form.author.value }}">
                     </div>
+
+                    <!-- Tags Dropdown (multi-select checkboxes) -->
                     <div class="w-full relative">
                         <label for="tag-dropdown" class="block font-semibold mb-1">Tags</label>
                         <div class="relative">
@@ -44,12 +78,16 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Submit Button -->
                     <div class="w-full flex flex-row justify-center items-end">
                         <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
                     </div>
                 </div>
             </form>
         </div>
+
+        <!-- Blog Table -->
         <div class="p-5 border rounded-lg overflow-x-auto">
             <table class="table">
                 <thead>
@@ -100,17 +138,54 @@
     </div>
 
     <script>
-        const button = document.getElementById('tag-dropdown-button');
-        const menu = document.getElementById('tag-dropdown-menu');
+        // TAG DROPDOWN
+        const tagButton = document.getElementById('tag-dropdown-button');
+        const tagMenu = document.getElementById('tag-dropdown-menu');
 
-        button.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+        tagButton.addEventListener('click', () => {
+            tagMenu.classList.toggle('hidden');
         });
 
-        // Optional: close dropdown if clicked outside
         document.addEventListener('click', (e) => {
-            if (!button.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.add('hidden');
+            if (!tagButton.contains(e.target) && !tagMenu.contains(e.target)) {
+                tagMenu.classList.add('hidden');
+            }
+        });
+
+        // AUTHOR DROPDOWN
+        const authorButton = document.getElementById("author-dropdown-button");
+        const authorMenu = document.getElementById("author-dropdown-menu");
+        const authorLabel = document.getElementById("author-dropdown-label");
+        const authorHidden = document.getElementById("author-hidden");
+        const authorOptions = document.querySelectorAll(".author-option");
+        const authorSearch = document.getElementById("author-search");
+
+        authorButton.addEventListener("click", () => {
+            authorMenu.classList.toggle("hidden");
+            authorSearch.focus();
+        });
+
+        authorOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                const value = option.getAttribute("data-value");
+                const label = option.textContent.trim();
+                authorLabel.textContent = label;
+                authorHidden.value = value;
+                authorMenu.classList.add("hidden");
+            });
+        });
+
+        authorSearch.addEventListener("keyup", () => {
+            const filter = authorSearch.value.toLowerCase();
+            authorOptions.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!authorButton.contains(e.target) && !authorMenu.contains(e.target)) {
+                authorMenu.classList.add("hidden");
             }
         });
     </script>
