@@ -1,0 +1,71 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+
+{% block title %}
+    Newsletter | Edit Announcement
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
+    <div class="w-full max-w-2xl card bg-base-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all p-8">
+        <h1 class="text-4xl font-bold text-center text-primary mb-8">Update Announcement</h1>
+
+        <form method="POST" action="" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="form-control">
+                    {% if field.widget_type == 'checkbox' %}
+                        <label class="label cursor-pointer justify-start gap-3">
+                            <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                   {% if field.value %}checked{% endif %}
+                                   class="checkbox checkbox-primary">
+                            <span class="label-text text-lg">{{ field.label }}</span>
+                        </label>
+                    {% else %}
+                        <label class="label" for="{{ field.id_for_label }}">
+                            <span class="label-text text-lg font-semibold">{{ field.label }}</span>
+                        </label>
+
+                        {% if field.name == 'sigs' %}
+                            <select name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                    class="select select-bordered w-full" multiple>
+                                {% for value, text in field.field.choices %}
+                                    <option value="{{ value }}"
+                                        {% if value in field.value or value|stringformat:"s" in field.value %}selected{% endif %}>
+                                        {{ text }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        {% elif field.name == 'start_date' or field.name == 'end_date' %}
+                            <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                   value="{{ field.value|date:'Y-m-d' }}"
+                                   class="input input-bordered w-full">
+                        {% else %}
+                            <input type="{{ field.field.widget.input_type|default:'text' }}"
+                                   name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                   value="{{ field.value|default_if_none:'' }}"
+                                   class="input input-bordered w-full">
+                        {% endif %}
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <label class="label">
+                            <span class="label-text-alt text-error">{{ field.errors|first }}</span>
+                        </label>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="mt-8 flex justify-center gap-4">
+                <button type="submit" class="btn btn-primary btn-lg px-10">
+                    Save Changes
+                </button>
+                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-secondary btn-lg px-10">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
