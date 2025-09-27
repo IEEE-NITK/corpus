@@ -1,0 +1,192 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Admin Dashboard
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {% include "blog/header2.html" with text="Admin Dashboard" %}
+    <div class="m-10">
+        <div class="my-2 p-5 border rounded-lg">
+            <form method="get">
+                <div class="flex flex-row gap-4">
+                    <!-- Author Dropdown -->
+                    <div class="w-full relative">
+                        <label for="author-dropdown" class="block font-semibold mb-1">Author Name</label>
+                        <div class="relative">
+                            <!-- Dropdown button -->
+                            <button type="button"
+                                    id="author-dropdown-button"
+                                    class="w-full bg-white border border-neutral rounded-md px-3 py-2 text-black text-left flex justify-between items-center focus:outline-none">
+                                <span id="author-dropdown-label">Select Author</span>
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="author-dropdown-menu"
+                                 class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg hidden max-h-60 overflow-y-auto">
+                                <!-- Search box -->
+                                <div class="p-2">
+                                    <input type="text" id="author-search" placeholder="Search author..."
+                                           class="w-full px-2 py-1 border border-gray-300 rounded-md text-black text-sm focus:outline-none">
+                                </div>
+
+                                <!-- Author options -->
+                                <div id="author-options" class="max-h-48 overflow-y-auto">
+                                    {% for value, label in form.author.field.choices %}
+                                        <div class="author-option px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm text-black"
+                                             data-value="{{ value }}">
+                                            {{ label }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="{{ form.author.name }}" id="author-hidden" value="{{ form.author.value }}">
+                    </div>
+
+                    <!-- Tags Dropdown (multi-select checkboxes) -->
+                    <div class="w-full relative">
+                        <label for="tag-dropdown" class="block font-semibold mb-1">Tags</label>
+                        <div class="relative">
+                            <!-- Dropdown button -->
+                            <button type="button"
+                                    id="tag-dropdown-button"
+                                    class="w-full bg-white border border-neutral rounded-md px-3 py-2 text-black text-left flex justify-between items-center focus:outline-none">
+                                Select Tags
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="tag-dropdown-menu" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg hidden max-h-60 overflow-y-auto">
+                                {% for checkbox in form.tag %}
+                                    <label class="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 cursor-pointer text-black text-sm">
+                                        <input type="checkbox"
+                                            name="{{ checkbox.data.name }}"
+                                            id="{{ checkbox.data.attrs.id }}"
+                                            value="{{ checkbox.data.value }}"
+                                            class="w-3.5 h-3.5 border border-gray-500 rounded-sm"
+                                            {% if checkbox.data.attrs.checked %}checked{% endif %}>
+                                        <span>{{ checkbox.choice_label }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="w-full flex flex-row justify-center items-end">
+                        <button type="submit" class="btn btn-primary rounded-full w-full">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Blog Table -->
+        <div class="p-5 border rounded-lg overflow-x-auto">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>SIGs</th>
+                    <th>Approval Status</th>
+                    <th>Approver</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for blog in blogs %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ blog.title }}</td>
+                        <td class="flex gap-4">
+                            {% for tag in blog.blog_tag.all %}
+                                {{ tag.tag_name }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if blog.approved %}
+                                <div class="badge badge-success">Approved</div>
+                            {% elif blog.ready_for_approval %}
+                                <div class="badge badge-info">Under Review</div>
+                            {% else %}
+                                <div class="badge badge-warning">Not Submitted</div>
+                            {% endif %}
+                        </td>
+                        <td>{{ blog.approver }}</td>
+                        <td class="flex gap-4 justify-start items-center">
+                            <a href="{% url 'blog_preview_blog' slug=blog.slug %}"
+                               class="btn btn-primary">
+                                Preview Report
+                            </a>
+                            {% if not report.approved %}
+                                <a href="{% url 'blog_admin_manage' blog_id=blog.id %}"
+                                   class="btn btn-primary">Manage</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // TAG DROPDOWN
+        const tagButton = document.getElementById('tag-dropdown-button');
+        const tagMenu = document.getElementById('tag-dropdown-menu');
+
+        tagButton.addEventListener('click', () => {
+            tagMenu.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!tagButton.contains(e.target) && !tagMenu.contains(e.target)) {
+                tagMenu.classList.add('hidden');
+            }
+        });
+
+        // AUTHOR DROPDOWN
+        const authorButton = document.getElementById("author-dropdown-button");
+        const authorMenu = document.getElementById("author-dropdown-menu");
+        const authorLabel = document.getElementById("author-dropdown-label");
+        const authorHidden = document.getElementById("author-hidden");
+        const authorOptions = document.querySelectorAll(".author-option");
+        const authorSearch = document.getElementById("author-search");
+
+        authorButton.addEventListener("click", () => {
+            authorMenu.classList.toggle("hidden");
+            authorSearch.focus();
+        });
+
+        authorOptions.forEach(option => {
+            option.addEventListener("click", () => {
+                const value = option.getAttribute("data-value");
+                const label = option.textContent.trim();
+                authorLabel.textContent = label;
+                authorHidden.value = value;
+                authorMenu.classList.add("hidden");
+            });
+        });
+
+        authorSearch.addEventListener("keyup", () => {
+            const filter = authorSearch.value.toLowerCase();
+            authorOptions.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+
+        document.addEventListener("click", (e) => {
+            if (!authorButton.contains(e.target) && !authorMenu.contains(e.target)) {
+                authorMenu.classList.add("hidden");
+            }
+        });
+    </script>
+{% endblock %}

@@ -13,7 +13,7 @@ from .validators import validate_phone_number
 from .validators import validate_reg_number
 from .validators import validate_roll_number
 from corpus.validators import validate_image
-import os
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **kwargs):
@@ -39,6 +39,7 @@ class UserManager(BaseUserManager):
 
     def users(self):
         return self.filter(is_active=True)
+
 
 class User(AbstractUser):
     GENDERS = [
