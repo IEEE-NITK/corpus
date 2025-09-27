@@ -27,7 +27,7 @@ class Post(models.Model):
     author_github = models.CharField(max_length=70, blank=True)
     text = RichTextUploadingField(blank=False, null=False)
     created_date = models.DateTimeField(auto_now_add=True)
-    published_date = models.DateTimeField(null=True)
+    published_date = models.DateTimeField(null=True, blank=True)
 
     approved = models.BooleanField(default=False)
     approver = models.ForeignKey(
@@ -38,14 +38,10 @@ class Post(models.Model):
         related_name="posts_approved",
     )
     ready_for_approval = models.BooleanField(default=False)
-    approved_at = models.DateTimeField(blank=True, null=True)
 
     def publish(self, approver=None):
-        if self.approved and not self.approved_at:
-            self.approved_at = timezone.now()
-
-        if self.approved and self.approved_at:
-            self.published_date = self.approved_at
+        if self.approved and not self.published_date:
+            self.published_date = timezone.now()
 
         if self.approved and not self.approver:
             self.approver = approver

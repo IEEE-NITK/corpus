@@ -15,19 +15,33 @@
                         <label for="{{ form.author.id_for_label }}">Author Name</label>
                         {{ form.author }}
                     </div>
-                    <div class="w-full">
-                        <label for="{{ form.sig.id_for_label }}" class="block font-semibold mb-1">SIG</label>
-                        <div class="flex flex-wrap gap-3">
-                            {% for checkbox in form.sig %}
-                                <label class="flex items-center space-x-2 text-sm">
-                                    <input type="checkbox" class="w-3.5 h-3.5 border border-gray-500 rounded-sm cursor-pointer"
-                                        name="{{ checkbox.data.name }}"
-                                        id="{{ checkbox.data.attrs.id }}"
-                                        value="{{ checkbox.data.value }}"
-                                        {% if checkbox.data.attrs.checked %}checked{% endif %}>
-                                    <span>{{ checkbox.choice_label }}</span>
-                                </label>
-                            {% endfor %}
+                    <div class="w-full relative">
+                        <label for="tag-dropdown" class="block font-semibold mb-1">Tags</label>
+                        <div class="relative">
+                            <!-- Dropdown button -->
+                            <button type="button"
+                                    id="tag-dropdown-button"
+                                    class="w-full bg-white border border-neutral rounded-md px-3 py-2 text-black text-left flex justify-between items-center focus:outline-none">
+                                Select Tags
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+
+                            <!-- Dropdown menu -->
+                            <div id="tag-dropdown-menu" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg hidden max-h-60 overflow-y-auto">
+                                {% for checkbox in form.tag %}
+                                    <label class="flex items-center space-x-2 px-3 py-2 hover:bg-gray-100 cursor-pointer text-black text-sm">
+                                        <input type="checkbox"
+                                            name="{{ checkbox.data.name }}"
+                                            id="{{ checkbox.data.attrs.id }}"
+                                            value="{{ checkbox.data.value }}"
+                                            class="w-3.5 h-3.5 border border-gray-500 rounded-sm"
+                                            {% if checkbox.data.attrs.checked %}checked{% endif %}>
+                                        <span>{{ checkbox.choice_label }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     <div class="w-full flex flex-row justify-center items-end">
@@ -84,4 +98,20 @@
             </table>
         </div>
     </div>
+
+    <script>
+        const button = document.getElementById('tag-dropdown-button');
+        const menu = document.getElementById('tag-dropdown-menu');
+
+        button.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Optional: close dropdown if clicked outside
+        document.addEventListener('click', (e) => {
+            if (!button.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
 {% endblock %}

@@ -171,12 +171,12 @@
                 </div>
 
                 <div class="w-full my-2">
-                    <label for="{{ form.approved_at.id_for_label }}">Approved At</label>
-                    {{ form.approved_at }}
-                    {% if form.approved_at.errors %}
+                    <label for="{{ form.published_date.id_for_label }}">Published At</label>
+                    {{ form.published_date }}
+                    {% if form.published_date.errors %}
                         <div class="my-1">
                             <div role="alert" class="alert alert-error">
-                                {{ form.approved_at.errors }}
+                                {{ form.published_date.errors }}
                             </div>
                         </div>
                     {% endif %}

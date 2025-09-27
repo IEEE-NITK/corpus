@@ -35,7 +35,7 @@ def new_blog(request):
     form = BlogForm()
 
     if request.method == "POST":
-        print(request.POST)  # ✅ Debugging: Check what data is received
+        print(request.POST)
 
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
@@ -95,7 +95,7 @@ def approver_dashboard(request):
         blog = Post.objects.get(pk=blog_id)
         if blog.approver == request.exec_member:
             blog.approved = True
-            blog.approved_at = timezone.localtime()
+            blog.published_date = timezone.localtime()
             blog.save()
             blog.publish()
             messages.success(request, "Blog marked as approved!")

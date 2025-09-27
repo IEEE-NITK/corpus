@@ -24,9 +24,9 @@ def dashboard(request):
             author = get_object_or_404(ExecutiveMember, pk=author_id)
             blogs = blogs.filter(author=author)
 
-        sig_ids = form.cleaned_data.get("sig")
-        if sig_ids:
-            blogs = blogs.filter(blog_tag__in=sig_ids).distinct()
+        tag_ids = form.cleaned_data.get("tag")
+        if tag_ids:
+            blogs = blogs.filter(blog_tag__in=tag_ids).distinct()
 
     args = {"blogs": blogs, "form": form}
     return render(request, "blog/admin/dashboard.html", args)

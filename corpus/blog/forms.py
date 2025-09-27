@@ -11,7 +11,7 @@ from corpus.forms import CorpusModelForm
 
 class BlogFilterForm(CorpusForm):
     author = forms.ChoiceField(choices=[])
-    sig = forms.ModelMultipleChoiceField(
+    tag = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(), required=False, widget=forms.CheckboxSelectMultiple
     )
 
@@ -29,7 +29,7 @@ class BlogFilterForm(CorpusForm):
 
         # Fetch SIG (blog_tag) choices from Tag model
         # sig_choices = list(Tag.objects.values_list("id", "tag_name"))
-        self.fields["sig"].queryset = Tag.objects.all()
+        self.fields["tag"].queryset = Tag.objects.all()
 
         # Assign choices to fields
         self.fields["author"].choices = author_choices
@@ -56,7 +56,7 @@ class AdminBlogForm(CorpusModelForm):
             "ready_for_approval",
             "approver",
             "approved",
-            "approved_at",
+            "published_date",
             "slug",
         ]
         widgets = {
