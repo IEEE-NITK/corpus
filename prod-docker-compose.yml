@@ -16,6 +16,12 @@ services:
       - corpus_network
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    runtime: runc
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   adminer:
     image: adminer
@@ -26,6 +32,12 @@ services:
       - .env
     networks:
       - corpus_network
+    runtime: runc
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   corpus:
     build: corpus
@@ -48,6 +60,12 @@ services:
     environment:
       - ENVIRONMENT=PRODUCTION
       - EMAIL_PROTOCOL=smtp
+    runtime: runc
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   nginx:
     build: nginx
@@ -68,6 +86,12 @@ services:
       - certbot_www:/var/www/certbot
     env_file:
       - .env
+    runtime: runc
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
   certbot:
     image: certbot/certbot
@@ -83,6 +107,12 @@ services:
     networks:
       - corpus_network
     command: certonly --webroot --webroot-path=/var/www/certbot -d ieee.nitk.ac.in --agree-tos --email anirudhprabhakaran3@gmail.com  --non-interactive
+    runtime: runc
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
 
 networks:
   corpus_network:
