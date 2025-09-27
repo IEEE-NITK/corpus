@@ -100,7 +100,8 @@
         list.innerHTML = '';
         if (events.length === 0) {
             list.innerHTML = `<p class="text-base opacity-70 text-neutral-content text-center py-4">No events on this day.</p>`;
-        } else {
+        }
+        else {
             events.forEach(evt => {
                 const wrapper = document.createElement('div');
                 wrapper.className = "p-4 rounded-lg border border-base-300 bg-base-200 hover:bg-base-300 transition-colors duration-150";
@@ -127,6 +128,13 @@
         }
         modal.showModal();
     }
+
+    document.querySelectorAll('#dayModal .modal-backdrop').forEach(backdrop => {
+        backdrop.addEventListener('click', () => {
+            const modal = backdrop.closest('dialog');
+            if (modal) modal.close();
+        });
+    });
     </script>
 
 </div>
