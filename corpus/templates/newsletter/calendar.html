@@ -9,18 +9,27 @@
 {% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-base-200">
-  <div class="max-w-5xl px-4 py-4 sm:px-6 lg:px-8 mx-auto">
+<div class="h-screen bg-base-200 flex flex-col">
+  <div class="max-w-7xl w-full px-4 py-4 sm:px-6 lg:px-8 mx-auto flex flex-col flex-grow">
     <div class="flex items-center justify-between mb-8 p-4 bg-base-100 rounded-box shadow-lg">
-      <a class="btn btn-ghost text-primary hover:text-primary-focus"
+      <a class="btn btn-ghost btn-square text-primary hover:text-primary-focus"
          href="?year={{ prev_year }}&month={{ prev_month }}">
          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-         Prev
       </a>
-      <h1 class="text-3xl font-extrabold text-primary">{{ month_name }} {{ year }}</h1>
-      <a class="btn btn-ghost text-primary hover:text-primary-focus"
+      <form class="flex items-center gap-2" method="GET" action="">
+          <select name="month" onchange="this.form.submit()" class="select select-bordered select-primary text-lg">
+              {% for m in months %}
+              <option value="{{ m.value }}" {% if m.value == month %}selected{% endif %}>{{ m.name }}</option>
+              {% endfor %}
+          </select>
+          <select name="year" onchange="this.form.submit()" class="select select-bordered select-primary text-lg">
+              {% for y in years %}
+              <option value="{{ y }}" {% if y == year %}selected{% endif %}>{{ y }}</option>
+              {% endfor %}
+          </select>
+      </form>
+      <a class="btn btn-ghost btn-square text-primary hover:text-primary-focus"
          href="?year={{ next_year }}&month={{ next_month }}">
-         Next
          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
       </a>
     </div>
@@ -35,108 +44,54 @@
       <div>Sat</div>
     </div>
 
-    <div class="grid grid-cols-7 gap-2">
-    {% for cell in all_cells %}
-        <button
-          class="calendar-cell
-                {% if not cell.in_month %}
-                  bg-base-300/30 border-base-200 text-base-content/50 cursor-default
-                {% elif cell.count %}
-                  bg-primary/20 border-primary hover:bg-primary/30 cursor-pointer
-                {% elif cell.date == today %}
-                  bg-secondary/20 border-secondary hover:bg-secondary/30 cursor-pointer
-                {% else %}
-                  bg-base-100 border-base-300 hover:bg-base-200 cursor-pointer
-                {% endif %}"
-          {% if cell.in_month and cell.count %}data-date="{{ cell.iso }}" onclick="openDayModal('{{ cell.iso }}')" {% endif %}
-        >
-          <div class="flex items-center justify-between">
-              <span class="{% if cell.count %}text-primary{% elif cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold">
-                {{ cell.date.day }}
-              </span>
-              {% if cell.count %}
-              <span class="badge badge-primary badge-lg font-semibold">{{ cell.count }}</span>
-              {% endif %}
-          </div>
-
-          {% if cell.sig_colors %}
-          <div class="sig-colors">
-              {% for color in cell.sig_colors %}
-              <span class="w-3 h-3 rounded-full" style="background-color: {{ color }}"></span>
-              {% endfor %}
-          </div>
-          {% endif %}
-        </button>
-
-    {% endfor %}
-    </div>
-
-
-  <dialog id="dayModal" class="modal">
-    <div class="modal-box max-w-2xl bg-base-100 shadow-2xl rounded-box">
-      <h3 id="modalTitle" class="font-bold text-2xl mb-4 text-primary">Events</h3>
-      <div id="eventList" class="space-y-4"></div>
-      <div class="modal-action">
-        <form method="dialog">
-          <button class="btn btn-outline btn-primary">Close</button>
-        </form>
+    <div 
+  class="grid grid-cols-7 gap-2 flex-grow" 
+  style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
+>
+{% for cell in all_cells %}
+    <div
+      class="calendar-cell flex flex-col border
+            {% if not cell.in_month %}
+              bg-base-300/30 border-base-200 text-base-content/50
+            {% elif cell.date == today %}
+              bg-secondary/20 border-secondary
+            {% else %}
+              bg-base-100 border-base-300
+            {% endif %}"
+    >
+      <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
+        {{ cell.date.day }}
+      </span>
+      
+      <div class="event-tags flex-1 overflow-y-auto min-h-0">
+        {% for event in cell.events %}
+          {% with sig_name=event.sigs.0.name|default:'' %}
+            {% if event.page_link %}
+              <a href="{{ event.page_link }}" target="_blank" rel="noopener noreferrer" class="event-tag" title="{{ event.name }}" 
+                 style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %}; cursor: pointer;">
+                {{ event.name }}
+              </a>
+            {% else %}
+              <div class="event-tag" title="{{ event.name }}" 
+                   style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %};">
+                {{ event.name }}
+              </div>
+            {% endif %}
+          {% endwith %}
+        {% endfor %}
       </div>
     </div>
-    <form method="dialog" class="modal-backdrop"></form>
-  </dialog>
-
-  <script id="day-events-json" type="application/json">{{ day_events_json|safe }}</script>
-    <script>
-    const DAY_EVENTS = JSON.parse(document.getElementById('day-events-json').textContent || '{}');
-
-    function openDayModal(isoDate) {
-        const modal = document.getElementById('dayModal');
-        const list = document.getElementById('eventList');
-        const title = document.getElementById('modalTitle');
-
-        const events = DAY_EVENTS[isoDate] || [];
-        title.textContent = `Events on ${isoDate}`;
-
-        list.innerHTML = '';
-        if (events.length === 0) {
-            list.innerHTML = `<p class="text-base opacity-70 text-neutral-content text-center py-4">No events on this day.</p>`;
-        }
-        else {
-            events.forEach(evt => {
-                const wrapper = document.createElement('div');
-                wrapper.className = "p-4 rounded-lg border border-base-300 bg-base-200 hover:bg-base-300 transition-colors duration-150";
-
-                const badges = evt.sigs.map(s =>
-                    `<span class="badge badge-sm" style="background-color:${s.color}; color:white">${s.name}</span>`
-                ).join(' ');
-
-                const nameHtml = evt.page_link
-                    ? `<a href="${evt.page_link}" class="link link-hover text-lg font-semibold text-primary" target="_blank" rel="noopener">${evt.name}</a>`
-                    : `<span class="text-lg font-semibold text-primary">${evt.name}</span>`; // Changed to text-primary
-
-                wrapper.innerHTML = `
-                    <div class="flex flex-col gap-2">
-                        <div class="flex items-center justify-between">
-                            <div>${nameHtml}</div>
-                            <div class="text-sm opacity-80 text-secondary">${evt.start_date} – ${evt.end_date}</div>
-                        </div>
-                        <div>${badges}</div>
-                    </div>
-                `;
-                list.appendChild(wrapper);
-            });
-        }
-        modal.showModal();
-    }
-
-    document.querySelectorAll('#dayModal .modal-backdrop').forEach(backdrop => {
-        backdrop.addEventListener('click', () => {
-            const modal = backdrop.closest('dialog');
-            if (modal) modal.close();
-        });
-    });
-    </script>
-
+{% endfor %}
 </div>
 
+    <div class="mt-6 mb-4 p-4 bg-base-100 text-base-content rounded-box shadow flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+      {% for item in sig_legend %}
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded-full" style="background-color: {{ item.color }};"></div>
+          <span>{{ item.name }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}

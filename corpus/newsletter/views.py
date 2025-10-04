@@ -16,19 +16,26 @@ from .models import Event
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
+from config.models import SIG
+from .forms import EventForm
+from .models import Event
+from corpus.decorators import ensure_group_membership
+from corpus.decorators import module_enabled
+
 # Create your views here.
-
-
 SIG_PALETTE = [
-    "#2563eb",
-    "#16a34a",
-    "#dc2626",
-    "#7c3aed",
+    "#7c3aed", #intersig
+    "#fba418", #compsoc
+    "#59f3e9", #diode
+    "#cb0011", #piston
 ]
 NO_SIG_COLOR = "#6b7280"
 
 
-def _sig_color(sig_id: int) -> str:
+def get_sig_color(sig_id: int) -> str:
+    """Returns a color for a given SIG ID based on the palette."""
+    if not sig_id:
+        return NO_SIG_COLOR
     return SIG_PALETTE[(sig_id - 1) % len(SIG_PALETTE)]
 
 
@@ -42,8 +49,9 @@ def _daterange(d0: date, d1: date):
 def _event_payload(e) -> dict:
     sigs = list(e.sigs.all())
     if sigs:
+        # Use the imported get_sig_color function
         sig_list = [
-            {"id": s.id, "name": s.name, "color": _sig_color(s.id)} for s in sigs
+            {"id": s.id, "name": s.name, "color": get_sig_color(s.id)} for s in sigs
         ]
     else:
         sig_list = [{"id": 0, "name": "No SIG", "color": NO_SIG_COLOR}]
@@ -57,24 +65,20 @@ def _event_payload(e) -> dict:
     }
 
 
-def _unique_sig_colors(events_for_day):
-    seen = set()
-    colors = []
-    for evt in events_for_day:
-        for s in evt["sigs"]:
-            c = s["color"]
-            if c not in seen:
-                seen.add(c)
-                colors.append(c)
-    return colors[:6]
-
-
 def calendar_view(request):
     today = timezone.localdate()
-    year = int(request.GET.get("year", today.year))
-    month = int(request.GET.get("month", today.month))
+    try:
+        year = int(request.GET.get("year", today.year))
+        month = int(request.GET.get("month", today.month))
+        # Basic validation for year and month
+        if not (1 <= month <= 12):
+            month = today.month
+        first_of_month = date(year, month, 1)
+    except (ValueError, TypeError):
+        year = today.year
+        month = today.month
+        first_of_month = date(year, month, 1)
 
-    first_of_month = date(year, month, 1)
     last_of_month = date(year, month, calendar.monthrange(year, month)[1])
 
     events_qs = (
@@ -87,52 +91,62 @@ def calendar_view(request):
     day_events = defaultdict(list)
 
     for e in events_qs:
-        duration = (e.end_date - e.start_date).days + 1
-        if duration > 5:
-            if first_of_month <= e.start_date <= last_of_month:
-                key = e.start_date.isoformat()
-                day_events[key].append(_event_payload(e))
-        else:
-            start = max(e.start_date, first_of_month)
-            end = min(e.end_date, last_of_month)
-            for d in _daterange(start, end):
-                day_events[d.isoformat()].append(_event_payload(e))
+        start_in_view = max(e.start_date, first_of_month)
+        end_in_view = min(e.end_date, last_of_month)
 
-    cal = calendar.Calendar(firstweekday=6)
+        for d in _daterange(start_in_view, end_in_view):
+            event_data = _event_payload(e)
+            event_data["is_first_day_in_view"] = d == start_in_view
+            event_data["is_last_day_in_view"] = d == end_in_view
+            # weekday(): Monday is 0 and Sunday is 6
+            event_data["is_week_start"] = d.weekday() == 6  # Sunday
+            event_data["is_week_end"] = d.weekday() == 5  # Saturday
+            day_events[d.isoformat()].append(event_data)
+
+    cal = calendar.Calendar(firstweekday=6)  # Sunday is the first day of the week
     raw_all_days = list(cal.itermonthdates(year, month))
 
     all_cells = []
     for d in raw_all_days:
         iso = d.isoformat()
-        events_for_day = day_events.get(iso, [])
-        sig_colors = _unique_sig_colors(events_for_day)
+        events_for_day = sorted(day_events.get(iso, []), key=lambda x: x["id"])
         all_cells.append(
             {
                 "date": d,
                 "in_month": (d.month == month),
                 "iso": iso,
                 "events": events_for_day,
-                "sig_colors": sig_colors,
                 "count": len(events_for_day),
             }
         )
 
-    day_events_json = json.dumps(day_events)
-
     prev_year, prev_month = (year, month - 1) if month > 1 else (year - 1, 12)
     next_year, next_month = (year, month + 1) if month < 12 else (year + 1, 1)
 
+    months = [{"value": i, "name": calendar.month_name[i]} for i in range(1, 13)]
+    years = range(today.year - 5, today.year + 6)
+    
+    
+    all_sigs = SIG.objects.all().order_by('id')
+    sig_legend = [
+        {"name": sig.name, "color": get_sig_color(sig.id)}
+        for sig in all_sigs
+    ]
+    
     ctx = {
         "all_cells": all_cells,
         "month_name": calendar.month_name[month],
         "year": year,
+        "month": month,
         "prev_year": prev_year,
         "prev_month": prev_month,
         "next_year": next_year,
         "next_month": next_month,
         "today": today,
-        "day_events_json": day_events_json,
         "no_sig_color": NO_SIG_COLOR,
+        "months": months,
+        "years": years,
+        "sig_legend": sig_legend,
     }
     return render(request, "newsletter/calendar.html", ctx)
 
@@ -247,3 +261,4 @@ def delete_announcement(request, pk):
     else:
         messages.warning(request, "Incorrect Request Method. Contact Administrator")
         return redirect("newsletter_manage_announcements")
+
