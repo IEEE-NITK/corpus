@@ -1,10 +1,7 @@
-from functools import wraps
-
-from django.contrib import messages
-from django.shortcuts import redirect
-
 from accounts.models import ExecutiveMember
 from config.models import ModuleConfiguration
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 def module_enabled(module_name):
@@ -79,23 +76,3 @@ def ensure_exec_membership():
         return wrapper
 
     return decorator
-
-def ensure_view_current_envision():
-    def decorator(view_func):
-        @wraps(view_func)
-        def wrapper(request, *args, **kwargs):
-            config = ModuleConfiguration.objects.get(module_name="virtual_expo").module_config
-
-            try:
-                ExecutiveMember.objects.get(user=request.user.id)
-                exec_member = True
-            except ExecutiveMember.DoesNotExist:
-                exec_member = False
-
-            can_view_current_envision = exec_member or config.get(
-                "view_current_envision")
-            kwargs['can_view_current_envision'] = can_view_current_envision
-            return view_func(request, *args, **kwargs)
-        return wrapper
-    return decorator
-
