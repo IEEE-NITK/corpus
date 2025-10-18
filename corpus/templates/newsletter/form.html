@@ -1,0 +1,51 @@
+<div class="min-h-screen bg-base-200 py-10 px-4 sm:px-6 lg:px-8 flex justify-center items-center">
+    <div class="w-full max-w-2xl card bg-base-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all p-8">
+        <h1 class="text-4xl font-bold text-center text-primary mb-8">Create New Announcement</h1>
+
+        <form method="POST" action="" class="space-y-6">
+            {% csrf_token %}
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-lg font-semibold">Title</span>
+                </label>
+                {{ form.name }}
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-lg font-semibold">Sigs</span>
+                </label>
+                {{ form.sigs }}
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-lg font-semibold">Start Date</span>
+                </label>
+                {{ form.start_date }}
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-lg font-semibold">End Date</span>
+                </label>
+                {{ form.end_date }}
+            </div>
+
+            <div class="form-control">
+                <label class="label">
+                    <span class="label-text text-lg font-semibold">Link</span>
+                </label>
+                {{ form.page_link }}
+            </div>
+
+            <div class="mt-8 flex justify-center gap-4">
+                <button type="submit" class="btn btn-primary btn-lg px-10">Submit</button>
+                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-secondary btn-lg px-10">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

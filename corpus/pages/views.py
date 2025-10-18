@@ -8,6 +8,7 @@ from corpus.decorators import module_enabled
 from django.db.models import Q
 from accounts.models import ExecutiveMember
 
+
 def get_active_members():
     active_batches = get_object_or_404(ModuleConfiguration, module_name="teampage").module_config
 
