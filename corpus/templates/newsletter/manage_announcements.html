@@ -1,0 +1,88 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+
+{% block title %}
+    Newsletter | Announcements
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center my-10 text-2xl md:text-4xl">Manage Announcements</h1>
+<div class="flex justify-center">
+    <a href="{% url 'newsletter_new_announcement' %}" class="btn btn-primary">Make a new announcement</a>
+</div>
+<div class="flex justify-center flex-col mb-6">
+    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="flex justify-center min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="overflow-hidden">
+          <table class="min-w-1/2 text-left font-light text-surface dark:text-white">
+            <thead class="border-b border-neutral-200 font-medium dark:border-white/10">
+              <tr>
+                <th scope="col" class="text-2xl px-6 py-4">#</th>
+                <th scope="col" class="text-2xl px-6 py-4">Title</th>
+                <th scope="col" class="text-2xl px-6 py-4">Sigs</th>
+                <th scope="col" class="text-2xl px-6 py-4">Start Date</th>
+                <th scope="col" class="text-2xl px-6 py-4">End Date</th>
+                <th scope="col" class="text-2xl px-6 py-4">Archived?</th>
+                <th scope="col" class="text-2xl px-6 py-4">Link</th>
+                <th scope="col" class="text-2xl px-6 py-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for announcement in announcements %}
+              <tr class="border-b border-neutral-200 dark:border-white/10">
+                <td class="whitespace-nowrap px-6 py-4 font-medium">{{ forloop.counter }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.name }}</td>
+                <td class="whitespace-nowrap px-6 py-4">
+                  {% for sig in announcement.sigs.all %}
+                      {{ sig.name }}{% if not forloop.last %}, {% endif %}
+                  {% empty %}
+                      -
+                  {% endfor %}
+              </td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.start_date }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.end_date }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.archive_event }}</td>
+                <td class="whitespace-nowrap px-6 py-4">
+                    {% if announcement.page_link %}
+                        <a href="{{ announcement.page_link }}" class="btn btn-accent" target="_blank">Go to Link</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td class="whitespace-nowrap flex gap-3 px-6 py-4">
+                  <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
+                  {% if announcement.archive_event %}
+                  <form action="{% url 'newsletter_edit_announcement' announcement.id %}?archive=false"  method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-warning">Unarchive</button>
+                    </form>
+                  {% else %}
+                  <form action="{% url 'newsletter_edit_announcement' announcement.id %}?archive=true"  method="post">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-warning">Archive</button>
+                  </form>
+                  {% endif %}
+                  <form action="{% url 'newsletter_delete_announcement' announcement.id %}"  method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                  </form>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center py-4 text-gray-500">No announcements found.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+{% block dark_mode_toggle %}
+    {% include "components/dark_mode_toggle.html" %}
+{% endblock %}
