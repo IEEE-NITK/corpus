@@ -1,0 +1,195 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+    Manage
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    {% include "blog/header2.html" with text="Manage Report" %}
+    <div class="m-10">
+        <div class="p-5 border rounded-lg">
+            <h1 class="text-2xl font-bold">Author</h1>
+            <div class="overflow-x-auto my-2">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>SIG</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ blog.author.user }}</td>
+                            <td>{{ blog.author.sig }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="p-5 border rounded-lg">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.media }}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div role="alert" class="alert alert-error mt-1">
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="w-full my-2">
+                    <label for="{{ form.title.id_for_label }}">Title</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.title.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.ready_for_approval.id_for_label }}">Ready for Approval?</label>
+                    <div class="h-8 w-8">
+                        {{ form.ready_for_approval }}
+                    </div>
+                    {% if form.ready_for_approval.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.ready_for_approval.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.approver.id_for_label }}">Approver</label>
+                    <div>
+                        {{ form.approver }}
+                    </div>
+                    {% if form.approver.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.approver.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.approved.id_for_label }}">Approved?</label>
+                    <div class="h-8 w-8">
+                        {{ form.approved }}
+                    </div>
+                    {% if form.approved.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.approved.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="my-5">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+
+                <div class="divider my-5">
+                    REPORT CONTENT
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.description.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.description.id_for_label }}">Slug</label>
+                    {{ form.slug }}
+                    {% if form.slug.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.slug.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    {% for tag in form.blog_tag.field.queryset %}
+                        <label for="tag_{{ tag.id }}" class="flex items-center space-x-2">
+                            <input type="checkbox" id="tag_{{ tag.id }}" name="blog_tag" value="{{ tag.id }}"
+                                class="w-4 h-4 accent-blue-500 rounded cursor-pointer"
+                                {% if tag.id in form.blog_tag.value %}checked{% endif %}>
+                            <span class="text-sm">{{ tag.tag_name }}</span>
+                        </label>
+                    {% endfor %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.text.id_for_label }}">Content</label>
+                    <div>
+                        {{ form.text | safe }}
+                    </div>
+                    {% if form.text.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.textt.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ blog.created_date.id_for_label }}">Created At</label>
+                    {{ blog.created_date }}
+                    {% if blog.created_date.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ blog.created_date.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="w-full my-2">
+                    <label for="{{ form.published_date.id_for_label }}">Published At</label>
+                    {{ form.published_date }}
+                    {% if form.published_date.errors %}
+                        <div class="my-1">
+                            <div role="alert" class="alert alert-error">
+                                {{ form.published_date.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("select").each(function () {
+                $(this).select2();
+            });
+        });
+    </script>
+{% endblock %}

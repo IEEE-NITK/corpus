@@ -1,7 +1,5 @@
 from farewell.models import Senior
-
-from corpus.utils import send_email
-
+from corpus.tasks import send_email_async
 
 def send_mails():
     # Get all seniors
@@ -12,7 +10,7 @@ def send_mails():
         email = [email]
         url_id = senior.url_id
         url_link = f"https://ieee.nitk.ac.in/farewell/{url_id}"
-        send_email(
+        send_email_async.delay(
             "",
             "emails/farewell/invite.html",
             {"url_link": url_link, "name": name},

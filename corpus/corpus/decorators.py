@@ -1,10 +1,7 @@
-from functools import wraps
-
-from django.contrib import messages
-from django.shortcuts import redirect
-
 from accounts.models import ExecutiveMember
 from config.models import ModuleConfiguration
+from django.contrib import messages
+from django.shortcuts import redirect
 
 
 def module_enabled(module_name):
@@ -94,8 +91,7 @@ def ensure_view_current_envision():
 
             can_view_current_envision = exec_member or config.get(
                 "view_current_envision")
-            kwargs['can_view_current_envision'] = can_view_current_envision
+            kwargs['can_view_current_envision '] = can_view_current_envision
             return view_func(request, *args, **kwargs)
         return wrapper
     return decorator
-
