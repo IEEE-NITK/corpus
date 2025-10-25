@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "smp.apps.SmpConfig",
     "codeRed.apps.CoderedConfig",
     "chimera.apps.ChimeraConfig",
+    "newsletter.apps.NewsletterConfig",
     "celery",
 ]
 
