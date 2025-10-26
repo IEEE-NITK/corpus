@@ -11,6 +11,7 @@
 {% block content %}
 <div class="h-screen bg-base-200 flex flex-col">
   <div class="max-w-7xl w-full px-4 py-4 sm:px-6 lg:px-8 mx-auto flex flex-col flex-grow">
+    
     <div class="flex items-center justify-between mb-8 p-4 bg-base-100 rounded-box shadow-lg">
       <a class="btn btn-ghost btn-square text-primary hover:text-primary-focus"
          href="?year={{ prev_year }}&month={{ prev_month }}">
@@ -45,45 +46,42 @@
     </div>
 
     <div 
-  class="grid grid-cols-7 gap-2 flex-grow" 
-  style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
->
-{% for cell in all_cells %}
-    <div
-      class="calendar-cell flex flex-col border
-            {% if not cell.in_month %}
-              bg-base-300/30 border-base-200 text-base-content/50
-            {% elif cell.date == today %}
-              bg-secondary/20 border-secondary
-            {% else %}
-              bg-base-100 border-base-300
-            {% endif %}"
+      class="grid grid-cols-7 gap-2 flex-grow" 
+      style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
     >
-      <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
-        {{ cell.date.day }}
-      </span>
-      
-      <div class="event-tags flex-1 overflow-y-auto min-h-0">
-        {% for event in cell.events %}
-          {% with sig_name=event.sigs.0.name|default:'' %}
-            {% if event.page_link %}
-              <a href="{{ event.page_link }}" target="_blank" rel="noopener noreferrer" class="event-tag" title="{{ event.name }}" 
-                 style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %}; cursor: pointer;">
-                {{ event.name }}
-              </a>
-            {% else %}
-              <div class="event-tag" title="{{ event.name }}" 
-                   style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %};">
-                {{ event.name }}
-              </div>
-            {% endif %}
-          {% endwith %}
-        {% endfor %}
-      </div>
+      {% for cell in all_cells %}
+          <div
+            class="calendar-cell flex flex-col border
+                  {% if not cell.in_month %}
+                    bg-base-300/30 border-base-200 text-base-content/50
+                  {% elif cell.date == today %}
+                    bg-secondary/20 border-secondary
+                  {% else %}
+                    bg-base-100 border-base-300
+                  {% endif %}"
+          >
+            <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
+              {{ cell.date.day }}
+            </span>
+            
+            <div class="event-tags flex-1 overflow-y-auto min-h-0">
+              {% for event in cell.events %}
+                {% if event.page_link %}
+                  <a href="{{ event.page_link }}" target="_blank" rel="noopener noreferrer" class="event-tag" title="{{ event.name }}" 
+                     style="background-color: {{ event.sig_color }}; cursor: pointer;">
+                    {{ event.name }}
+                  </a>
+                {% else %}
+                  <div class="event-tag" title="{{ event.name }}" 
+                       style="background-color: {{ event.sig_color }};">
+                    {{ event.name }}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            </div>
+      {% endfor %}
     </div>
-{% endfor %}
-</div>
-
     <div class="mt-6 mb-4 p-4 bg-base-100 text-base-content rounded-box shadow flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
       {% for item in sig_legend %}
         <div class="flex items-center gap-2">
@@ -92,6 +90,6 @@
         </div>
       {% endfor %}
     </div>
-  </div>
+    </div>
 </div>
 {% endblock %}

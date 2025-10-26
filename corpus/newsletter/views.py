@@ -24,10 +24,11 @@ from corpus.decorators import module_enabled
 
 # Create your views here.
 SIG_PALETTE = [
-    "#7c3aed", #intersig
     "#fba418", #compsoc
     "#59f3e9", #diode
     "#cb0011", #piston
+    "#981D97", #WIE
+    "#a2f740" ,#SIGHT
 ]
 NO_SIG_COLOR = "#6b7280"
 
@@ -65,12 +66,16 @@ def _event_payload(e) -> dict:
     }
 
 
+def _daterange(start_date, end_date):
+    """Simple generator for iterating over a date range."""
+    for n in range(int((end_date - start_date).days) + 1):
+        yield start_date + timedelta(n)
+
 def calendar_view(request):
     today = timezone.localdate()
     try:
         year = int(request.GET.get("year", today.year))
         month = int(request.GET.get("month", today.month))
-        # Basic validation for year and month
         if not (1 <= month <= 12):
             month = today.month
         first_of_month = date(year, month, 1)
@@ -81,9 +86,17 @@ def calendar_view(request):
 
     last_of_month = date(year, month, calendar.monthrange(year, month)[1])
 
+   
+    cal = calendar.Calendar(firstweekday=6)  
+    raw_all_days = list(cal.itermonthdates(year, month))
+    first_day_in_grid = raw_all_days[0]
+    last_day_in_grid = raw_all_days[-1]
+    
+
     events_qs = (
         Event.objects.filter(archive_event=False)
-        .filter(Q(start_date__lte=last_of_month) & Q(end_date__gte=first_of_month))
+        
+        .filter(Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid))
         .prefetch_related("sigs")
         .order_by("start_date", "name")
     )
@@ -91,24 +104,34 @@ def calendar_view(request):
     day_events = defaultdict(list)
 
     for e in events_qs:
-        start_in_view = max(e.start_date, first_of_month)
-        end_in_view = min(e.end_date, last_of_month)
+        
+        start_in_view = max(e.start_date, first_day_in_grid)
+        end_in_view = min(e.end_date, last_day_in_grid)
+
+       
+        primary_sig = e.sigs.first()
 
         for d in _daterange(start_in_view, end_in_view):
-            event_data = _event_payload(e)
+            
+            event_data = {
+                "id": e.id,
+                "name": e.name,
+                "page_link": e.page_link,
+                "sig_color": primary_sig.color if primary_sig else '#6b7280' 
+            }
+            
+            
             event_data["is_first_day_in_view"] = d == start_in_view
             event_data["is_last_day_in_view"] = d == end_in_view
-            # weekday(): Monday is 0 and Sunday is 6
             event_data["is_week_start"] = d.weekday() == 6  # Sunday
             event_data["is_week_end"] = d.weekday() == 5  # Saturday
+            
             day_events[d.isoformat()].append(event_data)
-
-    cal = calendar.Calendar(firstweekday=6)  # Sunday is the first day of the week
-    raw_all_days = list(cal.itermonthdates(year, month))
 
     all_cells = []
     for d in raw_all_days:
         iso = d.isoformat()
+        
         events_for_day = sorted(day_events.get(iso, []), key=lambda x: x["id"])
         all_cells.append(
             {
@@ -120,30 +143,26 @@ def calendar_view(request):
             }
         )
 
-    prev_year, prev_month = (year, month - 1) if month > 1 else (year - 1, 12)
-    next_year, next_month = (year, month + 1) if month < 12 else (year + 1, 1)
+    
+    prev_month_date = first_of_month - timedelta(days=1)
+    next_month_date = last_of_month + timedelta(days=1)
 
     months = [{"value": i, "name": calendar.month_name[i]} for i in range(1, 13)]
     years = range(today.year - 5, today.year + 6)
     
     
-    all_sigs = SIG.objects.all().order_by('id')
-    sig_legend = [
-        {"name": sig.name, "color": get_sig_color(sig.id)}
-        for sig in all_sigs
-    ]
+    sig_legend = SIG.objects.all().order_by('name').values('name', 'color')
     
     ctx = {
         "all_cells": all_cells,
         "month_name": calendar.month_name[month],
         "year": year,
         "month": month,
-        "prev_year": prev_year,
-        "prev_month": prev_month,
-        "next_year": next_year,
-        "next_month": next_month,
+        "prev_year": prev_month_date.year,
+        "prev_month": prev_month_date.month,
+        "next_year": next_month_date.year,
+        "next_month": next_month_date.month,
         "today": today,
-        "no_sig_color": NO_SIG_COLOR,
         "months": months,
         "years": years,
         "sig_legend": sig_legend,
