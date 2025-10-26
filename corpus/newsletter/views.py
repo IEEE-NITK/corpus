@@ -23,48 +23,6 @@ from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
 # Create your views here.
-SIG_PALETTE = [
-    "#fba418", #compsoc
-    "#59f3e9", #diode
-    "#cb0011", #piston
-    "#981D97", #WIE
-    "#a2f740" ,#SIGHT
-]
-NO_SIG_COLOR = "#6b7280"
-
-
-def get_sig_color(sig_id: int) -> str:
-    """Returns a color for a given SIG ID based on the palette."""
-    if not sig_id:
-        return NO_SIG_COLOR
-    return SIG_PALETTE[(sig_id - 1) % len(SIG_PALETTE)]
-
-
-def _daterange(d0: date, d1: date):
-    """Yield all dates from d0 to d1 inclusive."""
-    delta = (d1 - d0).days
-    for i in range(delta + 1):
-        yield d0 + timedelta(days=i)
-
-
-def _event_payload(e) -> dict:
-    sigs = list(e.sigs.all())
-    if sigs:
-        # Use the imported get_sig_color function
-        sig_list = [
-            {"id": s.id, "name": s.name, "color": get_sig_color(s.id)} for s in sigs
-        ]
-    else:
-        sig_list = [{"id": 0, "name": "No SIG", "color": NO_SIG_COLOR}]
-    return {
-        "id": e.id,
-        "name": e.name,
-        "page_link": e.page_link or "",
-        "start_date": e.start_date.isoformat(),
-        "end_date": e.end_date.isoformat(),
-        "sigs": sig_list,
-    }
-
 
 def _daterange(start_date, end_date):
     """Simple generator for iterating over a date range."""
