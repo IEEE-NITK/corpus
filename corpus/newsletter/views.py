@@ -23,9 +23,7 @@ from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
 # Create your views here.
-
 def _daterange(start_date, end_date):
-    """Simple generator for iterating over a date range."""
     for n in range(int((end_date - start_date).days) + 1):
         yield start_date + timedelta(n)
 
@@ -41,55 +39,38 @@ def calendar_view(request):
         year = today.year
         month = today.month
         first_of_month = date(year, month, 1)
-
     last_of_month = date(year, month, calendar.monthrange(year, month)[1])
-
-   
     cal = calendar.Calendar(firstweekday=6)  
     raw_all_days = list(cal.itermonthdates(year, month))
     first_day_in_grid = raw_all_days[0]
     last_day_in_grid = raw_all_days[-1]
-    
-
     events_qs = (
         Event.objects.filter(archive_event=False)
-        
         .filter(Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid))
         .prefetch_related("sigs")
         .order_by("start_date", "name")
     )
-
     day_events = defaultdict(list)
-
     for e in events_qs:
-        
         start_in_view = max(e.start_date, first_day_in_grid)
         end_in_view = min(e.end_date, last_day_in_grid)
-
-       
         primary_sig = e.sigs.first()
-
         for d in _daterange(start_in_view, end_in_view):
-            
             event_data = {
                 "id": e.id,
                 "name": e.name,
                 "page_link": e.page_link,
                 "sig_color": primary_sig.color if primary_sig else '#6b7280' 
             }
-            
-            
             event_data["is_first_day_in_view"] = d == start_in_view
             event_data["is_last_day_in_view"] = d == end_in_view
             event_data["is_week_start"] = d.weekday() == 6  # Sunday
             event_data["is_week_end"] = d.weekday() == 5  # Saturday
             
             day_events[d.isoformat()].append(event_data)
-
     all_cells = []
     for d in raw_all_days:
-        iso = d.isoformat()
-        
+        iso = d.isoformat() 
         events_for_day = sorted(day_events.get(iso, []), key=lambda x: x["id"])
         all_cells.append(
             {
@@ -100,17 +81,11 @@ def calendar_view(request):
                 "count": len(events_for_day),
             }
         )
-
-    
     prev_month_date = first_of_month - timedelta(days=1)
     next_month_date = last_of_month + timedelta(days=1)
-
     months = [{"value": i, "name": calendar.month_name[i]} for i in range(1, 13)]
     years = range(today.year - 5, today.year + 6)
-    
-    
     sig_legend = SIG.objects.all().order_by('name').values('name', 'color')
-    
     ctx = {
         "all_cells": all_cells,
         "month_name": calendar.month_name[month],
@@ -125,6 +100,7 @@ def calendar_view(request):
         "years": years,
         "sig_legend": sig_legend,
     }
+
     return render(request, "newsletter/calendar.html", ctx)
 
 
