@@ -41,13 +41,12 @@
         </p>
       </div>
 
-
       <div class="flex-1 my-auto ">
         <div
           class="w-full max-w-sm mx-auto bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100 rounded-2xl shadow-xl p-10 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-          <div class="text-4xl sm:text-5xl lg:text-6xl font-extrabold dark:text-white mb-3">{{ sig.member_stats }}</div>
+          <div class="text-4xl sm:text-5xl lg:text-6xl font-extrabold dark:text-white mb-3">{{ no_of_members }}</div>
           <div class="text-lg sm:text-xl dark:text-gray-100 mb-8">Active Members</div>
-          <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold dark:text-white mb-3">{{ sig.event_stats }}</div>
+          <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold dark:text-white mb-3">{{ no_of_events }}</div>
           <div class="text-lg sm:text-xl dark:text-gray-100">Events This Year</div>
 
         </div>
@@ -92,20 +91,29 @@
           {% for event in events %}
           <div class="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
             <div
-              class="carousel-card w-full max-w-md dark:bg-slate-700 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl dark:hover:shadow-indigo-900 dark:hover:shadow-xl transition-all duration-300 transition-transform transform hover:scale-105 ">
-              <img src="{% static event.image %}" alt="{{ event.title }}" class="w-full h-80 object-fill">
-              <div class="p-6">
-                <h3 class="text-xl font-semibold dark:text-white mb-2">{{ event.title }}</h3>
-                <p class="dark:text-slate-300 leading-relaxed">{{ event.description }}</p>
+              class="carousel-card w-full max-w-md dark:bg-slate-700 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl dark:hover:shadow-indigo-900 dark:hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+
+              <img src="{% static event.thumbnail %}" alt="{{ event.name }}" class="w-full h-80 object-fill">
+
+              <div class="p-6 space-y-3">
+                <h3 class="text-xl font-semibold dark:text-white mb-1">{{ event.name }}</h3>
+                <p class="dark:text-slate-300 leading-relaxed text-sm">{{ event.description }}</p>
+
+                <div class="text-sm text-slate-500 dark:text-slate-400 mt-2 flex items-center justify-between">
+                  <span><strong>Start:</strong> {{ event.start_date" }}</span>
+                  <span><strong>End:</strong> {{ event.end_date" }}</span>
+                </div>
               </div>
+
             </div>
           </div>
           {% endfor %}
         </div>
 
+
       </div>
       <div class="flex justify-center items-center gap-8 mb-6">
-       
+
         <button id="carousel-prev" aria-label="Previous slide"
           class="h-14 w-14 flex items-center justify-center bg-blue-500 dark:bg-gray-700 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl">
           <span class="text-3xl">&#8249;</span>
@@ -173,7 +181,7 @@
   const totalSlides = slides.length;
 
   let currentSlide = 0;
-  let currentPage = 0; 
+  let currentPage = 0;
   let autoPlayInterval;
 
   const dotsContainer = document.getElementById('carousel-dots');
@@ -199,9 +207,9 @@
 
     let dotsCount;
     if (window.innerWidth >= 1024) {
-      dotsCount = Math.ceil(totalSlides / cardsPerView); 
+      dotsCount = Math.ceil(totalSlides / cardsPerView);
     } else {
-      dotsCount = totalSlides; 
+      dotsCount = totalSlides;
     }
 
     for (let i = 0; i < dotsCount; i++) {

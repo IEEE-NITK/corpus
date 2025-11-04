@@ -19,7 +19,7 @@ from robotrix.models import Team
 
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
-from corpus.utils import send_email
+from corpus.tasks import send_email_async
 
 
 @module_enabled(module_name="robotrix")
@@ -450,7 +450,7 @@ def announcements_management(request):
                     email_ids = list(users.values_list("email", flat=True))
 
             if email_ids is not None:
-                send_email(
+                send_email_async.delay(
                     "Announcement | Robotrix",
                     "emails/robotrix/announcement.html",
                     {"announcement": announcement},
@@ -491,7 +491,7 @@ def mark_payment_complete(request, pk):
     final_message = "Thanks for registering for Robotrix."
     for member in RobotrixUser.objects.filter(team=team):
         if member.user.email is not None:
-            send_email(
+            send_email_async.delay(
                 "Payment Complete | Robotrix",
                 "emails/robotrix/payment_complete.html",
                 {
@@ -518,7 +518,7 @@ def mark_payment_incomplete(request, pk):
     final_message = "Please contact us if you have any questions."
     for member in RobotrixUser.objects.filter(team=team):
         if member.user.email is not None:
-            send_email(
+            send_email_async.delay(
                 "Payment Incomplete | Robotrix",
                 "emails/robotrix/payment_incomplete.html",
                 {

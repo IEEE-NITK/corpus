@@ -19,7 +19,7 @@ from impulse.models import Team
 
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
-from corpus.utils import send_email
+from corpus.tasks import send_email_async
 
 
 @module_enabled(module_name="impulse")
@@ -448,7 +448,7 @@ def announcements_management(request):
                     email_ids = list(users.values_list("email", flat=True))
 
             if email_ids is not None:
-                send_email(
+                send_email_async.delay(
                     "Announcement | Impulse",
                     "emails/impulse/announcement.html",
                     {"announcement": announcement},
@@ -489,7 +489,7 @@ def mark_payment_complete(request, pk):
     final_message = "Thanks for registering for Impulse!"
     for member in ImpulseUser.objects.filter(team=team):
         if member.user.email is not None:
-            send_email(
+            send_email_async.delay(
                 "Payment Complete | Impulse",
                 "emails/impulse/payment_complete.html",
                 {
@@ -516,7 +516,7 @@ def mark_payment_incomplete(request, pk):
     final_message = "Please contact us if you have any questions."
     for member in ImpulseUser.objects.filter(team=team):
         if member.user.email is not None:
-            send_email(
+            send_email_async.delay(
                 "Payment Incomplete | Impulse",
                 "emails/impulse/payment_incomplete.html",
                 {

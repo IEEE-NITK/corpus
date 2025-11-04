@@ -5,9 +5,7 @@
       "name": "CompSoc",
       "slug": "compsoc",
       "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development .",
-      "sig_image": "img/compsoc_sig_image.png",
-      "member_stats": "70+",
-      "event_stats": "10+"
+      "sig_image": "img/compsoc_sig_image.png"
     },
     "model": "config.sig",
     "pk": 1
@@ -19,9 +17,7 @@
       "name": "Diode",
       "slug": "diode",
       "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode.",
-      "sig_image": "img/diode_sig_image.jpg",
-      "member_stats": "60+",
-      "event_stats": "10+"
+      "sig_image": "img/diode_sig_image.jpg"
     },
     "model": "config.sig",
     "pk": 2
@@ -33,14 +29,11 @@
       "name": "Piston",
       "slug": "piston",
       "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials.",
-      "sig_image": "img/piston_sig_image.png",
-      "member_stats": "70+",
-      "event_stats": "10+"
+      "sig_image": "img/piston_sig_image.png"
     },
     "model": "config.sig",
     "pk": 3
   },
-
 
   {
     "model": "config.alumnilogo",
@@ -492,128 +485,7 @@
       "image": "img/alumni_logos/bharat_petroleum_logo.png"
     }
   },
-
-  {
-    "model": "config.event",
-    "pk": 1,
-    "fields": {
-      "sigs": [1],
-      "title": "CodeRed",
-      "description": "A 24 Hour Capture The Flag (CTF) event covering multiple domains of Algorithms, Systems, Machine Learning, Development and much more!",
-      "image": "img/events_compsoc/codered.png",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 2,
-    "fields": {
-      "sigs": [1],
-      "title": "The Lazarus Mission",
-      "description": "A multiday Machine Learning Challenge on various tracks like NLP, Computer Vision etc.",
-      "image": "img/events_compsoc/lazarus_mission.png",
-      "order": 2
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 3,
-    "fields": {
-      "sigs": [1],
-      "title": "The Tech IT Easy Quiz",
-      "description": "A fun Science and Business Quiz",
-      "image": "img/events_compsoc/tech_it_easy.png",
-      "order": 3
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 4,
-    "fields": {
-      "sigs": [1],
-      "title": "Praelium",
-      "description": "A competitive programming competition as a precursor to the global IEEE Xtreme event",
-      "image": "img/events_compsoc/praelium.png",
-      "order": 4
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 5,
-    "fields": {
-      "sigs": [2],
-      "title": "Embedathon",
-      "description": "Embedathon – A 24-hour embedded systems hackathon where participants tackle real-world challenges by working hands-on with hardware, bringing innovative ideas to life.",
-      "image": "img/events_diode/embedathon.jpg",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 6,
-    "fields": {
-      "sigs": [2],
-      "title": "Impulse",
-      "description": "Impulse – A 24-hour signal processing hackathon that challenges participants to solve complex problems and apply innovative approaches to real-world scenarios.",
-      "image": "img/events_diode/impulse.jpg",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 7,
-    "fields": {
-      "sigs": [2],
-      "title": "Electrika",
-      "description": "Electrika – A multi-stage hackathon on analog and power electronics, designed to push participants to innovate and solve challenging circuit and system-level problems.",
-      "image": "img/events_diode/electrika.jpg",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 8,
-    "fields": {
-      "sigs": [2],
-      "title": "Robotrix",
-      "description": "Robotrix – A 24-hour robotics hackathon where participants tackle real-world robotics challenges, fostering innovation and nationwide collaboration.",
-      "image": "img/events_diode/robotrix.jpg",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 9,
-    "fields": {
-      "sigs": [3],
-      "title": "Entwine",
-      "description": "A design hackathon focused on real-life problems, featuring participation from top talent across the Bangalore section",
-      "image": "img/events_piston/entwine.jpg",
-      "order": 1
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 10,
-    "fields": {
-      "sigs": [3],
-      "title": "Mystify",
-      "description": "A two-day, one-of-a-kind virtual puzzle competition",
-      "image": "img/events_piston/mystify.jpg",
-      "order": 2
-    }
-  },
-  {
-    "model": "config.event",
-    "pk": 11,
-    "fields": {
-      "sigs": [3],
-      "title": "Boeing Aerospace Events",
-      "description": "An event focusing on expert sessions on aerospace technologies, inspiring students with real-world applications and future opportunities.",
-      "image": "img/events_piston/boeing_aerospace_events.jpg",
-      "order": 3
-    }
-  },
+  
   {
     "fields": {
       "about": "The Women in Engineering affinity group of IEEE NITK aims to increase inclusivity and acceptance in tech on campus. We coordinate events and mentorship programs to inspire our colleagues and other women and girls to pursue a career in engineering. It is a professional organisation dedicated to promoting technical interests among women engineers and scientists.",
