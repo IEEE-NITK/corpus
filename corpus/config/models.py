@@ -13,7 +13,7 @@ class SIG(models.Model):
     about = models.TextField(verbose_name="About Us", default="")
     what_we_do = models.TextField(verbose_name="What We Do", default="")
     slug = models.SlugField(unique=True, null=True)  # Added SlugField for url access
-
+    color = models.CharField(max_length=7, default='#6b7280', help_text="Hex color code, e.g., #fba418",null = True,blank = True)
     def __str__(self):
         return str(self.name)
 

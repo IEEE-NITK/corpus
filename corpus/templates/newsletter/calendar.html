@@ -11,6 +11,7 @@
 {% block content %}
 <div class="h-screen bg-base-200 flex flex-col">
   <div class="max-w-7xl w-full px-4 py-4 sm:px-6 lg:px-8 mx-auto flex flex-col flex-grow">
+    
     <div class="flex items-center justify-between mb-8 p-4 bg-base-100 rounded-box shadow-lg">
       <a class="btn btn-ghost btn-square text-primary hover:text-primary-focus"
          href="?year={{ prev_year }}&month={{ prev_month }}">
@@ -45,44 +46,43 @@
     </div>
 
     <div 
-  class="grid grid-cols-7 gap-2 flex-grow" 
-  style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
->
-{% for cell in all_cells %}
-    <div
-      class="calendar-cell flex flex-col border
-            {% if not cell.in_month %}
-              bg-base-300/30 border-base-200 text-base-content/50
-            {% elif cell.date == today %}
-              bg-secondary/20 border-secondary
-            {% else %}
-              bg-base-100 border-base-300
-            {% endif %}"
+      class="grid grid-cols-7 gap-2 flex-grow" 
+      style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
     >
-      <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
-        {{ cell.date.day }}
-      </span>
-      
-      <div class="event-tags flex-1 overflow-y-auto min-h-0">
-        {% for event in cell.events %}
-          {% with sig_name=event.sigs.0.name|default:'' %}
-            {% if event.page_link %}
-              <a href="{{ event.page_link }}" target="_blank" rel="noopener noreferrer" class="event-tag" title="{{ event.name }}" 
-                 style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %}; cursor: pointer;">
-                {{ event.name }}
-              </a>
-            {% else %}
-              <div class="event-tag" title="{{ event.name }}" 
-                   style="background-color: {% if sig_name == 'CompSoc' %}#fba418{% elif sig_name == 'Diode' %}#59f3e9{% elif sig_name == 'Piston' %}#cb0011{% elif sig_name == 'Inter-SIG' %}#7c3aed{% else %}#6b7280{% endif %};">
-                {{ event.name }}
-              </div>
-            {% endif %}
-          {% endwith %}
-        {% endfor %}
-      </div>
+      {% for cell in all_cells %}
+          <div
+            class="calendar-cell flex flex-col border
+                  {% if not cell.in_month %}
+                    bg-base-300/30 border-base-200 text-base-content/50
+                  {% elif cell.date == today %}
+                    bg-secondary/20 border-secondary
+                  {% else %}
+                    bg-base-100 border-base-300
+                  {% endif %}"
+          >
+            <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
+              {{ cell.date.day }}
+            </span>
+            
+            <div class="event-tags flex-1 overflow-y-auto min-h-0">
+              {% for event in cell.events %}
+                <div 
+                   onclick="openEventModal(this)"
+                   data-name="{{ event.name }}"
+                   data-sigs-json="{{ event.sigs_json }}" 
+                   data-link="{{ event.page_link|default:'' }}"
+                   data-color="{{ event.sig_color }}"
+                   class="event-tag cursor-pointer hover:opacity-90 transition-opacity" 
+                   title="{{ event.name }}" 
+                   style="background-color: {{ event.sig_color }};"
+                >
+                    {{ event.name }}
+                </div>
+              {% endfor %}
+            </div>
+            </div>
+      {% endfor %}
     </div>
-{% endfor %}
-</div>
 
     <div class="mt-6 mb-4 p-4 bg-base-100 text-base-content rounded-box shadow flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
       {% for item in sig_legend %}
@@ -94,4 +94,78 @@
     </div>
   </div>
 </div>
+
+<dialog id="event_details_modal" class="modal flex items-center justify-center">
+  <div class="modal-box relative border-l-8" id="modal_box_accent">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    
+    <h3 class="font-bold text-xl mb-4" id="modal_event_name">Event Name</h3>
+    
+    <div class="py-2">
+        <div id="modal_event_sigs" class="flex flex-wrap gap-2">
+            </div>
+    </div>
+
+    <div class="modal-action">
+      <a href="#" id="modal_event_link" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full">
+        Visit Page
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+      </a>
+      <button disabled id="modal_no_link_btn" class="btn btn-disabled w-full hidden">
+          No Link Available
+      </button>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+
+<script>
+    function openEventModal(element) {
+        const name = element.getAttribute('data-name');
+        const sigsJson = element.getAttribute('data-sigs-json'); 
+        const link = element.getAttribute('data-link');
+        const color = element.getAttribute('data-color');
+        document.getElementById('modal_event_name').innerText = name;
+        const container = document.getElementById('modal_event_sigs');
+        container.innerHTML = ''; 
+        
+        try {
+            const sigs = JSON.parse(sigsJson || '[]');
+            
+            if (sigs.length > 0) {
+                sigs.forEach(sig => {
+                    const tag = document.createElement('span');
+                    tag.innerText = sig.name;
+                    tag.className = 'badge text-white border-none py-3 px-4 font-semibold'; 
+                    tag.style.backgroundColor = sig.color;
+                    container.appendChild(tag);
+                });
+            } else {
+                 container.innerHTML = '<span class="text-lg">General</span>';
+            }
+        } catch (e) {
+            console.error("Error parsing SIGs JSON", e);
+            container.innerHTML = '<span class="text-lg">General</span>';
+        }
+        const linkBtn = document.getElementById('modal_event_link');
+        const noLinkBtn = document.getElementById('modal_no_link_btn');
+        
+        if (link && link !== 'None' && link !== '') {
+            linkBtn.href = link;
+            linkBtn.classList.remove('hidden');
+            noLinkBtn.classList.add('hidden');
+        } else {
+            linkBtn.classList.add('hidden');
+            noLinkBtn.classList.remove('hidden');
+        }
+        document.getElementById('modal_box_accent').style.borderColor = color;
+        document.getElementById('event_details_modal').showModal();
+    }
+</script>
 {% endblock %}
