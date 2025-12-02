@@ -42,8 +42,8 @@ def calendar_view(request):
     last_of_month = date(year, month, calendar.monthrange(year, month)[1])
     cal = calendar.Calendar(firstweekday=6)  
     raw_all_days = list(cal.itermonthdates(year, month))
-    first_day_in_grid = raw_all_days[0]
-    last_day_in_grid = raw_all_days[-1]
+    first_day_in_grid = raw_all_days[0] 
+    last_day_in_grid = raw_all_days[-1] 
     events_qs = (
         Event.objects.filter(archive_event=False)
         .filter(Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid))
@@ -55,12 +55,20 @@ def calendar_view(request):
         start_in_view = max(e.start_date, first_day_in_grid)
         end_in_view = min(e.end_date, last_day_in_grid)
         primary_sig = e.sigs.first()
+        sig_names = [sig.name for sig in e.sigs.all()]
+        sigs_data = [{"name": sig.name, "color": sig.color} for sig in e.sigs.all()]
+        sigs_json = json.dumps(sigs_data)
+        if len(sig_names) > 2:
+            final_color = '#000080'
+        else:
+            final_color = primary_sig.color if primary_sig else '#6b7280'
         for d in _daterange(start_in_view, end_in_view):
             event_data = {
                 "id": e.id,
                 "name": e.name,
                 "page_link": e.page_link,
-                "sig_color": primary_sig.color if primary_sig else '#6b7280' 
+                "sig_color": final_color,
+                "sigs_json": sigs_json,
             }
             event_data["is_first_day_in_view"] = d == start_in_view
             event_data["is_last_day_in_view"] = d == end_in_view
@@ -100,9 +108,7 @@ def calendar_view(request):
         "years": years,
         "sig_legend": sig_legend,
     }
-
     return render(request, "newsletter/calendar.html", ctx)
-
 
 @module_enabled(module_name="newsletter")
 def home(request):
