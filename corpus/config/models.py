@@ -13,6 +13,8 @@ class SIG(models.Model):
     what_we_do = models.TextField(verbose_name="What We Do", default="")
     slug = models.SlugField(unique=True, null=True) 
     sig_image = models.ImageField(verbose_name="SIG Image", blank=True, null=True)
+    color = models.CharField(max_length=7, default='#6b7280', help_text="Hex color code, e.g., #fba418",null = True,blank = True)
+
     def __str__(self):
         return str(self.name)
 
@@ -88,7 +90,6 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
-
 class ModuleConfiguration(models.Model):
     module_name = models.CharField(max_length=200, blank=False, null=False)
     module_enabled = models.BooleanField(default=False)
@@ -96,27 +97,6 @@ class ModuleConfiguration(models.Model):
 
     def __str__(self):
         return self.module_name
-
-# class Event(models.Model):
-#     """
-#     Event Model.
-#     Defines all events for each SIG.
-#     """
-    
-#     sigs = models.ManyToManyField('SIG', related_name='events')
-#     title = models.CharField(verbose_name="Title", max_length=200)
-#     description = models.TextField(verbose_name="Description")
-#     image = models.ImageField(verbose_name="Event Image", blank=True, null=True)
-#     order = models.PositiveIntegerField(verbose_name="Display Order", default=0)
-
-#     def __str__(self):
-#         return f"{self.title} ({self.sig.name})"
-
-#     class Meta:
-#         verbose_name = "Event"
-#         verbose_name_plural = "Events"
-#         ordering = ['order']
-
 
 class AlumniLogo(models.Model):
     """
@@ -133,4 +113,3 @@ class AlumniLogo(models.Model):
     class Meta:
         verbose_name = "Alumni Logo"
         verbose_name_plural = "Alumni Logos"
-
