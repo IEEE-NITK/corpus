@@ -58,7 +58,7 @@ def calendar_view(request):
         sig_names = [sig.name for sig in e.sigs.all()]
         sigs_data = [{"name": sig.name, "color": sig.color} for sig in e.sigs.all()]
         sigs_json = json.dumps(sigs_data)
-        if len(sig_names) > 2:
+        if len(sig_names) >= 2:
             final_color = '#000080'
         else:
             final_color = primary_sig.color if primary_sig else '#6b7280'
