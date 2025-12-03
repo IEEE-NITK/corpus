@@ -179,7 +179,17 @@
         }
 
         document.getElementById('modal_box_accent').style.borderColor = color;
-        document.getElementById('event_details_modal').showModal();
+
+        const dialog = document.getElementById('event_details_modal');
+        dialog.showModal();
+
+        // ⭐ Add outside click to close
+        dialog.addEventListener('click', function (event) {
+            const modalBox = document.getElementById('modal_box_accent');
+            if (!modalBox.contains(event.target)) {
+                dialog.close();
+            }
+        }, { once: true });
     }
 </script>
 {% endblock %}
