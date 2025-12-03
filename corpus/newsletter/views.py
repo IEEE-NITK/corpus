@@ -4,6 +4,7 @@ from collections import defaultdict
 from datetime import date
 from datetime import timedelta
 
+from config.models import SIG
 from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -16,16 +17,11 @@ from .models import Event
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
-from config.models import SIG
-from .forms import EventForm
-from .models import Event
-from corpus.decorators import ensure_group_membership
-from corpus.decorators import module_enabled
-
 # Create your views here.
 def _daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days) + 1):
         yield start_date + timedelta(n)
+
 
 def calendar_view(request):
     today = timezone.localdate()
@@ -40,13 +36,15 @@ def calendar_view(request):
         month = today.month
         first_of_month = date(year, month, 1)
     last_of_month = date(year, month, calendar.monthrange(year, month)[1])
-    cal = calendar.Calendar(firstweekday=6)  
+    cal = calendar.Calendar(firstweekday=6)
     raw_all_days = list(cal.itermonthdates(year, month))
-    first_day_in_grid = raw_all_days[0] 
-    last_day_in_grid = raw_all_days[-1] 
+    first_day_in_grid = raw_all_days[0]
+    last_day_in_grid = raw_all_days[-1]
     events_qs = (
         Event.objects.filter(archive_event=False)
-        .filter(Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid))
+        .filter(
+            Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid)
+        )
         .prefetch_related("sigs")
         .order_by("start_date", "name")
     )
@@ -59,13 +57,14 @@ def calendar_view(request):
         sigs_data = [{"name": sig.name, "color": sig.color} for sig in e.sigs.all()]
         sigs_json = json.dumps(sigs_data)
         if len(sig_names) >= 2:
-            final_color = '#000080'
+            final_color = "#000080"
         else:
-            final_color = primary_sig.color if primary_sig else '#6b7280'
+            final_color = primary_sig.color if primary_sig else "#6b7280"
         for d in _daterange(start_in_view, end_in_view):
             event_data = {
                 "id": e.id,
                 "name": e.name,
+                "description": e.description or "",
                 "page_link": e.page_link,
                 "sig_color": final_color,
                 "sigs_json": sigs_json,
@@ -74,11 +73,11 @@ def calendar_view(request):
             event_data["is_last_day_in_view"] = d == end_in_view
             event_data["is_week_start"] = d.weekday() == 6  # Sunday
             event_data["is_week_end"] = d.weekday() == 5  # Saturday
-            
+
             day_events[d.isoformat()].append(event_data)
     all_cells = []
     for d in raw_all_days:
-        iso = d.isoformat() 
+        iso = d.isoformat()
         events_for_day = sorted(day_events.get(iso, []), key=lambda x: x["id"])
         all_cells.append(
             {
@@ -93,7 +92,7 @@ def calendar_view(request):
     next_month_date = last_of_month + timedelta(days=1)
     months = [{"value": i, "name": calendar.month_name[i]} for i in range(1, 13)]
     years = range(today.year - 5, today.year + 6)
-    sig_legend = SIG.objects.all().order_by('name').values('name', 'color')
+    sig_legend = SIG.objects.all().order_by("name").values("name", "color")
     ctx = {
         "all_cells": all_cells,
         "month_name": calendar.month_name[month],
@@ -109,6 +108,7 @@ def calendar_view(request):
         "sig_legend": sig_legend,
     }
     return render(request, "newsletter/calendar.html", ctx)
+
 
 @module_enabled(module_name="newsletter")
 def home(request):
@@ -220,4 +220,3 @@ def delete_announcement(request, pk):
     else:
         messages.warning(request, "Incorrect Request Method. Contact Administrator")
         return redirect("newsletter_manage_announcements")
-

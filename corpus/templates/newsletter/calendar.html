@@ -11,7 +11,7 @@
 {% block content %}
 <div class="h-screen bg-base-200 flex flex-col">
   <div class="max-w-7xl w-full px-4 py-4 sm:px-6 lg:px-8 mx-auto flex flex-col flex-grow">
-    
+
     <div class="flex items-center justify-between mb-8 p-4 bg-base-100 rounded-box shadow-lg">
       <a class="btn btn-ghost btn-square text-primary hover:text-primary-focus"
          href="?year={{ prev_year }}&month={{ prev_month }}">
@@ -45,8 +45,8 @@
       <div>Sat</div>
     </div>
 
-    <div 
-      class="grid grid-cols-7 gap-2 flex-grow" 
+    <div
+      class="grid grid-cols-7 gap-2 flex-grow"
       style="grid-template-rows: repeat({{ num_weeks }}, minmax(0, 1fr));"
     >
       {% for cell in all_cells %}
@@ -63,18 +63,19 @@
             <span class="{% if cell.date == today %}text-secondary{% else %}text-neutral-content{% endif %} font-bold self-start">
               {{ cell.date.day }}
             </span>
-            
+
             <div class="event-tags flex-1 overflow-y-auto min-h-0">
               {% for event in cell.events %}
-                <div 
-                   onclick="openEventModal(this)"
-                   data-name="{{ event.name }}"
-                   data-sigs-json="{{ event.sigs_json }}" 
-                   data-link="{{ event.page_link|default:'' }}"
-                   data-color="{{ event.sig_color }}"
-                   class="event-tag cursor-pointer hover:opacity-90 transition-opacity" 
-                   title="{{ event.name }}" 
-                   style="background-color: {{ event.sig_color }};"
+                <div
+                  onclick="openEventModal(this)"
+                  data-name="{{ event.name }}"
+                  data-description="{{ event.description|default:''|escape}}"
+                  data-sigs-json="{{ event.sigs_json }}"
+                  data-link="{{ event.page_link|default:'' }}"
+                  data-color="{{ event.sig_color }}"
+                  class="event-tag cursor-pointer hover:opacity-90 transition-opacity"
+                  title="{{ event.name }}"
+                  style="background-color: {{ event.sig_color }};"
                 >
                     {{ event.name }}
                 </div>
@@ -100,12 +101,17 @@
     <form method="dialog">
       <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
     </form>
-    
+
     <h3 class="font-bold text-xl mb-4" id="modal_event_name">Event Name</h3>
-    
+
     <div class="py-2">
         <div id="modal_event_sigs" class="flex flex-wrap gap-2">
             </div>
+    </div>
+
+    <div id="modal_event_description"
+        class="mt-4 text-base-content/80 leading-relaxed max-h-40 overflow-y-auto pr-1
+                scrollbar-thin scrollbar-thumb-base-300 dark:scrollbar-thumb-base-600 scrollbar-track-transparent">
     </div>
 
     <div class="modal-action">
@@ -128,34 +134,41 @@
 <script>
     function openEventModal(element) {
         const name = element.getAttribute('data-name');
-        const sigsJson = element.getAttribute('data-sigs-json'); 
+        const description = element.getAttribute('data-description') || "";
+        const sigsJson = element.getAttribute('data-sigs-json');
         const link = element.getAttribute('data-link');
         const color = element.getAttribute('data-color');
+
         document.getElementById('modal_event_name').innerText = name;
+
+        const descBox = document.getElementById('modal_event_description');
+        descBox.innerText = description.trim() || "No description available.";
+
         const container = document.getElementById('modal_event_sigs');
-        container.innerHTML = ''; 
-        
+        container.innerHTML = '';
+
         try {
             const sigs = JSON.parse(sigsJson || '[]');
-            
+
             if (sigs.length > 0) {
                 sigs.forEach(sig => {
                     const tag = document.createElement('span');
                     tag.innerText = sig.name;
-                    tag.className = 'badge text-white border-none py-3 px-4 font-semibold'; 
+                    tag.className = 'badge text-white border-none py-3 px-4 font-semibold';
                     tag.style.backgroundColor = sig.color;
                     container.appendChild(tag);
                 });
             } else {
-                 container.innerHTML = '<span class="text-lg">General</span>';
+                container.innerHTML = '<span class="text-lg">General</span>';
             }
         } catch (e) {
             console.error("Error parsing SIGs JSON", e);
             container.innerHTML = '<span class="text-lg">General</span>';
         }
+
         const linkBtn = document.getElementById('modal_event_link');
         const noLinkBtn = document.getElementById('modal_no_link_btn');
-        
+
         if (link && link !== 'None' && link !== '') {
             linkBtn.href = link;
             linkBtn.classList.remove('hidden');
@@ -164,6 +177,7 @@
             linkBtn.classList.add('hidden');
             noLinkBtn.classList.remove('hidden');
         }
+
         document.getElementById('modal_box_accent').style.borderColor = color;
         document.getElementById('event_details_modal').showModal();
     }

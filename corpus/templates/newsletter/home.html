@@ -63,7 +63,7 @@
                         <div id="whats-new-track" class="flex transition-transform duration-500 ease-in-out">
                             {% for event in upcoming_events %}
                                 <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 p-3">
-                                    <div class="h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-l-4 border-accent overflow-hidden flex flex-col">
+                                    <div class="relative h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 border-l-4 border-accent overflow-hidden flex flex-col">
                                         {% if event.is_upcoming %}
                                             <div class="absolute top-0 right-0 m-3">
                                                 <span class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-accent rounded-full">NEW</span>
@@ -71,12 +71,26 @@
                                         {% endif %}
 
                                         <div class="p-6 flex-grow">
-                                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">{{ event.name }}</h2>
+                                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                                                {{ event.name }}
+                                            </h2>
+
+                                            {% if event.description %}
+                                                <div class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4
+                                                            max-h-24 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-gray-400
+                                                            dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                                                    {{ event.description }}
+                                                </div>
+                                            {% endif %}
+
                                             <div class="flex items-center text-gray-500 dark:text-gray-400 mt-4">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" /></svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                                </svg>
                                                 <span>{{ event.start_date|date:"jS F" }} - {{ event.end_date|date:"jS F Y" }}</span>
                                             </div>
                                         </div>
+
                                         {% if event.page_link %}
                                             <div class="p-6 bg-gray-50 dark:bg-gray-700/50 mt-auto">
                                                 <a href="{{ event.page_link }}" class="font-semibold text-primary hover:text-primary-focus dark:text-accent dark:hover:text-accent-focus transition-colors">
