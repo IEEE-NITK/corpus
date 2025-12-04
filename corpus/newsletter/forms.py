@@ -10,6 +10,7 @@ class EventForm(CorpusModelForm):
         fields = [
             "name",
             "sigs",
+            "description",
             "start_date",
             "end_date",
             "page_link",
