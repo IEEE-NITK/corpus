@@ -179,7 +179,7 @@ Home
                 </svg>
             </div>
             <div class="stat-title">Alumni</div>
-            <div class="stat-value text-primary">146</div>
+            <div class="stat-value text-primary">{{ alumni_count }}</div>
             <div class="stat-actions">
                 <a role="button" href="#" class="btn btn-sm btn-primary">View Alumni</a>
             </div>
@@ -195,9 +195,9 @@ Home
                 </svg>
             </div>
             <div class="stat-title">Events</div>
-            <div class="stat-value text-accent">34</div>
+            <div class="stat-value text-accent">{{ events_count }}</div>
             <div class="stat-actions">
-                <a role="button" href="#" class="btn btn-sm btn-accent">View Events</a>
+                <a role="button" href="{% url 'newsletter_home' %}" class="btn btn-sm btn-accent">View Events</a>
             </div>
         </div>
     </div>
