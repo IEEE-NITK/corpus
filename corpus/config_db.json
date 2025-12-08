@@ -653,7 +653,7 @@
   "fields": {
     "name": "AESS",
     "description": "The IEEE Aerospace and Electronic Systems Society (AESS) is a global professional group within the IEEE focusing on designing, developing, and integrating complex electronic systems for space, air, ocean, and ground applications, covering areas like radar, navigation, sonar, and telemetry. AESS also provides scholarships, aiming to advance technology and foster community in aerospace and electronics.",
-    "image": "img/logo/aess_logo.png",
+    "image": "img/logo/aess.png",
     "url": "https://ieee-aess.org/",
     "sigs": [3]
   }
