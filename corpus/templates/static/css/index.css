@@ -10,7 +10,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 body { font-family: 'Inter', sans-serif; }
-        
+
 @keyframes marquee {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-100%); }
@@ -31,9 +31,9 @@ body { font-family: 'Inter', sans-serif; }
 
 
 #carousel {
-    
-  -ms-overflow-style: none;  
-  scrollbar-width: none;     
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 #carousel-track > * {
