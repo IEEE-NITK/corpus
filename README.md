@@ -4,6 +4,7 @@
 
 A Django based web application to manage all things IEEE NITK.
 
+
 ## Setup Instructions
 
 1. Run the following command to create a copy of the environment file. Change the environment variables as necessary in
