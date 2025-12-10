@@ -11,6 +11,10 @@
 {% endblock %}
 
 {% block content %}
+{% if preview %}
+    <div class="alert alert-error">This is a preview.</div>
+{% endif %}
+
 {% load markdown_extras %}
 <div class="m-10 p-5 border rounded-lg">
     <div class="text-4xl font-bold my-2" style="word-break: break-all;" id="title">{{individual_post.title}}</div>

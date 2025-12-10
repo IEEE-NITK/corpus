@@ -1,7 +1,7 @@
 from accounts.models import User
 from django.db import models
 
-from corpus.utils import send_email
+from corpus.tasks import send_email_async
 from corpus.validators import FileValidator
 
 file_validator = FileValidator(
@@ -74,7 +74,7 @@ class Announcement(models.Model):
             email_ids = list(SEUser.objects.values_list("user__email", flat=True))
 
         if email_ids is not None:
-            send_email(
+            send_email_async.delay(
                 "Announcement | Skyward Expedition",
                 "emails/skyward_expedition/announcement.html",
                 {"announcement": self},

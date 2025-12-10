@@ -37,6 +37,11 @@
                                     </option>
                                 {% endfor %}
                             </select>
+
+                        {% elif field.name == 'description' %}
+                            <textarea name="{{ field.name }}" id="{{ field.id_for_label }}"
+                                    class="textarea textarea-bordered w-full" rows="5">{{ field.value }}</textarea>
+
                         {% elif field.name == 'start_date' or field.name == 'end_date' %}
                             <input type="date" name="{{ field.name }}" id="{{ field.id_for_label }}"
                                    value="{{ field.value|date:'Y-m-d' }}"

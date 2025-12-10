@@ -1,16 +1,41 @@
-@keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
-}
 
 @keyframes marquee2 {
     0% { transform: translateX(100%); }
     100% { transform: translateX(0%); }
 }
 
-{% comment %}
-    THIS IS A HACK TO FIX THE Z-INDEX OF THE HERO CONTENT
-{% endcomment %}
 .hero-content {
     z-index: auto !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body { font-family: 'Inter', sans-serif; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee-content {
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-content-2 {
+  animation: marquee2 20s linear infinite;
+  animation-delay: 10s;
+}
+
+#carousel::-webkit-scrollbar {
+  display: none;
+}
+
+
+#carousel {
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#carousel-track > * {
+  transition: transform 0.4s ease, scale 0.4s ease;
 }

@@ -12,6 +12,7 @@ class Event(models.Model):
     sigs = models.ManyToManyField(SIG, related_name="events", null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
+    description = models.TextField(verbose_name="Description",  null=True, blank=True)
     archive_event = models.BooleanField(default=False)
     show_in_recent = models.BooleanField(default=False)
     thumbnail = models.ImageField(

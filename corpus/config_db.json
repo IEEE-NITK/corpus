@@ -4,31 +4,488 @@
       "about": "The NITK-IEEE Computer Society is a conglomeration of students with a passion for Computer Science and Information Technology. This SIG is a great platform for those who want to gain expertise in computer based technology.\r\nIn the true spirit of divide and conquer, our community intends to explore and contribute to the rapidly evolving world of computer technologies by carrying out research and projects in the broad domains of computer science, in the form of 3 research groups : Intelligence, Systems and Core Computer Science.",
       "name": "CompSoc",
       "slug": "compsoc",
-      "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development ."
+      "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development .",
+      "sig_image": "img/compsoc_sig_image.png"
     },
     "model": "config.sig",
     "pk": 1
   },
+
   {
     "fields": {
-      "about": "The NITK Diode SIG is a combination of the Circuits and Systems (CAS) Society, Signal Processing Society (SPS) and the Industrial Applications Society (IAS).\r\nThe SIG consists of a team of students with a strong interest in the field of Electronics and Electrical Science, and works on conceiving and pioneering solutions to fundamental and applied problems in the fields of robotics, microcontrollers and signal processing.",
+      "about": "The Diode IEEE NITK  is a dynamic community of students passionate about Digital Design, Analog Circuits, Signal Processing, Machine Learning, Embedded Systems, and Robotics. We foster a culture of hands-on learning and innovation through peer-driven Knowledge Sharing Sessions and Expert Talks by industry leaders. With flagship national-level hackathons such as Embedathon, Electrika, Impulse, and Robotrix, Diode provides a platform that inspires curiosity, collaboration, and technical excellence among its members.",
       "name": "Diode",
       "slug": "diode",
-      "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode."
+      "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode.",
+      "sig_image": "img/diode_sig_image.jpg"
     },
     "model": "config.sig",
     "pk": 2
   },
+
   {
     "fields": {
       "about": "Piston is a SIG dedicated to the engineering applications of Mechanical, Civil, Chemical and Material Sciences. The SIG functions as a platform for students interested in learning and advancing specific areas of knowledge and technology. The SIG members co-operate, communicate, and organise meets, talks and conferences to discuss the latest technological advancements and applications.",
       "name": "Piston",
       "slug": "piston",
-      "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials."
+      "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials.",
+      "sig_image": "img/piston_sig_image.png"
     },
     "model": "config.sig",
     "pk": 3
   },
+
+  {
+    "model": "config.alumnilogo",
+    "pk": 1,
+    "fields": {
+      "sigs": [1],
+      "name": "Google",
+      "image": "img/alumni_logos/google_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 2,
+    "fields": {
+      "sigs": [1],
+      "name": "Databricks",
+      "image": "img/alumni_logos/databricks_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 3,
+    "fields": {
+      "sigs": [1],
+      "name": "Meta",
+      "image": "img/alumni_logos/meta_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 4,
+    "fields": {
+      "sigs": [1],
+      "name": "Amazon",
+      "image": "img/alumni_logos/amazon_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 5,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Apple",
+      "image": "img/alumni_logos/apple_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 6,
+    "fields": {
+      "sigs": [1],
+      "name": "Tower Research Capital",
+      "image": "img/alumni_logos/tower_rc_logo.jpeg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 7,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Intel",
+      "image": "img/alumni_logos/intel_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 8,
+    "fields": {
+      "sigs": [1],
+      "name": "University of Oxford",
+      "image": "img/alumni_logos/university_of_oxford_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 9,
+    "fields": {
+      "sigs": [1,3],
+      "name": "Carnegie Mellon University",
+      "image": "img/alumni_logos/cmu_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 10,
+    "fields": {
+      "sigs": [1],
+      "name": "UCLA",
+      "image": "img/alumni_logos/ucla_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 11,
+    "fields": {
+      "sigs": [1],
+      "name": "USC",
+      "image": "img/alumni_logos/usc_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 12,
+    "fields": {
+      "sigs": [1],
+      "name": "Georgia Institute of Technology",
+      "image": "img/alumni_logos/georgia_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 13,
+    "fields": {
+      "sigs": [1],
+      "name": "Oracle",
+      "image": "img/alumni_logos/oracle_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 14,
+    "fields": {
+      "sigs": [1],
+      "name": "Morgan Stanley",
+      "image": "img/alumni_logos/morgan_stanley_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 15,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Accenture",
+      "image": "img/alumni_logos/accenture_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 16,
+    "fields": {
+      "sigs": [1],
+      "name": "Adobe",
+      "image": "img/alumni_logos/adobe_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 17,
+    "fields": {
+      "sigs": [1],
+      "name": "Intuit",
+      "image": "img/alumni_logos/intuit_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 18,
+    "fields": {
+      "sigs": [1],
+      "name": "Sprinklr",
+      "image": "img/alumni_logos/sprinklr_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 19,
+    "fields": {
+      "sigs": [1],
+      "name": "Cohesity",
+      "image": "img/alumni_logos/cohesity_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 20,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Nvidia",
+      "image": "img/alumni_logos/nvidia_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 21,
+    "fields": {
+      "sigs": [1],
+      "name": "Uber",
+      "image": "img/alumni_logos/uber_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 22,
+    "fields": {
+      "sigs": [1],
+      "name": "Blackbuck",
+      "image": "img/alumni_logos/blackbuck_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 23,
+    "fields": {
+      "sigs": [1],
+      "name": "Eightfold.ai",
+      "image": "img/alumni_logos/eightfold_ai_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 24,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Samsung Semiconductors",
+      "image": "img/alumni_logos/samsung_semiconductors_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 25,
+    "fields": {
+      "sigs": [1],
+      "name": "Goldman Sachs",
+      "image": "img/alumni_logos/goldman_sachs_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 26,
+    "fields": {
+      "sigs": [1],
+      "name": "Microsoft",
+      "image": "img/alumni_logos/microsoft_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 27,
+    "fields": {
+      "sigs": [1],
+      "name": "Arcesium",
+      "image": "img/alumni_logos/arcesium_logo.jpg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 28,
+    "fields": {
+      "sigs": [1],
+      "name": "Salesforce",
+      "image": "img/alumni_logos/salesforce_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 29,
+    "fields": {
+      "sigs": [1,2],
+      "name": "Texas Instruments",
+      "image": "img/alumni_logos/texas_instruments_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 30,
+    "fields": {
+      "sigs": [2],
+      "name": "Skyworks",
+      "image": "img/alumni_logos/skyworks_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 31,
+    "fields": {
+      "sigs": [2],
+      "name": "Cadence",
+      "image": "img/alumni_logos/cadence_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 32,
+    "fields": {
+      "sigs": [2],
+      "name": "Qualcomm",
+      "image": "img/alumni_logos/qualcomm_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 33,
+    "fields": {
+      "sigs": [2],
+      "name": "AMD",
+      "image": "img/alumni_logos/amd_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 34,
+    "fields": {
+      "sigs": [2],
+      "name": "ARM",
+      "image": "img/alumni_logos/arm_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 35,
+    "fields": {
+      "sigs": [2],
+      "name": "Infineon",
+      "image": "img/alumni_logos/infineon_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 36,
+    "fields": {
+      "sigs": [2],
+      "name": "Nutanix",
+      "image": "img/alumni_logos/nutanix_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 37,
+    "fields": {
+      "sigs": [2],
+      "name": "Aura Semiconductors",
+      "image": "img/alumni_logos/aura_semiconductors_logo.jpeg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 38,
+    "fields": {
+      "sigs": [2],
+      "name": "ISRO",
+      "image": "img/alumni_logos/isro_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 39,
+    "fields": {
+      "sigs": [2],
+      "name": "DRDO",
+      "image": "img/alumni_logos/drdo_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 40,
+    "fields": {
+      "sigs": [2],
+      "name": "Western Digital",
+      "image": "img/alumni_logos/western_digital_logo.jpeg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 41,
+    "fields": {
+      "sigs": [2],
+      "name": "Sedemac",
+      "image": "img/alumni_logos/sedemac_logo.jpeg"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 42,
+    "fields": {
+      "sigs": [2],
+      "name": "Chevron",
+      "image": "img/alumni_logos/chevron_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 43,
+    "fields": {
+      "sigs": [3],
+      "name": "Exxon",
+      "image": "img/alumni_logos/exxon_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 44,
+    "fields": {
+      "sigs": [3],
+      "name": "Hindustan Petroleum",
+      "image": "img/alumni_logos/hp_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 45,
+    "fields": {
+      "sigs": [3],
+      "name": "IISC",
+      "image": "img/alumni_logos/iisc_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 46,
+    "fields": {
+      "sigs": [3],
+      "name": "CAT",
+      "image": "img/alumni_logos/cat_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 47,
+    "fields": {
+      "sigs": [3],
+      "name": "Hindustan Unilever Limited",
+      "image": "img/alumni_logos/hul_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 48,
+    "fields": {
+      "sigs": [3],
+      "name": "University of Toronto",
+      "image": "img/alumni_logos/university_of_toronto_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 49,
+    "fields": {
+      "sigs": [3],
+      "name": "Vedanta",
+      "image": "img/alumni_logos/vedanta_logo.png"
+    }
+  },
+  {
+    "model": "config.alumnilogo",
+    "pk": 50,
+    "fields": {
+      "sigs": [3],
+      "name": "Bharat Petroleum",
+      "image": "img/alumni_logos/bharat_petroleum_logo.png"
+    }
+  },
+  
   {
     "fields": {
       "about": "The Women in Engineering affinity group of IEEE NITK aims to increase inclusivity and acceptance in tech on campus. We coordinate events and mentorship programs to inspire our colleagues and other women and girls to pursue a career in engineering. It is a professional organisation dedicated to promoting technical interests among women engineers and scientists.",
@@ -39,6 +496,7 @@
     "model": "config.sig",
     "pk": 4
   },
+
   {
     "fields": {
       "about": "IEEE SIGHT caters to the guiding philosophy of IEEE - \u2018Advancing Technology for Humanity\u2019. IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
@@ -188,5 +646,17 @@
     },
     "model": "config.society",
     "pk": 10
+  },
+  {
+  "model": "config.society",
+  "pk": 11,
+  "fields": {
+    "name": "AESS",
+    "description": "The IEEE Aerospace and Electronic Systems Society (AESS) is a global professional group within the IEEE focusing on designing, developing, and integrating complex electronic systems for space, air, ocean, and ground applications, covering areas like radar, navigation, sonar, and telemetry. AESS also provides scholarships, aiming to advance technology and foster community in aerospace and electronics.",
+    "image": "img/logo/aess.png",
+    "url": "https://ieee-aess.org/",
+    "sigs": [3]
   }
+}
+
 ]
