@@ -35,7 +35,7 @@ DEBUG = (os.getenv("ENVIRONMENT") == "DEVELOPMENT") or (
 )
 
 # TODO: Stricter host policies
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
+ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    'django_extensions',
     "smp.apps.SmpConfig",
     "codeRed.apps.CoderedConfig",
     "chimera.apps.ChimeraConfig",

@@ -12,27 +12,27 @@
 
 {% block content %}
 {% load markdown_extras %}
-    <div class="m-10 p-5 border rounded-lg">
+<div class="m-10 p-5 border rounded-lg">
     <div class="text-4xl font-bold my-2" style="word-break: break-all;" id="title">{{individual_post.title}}</div>
     <div class="my-2">
         {% for tag in individual_post.blog_tag.all %}
-            <div class="badge badge-secondary">{{ tag.tag_name }}</div>
+        <div class="badge badge-secondary">{{ tag.tag_name }}</div>
         {% endfor %}
     </div>
     <div id="author">
-    -by <a href="{% url 'accounts_profile' roll_no=individual_post.author.roll_number %}" class="hover:underline"> {{individual_post.author}} </a>
-</div> 
-    <div id="dates">published on {{individual_post.published_date}}</div>
+        -by <a href="{% url 'accounts_profile' pk=individual_post.author.user.pk %}" class="hover:underline">
+            {{individual_post.author}} </a>
     </div>
-    <div class="mx-10 p-5 border rounded-lg">
+    <div id="dates">published on {{individual_post.published_date}}</div>
+</div>
+<div class="mx-10 p-5 border rounded-lg">
 
     <div class="my-2 prose max-w-none" id="details">{{individual_post.text|render_function}}</div>
 
-    </div>
-    <div class="m-10 p-5 border rounded-lg flex justify-center items-center">
-        <a href="{% url 'post_list' %}"
-           class="text-3xl font-bold underline underline-offset-4 text-center">
-            Check out more blogs!
-        </a>
-    </div>
+</div>
+<div class="m-10 p-5 border rounded-lg flex justify-center items-center">
+    <a href="{% url 'post_list' %}" class="text-3xl font-bold underline underline-offset-4 text-center">
+        Check out more blogs!
+    </a>
+</div>
 {% endblock %}
