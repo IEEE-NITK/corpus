@@ -35,7 +35,7 @@ DEBUG = (os.getenv("ENVIRONMENT") == "DEVELOPMENT") or (
 )
 
 # TODO: Stricter host policies
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", ".onrender.com"]
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com"]
 if os.getenv("ENVIRONMENT", "PRODUCTION") == "PRODUCTION":
     ALLOWED_HOSTS.append("ieee.nitk.ac.in")
