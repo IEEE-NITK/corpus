@@ -93,7 +93,7 @@
             <div
               class="carousel-card w-full max-w-md dark:bg-slate-700 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl dark:hover:shadow-indigo-900 dark:hover:shadow-xl transition-all duration-300 transform hover:scale-105">
 
-              <img src="{% static event.thumbnail %}" alt="{{ event.name }}" class="w-full h-80 object-fill">
+              <img src="{{ event.thumbnail.url }}" alt="{{ event.name }}" class="w-full h-80 object-fill">
 
               <div class="p-6 space-y-3">
                 <h3 class="text-xl font-semibold dark:text-white mb-1">{{ event.name }}</h3>
