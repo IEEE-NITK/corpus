@@ -11,17 +11,19 @@
             {% if profile_user.profile_pic %}
                 <img src="{{ profile_user.profile_pic.url }}" alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% else %}
-                <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
+                <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ profile_user.first_name }}"
                      alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% endif %}
 
             <h1 class="my-2">{{ profile_user }}</h1>
+            {% if exec_member %}
             <h3 class="m-0">{{ exec_member.sig }}</h3>
+            {% endif %}
 
             {% if curr_user == profile_user %}
                 <!-- Edit Profile Link -->
                 <div class="text-center my-4">
-                    <a href="{% url 'edit_profile' roll_no=profile_user.executivemember.roll_number %}" class="btn btn-primary">
+                    <a href="{% url 'edit_profile' pk=profile_user.pk %}" class="btn btn-primary">
                         Edit Profile
                     </a>
                 </div>
@@ -39,11 +41,12 @@
                     </div>
                     <div class="mt-8 grid grid-cols-2 gap-1">
                         <div class="font-bold">Date Joined</div>
-                        <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
+                        <div>{{ profile_user.date_joined|date:"M d, Y" }}</div>
                     </div>
                 </div>
             </div>
 
+            {% if exec_member %}
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">IEEE Membership Information</div>
                 <div class="collapse-content">
@@ -61,6 +64,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Reports Published</div>
@@ -113,14 +117,18 @@
                         <!-- GitHub Section -->
                         <div class="font-bold">GitHub</div>
                         <div>
-                            {% if exec_member.hide_github %}
-                                --
-                            {% else %}
-                                {% if exec_member.github %}
-                                    <a href="https://github.com/{{ exec_member.github }}" class="link link-primary" target="_blank">GitHub Profile</a>
+                            {% if exec_member %}
+                                {% if exec_member.hide_github %}
+                                    --
                                 {% else %}
-                                    None
+                                    {% if exec_member.github %}
+                                        <a href="https://github.com/{{ exec_member.github }}" class="link link-primary" target="_blank">GitHub Profile</a>
+                                    {% else %}
+                                        None
+                                    {% endif %}
                                 {% endif %}
+                            {% else %}
+                                None
                             {% endif %}
                         </div>
                     </div>
@@ -129,14 +137,18 @@
                         <!-- LinkedIn Section -->
                         <div class="font-bold">LinkedIn</div>
                         <div>
-                            {% if exec_member.hide_linkedin %}
-                                --
-                            {% else %}
-                                {% if exec_member.linkedin %}
-                                    <a href="{{ exec_member.linkedin }}" class="link link-primary" target="_blank">LinkedIn Profile</a>
+                            {% if exec_member %}
+                                {% if exec_member.hide_linkedin %}
+                                    --
                                 {% else %}
-                                    None
+                                    {% if exec_member.linkedin %}
+                                        <a href="{{ exec_member.linkedin }}" class="link link-primary" target="_blank">LinkedIn Profile</a>
+                                    {% else %}
+                                        None
+                                    {% endif %}
                                 {% endif %}
+                            {% else %}
+                                None
                             {% endif %}
                         </div>
                     </div>

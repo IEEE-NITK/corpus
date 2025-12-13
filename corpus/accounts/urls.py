@@ -32,6 +32,6 @@ urlpatterns = [
         PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path("profile/<roll_no>", profile, name="accounts_profile"),
-    path("profile/<roll_no>/edit", edit_profile, name="edit_profile"),
+    path("profile/<int:pk>", profile, name="accounts_profile"),
+    path("profile/<int:pk>/edit", edit_profile, name="edit_profile"),
 ]

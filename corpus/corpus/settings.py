@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "farewell.apps.FarewellConfig",
     "virtual_expo.apps.VirtualExpoConfig",
     "blog",
+    'django_extensions',
     "smp.apps.SmpConfig",
     "codeRed.apps.CoderedConfig",
     "chimera.apps.ChimeraConfig",

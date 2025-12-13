@@ -1,5 +1,7 @@
 import re
 
+from django.contrib.auth import get_user_model
+
 from blog.models import Post
 from constants import MAX_IMAGE_SIZE
 from django.contrib import messages
@@ -17,6 +19,9 @@ from .forms import CorpusLoginForm
 from .forms import ExecutiveMemberForm
 from .forms import UserForm
 from .models import ExecutiveMember
+
+User = get_user_model()
+
 
 
 # Create your views here.
@@ -90,15 +95,22 @@ def signout(request):
     return redirect("index")
 
 
-def profile(request, roll_no):
-    exec_member = get_object_or_404(ExecutiveMember, roll_number=roll_no)
-    profile_user = exec_member.user
+def profile(request, pk):
+    profile_user = get_object_or_404(User, pk=pk)
+    
+    try:
+        exec_member = ExecutiveMember.objects.get(user=profile_user)
+    except ExecutiveMember.DoesNotExist:
+        exec_member = None
 
     # Get Virtual Expo Reports
-    reports = Report.objects.filter(reportmember__member=exec_member)
-
-    # Get Blogs written by the Executive Member
-    blogs = Post.objects.filter(author=exec_member)
+    if exec_member:
+        reports = Report.objects.filter(reportmember__member=exec_member)
+        # Get Blogs written by the Executive Member
+        blogs = Post.objects.filter(author=exec_member)
+    else:
+        reports = None
+        blogs = None
 
     args = {
         "exec_member": exec_member,
@@ -112,30 +124,41 @@ def profile(request, roll_no):
 
 
 @login_required
-def edit_profile(request, roll_no):
-    user = request.user  # Get the currently logged-in user
-
-    # Check if the user has an associated ExecutiveMember record
-    try:
-        executive_member = ExecutiveMember.objects.get(roll_number=roll_no, user=user)
-    except ExecutiveMember.DoesNotExist:
+def edit_profile(request, pk):
+    user = get_object_or_404(User, pk=pk) # Get the user explicitly by ID
+    
+    # Authorization check: Ensure logged-in user can only edit their own profile
+    if request.user != user:
         messages.warning(request, "You are not authorized to edit this profile.")
         return redirect("index")
+    
+    # Check if the user has an associated ExecutiveMember record
+    try:
+        executive_member = ExecutiveMember.objects.get(user=user)
+    except ExecutiveMember.DoesNotExist:
+        executive_member = None
 
     if request.method == "POST":
         user_form = UserForm(request.POST, request.FILES, instance=user)
-        executive_member_form = ExecutiveMemberForm(
-            request.POST, instance=executive_member
-        )
-
-        if user_form.is_valid() and executive_member_form.is_valid():
-            user_form.save()
-            executive_member_form.save()
-            return redirect("accounts_profile", roll_no=roll_no)
+        if executive_member:
+            executive_member_form = ExecutiveMemberForm(
+                request.POST, instance=executive_member
+            )
+            if user_form.is_valid() and executive_member_form.is_valid():
+                user_form.save()
+                executive_member_form.save()
+                return redirect("accounts_profile", pk=pk)
+        else:
+            if user_form.is_valid():
+                user_form.save()
+                return redirect("accounts_profile", pk=pk)
 
     else:
         user_form = UserForm(instance=user)
-        executive_member_form = ExecutiveMemberForm(instance=executive_member)
+        if executive_member:
+            executive_member_form = ExecutiveMemberForm(instance=executive_member)
+        else:
+            executive_member_form = None
 
     return render(
         request,
