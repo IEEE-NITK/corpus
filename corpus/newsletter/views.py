@@ -41,8 +41,7 @@ def calendar_view(request):
     first_day_in_grid = raw_all_days[0]
     last_day_in_grid = raw_all_days[-1]
     events_qs = (
-        Event.objects.filter(archive_event=False)
-        .filter(
+        Event.objects.filter(
             Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid)
         )
         .prefetch_related("sigs")
@@ -109,6 +108,54 @@ def calendar_view(request):
     }
     return render(request, "newsletter/calendar.html", ctx)
 
+@module_enabled(module_name="newsletter")
+def archived_events_view(request):
+    events_qs = Event.objects.filter(archive_event=True).order_by("-start_date") 
+    is_admin = request.user.groups.filter(name="newsletter_admin").exists()
+    available_years = (
+        Event.objects.filter(archive_event=True)
+        .values_list("start_date__year", flat=True)
+        .distinct()
+        .order_by("-start_date__year")
+    )
+    all_sigs = SIG.objects.all().order_by("name")
+    selected_year = request.GET.get("year")
+    selected_sig_id = request.GET.get("sig")
+    if selected_year:
+        try:
+            year = int(selected_year)
+            events_qs = events_qs.filter(start_date__year=year) 
+        except ValueError:
+            selected_year = None
+    if selected_sig_id:
+        try:
+            sig_id = int(selected_sig_id)
+            events_qs = events_qs.filter(sigs__id=sig_id)
+        except ValueError:
+            selected_sig_id = None
+    context = {
+        "events": events_qs.prefetch_related("sigs"),
+        "available_years": available_years,
+        "all_sigs": all_sigs,
+        "selected_year": selected_year,
+        "selected_sig_id": selected_sig_id,
+        "is_admin" : is_admin,
+    }
+    return render(request, "newsletter/archived_events.html", context)
+
+@module_enabled(module_name="newsletter")
+def archived_event_detail(request, pk):
+    event = get_object_or_404(
+        Event.objects.prefetch_related('sigs'), 
+        pk=pk, 
+        archive_event=True
+    )
+
+    context = {
+        "event": event,
+    }
+    
+    return render(request, "newsletter/archived_event_detail.html", context)
 
 @module_enabled(module_name="newsletter")
 def home(request):
@@ -206,8 +253,11 @@ def toggle_announcement(request, pk):
     event.save()
     string = "archived" if event.archive_event else "unarchived"
     messages.success(request, f"Announcement {string} successfully")
+    next_url = request.GET.get('next') or request.POST.get('next')
+    if next_url:
+        return redirect(next_url)
+        
     return redirect("newsletter_manage_announcements")
-
 
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])
