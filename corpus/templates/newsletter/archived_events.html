@@ -78,25 +78,22 @@
                         </td>   
                         <td class="px-6 py-4 whitespace-nowrap">
                             {% if is_admin %}
-                                <a 
-                                    href="{% url 'newsletter_archived_event_detail' event.id %}" 
-                                    class="btn btn-primary btn-sm"
-                                    role="button"
-                                >
+                                <a href="{% url 'newsletter_archived_event_detail' event.id %}" class="btn btn-primary btn-sm" role="button">
                                     View Details
                                 </a>
-                                <form action="{% url 'newsletter_toggle_announcement' event.id %}?next={{ request.get_full_path|urlencode }}" method="post" class="inline-block ml-2">
+                                <form action="{% url 'newsletter_toggle_announcement' event.id %}?next={{ request.get_full_path|urlencode }}" method="post" class="inline-block">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-warning btn-sm">
                                         Unarchive
                                     </button>
                                 </form>
+                                <a href="{% url 'newsletter_edit_announcement' event.id %}?next={{ request.get_full_path|urlencode }}"
+                                    class="btn btn-secondary btn-sm">
+                                        Edit
+                                </a>
+
                             {% else %}
-                                <a 
-                                    href="{% url 'newsletter_archived_event_detail' event.id %}" 
-                                    class="btn btn-primary btn-sm"
-                                    role="button"
-                                >
+                                <a href="{% url 'newsletter_archived_event_detail' event.id %}" class="btn btn-primary btn-sm" role="button">
                                     View Details
                                 </a>
                             {% endif %}

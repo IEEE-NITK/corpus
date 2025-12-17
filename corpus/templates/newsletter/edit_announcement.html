@@ -15,12 +15,15 @@
             {{ form.media }}
 
             {% for field in form %}
-                <div class="form-control">
+                <div class="form-control" id="{{ field.name }}-form-control">
                     {% if field.widget_type == 'checkbox' %}
                         <label class="label cursor-pointer justify-start gap-3">
                             <input type="checkbox" name="{{ field.name }}" id="{{ field.id_for_label }}"
                                    {% if field.value %}checked{% endif %}
-                                   class="checkbox checkbox-primary">
+                                   class="checkbox checkbox-primary"
+                                   {% if field.name == 'archive_event' %}
+                                       onclick="toggleDetailsVisibility()"
+                                   {% endif %}>
                             <span class="label-text text-lg">{{ field.label }}</span>
                         </label>
                     {% else %}
@@ -72,11 +75,30 @@
                 <button type="submit" class="btn btn-primary btn-lg px-10">
                     Save Changes
                 </button>
-                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-secondary btn-lg px-10">
-                    Cancel
+                <a href="{{ request.GET.next|default:request.META.HTTP_REFERER|default:'/' }}"
+                    class="btn btn-secondary btn-lg px-10">
+                        Cancel
                 </a>
+
             </div>
         </form>
     </div>
 </div>
+<script>
+    const checkboxId = 'id_archive_event';
+    const detailsContainerId = 'details-form-control';
+    function toggleDetailsVisibility() {
+        const checkbox = document.getElementById(checkboxId);
+        const detailsContainer = document.getElementById(detailsContainerId);
+        if (checkbox && detailsContainer) {
+            if (checkbox.checked) {
+                detailsContainer.style.display = 'block';
+            } 
+            else {
+                detailsContainer.style.display = 'none';
+            }
+        }
+    }
+    document.addEventListener('DOMContentLoaded', toggleDetailsVisibility);
+</script>
 {% endblock %}

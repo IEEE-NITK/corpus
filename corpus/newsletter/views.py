@@ -234,7 +234,8 @@ def edit_announcement(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, "Announcement updated successfully")
-            return redirect("newsletter_manage_announcements")
+            return redirect(request.GET.get("next", "newsletter_manage_announcements"))
+
     else:
         form = EventForm(instance=event)
 
@@ -253,11 +254,11 @@ def toggle_announcement(request, pk):
     event.save()
     string = "archived" if event.archive_event else "unarchived"
     messages.success(request, f"Announcement {string} successfully")
-    next_url = request.GET.get('next') or request.POST.get('next')
-    if next_url:
-        return redirect(next_url)
-        
-    return redirect("newsletter_manage_announcements")
+    return redirect(
+        request.GET.get("next")
+        or request.POST.get("next")
+        or "newsletter_manage_announcements"
+    )
 
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])

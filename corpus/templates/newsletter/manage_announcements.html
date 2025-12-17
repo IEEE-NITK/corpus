@@ -51,18 +51,7 @@
                 </td>
                 <td class="whitespace-nowrap flex gap-3 px-6 py-4">
                     <a href="{% url 'newsletter_edit_announcement' announcement.id %}" class="btn btn-secondary">Edit</a>
-                    
-                    <form action="{% url 'newsletter_toggle_announcement' announcement.id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-warning">
-                            {% if announcement.archive_event %}
-                                Unarchive
-                            {% else %}
-                                Archive
-                            {% endif %}
-                        </button>
-                    </form>
-                    
+                     
                     <form action="{% url 'newsletter_delete_announcement' announcement.id %}"  method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary">Delete</button>

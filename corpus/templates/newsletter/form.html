@@ -29,15 +29,6 @@
             
             <div class="form-control">
                 <label class="label">
-                    <span class="label-text text-lg font-semibold">Details</span>
-                </label>
-                <div class="w-full text-black">
-                    {{ form.details }}
-                </div>
-            </div>
-
-            <div class="form-control">
-                <label class="label">
                     <span class="label-text text-lg font-semibold">Start Date</span>
                 </label>
                 {{ form.start_date }}
@@ -59,9 +50,11 @@
 
             <div class="mt-8 flex justify-center gap-4">
                 <button type="submit" class="btn btn-primary btn-lg px-10">Submit</button>
-                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-secondary btn-lg px-10">
-                    Cancel
+                <a href="{{ request.GET.next|default:request.META.HTTP_REFERER|default:'/' }}"
+                    class="btn btn-secondary btn-lg px-10">
+                        Cancel
                 </a>
+
             </div>
         </form>
     </div>
