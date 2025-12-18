@@ -4,7 +4,7 @@
         <div class="card card-bordered w-72 bg-base-300 shadow-xl overflow-hidden rounded-2xl
                     hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out">
             <div class="bg-gradient-to-r from-blue-500 to-cyan-400 dark:from-blue-700 dark:to-cyan-600 py-6 flex justify-center">
-                <img
+                <img loading="lazy"
                     class="profile-pic w-24 h-24 rounded-full border-4 border-white dark:border-neutral-900 shadow-lg object-cover object-center bg-white"
                     {% if member.user.profile_pic %}
                         src="{{ member.user.profile_pic.url }}"
