@@ -1,0 +1,87 @@
+{% extends "newsletter/base.html" %}
+{% load static %}
+
+{% block title %}
+    {{ event.name }} | Archive Detail
+{% endblock %}
+
+{% block content %}
+    <div class="px-4 sm:px-6 lg:px-8 py-8">
+        
+        <a href="{% url 'newsletter_archived_events' %}" 
+           class="inline-flex items-center text-blue-400 hover:text-blue-200 mb-8 transition-colors">
+            <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Archive
+        </a>
+        <article class="text-gray-900 dark:text-white">
+            <div class="p-8">
+                <h1 class="text-4xl font-bold break-words leading-tight text-gray-900 dark:text-white mb-6">{{ event.name }}</h1>
+                <div class="flex flex-wrap gap-4 items-center">
+                    <span class="px-3 py-1 bg-purple-500 rounded-full text-sm font-medium flex items-center text-white">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {{ event.start_date|date:"F j, Y" }}
+                    </span>
+                    {% for sig in event.sigs.all %}
+                        <span class="px-3 py-1 rounded-full text-sm font-medium text-white" 
+                              style="background-color: {{ sig.color }}; border: none;">
+                            {{ sig.name }}
+                        </span>
+                    {% empty %}
+                        <span class="px-3 py-1 bg-gray-500 rounded-full text-sm font-medium text-white">
+                            No SIGs listed
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="px-8 pb-8">
+                {% if event.description %}
+                    <div class="mb-8 pt-4">
+                        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-3 border-b pb-2 border-gray-700">Description</h2>
+                        <div class="prose prose-purple max-w-none text-gray-700 dark:text-gray-300">
+                            {{ event.description|safe }}
+                        </div>
+                    </div>
+                {% endif %}
+                
+                <div class="mt-8 pt-4">
+                    <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6 border-b pb-2 border-gray-700">Additional Information</h2>
+                    <div class="p-0">
+                        {% if event.details %}
+                            <h3 class="text-xl font-medium text-gray-800 dark:text-white mb-4">Event Details</h3>
+                            <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
+                                {{ event.details|safe }}
+                            </div>
+                        {% else %}
+                            <p class="text-gray-400">No additional details provided.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% if event.page_link %}
+                    <div class="mt-8 pt-4 border-t border-gray-700 text-center">
+                        <a href="{{ event.page_link }}" target="_blank" 
+                           class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-blue-700 transition-colors shadow-lg">
+                            Visit Event Page &rarr;
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </article>
+        
+        <div class="mt-12">
+            <div class=text-center>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Explore More Archived Events</h2>
+                <a href="{% url 'newsletter_archived_events' %}"
+                   class="inline-block bg-white text-teal-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors">
+                    View All Archived Events
+                </a>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}

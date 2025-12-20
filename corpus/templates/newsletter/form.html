@@ -2,8 +2,9 @@
     <div class="w-full max-w-2xl card bg-base-100 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all p-8">
         <h1 class="text-4xl font-bold text-center text-primary mb-8">Create New Announcement</h1>
 
-        <form method="POST" action="" class="space-y-6">
+        <form method="POST" action="" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
+            {{ form.media }}
 
             <div class="form-control">
                 <label class="label">
@@ -25,7 +26,7 @@
                 </label>
                 {{ form.description }}
             </div>
-
+            
             <div class="form-control">
                 <label class="label">
                     <span class="label-text text-lg font-semibold">Start Date</span>
@@ -49,9 +50,11 @@
 
             <div class="mt-8 flex justify-center gap-4">
                 <button type="submit" class="btn btn-primary btn-lg px-10">Submit</button>
-                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-secondary btn-lg px-10">
-                    Cancel
+                <a href="{{ request.GET.next|default:request.META.HTTP_REFERER|default:'/' }}"
+                    class="btn btn-secondary btn-lg px-10">
+                        Cancel
                 </a>
+
             </div>
         </form>
     </div>

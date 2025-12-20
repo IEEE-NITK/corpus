@@ -1,0 +1,113 @@
+{% extends 'newsletter/base.html' %}
+{% load static %}
+
+{% block title %}
+    Archived Events
+{% endblock %}
+
+{% block content %}
+<div class="px-4 py-8 md:py-12">
+    <header class="text-center mb-12">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-800 dark:text-white mb-2">
+            Archived Events
+        </h1>
+        <p class="text-gray-500 dark:text-gray-400">A look back at past activities and events.</p>
+    </header>
+    <form method="get" class="mb-8 p-4 rounded-lg shadow-lg flex flex-wrap gap-4 items-center justify-center">
+        <div class="form-control">
+            <select name="year" id="year-select" class="select select-bordered w-full max-w-xs bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white font-bold text-base font-medium">
+                <option value="">All Years</option>
+                {% for year in available_years %}
+                    <option value="{{ year }}" {% if selected_year|slugify == year|slugify %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-control">
+            <select name="sig" id="sig-select" class="select select-bordered w-full max-w-xs bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white font-bold text-base font-medium">
+                <option value="">All SIGs</option>
+                {% for sig in all_sigs %}
+                    <option value="{{ sig.id }}" {% if selected_sig_id|slugify == sig.id|slugify %}selected{% endif %}>{{ sig.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mt-auto">
+            <button type="submit" class="btn btn-primary">Apply</button>
+            <a href="{% url 'newsletter_archived_events' %}" class="btn btn-ghost ml-2 dark:text-gray-300">Reset</a>
+        </div>
+    </form>
+    <div class="container mx-auto overflow-x-auto shadow-xl rounded-lg">
+        <table class="table w-full text-left bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+            
+            <thead class="bg-gray-200 dark:bg-gray-700/70 border-b border-gray-300 dark:border-gray-700">
+                <tr>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 w-1/3">
+                        Event Name
+                    </th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 w-1/4">
+                        SIGs Involved
+                    </th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 w-1/4">
+                        Date
+                    </th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-300 w-1/6">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            
+            <tbody class="text-lg font-medium">
+                {% for event in events %}
+                 <tr>
+                        <td class="px-6 py-4 whitespace-normal font-medium text-gray-900 dark:text-white">
+                            {{ event.name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                {% for sig in event.sigs.all %}
+                                    <span class="badge text-white text-xs font-medium px-2 py-0.5 rounded" 
+                                          style="background-color: {{ sig.color }}; border: none;">
+                                        {{ sig.name }}
+                                    </span>
+                                {% empty %}
+                                    <span class="text-gray-500 dark:text-gray-400">—</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-white-500 dark:text-white-400">
+                            {{ event.start_date|date:"F j, Y" }}
+                        </td>   
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {% if is_admin %}
+                                <a href="{% url 'newsletter_archived_event_detail' event.id %}" class="btn btn-primary btn-sm" role="button">
+                                    View Details
+                                </a>
+                                <form action="{% url 'newsletter_toggle_announcement' event.id %}?next={{ request.get_full_path|urlencode }}" method="post" class="inline-block">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-warning btn-sm">
+                                        Unarchive
+                                    </button>
+                                </form>
+                                <a href="{% url 'newsletter_edit_announcement' event.id %}?next={{ request.get_full_path|urlencode }}"
+                                    class="btn btn-secondary btn-sm">
+                                        Edit
+                                </a>
+
+                            {% else %}
+                                <a href="{% url 'newsletter_archived_event_detail' event.id %}" class="btn btn-primary btn-sm" role="button">
+                                    View Details
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-10 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                            <p class="text-gray-500 dark:text-gray-400">No archived events match the current filter.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
