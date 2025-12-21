@@ -1,59 +1,102 @@
+/* ---------- Button Group ---------- */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+/* ---------- Team Buttons ---------- */
+.team-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    background: #e0f2fe;
+    border: 1px solid #93c5fd;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1e3a8a;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.team-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(37, 99, 235, 0.2);
+    border-color: #1d4ed8;
+}
+
+.team-btn.active-btn,
+.team-btn:focus-visible {
+    background: #2563eb;
+    color: #fff;
+    outline: none;
+}
+
+/* ---------- Team Content ---------- */
+.team-content {
+    display: none;
+}
+
+.team-content.active-content {
+    display: block;
+}
+
+/* ---------- Layout ---------- */
 .flex-container {
     display: flex;
     flex-flow: row wrap;
-    align-items: flex-start;
-    align-content: space-between;
-    align-content: center;
+    justify-content: center;
     text-align: center;
-  }
-
-.profile-pic {
-    height: 150px;
-    width: 170px;
-    border-radius: 50%;
-  }
-
-.title {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: 400;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 50px;
-  }
-
-.section-heading {
-    margin-top: 20px;
-    font-family: 'Ubuntu';
-    font-style: normal;
-    text-align: center;
-    font-size: 30px;
-  }
+}
 
 .margins {
-    margin-top: 15px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 15px;
-  }
+    margin: 15px 20px;
+}
 
-.card-post {
-    font-family: 'Ubuntu';
-    font-style: normal;
-    font-weight: normal;
-    margin-top: 15px;
-    margin-bottom: 5px;
+/* ---------- Images ---------- */
+.profile-pic {
+    width: 170px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+/* ---------- Typography ---------- */
+.title {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+    font-size: 50px;
+    margin: 20px 0;
     text-align: center;
-    font-size: 25px;
-  }
+}
+
+.section-heading {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 30px;
+    margin-top: 20px;
+    text-align: center;
+}
 
 .card-title {
-    font-family: 'Ubuntu';
-    font-style: normal;
+    font-family: 'Ubuntu', sans-serif;
     font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    text-align: center;
     font-size: 25px;
-  }
+    margin: 15px 0 5px;
+    text-align: center;
+}
+
+.card-post {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-size: 25px;
+    margin: 15px 0 5px;
+    text-align: center;
+}
+
+/* ---------- Empty State ---------- */
+.empty-text {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    margin: 1rem 0;
+}
