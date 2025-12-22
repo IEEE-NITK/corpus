@@ -56,10 +56,12 @@
 
 /* ---------- Images ---------- */
 .profile-pic {
-    width: 170px;
-    height: 150px;
+    width: 96px;      
+    height: 96px;     
     border-radius: 50%;
+    object-fit: cover;
 }
+
 
 /* ---------- Typography ---------- */
 .title {
