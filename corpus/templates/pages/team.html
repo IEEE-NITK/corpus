@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Teams{% endblock %}
+{% block title %} Teams {% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/team.css' %}">
@@ -20,7 +20,6 @@
     </div>
 </section>
 
-<!-- BUTTONS -->
 <div class="button-group">
     <button class="team-btn" data-target="IEEE" id="IEEE-btn">IEEE</button>
     <button class="team-btn" data-target="CompSoc" id="CompSoc-btn">CompSoc</button>
@@ -50,7 +49,6 @@
 </section>
 
 
-{% include "pages/sig_helper.html" with sig_id="IEEE" sig_name="IEEE" show_faculty=True core_list=ieee_core %}
 {% include "pages/sig_helper.html" with sig_id="CompSoc" sig_name="CompSoc" show_faculty=True core_list=compsoc_core member_list=compsoc_members %}
 {% include "pages/sig_helper.html" with sig_id="Diode" sig_name="Diode" show_faculty=True core_list=diode_core member_list=diode_members %}
 {% include "pages/sig_helper.html" with sig_id="Piston" sig_name="Piston" show_faculty=True core_list=piston_core member_list=piston_members %}
@@ -60,7 +58,7 @@
 
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 <script src="{% static 'js/team.js' %}" defer></script>
 
 {% endblock %}

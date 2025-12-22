@@ -1,38 +1,49 @@
 <section id="{{ sig_id }}" class="team-content">
-
-    {% if show_faculty %}
-    <h2 class="section-heading">{{ sig_name }} Faculty</h2>
-    <div class="flex-container">
-        {% for fac in faculty %}
-            {% if fac.sig.name == sig_name and not fac.post.is_execom and not fac.post.is_sac %}
+<!-- for faculty -->
+{% if show_faculty is not None %}
+<h2 class="section-heading">{{ sig_name }} Faculty</h2>
+<div class="flex-container">
+    {% for fac in faculty %}
+        {% if sig_name == "SAC" %}
+        
+            {% if fac.post.is_sac %}
                 {% include "pages/profile_box.html" with user=fac.user post=fac.post.name linkedin=fac.linkedin website=fac.website %}
             {% endif %}
-        {% empty %}
-            <p class="empty-text">No faculty listed</p>
-        {% endfor %}
-    </div>
-    {% endif %}
+        {% else %}
+           
+            {% if fac.sig and fac.sig.name == sig_name %}
+                {% include "pages/profile_box.html" with user=fac.user post=fac.post.name linkedin=fac.linkedin website=fac.website %}
+            {% endif %}
+        {% endif %}
+    {% empty %}
+        <p class="empty-text">No faculty listed</p>
+    {% endfor %}
+</div>
+{% endif %}
 
-    {% if core_list %}
-    <h2 class="section-heading">{{ sig_name }} Core</h2>
-    <div class="flex-container">
-        {% for member in core_list %}
-            {% include "pages/profile_box.html" with user=member.user post=member.core.post.name linkedin=member.linkedin github=member.github hide_linkedin=member.hide_linkedin hide_github=member.hide_github profile_url=member.get_profile_url %}
-        {% empty %}
-            <p class="empty-text">No core members</p>
-        {% endfor %}
-    </div>
-    {% endif %}
+<!-- for core members -->
+{% if core_list is not None %}
 
-    {% if member_list %}
-    <h2 class="section-heading">{{ sig_name }} Members</h2>
-    <div class="flex-container">
-        {% for member in member_list %}
-            {% include "pages/profile_box.html" with user=member.user linkedin=member.linkedin github=member.github hide_linkedin=member.hide_linkedin hide_github=member.hide_github profile_url=member.get_profile_url %}
-        {% empty %}
-            <p class="empty-text">No members yet</p>
-        {% endfor %}
-    </div>
-    {% endif %}
+<h2 class="section-heading">{{ sig_name }} Core</h2>
+<div class="flex-container">
+    {% for member in core_list %}
+        {% include "pages/profile_box.html" with user=member.user post=member.core.post.name linkedin=member.linkedin github=member.github hide_linkedin=member.hide_linkedin hide_github=member.hide_github profile_url=member.get_profile_url %}
+    {% empty %}
+        <p class="empty-text">No core members</p>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- for exec member -->
+{% if core_list is not None %}
+<h2 class="section-heading">{{ sig_name }} Members</h2>
+<div class="flex-container">
+    {% for member in member_list %}
+        {% include "pages/profile_box.html" with user=member.user linkedin=member.linkedin github=member.github profile_url=member.get_profile_url hide_linkedin=member.hide_linkedin hide_github=member.hide_github %}
+    {% empty %}
+        <p class="empty-text">No members yet</p>
+    {% endfor %}
+</div>
+{% endif %}
 
 </section>
