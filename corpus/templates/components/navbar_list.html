@@ -69,6 +69,13 @@
         </summary>
         <ul class='bg-primary'>
             <li>
+                <a href="{% url 'newsletter_home' %}" class="events-hub-link">
+                    <span class="wave-text">
+                        <span style="--i:0">E</span><span style="--i:1">v</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">t</span><span style="--i:5">s</span><span style="--i:6">&nbsp;</span><span style="--i:7">H</span><span style="--i:8">u</span><span style="--i:9">b</span>
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'entwine_home' %}">
                     Entwine
                 </a>
@@ -119,6 +126,7 @@
                 Code Red
             </a>
             </li>
+
         </ul>
     </details>
 </li>
@@ -146,6 +154,24 @@
         Virtual Expo
     </a>
 </li>
+
+<style>
+    .wave-text { display: inline-flex; font-weight: bold; }
+    .wave-text span {
+        display: inline-block;
+        animation: wave 4s ease-in-out infinite;
+        animation-delay: calc(.1s * var(--i));
+        font-weight: 800;
+    }
+    .events-hub-link:hover .wave-text span {
+        animation: wave 2.5s ease-in-out infinite;
+        animation-delay: calc(.08s * var(--i));
+    }
+    @keyframes wave {
+        0%, 30%, 100% { transform: translateY(0); }
+        15% { transform: translateY(-12px); }
+    }
+</style>
 
 <script>
     document.querySelectorAll("details").forEach((targetDetail) => {
