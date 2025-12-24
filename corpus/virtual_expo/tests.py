@@ -14,7 +14,18 @@ import io
 from io import BytesIO
 import tempfile
 import shutil
+from config.models import ModuleConfiguration
 
+class BaseSiteTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        ModuleConfiguration.objects.create(
+            module_name="teampage",
+            module_enabled=True,
+            module_config={
+                "current": 2024
+            }
+        )
 
 # New class created as the Thumbnail required to be made needs to be deleted after tests
 class MediaTestCase(TestCase):
@@ -48,8 +59,7 @@ def create_dummy_report(title, year, report_type, approved=False):
         ready_for_approval=approved,
     )
 
-
-class NotLoggedInUser(MediaTestCase):
+class NotLoggedInUser(MediaTestCase,BaseSiteTestCase):
     def setUp(self):
         self.client = Client()
 
@@ -222,7 +232,7 @@ class NotLoggedInUser(MediaTestCase):
         response = self.client.get(approver_dashboard_path,follow=True)
         self.assertRedirects(response,f"{reverse('accounts_signin')}?next={approver_dashboard_path}")
 
-class LoggedInNotExecUser(MediaTestCase):
+class LoggedInNotExecUser(MediaTestCase,BaseSiteTestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(
@@ -305,7 +315,7 @@ class LoggedInNotExecUser(MediaTestCase):
         response = self.client.get(approver_dashboard_path,follow=True)
         self.assertRedirects(response,"/")
 
-class ExecMemberTestCases(MediaTestCase):
+class ExecMemberTestCases(MediaTestCase,BaseSiteTestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(

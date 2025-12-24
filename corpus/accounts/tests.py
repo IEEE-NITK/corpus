@@ -5,9 +5,20 @@ from django.test import RequestFactory
 from django.test import TestCase
 from django.urls import reverse
 from config.models import SIG
+from config.models import ModuleConfiguration
 
+class BaseSiteTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        ModuleConfiguration.objects.create(
+            module_name="teampage",
+            module_enabled=True,
+            module_config={
+                "current": 2024
+            }
+        )
 
-class AccountsTestCase(TestCase):
+class AccountsTestCase(BaseSiteTestCase):
     def setUp(self):
         self.client = Client()
         self.factory = RequestFactory()
