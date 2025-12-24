@@ -191,6 +191,8 @@ def team(request):
         "sac_core": sac_core,
         "faculty": faculty,
     }
+
+    print(context)
     return render(request, "pages/team.html", context)
 
 

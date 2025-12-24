@@ -11,17 +11,24 @@
             {% if profile_user.profile_pic %}
                 <img src="{{ profile_user.profile_pic.url }}" alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% else %}
-                <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ exec_member.roll_number }}"
+                <img src="https://api.dicebear.com/9.x/adventurer-neutral/svg?seed={{ profile_user.first_name }}"
                      alt="{{ profile_user }}" style="width: 12em;" class="rounded-full h-48 object-cover mx-auto max-w-full"/>
             {% endif %}
 
             <h1 class="my-2">{{ profile_user }}</h1>
+            {% if exec_member %}
             <h3 class="m-0">{{ exec_member.sig }}</h3>
+            {% else %}
+                {% if exec_member %}
+                <h3 class="m-0">{{ faculty.post.name }}</h3>
+                {% endif %}
+            {% endif %}
+
 
             {% if curr_user == profile_user %}
                 <!-- Edit Profile Link -->
                 <div class="text-center my-4">
-                    <a href="{% url 'edit_profile' roll_no=profile_user.executivemember.roll_number %}" class="btn btn-primary">
+                    <a href="{% url 'edit_profile' pk=profile_user.pk %}" class="btn btn-primary">
                         Edit Profile
                     </a>
                 </div>
@@ -39,11 +46,12 @@
                     </div>
                     <div class="mt-8 grid grid-cols-2 gap-1">
                         <div class="font-bold">Date Joined</div>
-                        <div>{{ exec_member.date_joined|date:"M d, Y" }}</div>
+                        <div>{{ profile_user.date_joined|date:"M d, Y" }}</div>
                     </div>
                 </div>
             </div>
 
+            {% if exec_member %}
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">IEEE Membership Information</div>
                 <div class="collapse-content">
@@ -61,7 +69,33 @@
                     </div>
                 </div>
             </div>
+            {% else %}
+                {% if faculty %}
+                <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
+                    <div class="collapse-title text-xl font-bold">IEEE Faculty Information</div>
+                    <div class="collapse-content">
+                        <div class="grid grid-cols-2 gap-1">
+                            <div class="font-bold">Post</div>
+                            <div>{{ faculty.post.name }}</div>
+                        </div>
+                        <div class="mt-8 grid grid-cols-2 gap-1">
+                            <div class="font-bold">SIG</div>
+                            {% if faculty.sig %}
+                            <div>{{ faculty.sig }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mt-8 grid grid-cols-2 gap-1">
+                            <div class="font-bold">Society</div>
+                            {% if faculty.society %}
+                            <div>{{ faculty.society }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
 
+            {% if exec_member %}
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Reports Published</div>
                 <div class="collapse-content">
@@ -105,10 +139,12 @@
                     {% endif %}
                 </div>
             </div>
+            {% endif %}
 
             <div tabindex="0" class="collapse collapse-arrow border-0 md:border-base-300 bg-base-200">
                 <div class="collapse-title text-xl font-bold">Links</div>
                 <div class="collapse-content">
+                    {% if exec_member %}
                     <div class="grid grid-cols-2 gap-1">
                         <!-- GitHub Section -->
                         <div class="font-bold">GitHub</div>
@@ -140,6 +176,33 @@
                             {% endif %}
                         </div>
                     </div>
+                    {% else %}
+                    {% if faculty %}
+                    <div class="grid grid-cols-2 gap-1">
+                        <!-- Website Section -->
+                        <div class="font-bold">Website</div>
+                        <div>
+                                {% if faculty.website %}
+                                    <a href="{{ faculty.website }}" class="link link-primary" target="_blank">Website</a>
+                                {% else %}
+                                    None
+                                {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-1">
+                        <!-- LinkedIn Section -->
+                        <div class="font-bold">LinkedIn</div>
+                        <div>
+                                {% if faculty.linkedin %}
+                                    <a href="{{ faculty.linkedin }}" class="link link-primary" target="_blank">LinkedIn Profile</a>
+                                {% else %}
+                                    None
+                                {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
                 </div>
             </div>
         </div>
