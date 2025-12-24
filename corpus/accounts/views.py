@@ -17,8 +17,10 @@ from virtual_expo.models import Report
 from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
 from .forms import ExecutiveMemberForm
+from .forms import FacultyForm
 from .forms import UserForm
 from .models import ExecutiveMember
+from .models import Faculty
 
 User = get_user_model()
 
@@ -100,8 +102,13 @@ def profile(request, pk):
     
     try:
         exec_member = ExecutiveMember.objects.get(user=profile_user)
+        faculty = None
     except ExecutiveMember.DoesNotExist:
         exec_member = None
+        try :
+            faculty = Faculty.objects.get(user=profile_user)
+        except Faculty.DoesNotExist :
+            faculty = None
 
     # Get Virtual Expo Reports
     if exec_member:
@@ -114,6 +121,7 @@ def profile(request, pk):
 
     args = {
         "exec_member": exec_member,
+        "faculty" : faculty,
         "profile_user": profile_user,
         "curr_user": request.user,
         "reports": reports,
@@ -135,8 +143,13 @@ def edit_profile(request, pk):
     # Check if the user has an associated ExecutiveMember record
     try:
         executive_member = ExecutiveMember.objects.get(user=user)
+        faculty = None
     except ExecutiveMember.DoesNotExist:
         executive_member = None
+        try :
+            faculty = Faculty.objects.get(user=user)
+        except Faculty.DoesNotExist:
+            faculty = None
 
     if request.method == "POST":
         user_form = UserForm(request.POST, request.FILES, instance=user)
@@ -148,17 +161,32 @@ def edit_profile(request, pk):
                 user_form.save()
                 executive_member_form.save()
                 return redirect("accounts_profile", pk=pk)
+            
         else:
-            if user_form.is_valid():
-                user_form.save()
-                return redirect("accounts_profile", pk=pk)
+            if faculty :
+                faculty_form = FacultyForm(
+                    request.POST, instance=faculty
+                )
+                if user_form.is_valid() and faculty_form.is_valid():
+                    user_form.save()
+                    faculty_form.save()
+                    return redirect("accounts_profile", pk=pk)
+            else :
+                if user_form.is_valid():
+                    user_form.save()
+                    return redirect("accounts_profile", pk=pk)
 
     else:
         user_form = UserForm(instance=user)
         if executive_member:
             executive_member_form = ExecutiveMemberForm(instance=executive_member)
+            faculty_form = None
         else:
             executive_member_form = None
+            if faculty :
+                faculty_form = FacultyForm(instance=faculty)
+            else :
+                faculty_form = None    
 
     return render(
         request,
@@ -166,6 +194,7 @@ def edit_profile(request, pk):
         {
             "user_form": user_form,
             "executive_member_form": executive_member_form,
+            "faculty_form" : faculty_form,
             "exec_member": executive_member,
             "max_image_size": MAX_IMAGE_SIZE,
         },

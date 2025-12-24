@@ -6,6 +6,7 @@ from django.forms.widgets import ClearableFileInput
 
 from .models import ExecutiveMember
 from .models import User
+from .models import Faculty
 from corpus.forms import CorpusModelForm
 
 
@@ -101,4 +102,15 @@ class ExecutiveMemberForm(CorpusModelForm):
             "is_nep",
             "hide_github",
             "hide_linkedin",
+        ]
+
+class FacultyForm(CorpusModelForm):
+    class Meta:
+        model = Faculty
+        fields = [
+            "post",
+            "sig",
+            "society",
+            "linkedin",
+            "website",
         ]
