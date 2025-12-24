@@ -156,20 +156,15 @@
 </li>
 
 <style>
-    .wave-text { display: inline-flex; font-weight: bold; }
-    .wave-text span {
-        display: inline-block;
-        animation: wave 4s ease-in-out infinite;
-        animation-delay: calc(.1s * var(--i));
-        font-weight: 800;
-    }
-    .events-hub-link:hover .wave-text span {
-        animation: wave 2.5s ease-in-out infinite;
-        animation-delay: calc(.08s * var(--i));
-    }
-    @keyframes wave {
-        0%, 30%, 100% { transform: translateY(0); }
-        15% { transform: translateY(-12px); }
+    .wave-text { display: inline-flex; font-weight: bold; transition: all 0.3s ease; }
+    .wave-text span { display: inline-block; transition: color 0.5s ease; animation: colorShift 4s ease-in-out infinite; animation-delay: calc(.15s * var(--i)); }
+    .events-hub-link:hover .wave-text { transform: scale(1.08); }
+    .events-hub-link:hover .wave-text span { font-weight: 800; animation: colorShiftHover 3s ease-in-out infinite; }
+    @keyframes colorShift { 0%, 100% { color: inherit; } 50% { color: #3b82f6; } }
+    @keyframes colorShiftHover { 0%, 100% { color: #0ea5e9; } 50% { color: #ec4899; } }
+    @media (prefers-color-scheme: dark) {
+        @keyframes colorShift { 0%, 100% { color: inherit; } 50% { color: #60a5fa; } }
+        @keyframes colorShiftHover { 0%, 100% { color: #ffffff; } 50% { color: #c084fc; } }
     }
 </style>
 
