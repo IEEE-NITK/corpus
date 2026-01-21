@@ -5,8 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms.widgets import ClearableFileInput
 
 from .models import ExecutiveMember
-from .models import User
 from .models import Faculty
+from .models import Post
+from .models import User
 from corpus.forms import CorpusModelForm
 
 
@@ -104,13 +105,19 @@ class ExecutiveMemberForm(CorpusModelForm):
             "hide_linkedin",
         ]
 
+
 class FacultyForm(CorpusModelForm):
     class Meta:
         model = Faculty
         fields = [
-            "post",
-            "sig",
-            "society",
             "linkedin",
             "website",
+        ]
+
+
+class PostForm(CorpusModelForm):
+    class Meta:
+        model = Post
+        fields = [
+            "name",
         ]

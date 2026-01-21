@@ -5,6 +5,9 @@ Edit Profile | {{ user }}
 {% endblock %}
 
 {% block content %}
+{% if errors %}
+<div>{{ errors }}</div>
+{% endif %}
 <div class="container mx-auto my-10 p-6">
     <h2 class="text-3xl font-bold text-center mb-6">Edit Profile</h2>
 
@@ -166,32 +169,21 @@ Edit Profile | {{ user }}
         {% else %}
         {% if faculty_form %}
 
-            <!-- IEEE Details Card -->
+        {% if post_form %}
+            <!-- Post Details Card -->
             <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
                 <div class="card-body">
-                    <h3 class="card-title text-xl font-semibold mb-4">IEEE Details</h3>
+                    <h3 class="card-title text-xl font-semibold mb-4">Post Details</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="form-control w-full">
                             <label class="label">
-                                <span class="label-text">{{ faculty_form.post.label }}</span>
+                                <span class="label-text">{{ post_form.name.label }}</span>
                             </label>
-                            {{ faculty_form.post }}
+                            {{ post_form.name }}
                         </div>
-                        <div class="form-control w-full">
-                            <label class="label">
-                                <span class="label-text">{{ faculty_form.sig.label }}</span>
-                            </label>
-                            {{ faculty_form.sig }}
-                        </div>
-                        <div class="form-control w-full">
-                            <label class="label">
-                                <span class="label-text">{{ faculty_form.society.label }}</span>
-                            </label>
-                            {{ faculty_form.society }}
-                        </div>
-                    </div>
                 </div>
             </div>
+        {% endif %}
 
             <!-- Socials Card -->
             <div class="card bg-base-200 border-0 sm:border border-neutral rounded-lg shadow-xl hover:shadow-2xl transition-all mt-6">
@@ -216,7 +208,7 @@ Edit Profile | {{ user }}
                     </div>
                 </div>
             </div>
-        
+
         {% endif %}
         {% endif %}
 

@@ -1,11 +1,10 @@
 import re
 
-from django.contrib.auth import get_user_model
-
 from blog.models import Post
 from constants import MAX_IMAGE_SIZE
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -18,12 +17,12 @@ from .forms import CorpusCreationForm
 from .forms import CorpusLoginForm
 from .forms import ExecutiveMemberForm
 from .forms import FacultyForm
+from .forms import PostForm
 from .forms import UserForm
 from .models import ExecutiveMember
 from .models import Faculty
 
 User = get_user_model()
-
 
 
 # Create your views here.
@@ -99,15 +98,15 @@ def signout(request):
 
 def profile(request, pk):
     profile_user = get_object_or_404(User, pk=pk)
-    
+
     try:
         exec_member = ExecutiveMember.objects.get(user=profile_user)
         faculty = None
     except ExecutiveMember.DoesNotExist:
         exec_member = None
-        try :
+        try:
             faculty = Faculty.objects.get(user=profile_user)
-        except Faculty.DoesNotExist :
+        except Faculty.DoesNotExist:
             faculty = None
 
     # Get Virtual Expo Reports
@@ -121,7 +120,7 @@ def profile(request, pk):
 
     args = {
         "exec_member": exec_member,
-        "faculty" : faculty,
+        "faculty": faculty,
         "profile_user": profile_user,
         "curr_user": request.user,
         "reports": reports,
@@ -133,23 +132,26 @@ def profile(request, pk):
 
 @login_required
 def edit_profile(request, pk):
-    user = get_object_or_404(User, pk=pk) # Get the user explicitly by ID
-    
+    user = get_object_or_404(User, pk=pk)  # Get the user explicitly by ID
+
     # Authorization check: Ensure logged-in user can only edit their own profile
     if request.user != user:
         messages.warning(request, "You are not authorized to edit this profile.")
         return redirect("index")
-    
+
     # Check if the user has an associated ExecutiveMember record
     try:
         executive_member = ExecutiveMember.objects.get(user=user)
         faculty = None
+        post = None
     except ExecutiveMember.DoesNotExist:
         executive_member = None
-        try :
+        try:
             faculty = Faculty.objects.get(user=user)
+            post = faculty.post
         except Faculty.DoesNotExist:
             faculty = None
+            post = None
 
     if request.method == "POST":
         user_form = UserForm(request.POST, request.FILES, instance=user)
@@ -157,21 +159,35 @@ def edit_profile(request, pk):
             executive_member_form = ExecutiveMemberForm(
                 request.POST, instance=executive_member
             )
+            faculty_form = None
+            post_form = None
             if user_form.is_valid() and executive_member_form.is_valid():
                 user_form.save()
                 executive_member_form.save()
                 return redirect("accounts_profile", pk=pk)
-            
+
         else:
-            if faculty :
-                faculty_form = FacultyForm(
-                    request.POST, instance=faculty
-                )
-                if user_form.is_valid() and faculty_form.is_valid():
+            if faculty and post:
+                faculty_form = FacultyForm(request.POST, instance=faculty)
+                post_form = PostForm(request.POST, instance=post)
+                executive_member_form = None
+                if (
+                    user_form.is_valid()
+                    and faculty_form.is_valid()
+                    and post_form.is_valid()
+                ):
                     user_form.save()
                     faculty_form.save()
+                    post_form.save()
                     return redirect("accounts_profile", pk=pk)
-            else :
+                if not faculty_form.is_valid():
+                    return render(
+                        request,
+                        "accounts/edit_profile.html",
+                        {"form": faculty_form, "errors": faculty_form.errors},
+                    )
+
+            else:
                 if user_form.is_valid():
                     user_form.save()
                     return redirect("accounts_profile", pk=pk)
@@ -181,12 +197,15 @@ def edit_profile(request, pk):
         if executive_member:
             executive_member_form = ExecutiveMemberForm(instance=executive_member)
             faculty_form = None
+            post_form = None
         else:
             executive_member_form = None
-            if faculty :
+            if faculty:
                 faculty_form = FacultyForm(instance=faculty)
-            else :
-                faculty_form = None    
+                post_form = PostForm(instance=faculty.post)
+            else:
+                faculty_form = None
+                post_form = None
 
     return render(
         request,
@@ -194,7 +213,8 @@ def edit_profile(request, pk):
         {
             "user_form": user_form,
             "executive_member_form": executive_member_form,
-            "faculty_form" : faculty_form,
+            "faculty_form": faculty_form,
+            "post_form": post_form,
             "exec_member": executive_member,
             "max_image_size": MAX_IMAGE_SIZE,
         },
