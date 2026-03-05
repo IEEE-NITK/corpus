@@ -29,7 +29,7 @@ def reports_by_year(request, year):
         Report.objects.filter(year=year, approved=True)
         .select_related("report_type")
         .prefetch_related("reportmember_set__member__sig")
-        .order_by("-pk")
+        .order_by("-created_at")
     )
 
     form = ReportFilterForm(request.GET)
