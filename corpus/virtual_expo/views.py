@@ -1,12 +1,10 @@
 from accounts.models import ExecutiveMember
-from config.models import SIG
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from virtual_expo.forms import ReportFilterForm
 from virtual_expo.models import Report
 from virtual_expo.models import ReportMember
-from virtual_expo.models import ReportType
 
 from corpus.decorators import ensure_exec_membership
 
@@ -27,13 +25,18 @@ def home(request):
 
 
 def reports_by_year(request, year):
-    reports = Report.objects.filter(year=year, approved=True).order_by("-pk")
+    reports = (
+        Report.objects.filter(year=year, approved=True)
+        .select_related("report_type")
+        .prefetch_related("reportmember_set__member__sig")
+        .order_by("-created_at")
+    )
 
     form = ReportFilterForm(request.GET)
     if form.is_valid():
         report_type = int(form.cleaned_data.get("report_type"))
         if report_type != 0:
-            reports = reports.filter(report_type=ReportType.objects.get(pk=report_type))
+            reports = reports.filter(report_type_id=report_type)
 
         sig = int(form.cleaned_data.get("sig"))
         if sig == -1:
@@ -41,11 +44,11 @@ def reports_by_year(request, year):
                 sig_count=Count("reportmember__member__sig", distinct=True)
             ).filter(sig_count__gte=2)
         elif sig != 0:
-            reports = reports.filter(reportmember__member__sig=SIG.objects.get(pk=sig))
+            reports = reports.filter(reportmember__member__sig_id=sig)
 
     reports = reports.distinct()
-    args = {"reports": reports, "year": year, "form": form}
 
+    args = {"reports": reports, "year": year, "form": form}
     return render(request, "virtual_expo/reports_by_year.html", args)
 
 
