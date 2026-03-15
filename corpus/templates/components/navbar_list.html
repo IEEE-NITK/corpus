@@ -69,6 +69,13 @@
         </summary>
         <ul class='bg-primary'>
             <li>
+                <a href="{% url 'newsletter_home' %}" class="events-hub-link">
+                    <span class="wave-text">
+                        <span style="--i:0">E</span><span style="--i:1">v</span><span style="--i:2">e</span><span style="--i:3">n</span><span style="--i:4">t</span><span style="--i:5">s</span><span style="--i:6">&nbsp;</span><span style="--i:7">H</span><span style="--i:8">u</span><span style="--i:9">b</span>
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="{% url 'entwine_home' %}">
                     Entwine
                 </a>
@@ -119,6 +126,7 @@
                 Code Red
             </a>
             </li>
+
         </ul>
     </details>
 </li>
@@ -146,6 +154,19 @@
         Virtual Expo
     </a>
 </li>
+
+<style>
+    .wave-text { display: inline-flex; font-weight: bold; transition: all 0.3s ease; }
+    .wave-text span { display: inline-block; transition: color 0.5s ease; animation: colorShift 4s ease-in-out infinite; animation-delay: calc(.15s * var(--i)); }
+    .events-hub-link:hover .wave-text { transform: scale(1.08); }
+    .events-hub-link:hover .wave-text span { font-weight: 800; animation: none; }
+    @keyframes colorShift { 0%, 100% { color: inherit; } 50% { color: #60a5fa; } }
+    @keyframes colorShiftHover { 0%, 100% { color: #0ea5e9; } 50% { color: #ec4899; } }
+    @media (prefers-color-scheme: dark) {
+        @keyframes colorShift { 0%, 100% { color: inherit; } 50% { color: #3b82f6; } }
+        @keyframes colorShiftHover { 0%, 100% { color: #ffffff; } 50% { color: #c084fc; } }
+    }
+</style>
 
 <script>
     document.querySelectorAll("details").forEach((targetDetail) => {
