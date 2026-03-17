@@ -1,0 +1,114 @@
+body {
+    background-color: #1A1208;
+    color: #F0DCA0;
+}
+
+.tlm-title {
+    font-family: 'Rye', cursive;
+    color: #C8922A;
+    text-shadow: 2px 2px 8px rgba(200, 146, 42, 0.4);
+    letter-spacing: 0.05em;
+}
+
+.tlm-subtitle {
+    font-family: 'Ubuntu', sans-serif;
+    color: #E8C170;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.tlm-hero {
+    position: relative;
+    background: linear-gradient(
+        135deg,
+        #1A1208 0%,
+        #2E1F08 40%,
+        #1A1208 100%
+    );
+    overflow: hidden;
+}
+
+.tlm-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(200, 146, 42, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(232, 193, 112, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.tlm-countdown-box {
+    background-color: #241A0C;
+    border: 1px solid #C8922A;
+    border-radius: 0.5rem;
+    min-width: 80px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 0 12px rgba(200, 146, 42, 0.2);
+}
+
+.tlm-countdown-number {
+    font-family: 'Rye', cursive;
+    font-size: 2.5rem;
+    color: #C8922A;
+    line-height: 1;
+}
+
+.tlm-countdown-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #E8C170;
+    margin-top: 0.25rem;
+}
+
+.tlm-divider {
+    border-color: #2E2210;
+}
+
+.tlm-card {
+    background-color: #241A0C;
+    border: 1px solid #2E2210;
+    border-radius: 0.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tlm-card:hover {
+    border-color: #C8922A;
+    box-shadow: 0 0 16px rgba(200, 146, 42, 0.15);
+}
+
+.tlm-glow {
+    text-shadow: 0 0 20px rgba(200, 146, 42, 0.5);
+}
+
+.timeline svg {
+    color: #C8922A;
+}
+
+.timeline hr {
+    background-color: #2E2210;
+}
+
+a.tlm-link {
+    color: #E8C170;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+a.tlm-link:hover {
+    color: #C8922A;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1A1208;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C8922A;
+    border-radius: 3px;
+}

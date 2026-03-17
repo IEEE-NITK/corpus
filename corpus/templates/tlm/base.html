@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}The Lazarus Mission{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        await new Promise(r => setTimeout(r, 100));
+
+        const themeButton = document.getElementById("dark-mode-button");
+        if (themeButton) themeButton.remove();
+
+        document.documentElement.setAttribute("data-theme", "tlm");
+    });
+</script>
+{% endblock %}

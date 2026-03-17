@@ -1,7 +1,36 @@
-{% extends 'base.html' %}
+{% extends 'tlm/base.html' %}
+{% load static %}
 
 {% block title %}The Lazarus Mission{% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/tlm.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>TLM placeholder - it works!</h1>
+
+{# ─── HERO SECTION ───────────────────────────────── #}
+<section id="tlm-hero" class="tlm-hero min-h-screen flex items-center justify-center">
+    <div class="text-center px-4">
+        <h1 class="tlm-title text-5xl md:text-7xl lg:text-8xl mb-4 tlm-glow">
+            The Lazarus Mission
+        </h1>
+        <p class="tlm-subtitle text-lg md:text-xl mb-8">
+            A placeholder tagline — replace me
+        </p>
+    </div>
+</section>
+
+{# ─── MAIN CONTENT (hidden until countdown = 0) ──── #}
+{# !! DO NOT EDIT THIS SECTION — teammate responsibility !! #}
+<section id="tlm-main-content" class="hidden">
+    {# Teammate fills this section in entirely #}
+</section>
+{# !! END TEAMMATE SECTION !! #}
+
+{# ─── INTRO SECTIONS ─────────────────────────────── #}
+<section id="tlm-intro" class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
+    <p class="tlm-subtitle">Intro sections — coming in Phase 6</p>
+</section>
+
 {% endblock %}
