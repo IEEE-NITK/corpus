@@ -44,8 +44,10 @@
       <div class="flex-1 my-auto ">
         <div
           class="w-full max-w-sm mx-auto bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100 rounded-2xl shadow-xl p-10 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-          <div class="text-4xl sm:text-5xl lg:text-6xl font-extrabold dark:text-white mb-3">{{ no_of_members }}</div>
-          <div class="text-lg sm:text-xl dark:text-gray-100 mb-8">Active Members</div>
+          {% if sig.name != "WiE" and sig.name != "SIGHT" %}
+            <div class="text-4xl sm:text-5xl lg:text-6xl font-extrabold dark:text-white mb-3">{{ no_of_members }}</div>
+            <div class="text-lg sm:text-xl dark:text-gray-100 mb-8">Active Members</div>
+          {% endif %}
           <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold dark:text-white mb-3">{{ no_of_events }}</div>
           <div class="text-lg sm:text-xl dark:text-gray-100">Events This Year</div>
 
@@ -56,7 +58,7 @@
   </section>
 
 
-
+  {% if sig.name != "WiE" and sig.name != "SIGHT" %}
   <section
     class="py-10 bg-gradient-to-br from-sky-50 to-blue-300 dark:bg-[#192237] dark:bg-none overflow-hidden relative">
 
@@ -65,115 +67,118 @@
     <div class="marquee-container overflow-hidden whitespace-nowrap">
       <div class="marquee-content inline-flex animate-marquee">
         {% for logo in alumni_logos %}
-        <img src="{% static logo.image %}" alt="{{ logo.name }}"
+        <img src="{{ logo.image.url }}" alt="{{ logo.name }}"
           class="h-16 sm:h-20 md:h-28 lg:h-32 object-contain rounded-lg mx-2" />
 
         {% endfor %}
         {% for logo in alumni_logos %}
-        <img src="{% static logo.image %}" alt="{{ logo.name }}"
+        <img src="{{ logo.image.url }}" alt="{{ logo.name }}"
           class="h-16 sm:h-20 md:h-28 lg:h-32 object-contain rounded-lg mx-2" />
 
         {% endfor %}
       </div>
     </div>
   </section>
+  {% endif %}
+
+  {% if no_of_events > 0 %}
+    <section class="dark:bg-slate-900 w-full overflow-hidden relative">
+      <div class="max-w-full mx-auto relative">
+        <div class="px-6 text-center py-5">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold my-10 dark:text-white leading-tight">Events
+          </h2>
+        </div>
+        <div class="mx-10">
+
+          <div id="carousel-track" class="flex transition-transform duration-500 ease-in-out my-8 gap-6 pr-10">
+            {% for event in events %}
+            <div class="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
+              <div
+                class="carousel-card w-full max-w-md dark:bg-slate-700 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl dark:hover:shadow-indigo-900 dark:hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+
+                {% if event.thumbnail %}
+                    <img src="{{ event.thumbnail.url }}" alt="{{ event.name }}" class="w-full h-80 object-fill">
+                  {% else %}
+                    <img src="{% static 'img/ieee-nitk.png' %}" alt="{{ event.name }}" class="w-full h-80 object-fill">
+                {% endif %}
 
 
-  <section class="dark:bg-slate-900 w-full overflow-hidden relative">
-    <div class="max-w-full mx-auto relative">
-      <div class="px-6 text-center py-5">
-        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold my-10 dark:text-white leading-tight">Events
-        </h2>
-      </div>
-      <div class="mx-10">
+                <div class="p-6 space-y-3">
+                  <h3 class="text-xl font-semibold dark:text-white mb-1">{{ event.name }}</h3>
+                  <p class="dark:text-slate-300 leading-relaxed text-sm">{{ event.description }}</p>
 
-        <div id="carousel-track" class="flex transition-transform duration-500 ease-in-out my-8 gap-6 pr-10">
-          {% for event in events %}
-          <div class="flex-shrink-0 w-full lg:w-1/3 flex justify-center">
-            <div
-              class="carousel-card w-full max-w-md dark:bg-slate-700 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl dark:hover:shadow-indigo-900 dark:hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-
-              {% if event.thumbnail %}
-                  <img src="{{ event.thumbnail.url }}" alt="{{ event.name }}" class="w-full h-80 object-fill">
-                {% else %}
-                  <img src="{% static 'img/ieee-nitk.png' %}" alt="{{ event.name }}" class="w-full h-80 object-fill">
-              {% endif %}
-
-
-              <div class="p-6 space-y-3">
-                <h3 class="text-xl font-semibold dark:text-white mb-1">{{ event.name }}</h3>
-                <p class="dark:text-slate-300 leading-relaxed text-sm">{{ event.description }}</p>
-
-                <div class="text-sm text-slate-500 dark:text-slate-400 mt-2 flex items-center justify-between">
-                  <span><strong>Start:</strong> {{ event.start_date }}</span>
-                  <span><strong>End:</strong> {{ event.end_date }}</span>
+                  <div class="text-sm text-slate-500 dark:text-slate-400 mt-2 flex items-center justify-between">
+                    <span><strong>Start:</strong> {{ event.start_date }}</span>
+                    <span><strong>End:</strong> {{ event.end_date }}</span>
+                  </div>
                 </div>
-              </div>
 
+              </div>
             </div>
+            {% endfor %}
           </div>
-          {% endfor %}
+
+
+        </div>
+        <div class="flex justify-center items-center gap-8 mb-6">
+
+          <button id="carousel-prev" aria-label="Previous slide"
+            class="h-14 w-14 flex items-center justify-center bg-blue-500 dark:bg-gray-700 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl">
+            <span class="text-3xl">&#8249;</span>
+          </button>
+
+          <div id="carousel-dots" class="flex justify-center space-x-3 "></div>
+
+          <button id="carousel-next" aria-label="Next slide"
+            class="h-14 w-14 flex items-center justify-center bg-blue-500 dark:bg-gray-700 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl">
+            <span class="text-3xl">&#8250;</span>
+          </button>
         </div>
 
 
       </div>
-      <div class="flex justify-center items-center gap-8 mb-6">
+    </section>
+  {% endif %}
 
-        <button id="carousel-prev" aria-label="Previous slide"
-          class="h-14 w-14 flex items-center justify-center bg-blue-500 dark:bg-gray-700 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl">
-          <span class="text-3xl">&#8249;</span>
-        </button>
+  {% if sig.name != "WiE" and sig.name != "SIGHT" %}
+    <section class="dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto space-y-12 px-6 pb-10">
+        <div class="px-4 mb-6 text-center py-2">
+          <h2 class="text-3xl mt-10 sm:text-4xl md:text-5xl lg:text-6xl font-bold  dark:text-white leading-tight">
+            People that make {{ sig.name }} ❤️
+          </h2>
+        </div>
 
-        <div id="carousel-dots" class="flex justify-center space-x-3 "></div>
+        <img src="{{ sig.sig_image.url }}" alt="{{ sig.name }}"
+          class="rounded-lg mb-4 max-h-[20rem] sm:max-h-[28rem] lg:max-h-[32rem] object-contain mx-auto">
 
-        <button id="carousel-next" aria-label="Next slide"
-          class="h-14 w-14 flex items-center justify-center bg-blue-500 dark:bg-gray-700 hover:bg-blue-600 text-white rounded-full shadow-lg hover:shadow-xl">
-          <span class="text-3xl">&#8250;</span>
-        </button>
       </div>
+    </section>
+  {% endif %}
 
-
+  {% if sig.name != "WiE" and sig.name != "SIGHT" %}
+    <div class="px-6 text-center mt-10 py-8 ">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold  dark:text-white leading-tight">Societies</h2>
     </div>
-  </section>
+    <section class="hero min-h-[30vh] min-w-screen pb-12 sm:pb-16">
 
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-20 justify-between mx-auto items-center">
+        {% for society in societies_linked_to_sig %}
+        <a href="{{ society.url }}">
+          {% if society.dark_image %}
+          <img src="{{ society.image.url }}" class="p-4 h-20 light-logo sm:h-20 lg:h-40 inline">
+          <img src="{{ society.dark_image.url }}" class="p-4 h-20 sm:h-20 dark-logo lg:h-40 inline">
 
-
-  <section class="dark:bg-slate-900">
-    <div class="max-w-6xl mx-auto space-y-12 px-6 pb-10">
-      <div class="px-4 mb-6 text-center py-2">
-        <h2 class="text-3xl mt-10 sm:text-4xl md:text-5xl lg:text-6xl font-bold  dark:text-white leading-tight">
-          People that make {{ sig.name }} ❤️
-        </h2>
+          {% else %}
+          <img src="{{ society.image.url }}" class="p-4 h-20 sm:h-20 lg:h-40 inline">
+          {% endif %}
+        </a>
+        {% empty %}
+        {% endfor %}
       </div>
-
-      <img src="{% static sig.sig_image %}" alt="{{ sig.name }}"
-        class="rounded-lg mb-4 max-h-[20rem] sm:max-h-[28rem] lg:max-h-[32rem] object-contain mx-auto">
-
-    </div>
-  </section>
-
-
-  <div class="px-6 text-center mt-10 py-8 ">
-    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold  dark:text-white leading-tight">Societies</h2>
+    </section>
   </div>
-  <section class="hero min-h-[30vh] min-w-screen pb-12 sm:pb-16">
-
-    <div class="flex flex-col lg:flex-row gap-8 lg:gap-20 justify-between mx-auto items-center">
-      {% for society in societies_linked_to_sig %}
-      <a href="{{ society.url }}">
-        {% if society.dark_image %}
-        <img src="{% static society.image %}" class="p-4 h-20 light-logo sm:h-20 lg:h-40 inline">
-        <img src="{% static society.dark_image %}" class="p-4 h-20 sm:h-20 dark-logo lg:h-40 inline">
-
-        {% else %}
-        <img src="{% static society.image %}" class="p-4 h-20 sm:h-20 lg:h-40 inline">
-        {% endif %}
-      </a>
-      {% empty %}
-      {% endfor %}
-    </div>
-  </section>
-</div>
+  {% endif %}
 
 {% endblock %}
 
