@@ -3,6 +3,7 @@ from config.models import SIG
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -57,6 +58,17 @@ def programs_by_year(request, year):
 
         except (ValueError, TypeError):
             pass
+
+    programs = programs.prefetch_related(
+        Prefetch(
+            'programmember_set__member__executivemember__sig',
+            queryset=SIG.objects.distinct(),
+            to_attr='sigs_list'
+        )
+    )
+
+    for program in programs:
+        program.sigs = program.sigs_list
 
     return render(
         request,
