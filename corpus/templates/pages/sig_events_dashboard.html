@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ sig.name }} Events Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200 py-8 px-4">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <div class="card bg-base-100 shadow-xl p-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <h1 class="text-3xl font-bold">{{ sig.name }} Events Dashboard</h1>
+                <a href="{% url 'sig_dashboard' sig.slug %}" class="btn btn-outline">Back to SIG Dashboard</a>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl p-6">
+            <h2 class="text-2xl font-semibold mb-4">Add Event</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <div>
+                    <label class="label"><span class="label-text">Name</span></label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Description</span></label>
+                    {{ form.description }}
+                    {{ form.description.errors }}
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label"><span class="label-text">Start Date</span></label>
+                        {{ form.start_date }}
+                        {{ form.start_date.errors }}
+                    </div>
+                    <div>
+                        <label class="label"><span class="label-text">End Date</span></label>
+                        {{ form.end_date }}
+                        {{ form.end_date.errors }}
+                    </div>
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Page Link</span></label>
+                    {{ form.page_link }}
+                    {{ form.page_link.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Thumbnail</span></label>
+                    {{ form.thumbnail }}
+                    {{ form.thumbnail.errors }}
+                </div>
+                <div class="flex gap-6">
+                    <label class="label cursor-pointer gap-2">{{ form.archive_event }}<span class="label-text">Archive</span></label>
+                    <label class="label cursor-pointer gap-2">{{ form.show_in_recent }}<span class="label-text">Show in Recent</span></label>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Event</button>
+            </form>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl p-6">
+            <h2 class="text-2xl font-semibold mb-4">Existing Events</h2>
+            <div class="overflow-x-auto">
+                <table class="table w-full">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Dates</th>
+                            <th>Archived</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                            <tr>
+                                <td>{{ event.name }}</td>
+                                <td>{{ event.start_date }} - {{ event.end_date }}</td>
+                                <td>{{ event.archive_event|yesno:"Yes,No" }}</td>
+                                <td class="flex gap-2">
+                                    <a href="{% url 'sig_edit_event' sig.slug event.id %}" class="btn btn-sm btn-secondary">Edit</a>
+                                    <form method="post" action="{% url 'sig_delete_event' sig.slug event.id %}" onsubmit="return confirm('Delete/unlink this event?')">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm btn-error">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">No events linked to this SIG yet.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
