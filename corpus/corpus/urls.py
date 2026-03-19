@@ -52,6 +52,8 @@ urlpatterns = [
     path("smp/", include("smp.urls")),
     path("codeRed/", include("codeRed.urls")),
     path("projectchimera/", include("chimera.urls")),
+    path("tlm/", include("tlm.urls")),
+
 ]
 
 if settings.DEBUG:

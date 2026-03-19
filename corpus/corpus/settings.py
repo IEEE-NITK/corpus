@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "chimera.apps.ChimeraConfig",
     "newsletter.apps.NewsletterConfig",
     "celery",
+    "tlm.apps.TlmConfig",
 ]
 
 MIDDLEWARE = [
