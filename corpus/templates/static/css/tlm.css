@@ -1,4 +1,4 @@
-/* TLM — THE LAZARUS MISSIONS                                        */
+/* TLM - THE LAZARUS MISSIONS                                        */
 /* Light parchment theme: warm desert, aged paper, post-apocalyptic. */
 
 
@@ -27,7 +27,7 @@ body {
 }
 
 
-/* HERO — LAYOUT AND BACKGROUNDS  */
+/* HERO - LAYOUT AND BACKGROUNDS  */
 
 /*
    isolation: isolate creates a self-contained stacking context.
@@ -64,7 +64,7 @@ body {
     to   { background-position: 0 56px, 0 0; }
 }
 
-/* Ambient warm glow — lower opacity on light background */
+/* Ambient warm glow - lower opacity on light background */
 .tlm-hero::before {
     content: '';
     position: absolute;
@@ -77,7 +77,7 @@ body {
 }
 
 /*
-   Grain texture — SVG fractalNoise at low opacity.
+   Grain texture - SVG fractalNoise at low opacity.
    More effective on parchment than on dark: evokes aged paper.
    Lives on ::after to not interfere with ::before (ambient glow).
 */
@@ -99,7 +99,7 @@ body {
 }
 
 
-/* HERO — TYPOGRAPHY  */
+/* HERO - TYPOGRAPHY  */
 
 .tlm-title-the {
     font-family: 'Space Age', 'Orbitron', sans-serif;
@@ -116,7 +116,7 @@ body {
     color: #1C0F02;
     letter-spacing: 0.04em;
     line-height: 1.1;
-    /* Stamped/pressed-ink shadow — suits parchment */
+    /* Stamped/pressed-ink shadow - suits parchment */
     text-shadow: 2px 3px 0px rgba(100, 60, 5, 0.18);
 }
 
@@ -138,7 +138,7 @@ body {
 }
 
 
-/* HERO — EVENT LOGO  */
+/* HERO - EVENT LOGO  */
 
 .tlm-event-logo {
     height: 80px;
@@ -149,7 +149,7 @@ body {
 }
 
 
-/* HERO — REGISTER BUTTON  */
+/* HERO - REGISTER BUTTON  */
 
 .tlm-register-btn {
     font-family: 'Space Age', 'Orbitron', sans-serif;
@@ -163,7 +163,7 @@ body {
 }
 
 
-/* HERO — DOOMSDAY COUNTDOWN  */
+/* HERO - DOOMSDAY COUNTDOWN  */
 
 .tlm-doomsday-label {
     font-family: 'Space Age', 'Orbitron', sans-serif;
@@ -203,7 +203,7 @@ body {
 }
 
 
-/* HERO — ORG LOGOS ROW  */
+/* HERO - ORG LOGOS ROW  */
 
 .tlm-hero-org-logo {
     height: 40px;
@@ -236,7 +236,7 @@ body {
     display: inline-block;
 }
 
-/* Amber underline bar — gradient fade left and right */
+/* Amber underline bar - gradient fade left and right */
 .tlm-section-heading::after {
     content: '';
     position: absolute;
@@ -277,7 +277,7 @@ body {
 }
 
 
-/* PRIZES — PODIUM  */
+/* PRIZES - PODIUM  */
 
 .tlm-prize-card {
     background-color: #E6D8A8;
@@ -325,7 +325,7 @@ body {
     margin-bottom: 0.25rem;
 }
 
-/* ── Podium bases — stepped heights ── */
+/* ── Podium bases - stepped heights ── */
 
 .tlm-podium-base {
     width: 160px;
@@ -399,7 +399,7 @@ body {
 }
 
 
-/* ORGANIZED BY — LOGO LINKS  */
+/* ORGANIZED BY - LOGO LINKS  */
 
 .tlm-org-logo {
     max-width: 200px;
@@ -455,7 +455,7 @@ body {
 
 /*
    All elements are visible by default. The hidden initial state only
-   activates when the JS observer script runs successfully — gated
+   activates when the JS observer script runs successfully - gated
    behind the .tlm-js class added to <html> by that script.
    If JavaScript fails for any reason, all content remains visible.
 */
@@ -472,7 +472,7 @@ body {
     transform: translateY(0);
 }
 
-/* Spring-overshoot rise — for podium columns */
+/* Spring-overshoot rise - for podium columns */
 .tlm-js .tlm-rise {
     opacity: 0;
     transform: translateY(48px);
@@ -494,7 +494,7 @@ body {
 .tlm-animate-list li.tlm-animate:nth-child(5) { --tlm-delay: 600ms; }
 
 
-/* ACCESSIBILITY — REDUCED MOTION  */
+/* ACCESSIBILITY - REDUCED MOTION  */
 
 @media (prefers-reduced-motion: reduce) {
 

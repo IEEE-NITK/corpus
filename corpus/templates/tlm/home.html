@@ -42,7 +42,8 @@
     <div class="relative z-10 text-center px-6 flex flex-col items-center gap-5 w-full max-w-4xl mx-auto">
 
         {#  Event logo — place tlm-logo.svg at templates/static/img/tlm/  #}
-        <img src="{% static 'img/tlm/tlm-logo.svg' %}"
+        <img style="position:relative;left:16px;margin-bottom:42px;"
+             src="{% static 'img/tlm/tlm-logo.svg' %}"
              alt="The Lazarus Missions logo"
              class="tlm-event-logo mb-2">
 
@@ -75,9 +76,10 @@
 
         {#  Register button — REPLACE # WITH REAL REGISTRATION LINK  #}
         <a href="#" class="btn btn-primary tlm-register-btn mt-2">
-            Register
+            Begin Mission.
         </a>
 
+{% comment %}
         {#  Doomsday countdown  #}
         <div class="flex flex-col items-center gap-2 mt-4">
 
@@ -101,7 +103,7 @@
                 The missions have begun.
             </p>
 
-        </div>
+        </div> {% endcomment %}
 
     </div>
 
@@ -134,19 +136,59 @@
         What Is The Lazarus Missions?
     </h2>
 
-    <div class="max-w-4xl mx-auto flex flex-col gap-6">
+    <div class="max-w-4xl mx-auto flex flex-col gap-10 text-left px-4 md:px-0" style="text-align: center;">
+
+        {#  Intro paragraph  #}
         <p class="text-lg md:text-xl lg:text-2xl leading-relaxed tlm-animate"
            style="--tlm-delay: 120ms">
-            <strong>The Lazarus Missions</strong> is IEEE NITK CompSoc's flagship
-            Machine Learning event.
-            {#  REPLACE: Insert the main event description — format, premise, what participants do.  #}
-            [PLACEHOLDER: Main event description.]
+            <strong class="text-primary">The Lazarus Missions</strong> is IEEE NITK CompSoc's flagship
+            Machine Learning event. From March 20th, 6 PM to March 24th, 6 PM 2026, for 96 uninterrupted
+            hours, undergraduate students across the country will gather to build, test, and challenge
+            machine learning systems in the post-apocalyptic setting, with a prize pool of
+            <strong class="text-primary tlm-glow">₹25,000+</strong>.
         </p>
-        <p class="text-lg md:text-xl lg:text-2xl leading-relaxed tlm-animate"
-           style="--tlm-delay: 240ms">
-            {#  REPLACE: Second paragraph or remove this block.  #}
-            [PLACEHOLDER: Additional context about the event theme or premise.]
+
+        {#  Tracks section  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 240ms">
+            <h3 class="tlm-section-subheading m-0">Tracks</h3>
+            <p class="text-lg md:text-xl">Participants will compete across tracks covering:</p>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>Classic Machine Learning</li>
+                <li>Natural Language Processing</li>
+                <li>Computer Vision</li>
+                <li>Reinforcement Learning</li>
+                <li>Knowledge Graphs</li>
+                <li>And more...</li>
+            </ul>
+        </div>
+
+        {#  Eligibility section  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 360ms">
+            <h3 class="tlm-section-subheading m-0">Who Can Participate</h3>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>Open to 1st, 2nd, and 3rd-year undergraduate students from all colleges.</li>
+                <li>Teams may consist of 1 to 3 members.</li>
+                <li>Inter-college and inter-specialisation teams are allowed.</li>
+                <li><strong class="text-primary">Cross-year teaming is NOT allowed.</strong></li>
+            </ul>
+        </div>
+
+        {#  Format and Scoring  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 480ms">
+            <h3 class="tlm-section-subheading m-0">Format &amp; Scoring</h3>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>The event runs continuously for 96 hours.</li>
+                <li>Performance will be evaluated based on total points accumulated across all tracks.</li>
+                <li><strong>Year-Wise Prizes:</strong> Top 3 teams will be chosen from 1st, 2nd, and 3rd years individually.</li>
+            </ul>
+        </div>
+
+        {#  Platform  #}
+        <p class="text-lg md:text-xl lg:text-2xl font-bold text-center mt-6 tlm-animate"
+           style="--tlm-delay: 600ms">
+            Platform to Sign-up: <span class="text-primary tlm-glow">Unstop</span>
         </p>
+
     </div>
 
 </section>
@@ -165,8 +207,8 @@
 
             <li class="m-0 tlm-animate">
                 <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
-                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
-                    <span>[PLACEHOLDER: Milestone]</span>
+                    <div class="font-bold text-primary">19 Mar 26, 06:00 PM IST</div>
+                    <span>Registration Deadline</span>
                 </div>
                 <div class="timeline-middle text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
@@ -190,8 +232,8 @@
                     </svg>
                 </div>
                 <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
-                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
-                    <span>[PLACEHOLDER: Milestone]</span>
+                    <div class="font-bold text-primary">20 Mar 26, 06:00 PM IST</div>
+                    <span>The Lazarus Missions Competition Starts</span>
                 </div>
                 <hr class="tlm-timeline-connector"/>
             </li>
@@ -207,8 +249,8 @@
                     </svg>
                 </div>
                 <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
-                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
-                    <span>[PLACEHOLDER: Milestone]</span>
+                    <div class="font-bold text-primary">24 Mar 26, 06:00 PM IST</div>
+                    <span>The Lazarus Missions Competition Ends</span>
                 </div>
                 <hr class="tlm-timeline-connector"/>
             </li>
@@ -224,8 +266,8 @@
                     </svg>
                 </div>
                 <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
-                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
-                    <span>[PLACEHOLDER: Milestone]</span>
+                    <div class="font-bold text-primary">24 Mar 26, 06:00 PM IST</div>
+                    <span>Evaluation Stage Starts</span>
                 </div>
             </li>
 
@@ -234,7 +276,7 @@
 
 </section>
 
-
+{% comment %}
 {#  SECTION 5 — PRIZES                                                   #}
 {#  Replace [₹?] with real amounts when confirmed.                       #}
 
@@ -248,7 +290,7 @@
 
     {#  Podium: 2nd | 1st | 3rd. items-end aligns bases to the bottom.  #}
     {#  3rd rises first (delay 0), 2nd second (150ms), 1st last (300ms).  #}
-    <div class="flex flex-row flex-wrap justify-center items-end gap-0">
+    <div class="podium flex flex-row flex-wrap justify-center items-end gap-2">
 
         {#  2nd place  #}
         <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 150ms">
@@ -294,12 +336,12 @@
         <strong class="text-primary">Participation Certificate</strong>.
     </p>
 
-</section>
+</section> {% endcomment %}
 
 
 {#  SECTION 6 — ORGANIZED BY  #}
 
-<section id="tlm-organized-by" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+<section id="tlm-organized-by" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
 
     <h2 class="tlm-section-heading tlm-animate">Organized By</h2>
 
@@ -333,7 +375,7 @@
            style="--tlm-delay: 200ms">
             The CompSoc IEEE NITK Student Branch is a vibrant community of students
             passionate about Computer Science. We aim to foster a culture of learning
-            and exploration of diverse technologies — Algorithms, Systems, Machine
+            and exploration of diverse technologies - Algorithms, Systems, Machine
             Learning, Development, Web3, and many more. Through peer discussions and
             a variety of events including Knowledge Sharing Sessions, CTFs, and
             Hackathons, we strive to inspire curiosity and collaboration among our members.
@@ -347,7 +389,7 @@
 {#  Replace all [PLACEHOLDER] entries with real organizer details.       #}
 {#  Copy the contact block to add more people.                           #}
 
-<section id="tlm-contact" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+<section id="tlm-contact" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
 
     <h2 class="tlm-section-heading tlm-animate">Contact Us</h2>
 
@@ -356,17 +398,17 @@
         {#  ── Organizer - copy this block for each additional contact ──  #}
         <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
              style="--tlm-delay: 0ms">
-            <strong class="text-primary">[PLACEHOLDER: Organizer Name]</strong>
-            <a href="mailto:placeholder@nitk.edu.in" class="tlm-link break-all">
-                [PLACEHOLDER: email@nitk.edu.in]
+            <strong class="text-primary">Swaraj</strong>
+            <a class="tlm-link break-all">
+                +91 94497 87896
             </a>
         </div>
 
         <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
              style="--tlm-delay: 150ms">
-            <strong class="text-primary">[PLACEHOLDER: Organizer Name]</strong>
-            <a href="mailto:placeholder@nitk.edu.in" class="tlm-link break-all">
-                [PLACEHOLDER: email@nitk.edu.in]
+            <strong class="text-primary">Jayanth</strong>
+            <a class="tlm-link break-all">
+                +91 74830 17553
             </a>
         </div>
 
