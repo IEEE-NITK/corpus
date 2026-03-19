@@ -9,31 +9,35 @@
 
 {% block content %}
 
-{# ═══════════════════════════════════════════════════════ #}
-{#  HERO SECTION                                           #}
-{# ═══════════════════════════════════════════════════════ #}
+{#  HERO SECTION #}
 
-<section id="tlm-hero" class="tlm-hero min-h-screen flex flex-col items-center justify-center">
-    <div class="relative z-0 text-center px-4 flex flex-col items-center gap-6">
+<section id="tlm-hero" class="tlm-hero min-h-screen w-full flex flex-col items-center justify-center">
+
+    <div class="relative z-10 text-center px-6 flex flex-col items-center gap-6 w-full max-w-4xl mx-auto">
 
         {# Event title #}
         <h1 class="tlm-title text-5xl md:text-7xl lg:text-8xl tlm-glow">
             The Lazarus Mission
         </h1>
 
-        {# Tagline - to be with real copy when confirmed #}
-        <p class="tlm-subtitle text-base md:text-xl tracking-widest">
-            blah blah blah idk
+        {# Tagline to be replaced #}
+        <p class="tlm-subtitle text-base md:text-lg lg:text-xl tracking-widest">
+            [PLACEHOLDER: Event tagline goes here]
         </p>
 
-        {#  Countdown  #}
-        <div class="flex flex-col items-center gap-3 mt-4">
-            <p id="tlm-countdown-label" class="tlm-subtitle text-sm tracking-widest">
+        {# Register button// IMP:- REPLACE THE # WITH REAL REGISTRATION LINK #}
+        <a href="#" class="btn btn-primary btn-lg mt-2 tlm-register-btn">
+            Register
+        </a>
+
+        {# Countdown #}
+        <div class="flex flex-col items-center gap-3 mt-6">
+
+            <p id="tlm-countdown-label" class="tlm-subtitle text-xs tracking-widest">
                 Event begins in
             </p>
 
-            {# Countdown boxes : JS populates the spans #}
-            <div id="tlm-countdown" class="flex flex-row gap-3 justify-center">
+            <div id="tlm-countdown" class="flex flex-row flex-wrap gap-3 justify-center">
                 <div class="tlm-countdown-box flex flex-col items-center">
                     <span id="tlm-days" class="tlm-countdown-number">--</span>
                     <span class="tlm-countdown-label">Days</span>
@@ -52,59 +56,350 @@
                 </div>
             </div>
 
-            {# Message shown after countdown hits zero - hidden by default #}
             <p id="tlm-launched-msg"
-               class="hidden tlm-subtitle text-lg tracking-widest text-accent">
+               class="hidden tlm-subtitle text-base md:text-lg tracking-widest text-accent">
                 The mission has begun.
             </p>
+
+        </div>
+    </div>
+
+
+</section>
+
+
+{#  MAIN CONTENT (HIDDEN UNTIL COUNTDOWN = 0)                        #}
+{#  THIS IS THE SECTION TO BE EDITED AND ADDED ONTO                  #}
+{#  This section is revealed by the countdown script when the        #}
+{#  target date is reached. The id 'tlm-main-content' and the        #}
+{#  class 'hidden' are both referenced by the JS below.              #}
+{#  Do NOT rename the id. Do NOT remove 'hidden' manually.           #}
+
+<section id="tlm-main-content" class="hidden">
+</section>
+
+
+{#  ABOUT SECTION   #}
+
+<section id="tlm-about" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">What Is The Lazarus Mission?</h2>
+
+    <div class="max-w-4xl mx-auto flex flex-col gap-6">
+        <p class="text-lg md:text-xl lg:text-2xl leading-relaxed tlm-animate" style="--tlm-delay: 120ms">
+            <strong class="text-primary">The Lazarus Mission</strong> is IEEE NITK
+            CompSoc's flagship Machine Learning event.
+            {# REPLACE: Insert the main event description here. What is the format?  #}
+            {# Competition, hackathon, challenge? What will participants do?          #}
+            {# Why should they join?                                                  #}
+            [PLACEHOLDER: Main event description.]
+        </p>
+        <p class="text-lg md:text-xl lg:text-2xl leading-relaxed tlm-animate" style="--tlm-delay: 240ms">
+            {# REPLACE: Second paragraph if needed. Remove this block if not.        #}
+            [PLACEHOLDER: Additional context about the event theme or premise.]
+        </p>
+    </div>
+
+</section>
+
+
+{#  THE CHALLENGE SECTION                                             #}
+{#  Note: If TLM has no distinct tracks, remove the cards and keep    #}
+{#  only the description paragraph.                                   #}
+
+<section id="tlm-challenge" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">The Challenge</h2>
+
+    <p class="text-lg md:text-xl lg:text-2xl leading-relaxed max-w-3xl mx-auto mb-12 tlm-animate" style="--tlm-delay: 120ms">
+        {# REPLACE: What will participants be doing? #}
+        [PLACEHOLDER: Brief description of the challenge format and what participants will build or solve.]
+    </p>
+
+    {# Track / Domain cards - remove entire div below if not applicable #}
+    <div class="flex flex-row flex-wrap justify-center gap-6">
+        <div class="tlm-card flex flex-col items-center p-8 w-52 tlm-animate" style="--tlm-delay: 0ms">
+            <span class="material-symbols-outlined text-primary text-5xl mb-3">psychology</span>
+            <h3 class="tlm-card-title">[Track 1]</h3>
+        </div>
+        <div class="tlm-card flex flex-col items-center p-8 w-52 tlm-animate" style="--tlm-delay: 150ms">
+            <span class="material-symbols-outlined text-primary text-5xl mb-3">data_object</span>
+            <h3 class="tlm-card-title">[Track 2]</h3>
+        </div>
+        <div class="tlm-card flex flex-col items-center p-8 w-52 tlm-animate" style="--tlm-delay: 300ms">
+            <span class="material-symbols-outlined text-primary text-5xl mb-3">insights</span>
+            <h3 class="tlm-card-title">[Track 3]</h3>
+        </div>
+    </div>
+
+</section>
+
+
+{#  TIMELINE SECTION                                                 #}
+{#  Replace all [PLACEHOLDER] text with real dates and milestones.   #}
+{#  Add or remove <li> blocks to match the number of milestones.     #}
+<section id="tlm-timeline" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Timeline</h2>
+
+    <div class="flex justify-center mt-4">
+        <ul class="timeline timeline-vertical tlm-animate-list">
+
+            <li class="m-0 tlm-animate">
+                <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
+                    <span>[PLACEHOLDER: Milestone name]</span>
+                </div>
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <hr class="tlm-timeline-connector" />
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector" />
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
+                    <span>[PLACEHOLDER: Milestone name]</span>
+                </div>
+                <hr class="tlm-timeline-connector" />
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector" />
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
+                    <span>[PLACEHOLDER: Milestone name]</span>
+                </div>
+                <hr class="tlm-timeline-connector" />
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector" />
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">[PLACEHOLDER: Date &amp; Time]</div>
+                    <span>[PLACEHOLDER: Milestone name]</span>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</section>
+
+{#  PRIZE SECTION   #}
+<section id="tlm-prizes" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Prizes</h2>
+
+    {# Decorative trophy icon above the podium #}
+    <div class="flex justify-center mb-8">
+        <span class="material-symbols-outlined tlm-trophy-icon">
+            emoji_events
+        </span>
+    </div>
+
+    {# Podium - order: 2nd | 1st | 3rd so 1st sits centre #}
+    {# items-end aligns all cards to the bottom so platforms #}
+    {# create the stepped height difference                   #}
+    <div class="flex flex-row flex-wrap justify-center items-end gap-8">
+
+        {# 2nd place #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 150ms">
+            <div class="tlm-prize-card tlm-prize-second flex flex-col items-center">
+                <span class="tlm-prize-rank">2<sup>nd</sup></span>
+                <span class="tlm-prize-amount">[₹?]</span>
+                <span class="tlm-prize-label">Runner Up</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-second">
+                <span class="tlm-podium-number">2</span>
+            </div>
+        </div>
+
+        {# 1st place - centre #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 300ms">
+            <div class="tlm-prize-card tlm-prize-first flex flex-col items-center">
+                <span class="material-symbols-outlined tlm-crown-icon">
+                    workspace_premium
+                </span>
+                <span class="tlm-prize-rank">1<sup>st</sup></span>
+                <span class="tlm-prize-amount tlm-glow">[₹?]</span>
+                <span class="tlm-prize-label">Winner</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-first">
+                <span class="tlm-podium-number">1</span>
+            </div>
+        </div>
+
+        {# 3rd place #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 0ms">
+            <div class="tlm-prize-card tlm-prize-third flex flex-col items-center">
+                <span class="tlm-prize-rank">3<sup>rd</sup></span>
+                <span class="tlm-prize-amount">[₹?]</span>
+                <span class="tlm-prize-label">Second Runner Up</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-third">
+                <span class="tlm-podium-number">3</span>
+            </div>
         </div>
 
     </div>
-</section>
 
-
-{# ═══════════════════════════════════════════════════════ #}
-{#  MAIN CONTENT SECTION                                   #}
-{#  !! DO NOT EDIT THIS SECTION !!                         #}
-{#  Hidden via the 'hidden' Tailwind class.                #}
-{#  The countdown JS removes this class when T = 0.        #}
-{#  The id 'tlm-main-content' is referenced in JS —        #}
-{#  do not rename it.                                      #}
-{# ═══════════════════════════════════════════════════════ #}
-
-<section id="tlm-main-content" class="hidden">
-    {# fill in the details here pls #}
-</section>
-
-{# ═══════════════════════════════════════════════════════ #}
-{#  INTRO SECTION                                          #}
-{# ═══════════════════════════════════════════════════════ #}
-<section id="tlm-intro">
-    <p class="tlm-subtitle text-center py-20">
-        yabadabdoo!!
+    <p class="mt-10 text-lg md:text-xl">
+        All participants will also receive a
+        <strong class="text-primary">Participation Certificate</strong>.
     </p>
+
 </section>
 
+
+{#  ORGANIZED BY SECTION   #}
+<section id="tlm-organized-by" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Organized By</h2>
+
+    <div class="flex flex-wrap justify-center items-center gap-16 mt-6">
+        <a href="https://ieee.nitk.ac.in/" class="tlm-org-logo-link tlm-animate" style="--tlm-delay: 0ms">
+            <img src="{% static 'img/ieee-nitk-white.png' %}"
+                 alt="IEEE NITK"
+                 class="tlm-org-logo" />
+        </a>
+        <a href="https://ieee.nitk.ac.in/sig/compsoc/" class="tlm-org-logo-link tlm-animate" style="--tlm-delay: 150ms">
+            <img src="{% static 'img/logo/compsoc-dark.png' %}"
+                 alt="CompSoc IEEE NITK"
+                 class="tlm-org-logo" />
+        </a>
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-12">
+        <h3 class="tlm-section-subheading tlm-animate" style="--tlm-delay: 100ms">About CompSoc</h3>
+        <p class="text-lg md:text-xl leading-relaxed tlm-animate" style="--tlm-delay: 200ms">
+            The CompSoc IEEE NITK Student Branch is a vibrant community of students
+            passionate about Computer Science. We aim to foster a culture of learning
+            and exploration of diverse technologies - Algorithms, Systems, Machine
+            Learning, Development, Web3, and many more. Through peer discussions and
+            a variety of events including Knowledge Sharing Sessions, CTFs, and
+            Hackathons, we strive to inspire curiosity and collaboration among our members.
+        </p>
+    </div>
+
+</section>
+
+
+{#   CONTACT SECTION                                                 #}
+{#  Replace all [PLACEHOLDER] lines with real organizer details.     #}
+{#  Copy the organizer block to add more contacts.                   #}
+<section id="tlm-contact" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Contact Us</h2>
+
+    <div class="flex flex-col items-center gap-8 mt-6">
+
+        {# ── Organizer - copy this block for each additional contact ── #}
+        <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate" style="--tlm-delay: 0ms">
+            <strong class="text-primary">[PLACEHOLDER: Organizer Name]</strong>
+            <a href="mailto:placeholder@nitk.edu.in" class="tlm-link break-all">
+                [PLACEHOLDER: email@nitk.edu.in]
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate" style="--tlm-delay: 150ms">
+            <strong class="text-primary">[PLACEHOLDER: Organizer Name]</strong>
+            <a href="mailto:placeholder@nitk.edu.in" class="tlm-link break-all">
+                [PLACEHOLDER: email@nitk.edu.in]
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+{#  Logo correction script #}
+{# Placed here (bottom of block content) matching the CodeRed page. #}
+{# Forces the white navbar logo whenever the TLM theme is active.      #}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var darkLogo  = document.querySelector(".dark-logo");
+        var lightLogo = document.querySelector(".light-logo");
+
+        function updateLogo() {
+            if (darkLogo)  { darkLogo.style.display  = "none"; }
+            if (lightLogo) { lightLogo.style.display = "inline"; }
+        }
+
+        updateLogo();
+
+        var observer = new MutationObserver(updateLogo);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-theme"]
+        });
+    });
+</script>
 
 {% endblock %}
+
 
 {% block script %}
 {{ block.super }}
 
+{#  Countdown script  #}
+{# Wrapped in an IIFE to keep all variables out of global scope.       #}
+{# Uses var instead of const/let for maximum browser compatibility.    #}
+{# All DOM references are null-checked before use.                     #}
 <script>
     (function () {
-        const targetDate = new Date('2026-03-21T00:00:00+05:30');
+        "use strict";
 
-        const daysEl      = document.getElementById('tlm-days');
-        const hoursEl     = document.getElementById('tlm-hours');
-        const minutesEl   = document.getElementById('tlm-minutes');
-        const secondsEl   = document.getElementById('tlm-seconds');
-        const labelEl     = document.getElementById('tlm-countdown-label');
-        const launchedEl  = document.getElementById('tlm-launched-msg');
-        const mainContent = document.getElementById('tlm-main-content');
+        //  Target: 24 March 2026 00:00:00 IST (UTC+05:30)
+        // To test the reveal logic: temporarily set this to a past date,
+        // you can verify #tlm-main-content loses its 'hidden' class in DevTools,
+        // then restore this value before committing.
+        var targetDate = new Date('2026-03-24T00:00:00+05:30');
 
+        //  Cache DOM references once at script execution time
+        var daysEl      = document.getElementById('tlm-days');
+        var hoursEl     = document.getElementById('tlm-hours');
+        var minutesEl   = document.getElementById('tlm-minutes');
+        var secondsEl   = document.getElementById('tlm-seconds');
+        var labelEl     = document.getElementById('tlm-countdown-label');
+        var launchedEl  = document.getElementById('tlm-launched-msg');
+        var mainContent = document.getElementById('tlm-main-content');
+        var countdownEl = document.getElementById('tlm-countdown');
+
+        // Pad single-digit numbers with a leading zero
         function pad(n) {
-            return String(n).padStart(2, '0');
+            return n < 10 ? '0' + n : String(n);
         }
 
         function revealMainContent() {
@@ -114,63 +409,90 @@
         }
 
         function onCountdownComplete() {
-            const countdownEl = document.getElementById('tlm-countdown');
-            if (countdownEl) countdownEl.classList.add('hidden');
-            if (labelEl) labelEl.classList.add('hidden');
-            if (launchedEl) launchedEl.classList.remove('hidden');
+            if (countdownEl) { countdownEl.classList.add('hidden'); }
+            if (labelEl)     { labelEl.classList.add('hidden'); }
+            if (launchedEl)  { launchedEl.classList.remove('hidden'); }
             revealMainContent();
         }
 
         function tick() {
-            const now  = new Date();
-            const diff = targetDate - now;
+            var now  = new Date();
+            var diff = targetDate.getTime() - now.getTime();
 
             if (diff <= 0) {
                 onCountdownComplete();
-                return;
+                return; // stop scheduling further ticks
             }
 
-            const totalSeconds = Math.floor(diff / 1000);
-            const days    = Math.floor(totalSeconds / 86400);
-            const hours   = Math.floor((totalSeconds % 86400) / 3600);
-            const minutes = Math.floor((totalSeconds % 3600) / 60);
-            const seconds = totalSeconds % 60;
+            var totalSeconds = Math.floor(diff / 1000);
+            var days    = Math.floor(totalSeconds / 86400);
+            var hours   = Math.floor((totalSeconds % 86400) / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
 
-            daysEl.textContent    = pad(days);
-            hoursEl.textContent   = pad(hours);
-            minutesEl.textContent = pad(minutes);
-            secondsEl.textContent = pad(seconds);
+            if (daysEl)    { daysEl.textContent    = pad(days); }
+            if (hoursEl)   { hoursEl.textContent   = pad(hours); }
+            if (minutesEl) { minutesEl.textContent = pad(minutes); }
+            if (secondsEl) { secondsEl.textContent = pad(seconds); }
 
             setTimeout(tick, 1000);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            if (new Date() >= targetDate) {
+            if (new Date().getTime() >= targetDate.getTime()) {
+                // Page loaded after target time - skip countdown, reveal immediately
                 onCountdownComplete();
             } else {
                 tick();
             }
         });
 
-    })();
+    }());
+</script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const darkLogo  = document.querySelector(".dark-logo");
-        const lightLogo = document.querySelector(".light-logo");
+<script>
+    (function () {
+        "use strict";
 
-        function updateLogo() {
-            if (darkLogo)  darkLogo.style.display  = "none";
-            if (lightLogo) lightLogo.style.display = "inline";
+        // Gate all hidden initial states behind this class.
+        // Without JS, .tlm-animate and .tlm-rise elements remain
+        // fully visible - content is never lost if JS fails.
+        document.documentElement.classList.add('tlm-js');
+
+        // Graceful degradation: if IntersectionObserver is not
+        // available (very old browsers), make all animated elements
+        // immediately visible and exit.
+        if (!window.IntersectionObserver) {
+            var fallback = document.querySelectorAll('.tlm-animate, .tlm-rise');
+            for (var i = 0; i < fallback.length; i++) {
+                fallback[i].classList.add('tlm-visible');
+            }
+            return;
         }
 
-        updateLogo();
-
-        const observer = new MutationObserver(updateLogo);
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ["data-theme"]
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('tlm-visible');
+                    // Unobserve immediately - each element animates once only
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            // Fire when 15% of element is visible
+            threshold: 0.15,
+            // Trigger slightly before element hits the very bottom
+            // of the viewport for a natural "just in time" feel
+            rootMargin: '0px 0px -50px 0px'
         });
-    });
+
+        // Observe every animated element on the page
+        var targets = document.querySelectorAll('.tlm-animate, .tlm-rise');
+        targets.forEach(function (el) {
+            observer.observe(el);
+        });
+
+    }());
 </script>
 
 {% endblock %}
