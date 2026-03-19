@@ -1,0 +1,515 @@
+/* TLM - THE LAZARUS MISSIONS                                        */
+/* Light parchment theme: warm desert, aged paper, post-apocalyptic. */
+
+
+/* FONTS  */
+
+/*
+   Space Age is declared via @font-face in home.html's {% block style %}
+   using {% static %} so Django can resolve the path correctly.
+   We reference the family name here.
+*/
+
+.tlm-space-age {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+}
+
+.tlm-mono {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+
+/* BASE  */
+
+body {
+    background-color: #F2E8CE;
+    color: #1C0F02;
+}
+
+
+/* HERO - LAYOUT AND BACKGROUNDS  */
+
+/*
+   isolation: isolate creates a self-contained stacking context.
+   All child z-indexes are resolved only within the hero, so they
+   can never accidentally overlap the navbar dropdown.
+*/
+.tlm-hero {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+    background-image:
+        /* Scanlines: very subtle on light background */
+        repeating-linear-gradient(
+            0deg,
+            transparent          0px,
+            transparent          2px,
+            rgba(0, 0, 0, 0.018) 2px,
+            rgba(0, 0, 0, 0.018) 4px
+        ),
+        /* Base warm parchment gradient */
+        linear-gradient(
+            135deg,
+            #F2E8CE 0%,
+            #EDD89A 40%,
+            #F2E8CE 100%
+        );
+    background-size: 100% 4px, 100% 100%;
+    overflow: hidden;
+    animation: tlm-scanlines 14s linear infinite;
+}
+
+@keyframes tlm-scanlines {
+    from { background-position: 0 0,    0 0; }
+    to   { background-position: 0 56px, 0 0; }
+}
+
+/* Ambient warm glow - lower opacity on light background */
+.tlm-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(200, 146, 42, 0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(232, 193, 112, 0.05) 0%, transparent 50%);
+}
+
+/*
+   Grain texture - SVG fractalNoise at low opacity.
+   More effective on parchment than on dark: evokes aged paper.
+   Lives on ::after to not interfere with ::before (ambient glow).
+*/
+.tlm-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    opacity: 0.055;
+}
+
+/* Hero content sits above both pseudo-elements */
+.tlm-hero > * {
+    position: relative;
+    z-index: 3;
+}
+
+
+/* HERO - TYPOGRAPHY  */
+
+.tlm-title-the {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    color: #7A4F08;
+    letter-spacing: 0.6em;
+    line-height: 1;
+    text-indent: 0.6em; /* compensate for letter-spacing so it reads centred */
+}
+
+.tlm-title-main {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    color: #1C0F02;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    /* Stamped/pressed-ink shadow - suits parchment */
+    text-shadow: 2px 3px 0px rgba(100, 60, 5, 0.18);
+}
+
+.tlm-tagline {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: #7A4F08;
+    letter-spacing: 0.35em;
+    text-indent: 0.35em;
+    text-transform: uppercase;
+    line-height: 1.4;
+}
+
+.tlm-date-text {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #5C3A05;
+    letter-spacing: 0.08em;
+}
+
+
+/* HERO - EVENT LOGO  */
+
+.tlm-event-logo {
+    height: 80px;
+    width: auto;
+    /* If the SVG renders in a colour that doesn't suit parchment,
+       uncomment the line below to force it to near-black:
+       filter: brightness(0) saturate(0); */
+}
+
+
+/* HERO - REGISTER BUTTON  */
+
+.tlm-register-btn {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 1rem;
+    border: 1px solid #5C3A05;
+}
+
+.tlm-register-btn:hover {
+    box-shadow: 0 4px 16px rgba(122, 79, 8, 0.35);
+}
+
+
+/* HERO - DOOMSDAY COUNTDOWN  */
+
+.tlm-doomsday-label {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    color: #5C3A05;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    text-transform: uppercase;
+}
+
+.tlm-doomsday-display {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: #7A4F08;
+    letter-spacing: 0.04em;
+    /* Subtle pressed-ink on the numbers */
+    text-shadow: 1px 2px 0px rgba(100, 60, 5, 0.2);
+}
+
+.tlm-doomsday-unit {
+    font-size: 0.6em;
+    color: #5C3A05;
+    font-weight: 400;
+}
+
+.tlm-doomsday-sep {
+    display: inline-block;
+    width: 1.2em;
+}
+
+.tlm-launched-msg {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #7A4F08;
+    letter-spacing: 0.15em;
+}
+
+
+/* HERO - ORG LOGOS ROW  */
+
+.tlm-hero-org-logo {
+    height: 40px;
+    width: auto;
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+}
+
+.tlm-hero-org-logo:hover {
+    opacity: 1;
+}
+
+.tlm-org-separator {
+    width: 1px;
+    height: 36px;
+    background-color: #CCBA80;
+}
+
+
+/* SECTION TYPOGRAPHY  */
+
+.tlm-section-heading {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: #7A4F08;
+    letter-spacing: 0.05em;
+    text-shadow: 1px 2px 0px rgba(100, 60, 5, 0.15);
+    margin-bottom: 2.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+/* Amber underline bar - gradient fade left and right */
+.tlm-section-heading::after {
+    content: '';
+    position: absolute;
+    bottom: -0.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #C8922A, transparent);
+}
+
+.tlm-section-subheading {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: #7A4F08;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.tlm-subtitle {
+    font-family: 'Ubuntu', sans-serif;
+    color: #5C3A05;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+/* Pressed-ink text shadow for parchment theme */
+.tlm-glow {
+    text-shadow: 2px 3px 0px rgba(100, 60, 5, 0.2);
+}
+
+
+/* TIMELINE  */
+
+.tlm-timeline-connector {
+    background-color: #7A4F08 !important;
+    opacity: 0.35;
+}
+
+
+/* PRIZES - PODIUM  */
+
+.tlm-prize-card {
+    background-color: #E6D8A8;
+    border: 1px solid #CCBA80;
+    border-bottom: none;         /* merges visually with the platform below */
+    border-radius: 0.75rem 0.75rem 0 0;
+    padding: 1.5rem 1rem;
+    width: 160px;
+    flex-shrink: 0;
+    transition: box-shadow 0.25s ease;
+}
+
+.tlm-prize-first {
+    border-color: #7A4F08;
+    border-bottom: none;
+    box-shadow: 0 -4px 24px rgba(122, 79, 8, 0.2);
+}
+
+.tlm-prize-second {
+    border-color: #8A8A8A;
+    border-bottom: none;
+}
+
+.tlm-prize-third {
+    border-color: #8B5E3C;
+    border-bottom: none;
+}
+
+/* Trophy icon above the podium */
+.tlm-trophy-icon {
+    font-size: 4rem;
+    color: #7A4F08;
+    animation: tlm-trophy-pulse 3s ease-in-out infinite;
+}
+
+@keyframes tlm-trophy-pulse {
+    0%, 100% { color: #7A4F08; }
+    50%       { color: #C8922A; }
+}
+
+/* Crown icon on 1st place card */
+.tlm-crown-icon {
+    font-size: 2rem;
+    color: #7A4F08;
+    margin-bottom: 0.25rem;
+}
+
+/* ── Podium bases - stepped heights ── */
+
+.tlm-podium-base {
+    width: 160px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 0.25rem 0.25rem;
+}
+
+.tlm-podium-first {
+    height: 96px;
+    background: linear-gradient(180deg, #8A5E10 0%, #5C3A05 100%);
+    border: 1px solid #7A4F08;
+    border-top: none;
+    box-shadow: 0 8px 24px rgba(122, 79, 8, 0.25);
+}
+
+.tlm-podium-second {
+    height: 64px;
+    background: linear-gradient(180deg, #7A7A7A 0%, #4A4A4A 100%);
+    border: 1px solid #8A8A8A;
+    border-top: none;
+}
+
+.tlm-podium-third {
+    height: 40px;
+    background: linear-gradient(180deg, #8B5E3C 0%, #4A2A10 100%);
+    border: 1px solid #7A4A28;
+    border-top: none;
+}
+
+.tlm-podium-number {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.25rem;
+    color: rgba(242, 232, 206, 0.6);
+}
+
+/* ── Prize text ── */
+
+.tlm-prize-rank {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    color: #5C3A05;
+    margin-bottom: 0.4rem;
+}
+
+.tlm-prize-first .tlm-prize-rank {
+    font-size: 1.35rem;
+    color: #7A4F08;
+}
+
+.tlm-prize-amount {
+    font-family: 'Space Age', 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    color: #7A4F08;
+    line-height: 1.2;
+}
+
+.tlm-prize-first .tlm-prize-amount {
+    font-size: 2rem;
+}
+
+.tlm-prize-label {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #5C3A05;
+    margin-top: 0.4rem;
+}
+
+
+/* ORGANIZED BY - LOGO LINKS  */
+
+.tlm-org-logo {
+    max-width: 200px;
+    width: 100%;
+    opacity: 0.88;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.tlm-org-logo-link:hover .tlm-org-logo {
+    opacity: 1;
+    transform: scale(1.04);
+}
+
+
+/* LINKS  */
+
+.tlm-link {
+    color: #7A4F08;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+}
+
+.tlm-link:hover {
+    color: #C8922A;
+}
+
+
+/* DIVIDER  */
+
+.tlm-divider {
+    border-color: #CCBA80;
+}
+
+
+/* SCROLLBAR (webkit)  */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #F2E8CE;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #7A4F08;
+    border-radius: 3px;
+}
+
+
+/* SCROLL-TRIGGERED ENTRANCE ANIMATIONS  */
+
+/*
+   All elements are visible by default. The hidden initial state only
+   activates when the JS observer script runs successfully - gated
+   behind the .tlm-js class added to <html> by that script.
+   If JavaScript fails for any reason, all content remains visible.
+*/
+
+.tlm-js .tlm-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: var(--tlm-delay, 0ms);
+}
+
+.tlm-js .tlm-animate.tlm-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Spring-overshoot rise - for podium columns */
+.tlm-js .tlm-rise {
+    opacity: 0;
+    transform: translateY(48px);
+    transition: opacity 0.65s ease,
+                transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--tlm-delay, 0ms);
+}
+
+.tlm-js .tlm-rise.tlm-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger delays for timeline list items */
+.tlm-animate-list li.tlm-animate:nth-child(1) { --tlm-delay: 0ms;   }
+.tlm-animate-list li.tlm-animate:nth-child(2) { --tlm-delay: 150ms; }
+.tlm-animate-list li.tlm-animate:nth-child(3) { --tlm-delay: 300ms; }
+.tlm-animate-list li.tlm-animate:nth-child(4) { --tlm-delay: 450ms; }
+.tlm-animate-list li.tlm-animate:nth-child(5) { --tlm-delay: 600ms; }
+
+
+/* ACCESSIBILITY - REDUCED MOTION  */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tlm-js .tlm-animate,
+    .tlm-js .tlm-rise {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    .tlm-hero {
+        animation: none !important;
+    }
+
+    .tlm-trophy-icon {
+        animation: none !important;
+    }
+}

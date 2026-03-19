@@ -1,0 +1,590 @@
+{% extends 'tlm/base.html' %}
+{% load static %}
+
+{% block title %}The Lazarus Missions{% endblock %}
+
+{% block style %}
+
+{#  Theme: set synchronously in <head> before any CSS loads              #}
+{#  This is the definitive navbar flash fix. The script in               #}
+{#  tlm/base.html's {% block script %} is only a fallback.               #}
+<script>document.documentElement.setAttribute("data-theme","tlm");</script>
+
+{#  Fonts                                                                #}
+{#  Space Age: self-hosted. File must be at templates/static/css/SpaceAge.ttf #}
+{#  Orbitron: geometric fallback with similar proportions to Space Age   #}
+{#  JetBrains Mono: for the doomsday countdown numbers                   #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    @font-face {
+        font-family: 'Space Age';
+        src: url({% static 'css/SpaceAge.ttf' %}) format('truetype');
+        font-display: swap;
+    }
+</style>
+
+{#  TLM stylesheet  #}
+<link rel="stylesheet" href="{% static 'css/tlm.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+{#  SECTION 1 - HERO  #}
+
+<section id="tlm-hero"
+         class="tlm-hero min-h-screen w-full flex flex-col items-center justify-center py-16">
+
+    <div class="relative z-10 text-center px-6 flex flex-col items-center gap-5 w-full max-w-4xl mx-auto">
+
+        {#  Event logo - place tlm-logo.svg at templates/static/img/tlm/  #}
+        <img style="position:relative;left:16px;margin-bottom:42px;"
+             src="{% static 'img/tlm/tlm-logo.svg' %}"
+             alt="The Lazarus Missions logo"
+             class="tlm-event-logo mb-2">
+
+        {#  Title block  #}
+        <div class="flex flex-col items-center gap-1">
+            <span class="tlm-title-the">THE</span>
+            <h1 class="tlm-title-main">LAZARUS MISSIONS</h1>
+        </div>
+
+        {#  Subtitle and date  #}
+        <div class="flex flex-col items-center gap-2">
+            <p class="tlm-tagline">Nuclear Winter</p>
+            <p class="tlm-date-text">Mar 20, 2026 &ndash; Mar 24, 2026</p>
+        </div>
+
+        {#  Organizing committee logos  #}
+        <div class="flex flex-row flex-wrap items-center justify-center gap-5 mt-2">
+            <img src="{% static 'img/tlm/cis-logo.png' %}"
+                 alt="IEEE Computational Intelligence Society"
+                 class="tlm-hero-org-logo">
+            <div class="tlm-org-separator"></div>
+            <img src="{% static 'img/tlm/compsoc-logo.png' %}"
+                 alt="IEEE CompSoc NITK"
+                 class="tlm-hero-org-logo">
+            <div class="tlm-org-separator"></div>
+            <img src="{% static 'img/ieee-nitk.png' %}"
+                 alt="IEEE NITK Student Branch"
+                 class="tlm-hero-org-logo">
+        </div>
+
+        {#  Register button - REPLACE # WITH REAL REGISTRATION LINK  #}
+        <a href="#"
+        id="tlm-begin-mission-btn"
+        class="btn btn-primary tlm-register-btn mt-2"
+        style="opacity:0.5;cursor:not-allowed;"
+        onclick="return false;"
+        tabindex="-1"
+        aria-disabled="true"
+        title="the time has not come..."
+        onmouseenter="this.style.filter='grayscale(1) brightness(0.8)'"
+        onmouseleave="this.style.filter=''">
+            Begin Mission.
+        </a>
+
+{% comment %}
+        {#  Doomsday countdown  #}
+        <div class="flex flex-col items-center gap-2 mt-4">
+
+            <p id="tlm-countdown-label" class="tlm-doomsday-label">
+                Doomsday Timer
+            </p>
+
+            {#  Inline monospace countdown.                                      #}
+            {#  JS updates the four number spans (tlm-days, tlm-hours,           #}
+            {#  tlm-minutes, tlm-seconds) - the same IDs used previously,        #}
+            {#  so the countdown script requires zero changes.                   #}
+            <div id="tlm-countdown" class="tlm-doomsday-display">
+                <span id="tlm-days">--</span><span class="tlm-doomsday-unit">d</span><span class="tlm-doomsday-sep"></span>
+                <span id="tlm-hours">--</span><span class="tlm-doomsday-unit">h</span><span class="tlm-doomsday-sep"></span>
+                <span id="tlm-minutes">--</span><span class="tlm-doomsday-unit">m</span><span class="tlm-doomsday-sep"></span>
+                <span id="tlm-seconds">--</span><span class="tlm-doomsday-unit">s</span>
+            </div>
+
+            {#  Shown after countdown hits zero, hidden by default  #}
+            <p id="tlm-launched-msg" class="hidden tlm-launched-msg">
+                The missions have begun.
+            </p>
+
+        </div> {% endcomment %}
+
+    </div>
+
+</section>
+
+
+{#  SECTION 2 - MAIN CONTENT (HIDDEN UNTIL COUNTDOWN = 0)                #}
+{#                                                                       #}
+{#  This section is revealed by the countdown script when the target     #}
+{#  date is reached. Both the id and the 'hidden' class are referenced   #}
+{#  by the JavaScript in {% block script %} below.                       #}
+{#                                                                       #}
+{#  Rules:                                                               #}
+{#  1. Do NOT rename the id 'tlm-main-content'.                          #}
+{#  2. Do NOT remove the 'hidden' class manually.                        #}
+{#  3. Do NOT add inline display:none to any child elements - the        #}
+{#     reveal only removes 'hidden' from this section itself.            #}
+
+<section id="tlm-main-content" class="hidden">
+</section>
+
+
+{#  SECTION 3 - ABOUT  #}
+
+<section id="tlm-about" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">
+        What Is The Lazarus Missions?
+    </h2>
+
+    <div class="max-w-4xl mx-auto flex flex-col gap-10 text-left px-4 md:px-0" style="text-align: center;">
+
+        {#  Intro paragraph  #}
+        <p class="text-lg md:text-xl lg:text-2xl leading-relaxed tlm-animate"
+           style="--tlm-delay: 120ms">
+            <strong class="text-primary">The Lazarus Missions</strong> is IEEE NITK CompSoc's flagship
+            Machine Learning event. From March 20th, 6 PM to March 24th, 6 PM 2026, for 96 uninterrupted
+            hours, undergraduate students across the country will gather to build, test, and challenge
+            machine learning systems in the post-apocalyptic setting, with a prize pool of
+            <strong class="text-primary tlm-glow">₹25,000+</strong>.
+        </p>
+
+        {#  Tracks section  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 240ms">
+            <h3 class="tlm-section-subheading m-0">Tracks</h3>
+            <p class="text-lg md:text-xl">Participants will compete across tracks covering:</p>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>Classic Machine Learning</li>
+                <li>Natural Language Processing</li>
+                <li>Computer Vision</li>
+                <li>Reinforcement Learning</li>
+                <li>Knowledge Graphs</li>
+                <li>And more...</li>
+            </ul>
+        </div>
+
+        {#  Eligibility section  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 360ms">
+            <h3 class="tlm-section-subheading m-0">Who Can Participate</h3>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>Open to 1st, 2nd, and 3rd-year undergraduate students from all colleges.</li>
+                <li>Teams may consist of 1 to 3 members.</li>
+                <li>Inter-college and inter-specialisation teams are allowed.</li>
+                <li><strong class="text-primary">Cross-year teaming is NOT allowed.</strong></li>
+            </ul>
+        </div>
+
+        {#  Format and Scoring  #}
+        <div class="flex flex-col gap-3 tlm-animate" style="--tlm-delay: 480ms">
+            <h3 class="tlm-section-subheading m-0">Format &amp; Scoring</h3>
+            <ul class="list-disc text-lg md:text-xl pl-6 md:pl-10 space-y-2" style="list-style-type:none">
+                <li>The event runs continuously for 96 hours.</li>
+                <li>Performance will be evaluated based on total points accumulated across all tracks.</li>
+                <li><strong>Year-Wise Prizes:</strong> Top 3 teams will be chosen from 1st, 2nd, and 3rd years individually.</li>
+            </ul>
+        </div>
+
+        {#  Platform  #}
+        <p class="text-lg md:text-xl lg:text-2xl font-bold text-center mt-6 tlm-animate"
+           style="--tlm-delay: 600ms">
+            Platform to Sign-up: <span class="text-primary tlm-glow">Unstop</span>
+        </p>
+
+    </div>
+
+</section>
+
+
+{#  SECTION 4 - TIMELINE                                                 #}
+{#  Replace all [PLACEHOLDER] text with real dates and milestones.       #}
+{#  Add or remove <li> blocks to match the number of milestones.         #}
+
+<section id="tlm-timeline" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Timeline</h2>
+
+    <div class="flex justify-center mt-4">
+        <ul class="timeline timeline-vertical tlm-animate-list">
+
+            <li class="m-0 tlm-animate">
+                <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">19 Mar 26, 06:00 PM IST</div>
+                    <span>Registration Deadline</span>
+                </div>
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <hr class="tlm-timeline-connector"/>
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector"/>
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">20 Mar 26, 06:00 PM IST</div>
+                    <span>The Lazarus Missions Competition Starts</span>
+                </div>
+                <hr class="tlm-timeline-connector"/>
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector"/>
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="timeline-start text-end mb-10 mr-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">24 Mar 26, 06:00 PM IST</div>
+                    <span>The Lazarus Missions Competition Ends</span>
+                </div>
+                <hr class="tlm-timeline-connector"/>
+            </li>
+
+            <li class="m-0 tlm-animate">
+                <hr class="tlm-timeline-connector"/>
+                <div class="timeline-middle text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                         fill="currentColor" class="h-5 w-5" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16"
+                              clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="timeline-end mb-10 ml-4 text-lg md:text-xl">
+                    <div class="font-bold text-primary">24 Mar 26, 06:00 PM IST</div>
+                    <span>Evaluation Stage Starts</span>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
+</section>
+
+{% comment %}
+{#  SECTION 5 - PRIZES                                                   #}
+{#  Replace [₹?] with real amounts when confirmed.                       #}
+
+<section id="tlm-prizes" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Prizes</h2>
+
+    <div class="flex justify-center mb-8 tlm-animate" style="--tlm-delay: 80ms">
+        <span class="material-symbols-outlined tlm-trophy-icon">emoji_events</span>
+    </div>
+
+    {#  Podium: 2nd | 1st | 3rd. items-end aligns bases to the bottom.  #}
+    {#  3rd rises first (delay 0), 2nd second (150ms), 1st last (300ms).  #}
+    <div class="podium flex flex-row flex-wrap justify-center items-end gap-2">
+
+        {#  2nd place  #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 150ms">
+            <div class="tlm-prize-card tlm-prize-second flex flex-col items-center">
+                <span class="tlm-prize-rank">2<sup>nd</sup></span>
+                <span class="tlm-prize-amount">[₹?]</span>
+                <span class="tlm-prize-label">Runner Up</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-second">
+                <span class="tlm-podium-number">2</span>
+            </div>
+        </div>
+
+        {#  1st place - centre  #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 300ms">
+            <div class="tlm-prize-card tlm-prize-first flex flex-col items-center">
+                <span class="material-symbols-outlined tlm-crown-icon">workspace_premium</span>
+                <span class="tlm-prize-rank">1<sup>st</sup></span>
+                <span class="tlm-prize-amount tlm-glow">[₹?]</span>
+                <span class="tlm-prize-label">Winner</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-first">
+                <span class="tlm-podium-number">1</span>
+            </div>
+        </div>
+
+        {#  3rd place - rises first  #}
+        <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 0ms">
+            <div class="tlm-prize-card tlm-prize-third flex flex-col items-center">
+                <span class="tlm-prize-rank">3<sup>rd</sup></span>
+                <span class="tlm-prize-amount">[₹?]</span>
+                <span class="tlm-prize-label">Second Runner Up</span>
+            </div>
+            <div class="tlm-podium-base tlm-podium-third">
+                <span class="tlm-podium-number">3</span>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="mt-10 text-lg md:text-xl tlm-animate" style="--tlm-delay: 400ms">
+        All participants will also receive a
+        <strong class="text-primary">Participation Certificate</strong>.
+    </p>
+
+</section> {% endcomment %}
+
+
+{#  SECTION 6 - ORGANIZED BY  #}
+
+<section id="tlm-organized-by" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Organized By</h2>
+
+    <div class="flex flex-wrap justify-center items-center gap-12 mt-6">
+        <a href="https://cis.ieee.org/" class="tlm-org-logo-link tlm-animate"
+           style="--tlm-delay: 0ms">
+            <img src="{% static 'img/tlm/cis-logo.png' %}"
+                 alt="IEEE Computational Intelligence Society"
+                 class="tlm-org-logo">
+        </a>
+        <a href="https://ieee.nitk.ac.in/sig/compsoc/"
+           class="tlm-org-logo-link tlm-animate"
+           style="--tlm-delay: 150ms">
+            <img src="{% static 'img/tlm/compsoc-logo.png' %}"
+                 alt="CompSoc IEEE NITK"
+                 class="tlm-org-logo">
+        </a>
+        <a href="https://ieee.nitk.ac.in/"
+           class="tlm-org-logo-link tlm-animate"
+           style="--tlm-delay: 300ms">
+            <img src="{% static 'img/ieee-nitk.png' %}"
+                 alt="IEEE NITK Student Branch"
+                 class="tlm-org-logo">
+        </a>
+    </div>
+
+    <div class="max-w-3xl mx-auto mt-12">
+        <h3 class="tlm-section-subheading tlm-animate"
+            style="--tlm-delay: 100ms">About CompSoc</h3>
+        <p class="text-lg md:text-xl leading-relaxed tlm-animate"
+           style="--tlm-delay: 200ms">
+            The CompSoc IEEE NITK Student Branch is a vibrant community of students
+            passionate about Computer Science. We aim to foster a culture of learning
+            and exploration of diverse technologies - Algorithms, Systems, Machine
+            Learning, Development, Web3, and many more. Through peer discussions and
+            a variety of events including Knowledge Sharing Sessions, CTFs, and
+            Hackathons, we strive to inspire curiosity and collaboration among our members.
+        </p>
+    </div>
+
+</section>
+
+
+{#  SECTION 7 - CONTACT                                                  #}
+{#  Replace all [PLACEHOLDER] entries with real organizer details.       #}
+{#  Copy the contact block to add more people.                           #}
+
+<section id="tlm-contact" class="w-full bg-base-100 px-8 lg:px-40 py-16 text-center">
+
+    <h2 class="tlm-section-heading tlm-animate">Contact Us</h2>
+
+    <div class="flex flex-col items-center gap-8 mt-6">
+
+        {#  ── Organizer - copy this block for each additional contact ──  #}
+        <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
+             style="--tlm-delay: 0ms">
+            <strong class="text-primary">Swaraj</strong>
+            <a class="tlm-link break-all">
+                +91 94497 87896
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
+             style="--tlm-delay: 150ms">
+            <strong class="text-primary">Jayanth</strong>
+            <a class="tlm-link break-all">
+                +91 74830 17553
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+{#  Logo correction                                                      #}
+{#  Forces the correct navbar logo for the TLM light theme.              #}
+{#  On a light-themed page, we want the coloured IEEE NITK logo, not     #}
+{#  the white version. The MutationObserver re-runs if data-theme changes. #}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var darkLogo  = document.querySelector(".dark-logo");
+        var lightLogo = document.querySelector(".light-logo");
+
+        function updateLogo() {
+            // TLM is a light theme - show the coloured logo (light-logo
+            // is the one shown on light backgrounds in the corpus navbar)
+            if (darkLogo)  { darkLogo.style.display  = "none";   }
+            if (lightLogo) { lightLogo.style.display = "inline"; }
+        }
+
+        updateLogo();
+
+        var observer = new MutationObserver(updateLogo);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-theme"]
+        });
+    });
+</script>
+
+{% endblock %}
+
+
+{% block script %}
+{{ block.super }}
+
+{#  Countdown script  #}
+<script>
+    (function () {
+        "use strict";
+
+        // Target: 20 March 2026 00:00:00 IST (UTC+05:30)
+        // To test reveal: temporarily set to a past date, verify
+        // #tlm-main-content loses its 'hidden' class in DevTools,
+        // then restore this value before committing.
+        var targetDate = new Date('2026-03-20T00:00:00+05:30');
+
+        var daysEl      = document.getElementById('tlm-days');
+        var hoursEl     = document.getElementById('tlm-hours');
+        var minutesEl   = document.getElementById('tlm-minutes');
+        var secondsEl   = document.getElementById('tlm-seconds');
+        var labelEl     = document.getElementById('tlm-countdown-label');
+        var launchedEl  = document.getElementById('tlm-launched-msg');
+        var mainContent = document.getElementById('tlm-main-content');
+        var countdownEl = document.getElementById('tlm-countdown');
+
+        function pad(n) {
+            return n < 10 ? '0' + n : String(n);
+        }
+
+        function revealMainContent() {
+            if (mainContent) {
+                mainContent.classList.remove('hidden');
+            }
+        }
+
+        function onCountdownComplete() {
+            if (countdownEl) { countdownEl.classList.add('hidden'); }
+            if (labelEl)     { labelEl.classList.add('hidden'); }
+            if (launchedEl)  { launchedEl.classList.remove('hidden'); }
+            revealMainContent();
+        }
+
+        function tick() {
+            var now  = new Date();
+            var diff = targetDate.getTime() - now.getTime();
+
+            if (diff <= 0) {
+                onCountdownComplete();
+                return;
+            }
+
+            var totalSeconds = Math.floor(diff / 1000);
+            var days    = Math.floor(totalSeconds / 86400);
+            var hours   = Math.floor((totalSeconds % 86400) / 3600);
+            var minutes = Math.floor((totalSeconds % 3600) / 60);
+            var seconds = totalSeconds % 60;
+
+            if (daysEl)    { daysEl.textContent    = pad(days);    }
+            if (hoursEl)   { hoursEl.textContent   = pad(hours);   }
+            if (minutesEl) { minutesEl.textContent = pad(minutes); }
+            if (secondsEl) { secondsEl.textContent = pad(seconds); }
+
+            setTimeout(tick, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (new Date().getTime() >= targetDate.getTime()) {
+                onCountdownComplete();
+            } else {
+                tick();
+            }
+        });
+
+    }());
+</script>
+
+{#  Scroll-triggered entrance animations  #}
+<script>
+    (function () {
+        "use strict";
+
+        // Gate hidden initial states behind this class.
+        // Without JS, .tlm-animate and .tlm-rise are fully visible.
+        document.documentElement.classList.add('tlm-js');
+
+        // Graceful degradation for very old browsers
+        if (!window.IntersectionObserver) {
+            var fallback = document.querySelectorAll('.tlm-animate, .tlm-rise');
+            for (var i = 0; i < fallback.length; i++) {
+                fallback[i].classList.add('tlm-visible');
+            }
+            return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('tlm-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        var targets = document.querySelectorAll('.tlm-animate, .tlm-rise');
+        targets.forEach(function (el) {
+            observer.observe(el);
+        });
+
+    }());
+</script>
+<script>
+    (function () {
+        var target = new Date('2026-03-20T18:00:00+05:30');
+        var btn = document.getElementById('tlm-begin-mission-btn');
+
+        function update() {
+            if (!btn) return;
+            if (new Date().getTime() >= target.getTime()) {
+                btn.style.opacity = '';
+                btn.style.cursor = '';
+                btn.removeAttribute('tabindex');
+                btn.removeAttribute('aria-disabled');
+                btn.removeAttribute('title');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            update();
+            setInterval(update, 1000);
+        });
+    })();
+</script>
+
+{% endblock %}
