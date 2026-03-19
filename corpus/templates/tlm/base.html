@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}The Lazarus Mission{% endblock %}
+{% block title %}The Lazarus Missions{% endblock %}
 
 {% block dark_mode_toggle %}
-{# TLM forces its own permanent theme. Remove the toggle entirely. #}
+{#  TLM forces its own permanent light theme. The global toggle is removed.  #}
 {% endblock %}
 
 {% block script %}
 {{ block.super }}
 <script>
-    // No delay needed — dark_mode_toggle no longer conflicts
+    // Belt-and-suspenders fallback. The primary theme-set is the
+    // synchronous inline script inside the style block in home.html,
+    // which runs in <head> before any CSS or body renders.
+    // This fallback handles any edge-case where that script didn't fire.
     document.documentElement.setAttribute("data-theme", "tlm");
 </script>
 {% endblock %}
