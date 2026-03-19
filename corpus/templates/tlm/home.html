@@ -9,28 +9,160 @@
 
 {% block content %}
 
-{# ─── HERO SECTION ───────────────────────────────── #}
-<section id="tlm-hero" class="tlm-hero min-h-screen flex items-center justify-center">
-    <div class="text-center px-4">
-        <h1 class="tlm-title text-5xl md:text-7xl lg:text-8xl mb-4 tlm-glow">
+{# ═══════════════════════════════════════════════════════ #}
+{#  HERO SECTION                                           #}
+{# ═══════════════════════════════════════════════════════ #}
+
+<section id="tlm-hero" class="tlm-hero min-h-screen flex flex-col items-center justify-center">
+    <div class="relative z-10 text-center px-4 flex flex-col items-center gap-6">
+
+        {# Event title #}
+        <h1 class="tlm-title text-5xl md:text-7xl lg:text-8xl tlm-glow">
             The Lazarus Mission
         </h1>
-        <p class="tlm-subtitle text-lg md:text-xl mb-8">
-            A placeholder tagline — replace me
+
+        {# Tagline - to be with real copy when confirmed #}
+        <p class="tlm-subtitle text-base md:text-xl tracking-widest">
+            blah blah blah idk
         </p>
+
+        {#  Countdown  #}
+        <div class="flex flex-col items-center gap-3 mt-4">
+            <p id="tlm-countdown-label" class="tlm-subtitle text-sm tracking-widest">
+                Event begins in
+            </p>
+
+            {# Countdown boxes : JS populates the spans #}
+            <div id="tlm-countdown" class="flex flex-row gap-3 justify-center">
+                <div class="tlm-countdown-box flex flex-col items-center">
+                    <span id="tlm-days" class="tlm-countdown-number">--</span>
+                    <span class="tlm-countdown-label">Days</span>
+                </div>
+                <div class="tlm-countdown-box flex flex-col items-center">
+                    <span id="tlm-hours" class="tlm-countdown-number">--</span>
+                    <span class="tlm-countdown-label">Hours</span>
+                </div>
+                <div class="tlm-countdown-box flex flex-col items-center">
+                    <span id="tlm-minutes" class="tlm-countdown-number">--</span>
+                    <span class="tlm-countdown-label">Min</span>
+                </div>
+                <div class="tlm-countdown-box flex flex-col items-center">
+                    <span id="tlm-seconds" class="tlm-countdown-number">--</span>
+                    <span class="tlm-countdown-label">Sec</span>
+                </div>
+            </div>
+
+            {# Message shown after countdown hits zero - hidden by default #}
+            <p id="tlm-launched-msg"
+               class="hidden tlm-subtitle text-lg tracking-widest text-accent">
+                The mission has begun.
+            </p>
+        </div>
+
     </div>
 </section>
 
-{# ─── MAIN CONTENT (hidden until countdown = 0) ──── #}
-{# !! DO NOT EDIT THIS SECTION — teammate responsibility !! #}
+
+{# ═══════════════════════════════════════════════════════ #}
+{#  MAIN CONTENT SECTION                                   #}
+{#  !! DO NOT EDIT THIS SECTION !!                         #}
+{#  Hidden via the 'hidden' Tailwind class.                #}
+{#  The countdown JS removes this class when T = 0.        #}
+{#  The id 'tlm-main-content' is referenced in JS —        #}
+{#  do not rename it.                                      #}
+{# ═══════════════════════════════════════════════════════ #}
+
 <section id="tlm-main-content" class="hidden">
-    {# Teammate fills this section in entirely #}
-</section>
-{# !! END TEAMMATE SECTION !! #}
-
-{# ─── INTRO SECTIONS ─────────────────────────────── #}
-<section id="tlm-intro" class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
-    <p class="tlm-subtitle">Intro sections — coming in Phase 6</p>
+    {# fill in the details here pls #}
 </section>
 
+{# ═══════════════════════════════════════════════════════ #}
+{#  INTRO SECTION                                          #}
+{# ═══════════════════════════════════════════════════════ #}
+<section id="tlm-intro">
+    <p class="tlm-subtitle text-center py-20">
+        yabadabdoo!!
+    </p>
+</section>
+
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+    (function () {
+        // note that this is wrong and i just randomly picked a date so this has to be changed
+        const targetDate = new Date('2026-03-21T00:00:00+05:30');
+
+        const daysEl      = document.getElementById('tlm-days');
+        const hoursEl     = document.getElementById('tlm-hours');
+        const minutesEl   = document.getElementById('tlm-minutes');
+        const secondsEl   = document.getElementById('tlm-seconds');
+        const labelEl     = document.getElementById('tlm-countdown-label');
+        const launchedEl  = document.getElementById('tlm-launched-msg');
+        const mainContent = document.getElementById('tlm-main-content');
+
+        // to pad single digit nums with leading 0
+        function pad(n) {
+            return String(n).padStart(2, '0');
+        }
+
+        function revealMainContent() {
+            if (mainContent) {
+                mainContent.classList.remove('hidden');
+            }
+        }
+
+        function onCountdownComplete() {
+            document.getElementById('tlm-countdown').classList.add('hidden');
+
+            // this hides the "Event begins in" label
+            if (labelEl)
+                labelEl.classList.add('hidden');
+
+            // this will show the launch message
+            if (launchedEl)
+                launchedEl.classList.remove('hidden');
+
+            revealMainContent();
+        }
+
+        function tick() {
+            const now  = new Date();
+            const diff = targetDate - now; // milliseconds remaining
+
+            // if we've already passed the target time
+            if (diff <= 0) {
+                onCountdownComplete();
+                return; // stop ticking
+            }
+
+            const totalSeconds = Math.floor(diff / 1000);
+            const days    = Math.floor(totalSeconds / 86400);
+            const hours   = Math.floor((totalSeconds % 86400) / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+
+            daysEl.textContent    = pad(days);
+            hoursEl.textContent   = pad(hours);
+            minutesEl.textContent = pad(minutes);
+            secondsEl.textContent = pad(seconds);
+
+            // Schedule next tick in 1 second
+            setTimeout(tick, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // check immediately because if page loads after the target time
+            // then skip the countdown  and reveal content right away
+            if (new Date() >= targetDate) {
+                onCountdownComplete();
+            } else {
+                tick();
+            }
+        });
+
+    })(); //this entire thing is an IIFE because im da goat
+</script>
 {% endblock %}
