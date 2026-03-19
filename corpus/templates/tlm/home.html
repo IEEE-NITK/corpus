@@ -14,7 +14,7 @@
 {# ═══════════════════════════════════════════════════════ #}
 
 <section id="tlm-hero" class="tlm-hero min-h-screen flex flex-col items-center justify-center">
-    <div class="relative z-10 text-center px-4 flex flex-col items-center gap-6">
+    <div class="relative z-0 text-center px-4 flex flex-col items-center gap-6">
 
         {# Event title #}
         <h1 class="tlm-title text-5xl md:text-7xl lg:text-8xl tlm-glow">
@@ -88,11 +88,11 @@
 
 {% endblock %}
 
-
 {% block script %}
+{{ block.super }}
+
 <script>
     (function () {
-        // note that this is wrong and i just randomly picked a date so this has to be changed
         const targetDate = new Date('2026-03-21T00:00:00+05:30');
 
         const daysEl      = document.getElementById('tlm-days');
@@ -103,7 +103,6 @@
         const launchedEl  = document.getElementById('tlm-launched-msg');
         const mainContent = document.getElementById('tlm-main-content');
 
-        // to pad single digit nums with leading 0
         function pad(n) {
             return String(n).padStart(2, '0');
         }
@@ -115,27 +114,20 @@
         }
 
         function onCountdownComplete() {
-            document.getElementById('tlm-countdown').classList.add('hidden');
-
-            // this hides the "Event begins in" label
-            if (labelEl)
-                labelEl.classList.add('hidden');
-
-            // this will show the launch message
-            if (launchedEl)
-                launchedEl.classList.remove('hidden');
-
+            const countdownEl = document.getElementById('tlm-countdown');
+            if (countdownEl) countdownEl.classList.add('hidden');
+            if (labelEl) labelEl.classList.add('hidden');
+            if (launchedEl) launchedEl.classList.remove('hidden');
             revealMainContent();
         }
 
         function tick() {
             const now  = new Date();
-            const diff = targetDate - now; // milliseconds remaining
+            const diff = targetDate - now;
 
-            // if we've already passed the target time
             if (diff <= 0) {
                 onCountdownComplete();
-                return; // stop ticking
+                return;
             }
 
             const totalSeconds = Math.floor(diff / 1000);
@@ -149,13 +141,10 @@
             minutesEl.textContent = pad(minutes);
             secondsEl.textContent = pad(seconds);
 
-            // Schedule next tick in 1 second
             setTimeout(tick, 1000);
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            // check immediately because if page loads after the target time
-            // then skip the countdown  and reveal content right away
             if (new Date() >= targetDate) {
                 onCountdownComplete();
             } else {
@@ -163,6 +152,25 @@
             }
         });
 
-    })(); //this entire thing is an IIFE because im da goat
+    })();
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const darkLogo  = document.querySelector(".dark-logo");
+        const lightLogo = document.querySelector(".light-logo");
+
+        function updateLogo() {
+            if (darkLogo)  darkLogo.style.display  = "none";
+            if (lightLogo) lightLogo.style.display = "inline";
+        }
+
+        updateLogo();
+
+        const observer = new MutationObserver(updateLogo);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["data-theme"]
+        });
+    });
 </script>
+
 {% endblock %}

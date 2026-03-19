@@ -2,15 +2,14 @@
 
 {% block title %}The Lazarus Mission{% endblock %}
 
+{% block dark_mode_toggle %}
+{# TLM forces its own permanent theme. Remove the toggle entirely. #}
+{% endblock %}
+
 {% block script %}
+{{ block.super }}
 <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-        await new Promise(r => setTimeout(r, 100));
-
-        const themeButton = document.getElementById("dark-mode-button");
-        if (themeButton) themeButton.remove();
-
-        document.documentElement.setAttribute("data-theme", "tlm");
-    });
+    // No delay needed — dark_mode_toggle no longer conflicts
+    document.documentElement.setAttribute("data-theme", "tlm");
 </script>
 {% endblock %}

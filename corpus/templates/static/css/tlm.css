@@ -26,7 +26,11 @@ body {
         #1A1208 100%
     );
     overflow: hidden;
+
+    /* Prevent hero from competing with navbar dropdown z-index */
+    z-index: 0;
 }
+
 
 .tlm-hero::before {
     content: '';
