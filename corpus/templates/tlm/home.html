@@ -34,14 +34,14 @@
 
 {% block content %}
 
-{#  SECTION 1 — HERO  #}
+{#  SECTION 1 - HERO  #}
 
 <section id="tlm-hero"
          class="tlm-hero min-h-screen w-full flex flex-col items-center justify-center py-16">
 
     <div class="relative z-10 text-center px-6 flex flex-col items-center gap-5 w-full max-w-4xl mx-auto">
 
-        {#  Event logo — place tlm-logo.svg at templates/static/img/tlm/  #}
+        {#  Event logo - place tlm-logo.svg at templates/static/img/tlm/  #}
         <img style="position:relative;left:16px;margin-bottom:42px;"
              src="{% static 'img/tlm/tlm-logo.svg' %}"
              alt="The Lazarus Missions logo"
@@ -74,8 +74,17 @@
                  class="tlm-hero-org-logo">
         </div>
 
-        {#  Register button — REPLACE # WITH REAL REGISTRATION LINK  #}
-        <a href="#" class="btn btn-primary tlm-register-btn mt-2">
+        {#  Register button - REPLACE # WITH REAL REGISTRATION LINK  #}
+        <a href="#"
+        id="tlm-begin-mission-btn"
+        class="btn btn-primary tlm-register-btn mt-2"
+        style="opacity:0.5;cursor:not-allowed;"
+        onclick="return false;"
+        tabindex="-1"
+        aria-disabled="true"
+        title="Available at 6 PM, March 20 (IST)"
+        onmouseenter="this.style.filter='grayscale(1) brightness(0.8)'"
+        onmouseleave="this.style.filter=''">
             Begin Mission.
         </a>
 
@@ -89,7 +98,7 @@
 
             {#  Inline monospace countdown.                                      #}
             {#  JS updates the four number spans (tlm-days, tlm-hours,           #}
-            {#  tlm-minutes, tlm-seconds) — the same IDs used previously,        #}
+            {#  tlm-minutes, tlm-seconds) - the same IDs used previously,        #}
             {#  so the countdown script requires zero changes.                   #}
             <div id="tlm-countdown" class="tlm-doomsday-display">
                 <span id="tlm-days">--</span><span class="tlm-doomsday-unit">d</span><span class="tlm-doomsday-sep"></span>
@@ -110,9 +119,7 @@
 </section>
 
 
-{#  SECTION 2 — MAIN CONTENT (HIDDEN UNTIL COUNTDOWN = 0)                #}
-{#                                                                       #}
-{#  !! TEAMMATE TERRITORY — DO NOT EDIT THIS SECTION !!                  #}
+{#  SECTION 2 - MAIN CONTENT (HIDDEN UNTIL COUNTDOWN = 0)                #}
 {#                                                                       #}
 {#  This section is revealed by the countdown script when the target     #}
 {#  date is reached. Both the id and the 'hidden' class are referenced   #}
@@ -121,14 +128,14 @@
 {#  Rules:                                                               #}
 {#  1. Do NOT rename the id 'tlm-main-content'.                          #}
 {#  2. Do NOT remove the 'hidden' class manually.                        #}
-{#  3. Do NOT add inline display:none to any child elements — the        #}
+{#  3. Do NOT add inline display:none to any child elements - the        #}
 {#     reveal only removes 'hidden' from this section itself.            #}
 
 <section id="tlm-main-content" class="hidden">
 </section>
 
 
-{#  SECTION 3 — ABOUT  #}
+{#  SECTION 3 - ABOUT  #}
 
 <section id="tlm-about" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
 
@@ -194,7 +201,7 @@
 </section>
 
 
-{#  SECTION 4 — TIMELINE                                                 #}
+{#  SECTION 4 - TIMELINE                                                 #}
 {#  Replace all [PLACEHOLDER] text with real dates and milestones.       #}
 {#  Add or remove <li> blocks to match the number of milestones.         #}
 
@@ -277,7 +284,7 @@
 </section>
 
 {% comment %}
-{#  SECTION 5 — PRIZES                                                   #}
+{#  SECTION 5 - PRIZES                                                   #}
 {#  Replace [₹?] with real amounts when confirmed.                       #}
 
 <section id="tlm-prizes" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
@@ -304,7 +311,7 @@
             </div>
         </div>
 
-        {#  1st place — centre  #}
+        {#  1st place - centre  #}
         <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 300ms">
             <div class="tlm-prize-card tlm-prize-first flex flex-col items-center">
                 <span class="material-symbols-outlined tlm-crown-icon">workspace_premium</span>
@@ -317,7 +324,7 @@
             </div>
         </div>
 
-        {#  3rd place — rises first  #}
+        {#  3rd place - rises first  #}
         <div class="flex flex-col items-center tlm-rise" style="--tlm-delay: 0ms">
             <div class="tlm-prize-card tlm-prize-third flex flex-col items-center">
                 <span class="tlm-prize-rank">3<sup>rd</sup></span>
@@ -339,7 +346,7 @@
 </section> {% endcomment %}
 
 
-{#  SECTION 6 — ORGANIZED BY  #}
+{#  SECTION 6 - ORGANIZED BY  #}
 
 <section id="tlm-organized-by" class="w-full bg-base-200 px-8 lg:px-40 py-16 text-center">
 
@@ -385,7 +392,7 @@
 </section>
 
 
-{#  SECTION 7 — CONTACT                                                  #}
+{#  SECTION 7 - CONTACT                                                  #}
 {#  Replace all [PLACEHOLDER] entries with real organizer details.       #}
 {#  Copy the contact block to add more people.                           #}
 
@@ -427,7 +434,7 @@
         var lightLogo = document.querySelector(".light-logo");
 
         function updateLogo() {
-            // TLM is a light theme — show the coloured logo (light-logo
+            // TLM is a light theme - show the coloured logo (light-logo
             // is the one shown on light backgrounds in the corpus navbar)
             if (darkLogo)  { darkLogo.style.display  = "none";   }
             if (lightLogo) { lightLogo.style.display = "inline"; }
@@ -556,6 +563,28 @@
         });
 
     }());
+</script>
+<script>
+    (function () {
+        var target = new Date('2026-03-20T18:00:00+05:30');
+        var btn = document.getElementById('tlm-begin-mission-btn');
+
+        function update() {
+            if (!btn) return;
+            if (new Date().getTime() >= target.getTime()) {
+                btn.style.opacity = '';
+                btn.style.cursor = '';
+                btn.removeAttribute('tabindex');
+                btn.removeAttribute('aria-disabled');
+                btn.removeAttribute('title');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            update();
+            setInterval(update, 1000);
+        });
+    })();
 </script>
 
 {% endblock %}
