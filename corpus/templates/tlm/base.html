@@ -9,6 +9,12 @@
 {% block script %}
 {{ block.super }}
 <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        await new Promise(r => setTimeout(r, 100));
+        const themeButton = document.getElementById("dark-mode-button");
+        if (themeButton) themeButton.remove();
+        document.documentElement.setAttribute("data-theme", "tlm");
+    });
     // Belt-and-suspenders fallback. The primary theme-set is the
     // synchronous inline script inside the style block in home.html,
     // which runs in <head> before any CSS or body renders.
@@ -16,3 +22,7 @@
     document.documentElement.setAttribute("data-theme", "tlm");
 </script>
 {% endblock %}
+
+
+
+    

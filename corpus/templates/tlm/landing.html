@@ -1,391 +1,240 @@
 {% extends 'tlm/base.html' %}
 {% load static %}
 
-{% block title %} The Lazarus Missions
-{% endblock %}
+{% block title %}The Lazarus Missions{% endblock %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/tlm.css' %}">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+{#  Set theme synchronously in <head> — prevents any flash of wrong theme  #}
+<script>document.documentElement.setAttribute("data-theme","tlm");</script>
+
+{#  Fonts                                                                  #}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-  /* ── LOGO FIX ──
-     The navbar shows both dark-logo and light-logo and swaps them via JS after
-     data-theme is set. Under TLM the theme is always light (gold bg), so we
-     always want the white (light-logo) version. Hide dark-logo immediately so
-     it never flashes, without waiting for the JS swap. */
-  [data-theme="tlm"] .dark-logo,
-  .dark-logo {
-    display: none !important;
-  }
-  [data-theme="tlm"] .light-logo,
-  .light-logo {
-    display: inline !important;
-  }
+    @font-face {
+        font-family: 'Space Age';
+        src: url({% static 'css/SpaceAge.ttf' %}) format('truetype');
+        font-display: swap;
+    }
 
-  :root {
-    --tlm-sand: #e8c97a;
-    --tlm-sand-light: #f0d898;
-    --tlm-sand-dark: #c9a84c;
-    --tlm-sepia: #3a2d10;
-    --tlm-red: #c0392b;
-    --tlm-red-glow: #e74c3c;
-    --tlm-dark: #1a1208;
-    --tlm-track-border: #a07830;
-  }
+    /* ── LOGO FIX ──
+       TLM is always a light theme. Show the coloured logo immediately,
+       before the async data-theme swap in base.html fires.             */
+    .dark-logo  { display: none   !important; }
+    .light-logo { display: inline !important; }
 
-  body, .tlm-page {
-    background-color: var(--tlm-sand);
-    color: var(--tlm-sepia);
-    font-family: 'Special Elite', serif;
-  }
+    /* ── TRACKS SECTION LAYOUT ──
+       Top row: 3 cards filling the container width.
+       Bottom row: 1 card centred, same size as a top-row card.        */
 
-  /* ── HERO ── */
-  .tlm-hero {
-    background-color: var(--tlm-sand);
-    text-align: center;
-    padding: 2.5rem 1rem 1rem;
-    position: relative;
-  }
+    .tlm-landing-tracks-section {
+        padding: 2.5rem 2rem 2rem;
+        text-align: center;
+    }
 
-  .tlm-logo-icon {
-    width: 48px;
-    margin: 0 auto 0.5rem;
-    /* PLACEHOLDER: Replace with actual TLM circular icon/logo */
-  }
+    .tlm-tracks-top-row,
+    .tlm-tracks-bottom-row {
+        display: flex;
+        justify-content: center;
+        gap: 1.25rem;
+        max-width: 960px;
+        margin: 0 auto;
+    }
 
-  .tlm-title-the {
-    font-family: 'Special Elite', serif;
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--tlm-sepia);
-    margin: 0;
-  }
+    .tlm-tracks-top-row {
+        margin-bottom: 1.25rem;
+    }
 
-  .tlm-title-lazarus {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.5rem, 12vw, 7rem);
-    line-height: 0.85;
-    letter-spacing: 0.06em;
-    color: var(--tlm-sepia);
-    margin: 0;
-    text-transform: uppercase;
-  }
+    /* Top-row cards grow equally, maintain 3:4 ratio */
+    .tlm-tracks-top-row .tlm-track-card {
+        flex: 1 1 0;
+        max-width: 300px;
+        width: auto;
+        height: auto;
+        aspect-ratio: 3 / 4;
+    }
 
-  .tlm-title-missions {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.8rem, 6vw, 3.5rem);
-    letter-spacing: 0.25em;
-    color: var(--tlm-sepia);
-    margin: 0;
-    text-transform: uppercase;
-  }
+    /* Bottom-row single card — same computed width as top cards */
+    .tlm-tracks-bottom-row .tlm-track-card {
+        width: 280px;
+        height: auto;
+        aspect-ratio: 3 / 4;
+    }
 
-  .tlm-subtitle {
-    font-family: 'Special Elite', serif;
-    font-size: clamp(0.75rem, 1.8vw, 1rem);
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--tlm-sepia);
-    margin: 0.4rem 0 0.2rem;
-  }
+    /* Responsive */
+    @media (max-width: 720px) {
+        .tlm-tracks-top-row { flex-wrap: wrap; }
+        .tlm-tracks-top-row .tlm-track-card {
+            flex: 0 0 calc(50% - 0.75rem);
+            max-width: none;
+            width: auto;
+        }
+    }
 
-  .tlm-dates {
-    font-family: 'Special Elite', serif;
-    font-size: clamp(0.65rem, 1.5vw, 0.85rem);
-    letter-spacing: 0.2em;
-    color: var(--tlm-sepia);
-    opacity: 0.8;
-    margin-bottom: 1rem;
-  }
+    @media (max-width: 480px) {
+        .tlm-tracks-top-row .tlm-track-card,
+        .tlm-tracks-bottom-row .tlm-track-card {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+    }
 
-  /* Organiser logos row */
-  .tlm-org-logos {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
-    flex-wrap: wrap;
-    margin: 0.6rem 0 0;
-  }
-
-  .tlm-org-logos img {
-    height: 36px;
-    width: auto;
-    /* PLACEHOLDER: Replace each with actual organiser logo */
-  }
-
-  /* ── TRACKS ── */
-  .tlm-tracks-section {
-    background-color: var(--tlm-sand);
-    text-align: center;
-    padding: 1.2rem 1rem 0.5rem;
-  }
-
-  .tlm-section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    letter-spacing: 0.15em;
-    color: var(--tlm-sepia);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
-
-  .tlm-tracks-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  /* Portrait 3:4 card */
-  .tlm-track-card {
-    position: relative;
-    width: 180px;
-    height: 240px;       /* 3:4 — width:height = 180:240 */
-    border: 2px solid var(--tlm-track-border);
-    overflow: hidden;
-    box-shadow: 4px 4px 0 var(--tlm-sepia);
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-
-  .tlm-track-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: sepia(55%) brightness(0.85) contrast(1.05);
-    transition: transform 0.4s ease, filter 0.4s ease;
-    /* PLACEHOLDER: Replace src with actual track images */
-  }
-
-  .tlm-track-card:hover img {
-    filter: grayscale(100%) brightness(0.7) contrast(1.15);
-    transform: scale(1.1);
-  }
-
-  /* Dark gradient covering the full card — heavier at bottom and left edge */
-  .tlm-track-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to right,  rgba(10,8,2,0.55) 0%, transparent 45%),
-      linear-gradient(to top,    rgba(10,8,2,0.65) 0%, transparent 40%);
-    pointer-events: none;
-  }
-
-  /* Track name — rotated 90° CCW, pinned to the left side */
-  .tlm-track-name {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-    transform-origin: center center;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.12em;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    white-space: nowrap;
-    /* nudge so it sits flush in the left dark strip */
-    margin-left: -2px;
-  }
-
-  /* Points — bottom-right corner */
-  .tlm-track-pts {
-    position: absolute;
-    bottom: 0.4rem;
-    right: 0.5rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.08em;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
-  }
-
-  @media (max-width: 480px) {
-    .tlm-track-card { width: 140px; height: 187px; }
-  }
-
-  /* ── DOOMSDAY TIMER ── */
-  .tlm-timer-section {
-    background-color: var(--tlm-sand);
-    text-align: center;
-    padding: 1.4rem 1rem 2.5rem;
-  }
-
-  .tlm-timer-label {
-    font-family: 'Special Elite', serif;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    letter-spacing: 0.12em;
-    color: var(--tlm-sepia);
-    margin-bottom: 0.4rem;
-  }
-
-  .tlm-timer-display {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: clamp(2rem, 8vw, 3.8rem);
-    color: var(--tlm-red-glow);
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 18px rgba(192, 57, 43, 0.55);
-    animation: pulseglow 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulseglow {
-    0%, 100% { text-shadow: 0 0 16px rgba(192,57,43,0.5); }
-    50% { text-shadow: 0 0 32px rgba(231,76,60,0.9), 0 0 8px rgba(231,76,60,0.6); }
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 480px) {
-    .tlm-track-card { width: 140px; height: 112px; }
-  }
+    /* ── TIMER SECTION ── */
+    .tlm-landing-timer-section {
+        padding: 2rem 1rem 3rem;
+        text-align: center;
+    }
 </style>
+
+{#  TLM stylesheet — loaded last so it wins the cascade over inline styles  #}
+<link rel="stylesheet" href="{% static 'css/tlm.css' %}">
+
 {% endblock %}
+
 
 {% block content %}
 
-{# ── HERO ── #}
-<section class="tlm-hero">
+<section id="tlm-hero"
+         class="tlm-hero min-h-screen w-full flex flex-col items-center justify-center py-16">
 
-  {# PLACEHOLDER: Replace with actual TLM circular/bomb icon #}
-  <div class="tlm-logo-icon">
-    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- PLACEHOLDER SVG ICON: replace with real TLM logo asset -->
-      <circle cx="24" cy="26" r="14" stroke="#3a2d10" stroke-width="2.5" fill="none"/>
-      <circle cx="24" cy="26" r="6" fill="#3a2d10"/>
-      <rect x="22" y="8" width="4" height="10" rx="2" fill="#3a2d10"/>
-      <rect x="30" y="10" width="4" height="8" rx="2" transform="rotate(30 30 10)" fill="#3a2d10"/>
-    </svg>
-  </div>
+    <div class="relative z-10 text-center px-6 flex flex-col items-center gap-5 w-full max-w-4xl mx-auto">
 
-  <p class="tlm-title-the">The</p>
-  <h1 class="tlm-title-lazarus">Lazarus</h1>
-  <h2 class="tlm-title-missions">Missions</h2>
-  <p class="tlm-subtitle">Nuclear Winter</p>
+        {# Event logo — PLACEHOLDER: file at templates/static/img/tlm/tlm-logo.svg #}
+        <img style="position:relative;left:16px;margin-bottom:42px;"
+             src="{% static 'img/tlm/tlm-logo.svg' %}"
+             alt="The Lazarus Missions logo"
+             class="tlm-event-logo">
 
-  {# Organiser logos — PLACEHOLDER: replace src attributes with actual logo paths #}
-  <div class="tlm-org-logos">
-    {# PLACEHOLDER: CompSoc logo #}
-    <img src="{% static 'img/logo/nitk.png' %}" alt="Computational Intelligence Society" />
-    {# PLACEHOLDER: IEEE Computer Society logo #}
-    <img src="{% static 'img/logo/compsoc-dark.png' %}" alt="CompSoc IEEE NITK" />
-    {# PLACEHOLDER: NIT Karnataka logo #}
-    <img src="{% static 'img/ieee-nitk-white.png' %}" alt="IEEE NITK" />
-  </div>
+        <div class="flex flex-col items-center gap-1">
+            <span class="tlm-title-the">THE</span>
+            <h1 class="tlm-title-main">LAZARUS MISSIONS</h1>
+        </div>
+
+        <p class="tlm-tagline">Nuclear Winter</p>
+
+    </div>
+</section>
+
+<section class="tlm-landing-tracks-section">
+
+    <h2 class="tlm-section-heading tlm-animate">Tracks</h2>
+
+    {# ── Top row ── #}
+    <div class="tlm-tracks-top-row">
+
+        {# PLACEHOLDER: replace src with {% static 'img/tlm/track1.jpg' %} #}
+        <div class="tlm-track-card">
+            <img src="{% static 'img/tlm/6.png' %}" 
+                 alt="Track 1">
+            <div class="tlm-track-overlay"></div>
+            <div class="tlm-track-name-strip"><span class="tlm-track-name">Name 1</span></div>
+            <span class="tlm-track-pts">20 Pts</span>
+        </div>
+
+        {# PLACEHOLDER: replace src with {% static 'img/tlm/track2.jpg' %} #}
+        <div class="tlm-track-card">
+            <img src="{% static 'img/tlm/7.png' %}" 
+                 alt="Track 2">
+            <div class="tlm-track-overlay"></div>
+            <div class="tlm-track-name-strip"><span class="tlm-track-name">Name 2</span></div>
+            <span class="tlm-track-pts">30 Pts</span>
+        </div>
+
+        {# PLACEHOLDER: replace src with {% static 'img/tlm/track3.jpg' %} #}
+        <div class="tlm-track-card">
+            <img src="{% static 'img/tlm/5.png' %}" 
+                 alt="Track 3">
+            <div class="tlm-track-overlay"></div>
+            <div class="tlm-track-name-strip"><span class="tlm-track-name">Name 3</span></div>
+            <span class="tlm-track-pts">30 Pts</span>
+        </div>
+
+    </div>
+
+    {# ── Bottom row: 1 card centred ── #}
+    <div class="tlm-tracks-bottom-row">
+
+        {# PLACEHOLDER: replace src with {% static 'img/tlm/track4.jpg' %} #}
+        <div class="tlm-track-card">
+            <img src="{% static 'img/tlm/8.png' %}" 
+                 alt="Track 4">
+            <div class="tlm-track-overlay"></div>
+            <div class="tlm-track-name-strip"><span class="tlm-track-name">Name 4</span></div>
+            <span class="tlm-track-pts">40 Pts</span>
+        </div>
+
+    </div>
 
 </section>
 
-{# ── TRACKS ── #}
-<section class="tlm-tracks-section">
-  <h2 class="tlm-section-title">Tracks</h2>
+<section class="tlm-landing-timer-section">
 
-  <div class="tlm-tracks-grid">
+    <p id="tlm-countdown-label" class="tlm-doomsday-label">Doomsday Timer</p>
 
-    {# Track 1 — PLACEHOLDER IMAGE #}
-    <div class="tlm-track-card">
-      {# PLACEHOLDER: Replace with actual Track 1 image (nuclear dome / architecture) #}
-      <img 
-            src="{% static 'img/tlm/6.png' %}" 
-            alt="Track 1" 
-            class="max-w-full h-auto" 
-        />
-      <div class="tlm-track-overlay"></div>
-      <span class="tlm-track-name">Name 1</span>
-      <span class="tlm-track-pts">20 Pts</span>
-    </div>
-
-    {# Track 2 — PLACEHOLDER IMAGE #}
-    <div class="tlm-track-card">
-      {# PLACEHOLDER: Replace with actual Track 2 image (sphere / orb in wasteland) #}
-      <img 
-            src="{% static 'img/tlm/7.png' %}" 
-            alt="Track 2" 
-            class="max-w-full h-auto" 
-        />
-      <div class="tlm-track-overlay"></div>
-      <span class="tlm-track-name">Name 2</span>
-      <span class="tlm-track-pts">30 Pts</span>
-    </div>
-
-    {# Track 3 — PLACEHOLDER IMAGE #}
-    <div class="tlm-track-card">
-      {# PLACEHOLDER: Replace with actual Track 3 image (post-apocalyptic landscape) #}
-      <img 
-            src="{% static 'img/tlm/4.png' %}" 
-            alt="Track 3" 
-            class="max-w-full h-auto" 
-        />
-      <div class="tlm-track-overlay"></div>
-      <span class="tlm-track-name">Name 3</span>
-      <span class="tlm-track-pts">30 Pts</span>
-    </div>
-
-    {# Track 4 — PLACEHOLDER IMAGE #}
-    <div class="tlm-track-card">
-      {# PLACEHOLDER: Replace with actual Track 4 image (spiky weapon / mine) #}
-      <img 
-            src="{% static 'img/tlm/5.png' %}" 
-            alt="Track 4" 
-            class="max-w-full h-auto" 
-        />
-      <div class="tlm-track-overlay"></div>
-      <span class="tlm-track-name">Name 4</span>
-      <span class="tlm-track-pts">40 Pts</span>
-    </div>
-
-    {# Track 5 — PLACEHOLDER IMAGE #}
-    <div class="tlm-track-card">
-      {# PLACEHOLDER: Replace with actual Track 5 image (submarine / vessel) #}
-      <img 
-            src="{% static 'img/tlm/8.png' %}" 
-            alt="Track 5" 
-            class="max-w-full h-auto" 
-        />
-      <div class="tlm-track-overlay"></div>
-      <span class="tlm-track-name">Name 5</span>
-      <span class="tlm-track-pts">50 Pts</span>
-    </div>
-
+    <div id="tlm-countdown" class="tlm-doomsday-display {% if launched %}hidden{% endif %}">
+      <span id="tlm-days">{{ countdown_days|stringformat:"02d" }}</span><span class="tlm-doomsday-unit">d</span><span class="tlm-doomsday-sep"></span>
+      <span id="tlm-hours">{{ countdown_hours|stringformat:"02d" }}</span><span class="tlm-doomsday-unit">h</span><span class="tlm-doomsday-sep"></span>
+      <span id="tlm-minutes">{{ countdown_minutes|stringformat:"02d" }}</span><span class="tlm-doomsday-unit">m</span><span class="tlm-doomsday-sep"></span>
+      <span id="tlm-seconds">{{ countdown_seconds|stringformat:"02d" }}</span><span class="tlm-doomsday-unit">s</span>
   </div>
+
+    <p id="tlm-launched-msg" class="hidden tlm-launched-msg">
+        The missions have begun.
+    </p>
+
 </section>
 
-{# ── DOOMSDAY TIMER ── #}
-<section class="tlm-timer-section">
-  <p class="tlm-timer-label">Doomsday Timer</p>
-  <div class="tlm-timer-display" id="doomsdayTimer">2d 6h 23m 10s</div>
-</section>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
 
 <script>
-  // Countdown to event start — set TARGET_DATE to actual event start datetime
-  // PLACEHOLDER: Replace this ISO string with the real event start date/time
-  const TARGET_DATE = new Date("2026-05-20T00:00:00");
+(function () {
+    "use strict";
 
-  function formatCountdown() {
-    const now = new Date();
-    let diff = Math.max(0, TARGET_DATE - now);
+    var targetDate  = new Date('{{ countdown_target }}');
+    var daysEl      = document.getElementById('tlm-days');
+    var hoursEl     = document.getElementById('tlm-hours');
+    var minutesEl   = document.getElementById('tlm-minutes');
+    var secondsEl   = document.getElementById('tlm-seconds');
+    var labelEl     = document.getElementById('tlm-countdown-label');
+    var launchedEl  = document.getElementById('tlm-launched-msg');
+    var countdownEl = document.getElementById('tlm-countdown');
 
-    const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
-    diff         -= days * 86400000;
-    const hours   = Math.floor(diff / (1000 * 60 * 60));
-    diff         -= hours * 3600000;
-    const minutes = Math.floor(diff / (1000 * 60));
-    diff         -= minutes * 60000;
-    const seconds = Math.floor(diff / 1000);
+    function pad(n) { return n < 10 ? '0' + n : String(n); }
 
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-  }
+    function onComplete() {
+        if (countdownEl) countdownEl.classList.add('hidden');
+        if (labelEl)     labelEl.classList.add('hidden');
+        if (launchedEl)  launchedEl.classList.remove('hidden');
+    }
 
-  const el = document.getElementById("doomsdayTimer");
-  if (el) {
-    el.textContent = formatCountdown();
-    setInterval(() => { el.textContent = formatCountdown(); }, 1000);
-  }
+    function tick() {
+        var diff = targetDate.getTime() - Date.now();
+        if (diff <= 0) { onComplete(); return; }
+
+        var s = Math.floor(diff / 1000);
+        if (daysEl)    daysEl.textContent    = pad(Math.floor(s / 86400));
+        if (hoursEl)   hoursEl.textContent   = pad(Math.floor((s % 86400) / 3600));
+        if (minutesEl) minutesEl.textContent = pad(Math.floor((s % 3600) / 60));
+        if (secondsEl) secondsEl.textContent = pad(s % 60);
+
+        setTimeout(tick, 1000);
+    }
+
+    // Don't restart the tick if already launched (server said so)
+    {% if not launched %}
+    document.addEventListener('DOMContentLoaded', function () {
+        tick();  // start immediately — first value already rendered by Django,
+                 // so the display is correct from the first paint with no flicker
+    });
+    {% endif %}
+
+}());
 </script>
 
 {% endblock %}
