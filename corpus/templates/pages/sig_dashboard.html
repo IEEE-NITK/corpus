@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ sig.name }} Dashboard
+{% endblock %}
+
+{% block content %}
+<style>
+    input[type="file"] {
+        color: hsl(var(--bc) / 0.6);
+    }
+</style>
+<div class="min-h-screen bg-base-200 py-8 px-4">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <div class="card bg-base-100 shadow-xl p-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <h1 class="text-3xl font-bold">{{ sig.name }} Dashboard</h1>
+                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-primary">Manage Events</a>
+            </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl p-6">
+            <h2 class="text-2xl font-semibold mb-4">Edit SIG Page Content</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_sig">
+
+                <div>
+                    <label class="label"><span class="label-text">About</span></label>
+                    {{ sig_form.about }}
+                    {{ sig_form.about.errors }}
+                </div>
+
+                <div>
+                    <label class="label"><span class="label-text">What We Do</span></label>
+                    {{ sig_form.what_we_do }}
+                    {{ sig_form.what_we_do.errors }}
+                </div>
+
+                <div>
+                    <label class="label"><span class="label-text">SIG Image</span></label>
+                    {{ sig_form.sig_image }}
+                    {{ sig_form.sig_image.errors }}
+                </div>
+
+                <button type="submit" class="btn btn-success">Save SIG Changes</button>
+            </form>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl p-6">
+            <h2 class="text-2xl font-semibold mb-4">Linked Societies</h2>
+
+            {% for society, edit_form in society_edit_forms %}
+                <details class="collapse collapse-arrow border border-base-300 bg-base-200 mb-4">
+                    <summary class="collapse-title text-lg font-medium">
+                        {{ society.get_name_display }} ({{ society.name }})
+                    </summary>
+                    <div class="collapse-content">
+                        <form method="post" enctype="multipart/form-data" class="space-y-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="update_society">
+                            <input type="hidden" name="society_id" value="{{ society.id }}">
+
+                            {{ edit_form.non_field_errors }}
+
+                            <div>
+                                <label class="label"><span class="label-text">Society Name</span></label>
+                                {{ edit_form.name }}
+                                {{ edit_form.name.errors }}
+                            </div>
+                            <div>
+                                <label class="label"><span class="label-text">URL</span></label>
+                                {{ edit_form.url }}
+                                {{ edit_form.url.errors }}
+                            </div>
+                            <div>
+                                <label class="label"><span class="label-text">Description</span></label>
+                                {{ edit_form.description }}
+                                {{ edit_form.description.errors }}
+                            </div>
+                            <div>
+                                <label class="label"><span class="label-text">Image</span></label>
+                                {{ edit_form.image }}
+                                {{ edit_form.image.errors }}
+                            </div>
+                            <div>
+                                <label class="label"><span class="label-text">Dark Image (optional)</span></label>
+                                {{ edit_form.dark_image }}
+                                {{ edit_form.dark_image.errors }}
+                            </div>
+                            <div>
+                                <label class="label"><span class="label-text">Faculty Advisors</span></label>
+                                <div class="border border-base-300 rounded-md bg-base-200 h-24 overflow-y-auto p-2 w-44">
+                                    {% for checkbox in edit_form.faculty_advisors %}
+                                        <label class="flex items-center gap-2 py-1 cursor-pointer">
+                                            {{ checkbox.tag }}
+                                            <span class="text-base-content/70 text-sm">{{ checkbox.data.label }}</span>
+                                        </label>
+                                    {% empty %}
+                                        <span class="text-base-content/60 text-sm">No faculty advisors available for this SIG.</span>
+                                    {% endfor %}
+                                </div>
+                                {{ edit_form.faculty_advisors.errors }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Update Society</button>
+                        </form>
+
+                        <form method="post" class="mt-3" onsubmit="return confirm('Remove this society from {{ sig.name }}?')">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove_society">
+                            <input type="hidden" name="society_id" value="{{ society.id }}">
+                            <button type="submit" class="btn btn-error">Remove from SIG</button>
+                        </form>
+
+                        <form method="post" class="mt-3" onsubmit="return confirm('Remove all faculty advisors from this society?')">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="clear_society_advisors">
+                            <input type="hidden" name="society_id" value="{{ society.id }}">
+                            <button type="submit" class="btn btn-warning">Remove All Faculty Advisors</button>
+                        </form>
+                    </div>
+                </details>
+            {% empty %}
+                <div class="alert alert-info">
+                    <span>No societies linked to this SIG yet.</span>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="card bg-base-100 shadow-xl p-6">
+            <h2 class="text-2xl font-semibold mb-4">Add New Society</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="create_society">
+
+                {{ society_form.non_field_errors }}
+
+                <div>
+                    <label class="label"><span class="label-text">Society Name</span></label>
+                    {{ society_form.name }}
+                    {{ society_form.name.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">URL</span></label>
+                    {{ society_form.url }}
+                    {{ society_form.url.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Description</span></label>
+                    {{ society_form.description }}
+                    {{ society_form.description.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Image</span></label>
+                    {{ society_form.image }}
+                    {{ society_form.image.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Dark Image (optional)</span></label>
+                    {{ society_form.dark_image }}
+                    {{ society_form.dark_image.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">Faculty Advisors</span></label>
+                    <div class="border border-base-300 rounded-md bg-base-200 h-24 overflow-y-auto p-2 w-44">
+                        {% for checkbox in society_form.faculty_advisors %}
+                            <label class="flex items-center gap-2 py-1 cursor-pointer">
+                                {{ checkbox.tag }}
+                                <span class="text-base-content/70 text-sm">{{ checkbox.data.label }}</span>
+                            </label>
+                        {% empty %}
+                            <span class="text-base-content/60 text-sm">No faculty advisors available for this SIG.</span>
+                        {% endfor %}
+                    </div>
+                    {{ society_form.faculty_advisors.errors }}
+                </div>
+
+                <button type="submit" class="btn btn-success">Add Society</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
