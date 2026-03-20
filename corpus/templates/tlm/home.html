@@ -73,9 +73,34 @@
                  alt="IEEE NITK Student Branch"
                  class="tlm-hero-org-logo">
         </div>
+       <div class="tlm-animate mt-4 flex flex-col items-center gap-3"
+            style="--tlm-delay: 80ms">
+
+            <p class="font-['Orbitron'] text-[#a07830] tracking-widest uppercase text-sm md:text-base">
+                Join our Discord channel
+            </p>
+
+            <a href="https://discord.gg/SuGEhvNXAR"
+            target="_blank"
+            class="flex items-center gap-3 px-6 py-3 border border-[#3a2d10] bg-[#1a1208]
+                    text-[#e8c97a] font-['Share_Tech_Mono'] tracking-widest uppercase
+                    hover:bg-[#e8c97a] hover:text-[#1a1208]
+                    transition-all duration-300
+                    shadow-[0_4px_12px_rgba(0,0,0,0.6)]
+                    hover:shadow-[0_0_15px_rgba(232,201,122,0.4)]">
+
+                <img
+                    src="{% static 'img/codeRed/discord.svg' %}"
+                    alt="Discord"
+                    class="w-6 h-6 filter brightness-0 invert"
+                />
+
+                Join Discord
+            </a>
+        </div>
 
         {#  Register button - REPLACE # WITH REAL REGISTRATION LINK  #}
-        <a href="#"
+        <a href= {% url 'tlm_landing' %}
         id="tlm-begin-mission-btn"
         class="btn btn-primary tlm-register-btn mt-2"
         style="opacity:0.5;cursor:not-allowed;"
@@ -87,32 +112,6 @@
         onmouseleave="this.style.filter=''">
             Begin Mission.
         </a>
-
-{% comment %}
-        {#  Doomsday countdown  #}
-        <div class="flex flex-col items-center gap-2 mt-4">
-
-            <p id="tlm-countdown-label" class="tlm-doomsday-label">
-                Doomsday Timer
-            </p>
-
-            {#  Inline monospace countdown.                                      #}
-            {#  JS updates the four number spans (tlm-days, tlm-hours,           #}
-            {#  tlm-minutes, tlm-seconds) - the same IDs used previously,        #}
-            {#  so the countdown script requires zero changes.                   #}
-            <div id="tlm-countdown" class="tlm-doomsday-display">
-                <span id="tlm-days">--</span><span class="tlm-doomsday-unit">d</span><span class="tlm-doomsday-sep"></span>
-                <span id="tlm-hours">--</span><span class="tlm-doomsday-unit">h</span><span class="tlm-doomsday-sep"></span>
-                <span id="tlm-minutes">--</span><span class="tlm-doomsday-unit">m</span><span class="tlm-doomsday-sep"></span>
-                <span id="tlm-seconds">--</span><span class="tlm-doomsday-unit">s</span>
-            </div>
-
-            {#  Shown after countdown hits zero, hidden by default  #}
-            <p id="tlm-launched-msg" class="hidden tlm-launched-msg">
-                The missions have begun.
-            </p>
-
-        </div> {% endcomment %}
 
     </div>
 
@@ -406,6 +405,8 @@
         <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
              style="--tlm-delay: 0ms">
             <strong class="text-primary">Swaraj</strong>
+            <a class="tlm-link break-all" href="mailto:akshat.221it005@nitk.edu.in" class="break-all">
+              swarajsingh.231cs158@nitk.edu.in</a>
             <a class="tlm-link break-all">
                 +91 94497 87896
             </a>
@@ -414,6 +415,8 @@
         <div class="flex flex-col items-center gap-1 text-lg md:text-xl tlm-animate"
              style="--tlm-delay: 150ms">
             <strong class="text-primary">Jayanth</strong>
+            <a class="tlm-link break-all" href="mailto:akshat.221it005@nitk.edu.in" class="break-all">
+              hsjayanth.231it024@nitk.edu.in</a>
             <a class="tlm-link break-all">
                 +91 74830 17553
             </a>
@@ -565,26 +568,33 @@
     }());
 </script>
 <script>
-    (function () {
-        var target = new Date('2026-03-20T18:00:00+05:30');
-        var btn = document.getElementById('tlm-begin-mission-btn');
+(function () {
+    var target = new Date('2026-03-20T18:00:00+05:30');
+    var btn = document.getElementById('tlm-begin-mission-btn');
 
-        function update() {
-            if (!btn) return;
-            if (new Date().getTime() >= target.getTime()) {
-                btn.style.opacity = '';
-                btn.style.cursor = '';
-                btn.removeAttribute('tabindex');
-                btn.removeAttribute('aria-disabled');
-                btn.removeAttribute('title');
-            }
+    function update() {
+        if (!btn) return;
+
+        if (new Date().getTime() >= target.getTime()) {
+            // Enable visually
+            btn.style.opacity = '';
+            btn.style.cursor = '';
+
+            // Enable accessibility
+            btn.removeAttribute('tabindex');
+            btn.removeAttribute('aria-disabled');
+            btn.removeAttribute('title');
+
+            // 🔥 IMPORTANT: enable click
+            btn.removeAttribute('onclick');
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            update();
-            setInterval(update, 1000);
-        });
-    })();
+    document.addEventListener('DOMContentLoaded', function () {
+        update();
+        setInterval(update, 1000);
+    });
+})();
 </script>
 
 {% endblock %}
