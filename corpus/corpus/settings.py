@@ -76,7 +76,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "tlm.middleware.TLMLaunchGateMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -202,14 +201,14 @@ EMAIL_USE_SSL = True
 
 # Celery Settings
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = "redis://redis:6379/0"
 # CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 # CELERY_BROKER_URL="redis://default:AZZ-AAIjcDExZTljY2M1NTI5MmU0OGMxOGUzMDYwNmRlZjhkZGRjZXAxMA@divine-puma-38526.upstash.io:6379"
 # CELERY_RESULT_BACKEND = "redis://default:AZZ-AAIjcDExZTljY2M1NTI5MmU0OGMxOGUzMDYwNmRlZjhkZGRjZXAxMA@divine-puma-38526.upstash.io:6379"
-CELERY_TIMEZONE='UTC'
-CELERY_ACCEPT_CONTENT=['json']
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = "UTC"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
 
 
 USE_TAILWIND_CDN_LINK = os.getenv("LIVECYCLE") is not None

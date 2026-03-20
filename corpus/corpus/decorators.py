@@ -1,7 +1,13 @@
+from datetime import datetime
+from functools import wraps
+from zoneinfo import ZoneInfo
+
 from accounts.models import ExecutiveMember
 from config.models import ModuleConfiguration
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.shortcuts import render
+from django.utils import timezone
 
 
 def module_enabled(module_name):
@@ -77,11 +83,14 @@ def ensure_exec_membership():
 
     return decorator
 
+
 def ensure_view_current_envision():
     def decorator(view_func):
         @wraps(view_func)
         def wrapper(request, *args, **kwargs):
-            config = ModuleConfiguration.objects.get(module_name="virtual_expo").module_config
+            config = ModuleConfiguration.objects.get(
+                module_name="virtual_expo"
+            ).module_config
 
             try:
                 ExecutiveMember.objects.get(user=request.user.id)
@@ -90,8 +99,40 @@ def ensure_view_current_envision():
                 exec_member = False
 
             can_view_current_envision = exec_member or config.get(
-                "view_current_envision")
-            kwargs['can_view_current_envision '] = can_view_current_envision
+                "view_current_envision"
+            )
+            kwargs["can_view_current_envision"] = can_view_current_envision
             return view_func(request, *args, **kwargs)
+
         return wrapper
+
+    return decorator
+
+
+def event_time_gate(
+    start_time,
+    end_time=None,
+    pre_template="tlm/403.html",
+    post_template="tlm/event_ended.html",
+    context=None,
+):
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrapper(request, *args, **kwargs):
+            now = timezone.now()
+            ctx = context or {}
+
+            # Before launch
+            if now < start_time:
+                return render(request, pre_template, ctx, status=403)
+
+            # After event end
+            if end_time and now > end_time:
+                return render(request, post_template, ctx, status=403)
+
+            # During event
+            return view_func(request, *args, **kwargs)
+
+        return wrapper
+
     return decorator

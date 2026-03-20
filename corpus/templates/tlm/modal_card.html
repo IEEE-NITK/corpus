@@ -1,0 +1,70 @@
+<div id="{{ id }}" class="tlm-modal hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="tlm-modal-content relative w-full max-w-4xl bg-[#1a1208] border border-[#a07830] shadow-[0_0_30px_rgba(232,201,122,0.15)] flex flex-col">
+
+        <!-- Top Gradient -->
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#a07830]/20 to-transparent pointer-events-none"></div>
+
+        <!-- Abstract Circles -->
+        <div class="absolute top-4 right-16 pointer-events-none opacity-20">
+            <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                <circle cx="60" cy="60" r="58" stroke="#e8c97a" stroke-width="1"/>
+                <circle cx="60" cy="60" r="45" stroke="#e8c97a" stroke-width="1"/>
+            </svg>
+        </div>
+
+        <!-- Close + Points -->
+        <div class="absolute top-4 right-4 flex items-center gap-2 z-[60]">
+            <div class="bg-[#8b6f3b] text-white px-3 py-1 font-['Share_Tech_Mono'] text-sm tracking-wider shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                {{ points }} PTS
+            </div>
+            <button onclick="closeModal('{{ id }}')" class="w-8 h-8 flex items-center justify-center border border-[#3a2d10] bg-[#1a1208] text-[#e8c97a] hover:bg-[#e8c97a] hover:text-[#1a1208] transition-colors rounded-sm shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Header -->
+        <div class="px-8 pt-16 pb-6 relative z-10">
+            <h2 class="text-[#e8c97a] font-['Special_Elite'] text-3xl md:text-4xl tracking-wider">
+                {{ title }}
+            </h2>
+        </div>
+
+        <!-- Single Section Label -->
+        <div class="px-8 border-b border-[#3a2d10] relative z-10">
+            <div class="pb-2 text-sm font-['Share_Tech_Mono'] tracking-widest text-[#e8c97a] uppercase">
+                Mission Brief
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="px-8 py-6 relative z-[50] min-h-[250px] max-h-[50vh] overflow-y-auto shadow-[inset_0_10px_20px_rgba(0,0,0,0.5)] bg-[#110c05]/50 scrollbar-thin scrollbar-thumb-[#a07830] scrollbar-track-transparent">
+
+            <div class="flex items-center gap-4 mb-4">
+                <div class="font-['Share_Tech_Mono'] text-xs text-[#a07830] tracking-[0.2em] uppercase">
+                    Objective
+                </div>
+                <div class="h-px bg-[#3a2d10] flex-1"></div>
+            </div>
+
+            <div class="font-['Share_Tech_Mono'] text-[#e8c97a] text-sm md:text-base leading-relaxed tracking-wide whitespace-pre-wrap">
+                {{ mission_brief|safe }}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="px-8 py-6 border-t border-[#3a2d10] flex justify-between items-center relative z-10 bg-[#160f07]">
+
+            <div class="font-['Share_Tech_Mono'] text-[10px] tracking-[0.3em] text-[#3a2d10] hidden md:block">
+                CORPUS · IEEE NITK · TLM COMPETITION
+            </div>
+
+            <a href="{{ kaggle_link }}" target="_blank" rel="noopener noreferrer"
+               class="bg-[#8b6f3b] hover:bg-[#a07830] text-[#1a1208] hover:text-[#110c05] px-6 py-3 font-['Share_Tech_Mono'] tracking-widest flex items-center gap-3 transition-colors uppercase">
+                <span class="font-bold text-lg font-serif italic lowercase mr-1">k</span>
+                Submit on Kaggle
+            </a>
+        </div>
+    </div>
+</div>
