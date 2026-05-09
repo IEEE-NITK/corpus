@@ -54,12 +54,14 @@ def dashboard(request):
 @ensure_exec_membership()
 def new_program(request):
 
-    existing_program = Program.objects.filter(
-        programmember__member=request.user
-    ).first()
+    # Check whether the user is already a Mentor in any program.
+    # If they were only a Mentee in previous years, this will not block them.
+    already_mentor = ProgramMember.objects.filter(
+        member=request.user, member_type="Mentor"
+    ).exists()
 
-    if existing_program:
-        messages.info(request, "You have already have a program.")
+    if already_mentor:
+        messages.info(request, "You already have a program.")
         return redirect("smp_mentors_dashboard")
 
     form = ProgramForm()
