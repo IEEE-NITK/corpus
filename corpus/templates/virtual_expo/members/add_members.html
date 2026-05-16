@@ -113,10 +113,12 @@
             }
 
             function renderOptions(query = "") {
-                const q = query.trim();
+                //.toLowerCase() for making case insensitive
+                const q = query.toLowerCase().trim();
 
                 const matches = options.filter(option =>
-                    option.text.includes(q)
+                    //.toLowerCase() for making case insensitive
+                    option.text.toLowerCase().includes(q)
                 );
 
                 dropdown.innerHTML = "";
