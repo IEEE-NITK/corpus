@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Event
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200 py-8 px-4">
+    <div class="max-w-3xl mx-auto card bg-base-100 shadow-xl p-6">
+        <h1 class="text-3xl font-bold mb-6">Edit Event: {{ event.name }}</h1>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div>
+                <label class="label"><span class="label-text">Name</span></label>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+            <div>
+                <label class="label"><span class="label-text">Description</span></label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="label"><span class="label-text">Start Date</span></label>
+                    {{ form.start_date }}
+                    {{ form.start_date.errors }}
+                </div>
+                <div>
+                    <label class="label"><span class="label-text">End Date</span></label>
+                    {{ form.end_date }}
+                    {{ form.end_date.errors }}
+                </div>
+            </div>
+            <div>
+                <label class="label"><span class="label-text">Page Link</span></label>
+                {{ form.page_link }}
+                {{ form.page_link.errors }}
+            </div>
+            <div>
+                <label class="label"><span class="label-text">Thumbnail</span></label>
+                {{ form.thumbnail }}
+                {{ form.thumbnail.errors }}
+            </div>
+            <div class="flex gap-6">
+                <label class="label cursor-pointer gap-2">{{ form.archive_event }}<span class="label-text">Archive</span></label>
+                <label class="label cursor-pointer gap-2">{{ form.show_in_recent }}<span class="label-text">Show in Recent</span></label>
+            </div>
+
+            <div class="flex gap-3">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{% url 'sig_events_dashboard' sig.slug %}" class="btn btn-outline">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

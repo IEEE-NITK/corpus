@@ -20,6 +20,11 @@
         class="relative text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-extrabold mb-6  dark:text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.5)]">
         {{ sig.name }}
       </h1>
+      {% if can_manage_sig %}
+      <a href="{% url 'sig_dashboard' sig.slug %}" class="btn btn-primary relative z-10">
+        Manage {{ sig.name }}
+      </a>
+      {% endif %}
     </div>
   </section>
 

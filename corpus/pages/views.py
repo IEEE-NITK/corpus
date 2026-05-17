@@ -1,19 +1,56 @@
 from datetime import date,timedelta
-from pyexpat.errors import messages
 
 from accounts.models import ExecutiveMember
 from accounts.models import Faculty
 from config.models import ModuleConfiguration
 from config.models import SIG
 from config.models import Society
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from newsletter.models import Event
 
 from corpus.decorators import module_enabled
+from .forms import SIGContentForm
+from .forms import SocietyDashboardForm
 
 from django.utils import timezone
+
+
+def _get_sig_dashboard_permissions(user):
+    if not user.is_authenticated:
+        return {}
+
+    if user.is_superuser:
+        sigs = SIG.objects.exclude(slug__isnull=True)
+        return {sig.slug: sig for sig in sigs}
+
+    try:
+        exec_member = (
+            ExecutiveMember.objects.select_related("sig", "core__post")
+            .get(user=user)
+        )
+    except ExecutiveMember.DoesNotExist:
+        return {}
+
+    if not hasattr(exec_member, "core"):
+        return {}
+
+    post_name = (exec_member.core.post.name or "").lower()
+    if "chair" not in post_name:
+        return {}
+
+    if not exec_member.sig.slug:
+        return {}
+
+    return {exec_member.sig.slug: exec_member.sig}
+
+
+def _get_authorized_sig_or_none(request, sig_slug):
+    authorized_sigs = _get_sig_dashboard_permissions(request.user)
+    return authorized_sigs.get(sig_slug)
 
 
 def get_active_members():
@@ -117,6 +154,7 @@ def sig(request, sig_name):
     ).order_by("start_date")
     number_of_members = get_active_members().filter(sig=sig_data).count()
     number_of_events = events_past_year.count()
+    can_manage_sig = sig_data.slug in _get_sig_dashboard_permissions(request.user)
 
     return render(
         request,
@@ -128,6 +166,7 @@ def sig(request, sig_name):
             "alumni_logos": alumnilogos_linked_to_sig,
             "no_of_members": number_of_members,
             "no_of_events": number_of_events,
+            "can_manage_sig": can_manage_sig,
         },
     )
 
@@ -220,3 +259,101 @@ def team(request):
 
 def farewell(request):
     return render(request, "pages/farewell.html")
+
+
+@login_required
+def sig_dashboard_list(request):
+    authorized_sigs = _get_sig_dashboard_permissions(request.user)
+    return render(
+        request,
+        "pages/sig_dashboard_list.html",
+        {"authorized_sigs": authorized_sigs.values()},
+    )
+
+
+@login_required
+def sig_dashboard(request, sig_slug):
+    sig_data = _get_authorized_sig_or_none(request, sig_slug)
+    if sig_data is None:
+        messages.error(
+            request,
+            "Permission denied. You can only access dashboards for SIGs you chair.",
+        )
+        return redirect("sig_dashboard_list")
+
+    sig_form = SIGContentForm(instance=sig_data)
+    society_form = SocietyDashboardForm(sig=sig_data)
+
+    invalid_society_form = None
+    invalid_society_id = None
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "update_sig":
+            sig_form = SIGContentForm(request.POST, request.FILES, instance=sig_data)
+            if sig_form.is_valid():
+                sig_form.save()
+                messages.success(request, f"{sig_data.name} page details updated.")
+                return redirect("sig_dashboard", sig_slug=sig_slug)
+
+        elif action == "create_society":
+            society_form = SocietyDashboardForm(request.POST, request.FILES, sig=sig_data)
+            if society_form.is_valid():
+                society = society_form.save(commit=False)
+                society.save()
+                society.sigs.add(sig_data)
+                society_form.save_faculty_advisors(society=society, sig=sig_data)
+                messages.success(request, "Society added to SIG successfully.")
+                return redirect("sig_dashboard", sig_slug=sig_slug)
+
+        elif action == "update_society":
+            society_id = request.POST.get("society_id")
+            society_instance = get_object_or_404(Society, id=society_id, sigs=sig_data)
+            edit_form = SocietyDashboardForm(
+                request.POST,
+                request.FILES,
+                instance=society_instance,
+                sig=sig_data,
+            )
+            if edit_form.is_valid():
+                society = edit_form.save()
+                edit_form.save_faculty_advisors(society=society, sig=sig_data)
+                messages.success(request, "Society details updated.")
+                return redirect("sig_dashboard", sig_slug=sig_slug)
+            invalid_society_form = edit_form
+            invalid_society_id = society_instance.id
+
+        elif action == "remove_society":
+            society_id = request.POST.get("society_id")
+            society = get_object_or_404(Society, id=society_id, sigs=sig_data)
+            society.sigs.remove(sig_data)
+            Faculty.objects.filter(sig=sig_data, society=society).update(society=None)
+            messages.success(request, "Society removed from this SIG.")
+            return redirect("sig_dashboard", sig_slug=sig_slug)
+
+        elif action == "clear_society_advisors":
+            society_id = request.POST.get("society_id")
+            society = get_object_or_404(Society, id=society_id, sigs=sig_data)
+            Faculty.objects.filter(sig=sig_data, society=society).update(society=None)
+            messages.success(request, "All faculty advisors removed from this society.")
+            return redirect("sig_dashboard", sig_slug=sig_slug)
+
+    linked_societies = sig_data.societies.all().order_by("name")
+    society_edit_forms = []
+    for society in linked_societies:
+        if invalid_society_id == society.id and invalid_society_form is not None:
+            society_edit_forms.append((society, invalid_society_form))
+        else:
+            society_edit_forms.append((society, SocietyDashboardForm(instance=society, sig=sig_data)))
+
+    return render(
+        request,
+        "pages/sig_dashboard.html",
+        {
+            "sig": sig_data,
+            "sig_form": sig_form,
+            "society_form": society_form,
+            "society_edit_forms": society_edit_forms,
+        },
+    )
