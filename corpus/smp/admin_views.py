@@ -65,8 +65,7 @@ def dashboard(request):
                     )
             year = int(form.cleaned_data.get("year")) #get data in int form from string
             if year != 0: # not all years
-                if year in list(Program.objects.values_list("year", flat=True).distinct()):
-                    programs = programs.filter(year=year)
+                programs = programs.filter(year=year)
         except (ValueError, TypeError):
             pass
 
