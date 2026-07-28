@@ -58,15 +58,19 @@
   }
 
   .contentBox1 {
-    background-color: #071a3c8a;
+    background-color: #7070708a;
+    backdrop-filter: blur(5px);
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
+    border-radius: 1em;
   }
 
   .contentBox2 {
-    background-color: #8308084c;
+    background-color: #634c0175;
+    backdrop-filter: blur(5px);
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
+    border-radius: 1em;
   }
 
   .typewriter {
@@ -105,5 +109,5 @@
   }
 
   .themeFont {
-    font-family: "Press Start 2P", system-ui;
+    font-family: "Rubik Distressed", system-ui;
   }

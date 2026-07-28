@@ -22,13 +22,13 @@ module.exports = {
             "synthwave",
             {
                 codeRed: {
-                    "primary": "#C3060A",
+                    "primary": "#000000",
                     "secondary": "#002357",
                     "accent": "#011533",
                     "neutral": "#011533",
-                    "base-100": "#330101",
+                    "base-100": "#353535",
                     "base-200": "#400102",
-                    "base-300": "#0d013b",
+                    "base-300": "#212121",
                     "info": "#002357",
                     "success": "#002357",
                     "warning": "#EC0300",
