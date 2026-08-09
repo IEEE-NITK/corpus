@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+SIG Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-base-200 py-10 px-4">
+    <div class="max-w-4xl mx-auto card bg-base-100 shadow-xl p-8">
+        <h1 class="text-3xl font-bold mb-6">SIG Dashboard</h1>
+        <p class="mb-6">You can access only the SIGs where you are the Chair/Vice Chair.</p>
+
+        {% if authorized_sigs %}
+            <div class="grid gap-4">
+                {% for sig in authorized_sigs %}
+                    <a href="{% url 'sig_dashboard' sig.slug %}" class="btn btn-primary justify-start">
+                        Manage {{ sig.name }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                <span>No SIG dashboard access found for your account.</span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
