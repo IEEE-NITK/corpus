@@ -41,17 +41,31 @@
         </p>
       </div>
 
-      <div class="flex-1 my-auto ">
+      <div class="flex-1 my-auto">
+        {% if show_events_and_members_div %}
         <div
           class="w-full max-w-sm mx-auto bg-gradient-to-br from-sky-50 to-blue-300 dark:from-blue-950 dark:to-base-100 rounded-2xl shadow-xl p-10 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
           {% if sig.name != "WiE" and sig.name != "SIGHT" %}
           <div class="text-4xl sm:text-5xl lg:text-6xl font-extrabold dark:text-white mb-3">{{ no_of_members }}</div>
           <div class="text-lg sm:text-xl dark:text-gray-100 mb-8">Active Members</div>
           {% endif %}
+          {% if no_of_events != 0 %}
           <div class="text-2xl sm:text-3xl lg:text-4xl font-extrabold dark:text-white mb-3">{{ no_of_events }}</div>
           <div class="text-lg sm:text-xl dark:text-gray-100">Events This Year</div>
-
+          {% endif %}
         </div>
+        {% endif %}
+        {% if sig.sig_image %}
+          {% if sig.name == "WiE" or sig.name == "SIGHT" %}
+          <div class="w-full max-w-sm mx-auto mt-10 overflow-hidden">
+            <img 
+              src="{{ sig.sig_image.url }}" 
+              alt="{{ sig.name }} Logo" 
+              class="w-full h-auto object-contain rounded-lg"
+            >
+          </div>
+          {% endif %}
+        {% endif %}
       </div>
 
     </div>
