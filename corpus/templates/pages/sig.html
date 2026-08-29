@@ -178,11 +178,14 @@
                   class="event-poster-img relative z-10 max-h-full max-w-full drop-shadow-xl p-1">
               </div>
               {% else %}
-              <div class="relative w-full h-80 bg-slate-900 overflow-hidden flex items-center justify-center">
-                <div class="relative z-10 flex flex-col items-center justify-center p-6 text-center">
-                  <img src="{% static 'img/ieee-nitk.png' %}" alt="{{ event.name }}"
-                    class="h-28 object-contain opacity-50 mb-2">
-                </div>
+              <div
+                class="poster-box relative w-full h-80 bg-slate-950 overflow-hidden flex items-center justify-center transition-all duration-500 ease-out">
+                {# Ambient high-radius blurred background to fill gaps with glowing colors #}
+                <img src="{% static 'img/events_default.png' %}" alt="" aria-hidden="true"
+                  class="event-poster-ambient absolute inset-0 w-full h-full object-cover pointer-events-none">
+                {# Foreground poster that smoothly zooms on hover #}
+                <img src="{% static 'img/events_default.png' %}" alt="{{ event.name }}"
+                  class="event-poster-img relative z-10 max-h-full max-w-full drop-shadow-xl p-1">
               </div>
               {% endif %}
 
