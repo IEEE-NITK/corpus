@@ -7,63 +7,7 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
-<style>
-  /* Event poster box - fixed dimensions, no layout shift */
-  .poster-box {
-    position: relative;
-    width: 100%;
-    height: 20rem;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #0b0f19;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    border-radius: 0.75rem 0.75rem 0 0;
-  }
-
-  /* High-radius vibrant ambient blur */
-  .event-poster-ambient {
-    position: absolute;
-    top: -25%;
-    left: -25%;
-    width: 150%;
-    height: 150%;
-    object-fit: cover;
-    -webkit-filter: blur(28px) saturate(2.4) brightness(0.95);
-    filter: blur(28px) saturate(2.4) brightness(0.95);
-    opacity: 0.75;
-    pointer-events: none;
-    transition: opacity 0.45s ease, -webkit-filter 0.45s ease, filter 0.45s ease;
-    will-change: filter, opacity;
-  }
-
-  .carousel-card:hover .event-poster-ambient {
-    opacity: 0.95;
-    -webkit-filter: blur(34px) saturate(2.8) brightness(1.05);
-    filter: blur(34px) saturate(2.8) brightness(1.05);
-  }
-
-  /* Foreground poster: starts fully uncropped, scales up on hover for readability */
-  .event-poster-img {
-    position: relative;
-    z-index: 10;
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    transform: scale(1.0);
-    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
-    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.45s ease;
-    will-change: transform;
-  }
-
-  /* On hover: image scales up inside the clipped box — text becomes more readable */
-  .carousel-card:hover .event-poster-img {
-    transform: scale(1.2);
-    filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85));
-  }
-</style>
+<link rel="stylesheet" href="{% static 'css/sig.css' %}" />
 {% endblock %}
 
 {% block content %}
