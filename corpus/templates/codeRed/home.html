@@ -10,49 +10,41 @@
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/codeRed.css' %}">
-{% endblock %} 
-{% block content %} 
+{% endblock %}
+{% block content %}
 {% comment %} Hero Section {% endcomment %}
 
-<section class="hero min-h-[50vh] min-w-full">
-<div class="relative z-0 hero-content text-center flex-col">
-  <br />
-  <img 
-    src="{% static 'img/codeRed/CodeRedName.png' %}" 
-    alt="CodeRed Logo" 
-    class="max-w-4xl h-auto rounded-3xl" 
-  />
+<section class="hero min-h-[50vh] w-full overflow-x-hidden">
+  <div class="relative z-0 hero-content text-center flex-col w-full max-w-full min-w-0 box-border px-3 sm:px-5">
+    <br />
+    <img src="{% static 'img/codeRed/CodeRedName.png' %}" alt="CodeRed Logo"
+      class="w-full max-w-4xl h-auto rounded-3xl" />
 
-  <p class="text-4xl sm:text-2xl md:text-3xl lg:text-4xl mt-6 text-white themeFont break-words">
-    24-Hour Hackathon
-  </p>
+    <p class="text-3xl sm:text-3xl md:text-4xl lg:text-5xl mt-5 text-white dark:text-white typewriter themeFont">
+      15<sup>th</sup>-16<sup>st</sup> August
+    </p>
 
-<p class="text-6xl sm:text-4xl md:text-5xl lg:text-6xl mt-5 text-white dark:text-white typewriter themeFont">
-  15<sup>th</sup>-16<sup>st</sup> August
-</p>
-<p class="text-3xl sm:text-xl md:text-2xl lg:text-3xl mt-5 text-white dark:text-white typewriter themeFont">
-  2026
-</p>
+    <p class="text-lg sm:text-lg md:text-xl lg:text-2xl mt-5 text-white dark:text-white typewriter themeFont">
+      2026
+    </p>
 
-    <a href="https://unstop.com/p/codered-2026-fifa-world-cup-nitk-surathkal-1727517" class="btn btn-primary btn-lg mt-5 text-2xl themeFont">Register!</a>
+    <a href="https://unstop.com/p/codered-2026-fifa-world-cup-nitk-surathkal-1727517"
+      class="btn btn-primary btn-lg mt-5 text-2xl themeFont">Register!</a>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
     <!-- TODO: Add Discord channel -->
-<div class="text-lg sm:text-lg md:text-xl lg:text-2xl themeFont text-white flex not-prose flex-col flex-wrap justify-center items-center">
-  <p>
-    Join our code red Discord server! 
-  </p>
-  <a href="https://discord.com/invite/7DtTSWNg9h">
-    <img 
-    src="{% static 'img/codeRed/discord.svg' %}" 
-    alt="Discord Logo"
-    style="width: 100px;"
-    class="logo m-2 p-2 rounded-lg"
-    />
-  </a>
-</div>
-</div>
+    <div
+      class="text-lg sm:text-lg md:text-xl lg:text-2xl themeFont text-white flex not-prose flex-col flex-wrap justify-center items-center">
+      <p>
+        Join our code red Discord server!
+      </p>
+      <a href="https://discord.com/invite/7DtTSWNg9h">
+        <img src="{% static 'img/codeRed/discord.svg' %}" alt="Discord Logo" style="width: 100px;"
+          class="logo m-2 p-2 rounded-lg" />
+      </a>
+    </div>
+  </div>
 
 </section>
 
@@ -67,26 +59,27 @@
             <u> WHAT IS CODE RED? </u>
           </h1>
           <p class="text-lg md:text-xl lg:text-2xl">
-              <strong>Code Red</strong> is IEEE NITK Computer Society's annual flagship
-              Capture The Flag (CTF) event, where competitors battle it out across multiple
-              arenas including <strong>Algorithms</strong>, <strong>Systems</strong>,
-              <strong>Machine Learning</strong>, <strong>Development</strong>, and much more.
-              <br>
-              <br>
-              This season, the pitch is bigger, the stakes are higher, and every challenge
-              brings you one step closer to lifting the trophy. Welcome to
-              <strong>Code Red - Season 3</strong>, where every flag signs a new player for your squad, every solve is a winning play, and only the best teams will make it to the top of the table.
-            </p>
+            <strong>Code Red</strong> is IEEE NITK Computer Society's annual flagship
+            Capture The Flag (CTF) event, where competitors battle it out across multiple
+            arenas including <strong>Algorithms</strong>, <strong>Systems</strong>,
+            <strong>Machine Learning</strong>, <strong>Development</strong>, and much more.
+            <br>
+            <br>
+            This season, the pitch is bigger, the stakes are higher, and every challenge
+            brings you one step closer to lifting the trophy. Welcome to
+            <strong>Code Red - Season 3</strong>, where every flag signs a new player for your squad, every solve is a
+            winning play, and only the best teams will make it to the top of the table.
+          </p>
 
-            <p style="text-align: center; margin-top: 24px;">
-              <strong style="font-size: 1.3em;">
-                The whistle has blown. Kick-off is here.
-              </strong>
-              <br><br>
-              <span class="themeFont text-3xl">
-                Are you ready to bring the trophy home?
-              </span>
-            </p>
+          <p style="text-align: center; margin-top: 24px;">
+            <strong style="font-size: 1.3em;">
+              The whistle has blown. Kick-off is here.
+            </strong>
+            <br><br>
+            <span class="themeFont text-3xl">
+              Are you ready to bring the trophy home?
+            </span>
+          </p>
           </p>
         </div>
       </div>
@@ -94,27 +87,30 @@
   </section>
 
   <br />
-  
-  {% comment %} Domains Section {% endcomment %}
-<div class="flex flex-col items-center justify-center contentBox1 py-3"> 
-  <h1><u>DOMAINS:</u></h1>
-   <div id="schedule" class="flex not-prose flex-row flex-wrap justify-center items-stretch py-5 w-full"> 
-    <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1"> 
-      <img src="{% static 'img/codeRed/DSA.svg' %}" alt="DSA Logo" class="dark-logo logo domain mx-auto">
-       <h2> <strong> Algorithms </strong> </h2> 
-      </div> <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
-         <img src="{% static 'img/codeRed/Lock.svg' %}" alt="Systems Logo" class="dark-logo logo domain mx-auto"> 
-         <h2> <strong> Systems </strong> </h2> </div> 
-         <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1"> 
-          <img src="{% static 'img/codeRed/ML.svg' %}" alt="ML Logo" class="dark-logo logo domain mx-auto">
-           <h2> <strong> ML/AI </strong> </h2>
-           </div> <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
 
-             <img src="{% static 'img/codeRed/Dev.svg' %}" alt="Dev Logo" class="dark-logo logo domain mx-auto"> 
-             <h2> <strong> Development </strong> </h2> 
-            </div> 
-            </div> 
-          </div>
+  {% comment %} Domains Section {% endcomment %}
+  <div class="flex flex-col items-center justify-center contentBox1 py-3">
+    <h1><u>DOMAINS:</u></h1>
+    <div id="schedule" class="flex not-prose flex-row flex-wrap justify-center items-stretch py-5 w-full">
+      <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+        <img src="{% static 'img/codeRed/DSA.svg' %}" alt="DSA Logo" class="dark-logo logo domain mx-auto">
+        <h2> <strong> Algorithms </strong> </h2>
+      </div>
+      <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+        <img src="{% static 'img/codeRed/Lock.svg' %}" alt="Systems Logo" class="dark-logo logo domain mx-auto">
+        <h2> <strong> Systems </strong> </h2>
+      </div>
+      <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+        <img src="{% static 'img/codeRed/ML.svg' %}" alt="ML Logo" class="dark-logo logo domain mx-auto">
+        <h2> <strong> ML/AI </strong> </h2>
+      </div>
+      <div class="flex flex-col items-center justify-center text-lg md:text-xl lg:text-2xl flex-1">
+
+        <img src="{% static 'img/codeRed/Dev.svg' %}" alt="Dev Logo" class="dark-logo logo domain mx-auto">
+        <h2> <strong> Development </strong> </h2>
+      </div>
+    </div>
+  </div>
   <br>
 
   {% comment %} Prizes Section {% endcomment %}
@@ -123,21 +119,21 @@
       <h1><u>PRIZES</u></h1>
       <div class="text-lg md:text-xl lg:text-2xl"> Glory awaits at the final whistle
         <br>
-         A prize pool worth
-         <div class="text-5xl m-2 themeFont">
+        A prize pool worth
+        <div class="text-5xl m-2 themeFont">
           &#8377;14K+
         </div>
         is up for grabs,<br>
         but only the
-          <strong>top three teams</strong> will earn a place on the podium and take home
-          the silverware.
+        <strong>top three teams</strong> will earn a place on the podium and take home
+        the silverware.
       </div>
       <br>
-      <div class="text-lg md:text-xl lg:text-2xl">  Every team that steps onto the pitch and competes will receive a
-  <strong>Participation Certificate</strong>
-  <br>
-  because every campaign deserves to
-  be remembered.
+      <div class="text-lg md:text-xl lg:text-2xl"> Every team that steps onto the pitch and competes will receive a
+        <strong>Participation Certificate</strong>
+        <br>
+        because every campaign deserves to
+        be remembered.
       </div>
     </section>
   </div>
@@ -315,12 +311,12 @@
 
     function updateLogo() {
       const theme = htmlEl.getAttribute("data-theme");
-        darkLogo.style.display = "none";
-        lightLogo.style.display = "inline";
+      darkLogo.style.display = "none";
+      lightLogo.style.display = "inline";
     }
-    
+
     updateLogo();
-    
+
     const observer = new MutationObserver(updateLogo);
     observer.observe(htmlEl, { attributes: true, attributeFilter: ["data-theme"] });
   });
