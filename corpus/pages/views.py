@@ -82,6 +82,14 @@ def index(request):
         alumni_count = alumnis.count()
 
     events_count = get_event_count()
+
+    # All events with a thumbnail, newest first, for the homepage carousel.
+    # Unlike the newsletter's "Recent Highlights" carousel, this ignores the
+    # show_in_recent flag entirely.
+    carousel_events = (
+        Event.objects.exclude(thumbnail="").order_by("-start_date")
+    )
+
     return render(
         request,
         "pages/index.html",
@@ -90,6 +98,7 @@ def index(request):
             "members_count": members_count,
             "alumni_count": alumni_count,
             "events_count": events_count,
+            "carousel_events": carousel_events,
         },
     )
 

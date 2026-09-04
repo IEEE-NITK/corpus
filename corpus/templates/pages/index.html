@@ -7,6 +7,43 @@ Home
 
 {% block style %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+<style>
+  /* Event poster box for the homepage carousel - fills the slide, no layout shift */
+  .home-poster-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0b0f19;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+  }
+  /* High-radius vibrant ambient blur, fills gaps around portrait posters */
+  .home-poster-ambient {
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    object-fit: cover;
+    -webkit-filter: blur(28px) saturate(2.4) brightness(0.95);
+    filter: blur(28px) saturate(2.4) brightness(0.95);
+    opacity: 0.75;
+    pointer-events: none;
+  }
+  /* Foreground poster: shown fully uncropped, contained within the slide */
+  .home-poster-img {
+    position: relative;
+    z-index: 10;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -45,6 +82,48 @@ Home
         and one of the biggest worldwide.
     </p>
     <p class="font-bold">NITK Student Branch: STB98631</p>
+</section>
+<!-- Events Section -->
+<section class="bg-base-200 py-10 min-w-full" aria-labelledby="home-events-heading">
+    <div class="max-w-6xl mx-auto px-4">
+        <h1 id="home-events-heading" class="text-4xl lg:text-5xl font-bold text-center mb-8">Events</h1>
+
+        <div class="relative w-full mx-auto px-2 sm:px-10 md:px-14">
+            {% if carousel_events %}
+                <div class="overflow-hidden">
+                    <div id="home-image-carousel" class="flex transition-transform duration-500 ease-in-out gap-6">
+                        {% for event in carousel_events %}
+                            <div class="home-image-carousel-item flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]">
+                                <div class="relative w-full aspect-[11/10] shadow-2xl rounded-2xl overflow-hidden">
+                                    <div class="home-poster-box">
+                                        {# Ambient blurred copy fills empty space around portrait/landscape posters #}
+                                        <img src="{{ event.thumbnail.url }}" alt="" aria-hidden="true" class="home-poster-ambient" />
+                                        {# Foreground poster shown fully, never cropped #}
+                                        <img src="{{ event.thumbnail.url }}" class="home-poster-img" alt="{{ event.name }} thumbnail" />
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent pointer-events-none"></div>
+                                    <div class="absolute bottom-0 left-0 p-4 md:p-6 text-white z-20">
+                                        <h2 class="text-lg md:text-2xl font-bold line-clamp-1">{{ event.name }}</h2>
+                                        <p class="mt-1 text-sm md:text-lg font-light">{{ event.start_date|date:"jS F Y" }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <button id="home-image-prev-button" class="absolute left-0 sm:left-1 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full text-white transition-colors" aria-label="Previous Slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="home-image-next-button" class="absolute right-0 sm:right-1 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/20 hover:bg-white/40 backdrop-blur-sm rounded-full text-white transition-colors" aria-label="Next Slide">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            {% else %}
+                <div class="text-center py-20 bg-gray-100 dark:bg-gray-800 rounded-2xl">
+                    <p class="text-gray-500">No events to display</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 </section>
 <!-- SIG Section -->
 <section class="bg-base-200 text-center prose px-10 lg:px-40 py-10 min-w-full">
@@ -208,4 +287,72 @@ Home
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script src="https://unpkg.com/typeit"></script>
 <script src="{% static 'js/index.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // --- Homepage Events Carousel (shows 3 cards at once, slides one at a time) ---
+    const track = document.getElementById("home-image-carousel");
+    if (track) {
+        const slides = Array.from(track.getElementsByClassName("home-image-carousel-item"));
+        const prevBtn = document.getElementById("home-image-prev-button");
+        const nextBtn = document.getElementById("home-image-next-button");
+        const totalSlides = slides.length;
+
+        if (totalSlides > 0) {
+            let currentIndex = 0;
+            let slideInterval;
+
+            const getCardsPerView = () => {
+                if (window.innerWidth >= 1024) return 3;
+                if (window.innerWidth >= 640) return 2;
+                return 1;
+            };
+
+            const getMaxIndex = () => Math.max(totalSlides - getCardsPerView(), 0);
+
+            const updateCarousel = () => {
+                const cardWidth = slides[0].getBoundingClientRect().width + 24; // 24px = gap-6
+                const shift = currentIndex * cardWidth;
+                track.style.transform = `translateX(-${shift}px)`;
+            };
+
+            const updateButtonVisibility = () => {
+                const hide = totalSlides <= getCardsPerView();
+                prevBtn.style.display = hide ? "none" : "flex";
+                nextBtn.style.display = hide ? "none" : "flex";
+            };
+
+            const nextSlide = () => {
+                currentIndex = currentIndex >= getMaxIndex() ? 0 : currentIndex + 1;
+                updateCarousel();
+            };
+
+            const prevSlide = () => {
+                currentIndex = currentIndex <= 0 ? getMaxIndex() : currentIndex - 1;
+                updateCarousel();
+            };
+
+            const startAutoplay = () => {
+                slideInterval = setInterval(nextSlide, 4000);
+            };
+
+            const stopAutoplay = () => {
+                clearInterval(slideInterval);
+            };
+
+            nextBtn.addEventListener("click", () => { stopAutoplay(); nextSlide(); startAutoplay(); });
+            prevBtn.addEventListener("click", () => { stopAutoplay(); prevSlide(); startAutoplay(); });
+
+            window.addEventListener("resize", () => {
+                currentIndex = Math.min(currentIndex, getMaxIndex());
+                updateCarousel();
+                updateButtonVisibility();
+            });
+
+            updateButtonVisibility();
+            updateCarousel();
+            startAutoplay();
+        }
+    }
+});
+</script>
 {% endblock %}
