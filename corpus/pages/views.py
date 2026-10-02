@@ -127,6 +127,18 @@ def sig(request, sig_name):
     number_of_members = get_active_members().filter(sig=sig_data).count()
     number_of_events = events_past_year.count()
     show_events_and_members_div = ((number_of_events != 0) or (sig_data.name != "WiE" and sig_data.name != "SIGHT"))
+    
+    #sig_logo_fetch
+
+    logo_name_dict = {
+        "WiE":"wie.png",
+        "SIGHT":"sight.png"
+    }
+
+    sig_logo_image = ""
+
+    if sig_data.name in logo_name_dict:
+        sig_logo_image = "/img/logo/"+logo_name_dict[sig_data.name]
 
     return render(
         request,
@@ -138,7 +150,8 @@ def sig(request, sig_name):
             "alumni_logos": alumnilogos_linked_to_sig,
             "no_of_members": number_of_members,
             "no_of_events": number_of_events,
-            "show_events_and_members_div":show_events_and_members_div
+            "show_events_and_members_div":show_events_and_members_div,
+            "sig_logo_image": sig_logo_image
         },
     )
 
