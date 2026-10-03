@@ -138,7 +138,7 @@ def sig(request, sig_name):
     sig_logo_image = ""
 
     if sig_data.name in logo_name_dict:
-        sig_logo_image = "/img/logo/"+logo_name_dict[sig_data.name]
+        sig_logo_image = logo_name_dict[sig_data.name]
 
     return render(
         request,
