@@ -18,11 +18,6 @@ urlpatterns = [
         name="newsletter_edit_announcement",
     ),
     path(
-        "announcement/toggle/<int:pk>",
-        views.toggle_announcement,
-        name="newsletter_toggle_announcement",
-    ),
-    path(
         "announcement/delete/<int:pk>",
         views.delete_announcement,
         name="newsletter_delete_announcement",
