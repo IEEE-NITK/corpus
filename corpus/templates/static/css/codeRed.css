@@ -58,22 +58,26 @@
   }
 
   .contentBox1 {
-    background-color: #071a3c8a;
+    background-color: #7070708a;
+    backdrop-filter: blur(5px);
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
+    border-radius: 1em;
   }
 
   .contentBox2 {
-    background-color: #8308084c;
+    background-color: #634c0175;
+    backdrop-filter: blur(5px);
     margin-top: 0.7rem;
     margin-bottom: 0.7rem;
+    border-radius: 1em;
   }
 
   .typewriter {
+    width: max-content;
+    max-width: 100%;
     overflow: hidden;
-
     white-space: nowrap;
-
     margin: 0 auto;
 
     animation:
@@ -83,12 +87,29 @@
 
   @keyframes typing {
     from {
-      width: 0
+      width: 0;
     }
 
     to {
-      width: 100%
+      width: 100%;
     }
+  }
+
+  @media (min-width: 640px) {
+    .typewriter {
+      white-space: nowrap;
+    }
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero-content>* {
+    max-width: 100%;
+    min-width: 0;
   }
 
 
@@ -105,5 +126,5 @@
   }
 
   .themeFont {
-    font-family: "Press Start 2P", system-ui;
+    font-family: "Rubik Distressed", system-ui;
   }

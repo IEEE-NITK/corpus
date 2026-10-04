@@ -5,6 +5,7 @@
       "name": "CompSoc",
       "slug": "compsoc",
       "what_we_do": "Intelligence deals with fields such as Machine Learning, Artificial Intelligence, Deep Learning, Computer Vision, NLP. Systems is related to fields involving Operating Systems, Parallel Computing, Network Security, Distributed Systems. Core Computer Science involves Algorithms, Cryptography, Databases, Game Theory, Web & Software Development .",
+      "color": "#fba418",
       "sig_image": "img/compsoc_sig_image.png"
     },
     "model": "config.sig",
@@ -17,6 +18,7 @@
       "name": "Diode",
       "slug": "diode",
       "what_we_do": "For the 2022-23 academic year, IAS showcased a project on a three-level boost converter design for MPPT applications in PV cells. SPS also boasts to showcase state-of-the-art projects such as 'Low Light Image Enhancement using MIRNet', and 'Leveraging Frequency Analysis for Deep Fake Image Classification' at the annual project expo at NITK. In addition, SPS finds its presence in paper discussion sessions, expert talks, and many more enriching activities. Nation wide Workshops, Knowledge sharing sessions and Hackathons were conducted throughout the year by the all three chapters under Diode.",
+      "color": "#59f3e9",
       "sig_image": "img/diode_sig_image.jpg"
     },
     "model": "config.sig",
@@ -29,6 +31,7 @@
       "name": "Piston",
       "slug": "piston",
       "what_we_do": "The SIG specializes on a lot of areas like Aerospace Engineering, Automobile Engineering, Chemical and Thermal Engineering, Heat and Renewable Energy Engineering, Robotics, Controls & Mechatronics and Structures & Materials.",
+      "color": "#cb0011",
       "sig_image": "img/piston_sig_image.png"
     },
     "model": "config.sig",
@@ -491,7 +494,8 @@
       "about": "The Women in Engineering affinity group of IEEE NITK aims to increase inclusivity and acceptance in tech on campus. We coordinate events and mentorship programs to inspire our colleagues and other women and girls to pursue a career in engineering. It is a professional organisation dedicated to promoting technical interests among women engineers and scientists.",
       "name": "WiE",
       "slug": "wie",
-      "what_we_do": "It was launched on February 18th 2009 by Prof. Marimuthu, the R10 WiE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally."
+      "what_we_do": "It was launched on February 18th 2009 by Prof. Marimuthu, the R10 WiE Coordinator. Our mission is to inspire, engage, encourage, and empower IEEE women student members and facilitate the recruitment and retention of women in technical disciplines globally.",
+      "color": "#981D97"
     },
     "model": "config.sig",
     "pk": 4
@@ -502,7 +506,8 @@
       "about": "IEEE SIGHT caters to the guiding philosophy of IEEE - \u2018Advancing Technology for Humanity\u2019. IEEE Special Interest Group on Humanitarian Technology (SIGHT) provides IEEE members with the opportunity to work with a large network of volunteers around the world carrying out and/or supporting impactful humanitarian activities on the local level. IEEE SIGHT focuses on sustainable solutions that make a long-term difference in the lives of people. SIGHT operates through local volunteers and partners working with local communities.",
       "name": "SIGHT",
       "slug": "sight",
-      "what_we_do": "We focus on taking up projects in the open-source platforms. This helps us drive down the cost of the final product and make the solution affordable to a large section of people."
+      "what_we_do": "We focus on taking up projects in the open-source platforms. This helps us drive down the cost of the final product and make the solution affordable to a large section of people.",
+      "color": "#a2f740"
     },
     "model": "config.sig",
     "pk": 5
@@ -646,6 +651,40 @@
     },
     "model": "config.society",
     "pk": 10
+  },
+  {
+    "fields": {
+      "module_name": "newsletter",
+      "module_enabled": true,
+      "module_config": {}
+    },
+    "model": "config.moduleconfiguration",
+    "pk": 1
+  },
+  {
+    "fields": {
+      "module_name": "teampage",
+      "module_enabled": true,
+      "module_config": {
+        "2026": 2026,
+        "2027": 2027,
+        "2028": 2028
+      }
+    },
+    "model": "config.moduleconfiguration",
+    "pk": 2
+  },
+  {
+    "fields": {
+      "module_name": "virtual_expo",
+      "module_enabled": true,
+      "module_config": {
+        "envision_report_type": 2,
+        "view_current_envision": true
+      }
+    },
+    "model": "config.moduleconfiguration",
+    "pk": 3
   },
   {
   "model": "config.society",

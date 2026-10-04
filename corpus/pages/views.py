@@ -1,4 +1,5 @@
-from datetime import date
+from datetime import date,timedelta
+from pyexpat.errors import messages
 
 from accounts.models import ExecutiveMember
 from accounts.models import Faculty
@@ -7,16 +8,19 @@ from config.models import SIG
 from config.models import Society
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from newsletter.models import Event
 
 from corpus.decorators import module_enabled
 
+from django.utils import timezone
+
 
 def get_active_members():
-    active_batches = get_object_or_404(
-        ModuleConfiguration, module_name="teampage"
-    ).module_config
+    try:
+        active_batches = ModuleConfiguration.objects.get(module_name="teampage").module_config
+    except ModuleConfiguration.DoesNotExist:
+        return None
 
     reg_years = []
     for _k, value in active_batches.items():
@@ -33,11 +37,14 @@ def get_active_members():
     return members
 
 
-def get_alumni_count():
+def get_alumni():
     """Return number of executive members who were in earlier batches (alumni)."""
-    config = get_object_or_404(
-        ModuleConfiguration, module_name="teampage"
-    ).module_config
+    try:
+        config = ModuleConfiguration.objects.get(
+            module_name="teampage"
+        ).module_config
+    except ModuleConfiguration.DoesNotExist:
+        return None
 
     # Extract active batches (current members)
     active_reg_years = []
@@ -62,9 +69,27 @@ def get_event_count():
 def index(request):
     # Get all societies to render on landing page Societies section
     societies = Society.objects.all()
-    members_count = get_active_members().count()
-    alumni_count = get_alumni_count().count()
+    members = get_active_members()
+    alumnis = get_alumni()
+    if members is None:
+        members_count = None
+    else:
+        members_count = members.count()
+
+    if alumnis is None:
+        alumni_count = None
+    else:
+        alumni_count = alumnis.count()
+
     events_count = get_event_count()
+
+    # All events with a thumbnail, newest first, for the homepage carousel.
+    # Unlike the newsletter's "Recent Highlights" carousel, this ignores the
+    # show_in_recent flag entirely.
+    carousel_events = (
+        Event.objects.exclude(thumbnail="").order_by("-start_date")
+    )
+
     return render(
         request,
         "pages/index.html",
@@ -73,6 +98,7 @@ def index(request):
             "members_count": members_count,
             "alumni_count": alumni_count,
             "events_count": events_count,
+            "carousel_events": carousel_events,
         },
     )
 
@@ -93,14 +119,14 @@ def sig(request, sig_name):
     sig_data = get_object_or_404(SIG, slug=sig_name)
     societies_linked_to_sig = sig_data.societies.all()
     alumnilogos_linked_to_sig = sig_data.alumni_logos.all()
-
-    current_year = date.today().year
-    events_current_year = sig_data.events.filter(
-        start_date__year=current_year
+    today = timezone.now().date()
+    past_year = today-timedelta(days=365)
+    events_past_year = sig_data.events.filter(
+        start_date__range=(past_year, today)
     ).order_by("start_date")
-
     number_of_members = get_active_members().filter(sig=sig_data).count()
-    number_of_events = events_current_year.count()
+    number_of_events = events_past_year.count()
+    show_events_and_members_div = ((number_of_events != 0) or (sig_data.name != "WiE" and sig_data.name != "SIGHT"))
 
     return render(
         request,
@@ -108,10 +134,11 @@ def sig(request, sig_name):
         {
             "sig": sig_data,
             "societies_linked_to_sig": societies_linked_to_sig,
-            "events": events_current_year,
+            "events": events_past_year,
             "alumni_logos": alumnilogos_linked_to_sig,
             "no_of_members": number_of_members,
             "no_of_events": number_of_events,
+            "show_events_and_members_div":show_events_and_members_div
         },
     )
 
@@ -119,6 +146,14 @@ def sig(request, sig_name):
 @module_enabled("teampage")
 def team(request):
     members = get_active_members()
+    if members is None:
+        messages.error(
+            request,
+            """
+            No active members found. Kindly contact the administrators.
+            """
+        )
+        return redirect("index")
 
     # ExeCom Members
     ieee_core = members.filter(

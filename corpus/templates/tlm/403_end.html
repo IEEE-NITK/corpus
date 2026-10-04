@@ -1,0 +1,45 @@
+{% extends 'tlm/base.html' %}
+{% load static %}
+
+{% block title %}Access Denied{% endblock %}
+
+{% block style %}
+
+{#  Set theme synchronously — same pattern as landing.html  #}
+<script>document.documentElement.setAttribute("data-theme","tlm");</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+    @font-face {
+        font-family: 'Space Age';
+        src: url({% static 'css/SpaceAge.ttf' %}) format('truetype');
+        font-display: swap;
+    }
+
+    /* ── LOGO FIX — same as landing.html ──
+       Hides the dark logo immediately before any JS runs,
+       so the duplicate never flashes even for a single frame. */
+    .dark-logo  { display: none   !important; }
+    .light-logo { display: inline !important; }
+</style>
+
+<link rel="stylesheet" href="{% static 'css/tlm.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="tlm-hero min-h-screen w-full flex flex-col items-center justify-center">
+    <div class="relative z-10 text-center px-6 flex flex-col items-center gap-6">
+        <span class="tlm-title-the">Error</span>
+        <h1 class="tlm-title-main" style="font-size: clamp(4rem, 15vw, 10rem); line-height: 1;">403</h1>
+        <p class="tlm-tagline">Access Denied</p>
+        <p class="tlm-date-text">The mission has ended.</p>
+    </div>
+</section>
+
+{% endblock %}

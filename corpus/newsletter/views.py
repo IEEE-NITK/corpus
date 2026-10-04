@@ -17,6 +17,9 @@ from .models import Event
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
+from django.urls import reverse
+from django.contrib import messages
+
 # Create your views here.
 def _daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days) + 1):
@@ -30,6 +33,10 @@ def calendar_view(request):
         month = int(request.GET.get("month", today.month))
         if not (1 <= month <= 12):
             month = today.month
+            messages.error(request, "Month out of range")
+        if year < 1900 or year > today.year+100 :
+            year = today.year
+            messages.error(request, "Year out of range")
         first_of_month = date(year, month, 1)
     except (ValueError, TypeError):
         year = today.year
@@ -41,8 +48,7 @@ def calendar_view(request):
     first_day_in_grid = raw_all_days[0]
     last_day_in_grid = raw_all_days[-1]
     events_qs = (
-        Event.objects.filter(archive_event=False)
-        .filter(
+        Event.objects.filter(
             Q(start_date__lte=last_day_in_grid) & Q(end_date__gte=first_day_in_grid)
         )
         .prefetch_related("sigs")
@@ -92,7 +98,13 @@ def calendar_view(request):
     next_month_date = last_of_month + timedelta(days=1)
     months = [{"value": i, "name": calendar.month_name[i]} for i in range(1, 13)]
     years = range(today.year - 5, today.year + 6)
-    sig_legend = SIG.objects.all().order_by("name").values("name", "color")
+    sig_legend = list(SIG.objects.all().order_by("name").values("name", "color"))
+
+    sig_legend.append({
+        "name": "InterSIG",
+        "color": "#000080"  
+    })
+
     ctx = {
         "all_cells": all_cells,
         "month_name": calendar.month_name[month],
@@ -109,6 +121,54 @@ def calendar_view(request):
     }
     return render(request, "newsletter/calendar.html", ctx)
 
+@module_enabled(module_name="newsletter")
+def archived_events_view(request):
+    events_qs = Event.objects.filter(archive_event=True).order_by("-start_date") 
+    is_admin = request.user.groups.filter(name="newsletter_admin").exists()
+    available_years = (
+        Event.objects.filter(archive_event=True)
+        .values_list("start_date__year", flat=True)
+        .distinct()
+        .order_by("-start_date__year")
+    )
+    all_sigs = SIG.objects.all().order_by("name")
+    selected_year = request.GET.get("year")
+    selected_sig_id = request.GET.get("sig")
+    if selected_year:
+        try:
+            year = int(selected_year)
+            events_qs = events_qs.filter(start_date__year=year) 
+        except ValueError:
+            selected_year = None
+    if selected_sig_id:
+        try:
+            sig_id = int(selected_sig_id)
+            events_qs = events_qs.filter(sigs__id=sig_id)
+        except ValueError:
+            selected_sig_id = None
+    context = {
+        "events": events_qs.prefetch_related("sigs"),
+        "available_years": available_years,
+        "all_sigs": all_sigs,
+        "selected_year": selected_year,
+        "selected_sig_id": selected_sig_id,
+        "is_admin" : is_admin,
+    }
+    return render(request, "newsletter/archived_events.html", context)
+
+@module_enabled(module_name="newsletter")
+def archived_event_detail(request, pk):
+    event = get_object_or_404(
+        Event.objects.prefetch_related('sigs'), 
+        pk=pk, 
+        archive_event=True
+    )
+
+    context = {
+        "event": event,
+    }
+    
+    return render(request, "newsletter/archived_event_detail.html", context)
 
 @module_enabled(module_name="newsletter")
 def home(request):
@@ -154,10 +214,10 @@ def new_announcement(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Announcement created successfully")
-            return redirect("newsletter_home")
+            return redirect("newsletter_manage_announcements")
         else:
             messages.error(request, "Failed to create announcement")
-            return redirect("newsletter_home")
+            return redirect("newsletter_manage_announcements")
 
     form = EventForm()
     context = {"form": form}
@@ -169,6 +229,11 @@ def new_announcement(request):
 @ensure_group_membership(group_names=["newsletter_admin"])
 def edit_announcement(request, pk):
     event = get_object_or_404(Event, pk=pk)
+    previous_url = (
+        request.GET.get("next")
+        or request.META.get("HTTP_REFERER")
+        or reverse("newsletter_manage_announcements")
+    )
 
     if request.GET.get("archive") == "true":
         event.archive_event = True
@@ -184,17 +249,19 @@ def edit_announcement(request, pk):
 
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES, instance=event)
+        previous_url = request.GET.get("next") or reverse("newsletter_manage_announcements")
         if form.is_valid():
             form.save()
             messages.success(request, "Announcement updated successfully")
-            return redirect("newsletter_manage_announcements")
+            return redirect(request.POST.get("next") or previous_url)
+
     else:
         form = EventForm(instance=event)
 
     return render(
         request,
         "newsletter/edit_announcement.html",
-        {"form": form, "announcement": event},
+        {"form": form, "announcement": event, "previous_url" : previous_url},
     )
 
 
@@ -206,8 +273,11 @@ def toggle_announcement(request, pk):
     event.save()
     string = "archived" if event.archive_event else "unarchived"
     messages.success(request, f"Announcement {string} successfully")
-    return redirect("newsletter_manage_announcements")
-
+    return redirect(
+        request.GET.get("next")
+        or request.POST.get("next")
+        or "newsletter_archived_events"
+    )
 
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])

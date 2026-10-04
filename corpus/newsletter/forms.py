@@ -11,6 +11,7 @@ class EventForm(CorpusModelForm):
             "name",
             "sigs",
             "description",
+            "details",
             "start_date",
             "end_date",
             "page_link",

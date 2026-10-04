@@ -44,12 +44,14 @@
 
         {% if is_admin %}
             <div class="flex justify-center items-center gap-4 my-8 p-4 bg-base-200 dark:bg-gray-800 rounded-lg">
-                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-outline btn-primary">Manage Announcements</a>
-                <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary">Event Calendar</a>
+                <a href="{% url 'newsletter_manage_announcements' %}" class="btn btn-outline btn-secondary">Manage Announcements</a>
+                <a href="{% url 'newsletter_calendar' %}" class="btn btn-outline btn-secondary">Event Calendar</a>
+                <a href="{% url 'newsletter_archived_events' %}" class="btn btn-outline btn-secondary">Archived Events</a>
             </div>
         {% else %}
-            <div class="text-center my-8">
-                <a href="{% url 'newsletter_calendar' %}" class="btn btn-primary btn-wide">View Full Event Calendar</a>
+            <div class="text-center my-8 flex justify-center gap-4">
+                <a href="{% url 'newsletter_calendar' %}" class="btn btn-outline btn-secondary">View Full Event Calendar</a>
+                <a href="{% url 'newsletter_archived_events' %}" class="btn btn-outline btn-secondary">Archived Events</a> 
             </div>
         {% endif %}
 

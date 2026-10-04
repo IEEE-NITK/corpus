@@ -1,0 +1,81 @@
+{% load static %}
+
+<div class="margins cursor-pointer"
+    {% if member and member.roll_number %}
+        onclick="window.location.href='{% url 'accounts_profile' roll_no=member.roll_number %}'"
+    {% else %}
+        onclick="window.location.href='#'"
+    {% endif %}
+>
+    <div class="card card-bordered w-72 bg-base-300 shadow-xl overflow-hidden rounded-2xl
+                hover:scale-105 hover:shadow-2xl transition-transform duration-300 ease-in-out">
+
+        <!-- HEADER -->
+        <div class="bg-gradient-to-r from-blue-500 to-cyan-400
+                    dark:from-blue-700 dark:to-cyan-600
+                    py-6 flex justify-center">
+
+            <img loading="lazy"
+                 class="profile-pic w-24 h-24 rounded-full
+                        border-4 border-white dark:border-neutral-900
+                        shadow-lg object-cover object-center bg-white"
+                 {% if user.profile_pic %}
+                     src="{{ user.profile_pic.url }}"
+                 {% else %}
+                     src="{% static 'img/default_profile_picture.png' %}"
+                 {% endif %}
+                 alt="photo">
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body items-center text-center bg-base-100 dark:bg-neutral">
+
+            <h2 class="card-title text-lg font-bold mb-2
+                       text-blue-800 dark:text-blue-200">
+                {{ user }}
+            </h2>
+
+            {% if post %}
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+                {{ post }}
+            </p>
+            {% endif %}
+
+            <!-- ACTION BUTTONS -->
+            <div class="card-actions flex justify-center gap-4 mt-2">
+
+                {% if linkedin and not hide_linkedin %}
+                <a href="{{ linkedin }}" target="_blank"
+                   onclick="event.stopPropagation()"
+                   class="btn btn-circle btn-outline border-blue-400 text-blue-600
+                          dark:border-blue-200 dark:text-blue-200
+                          hover:bg-blue-600 hover:text-white transition-all">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                {% endif %}
+
+                {% if github and not hide_github %}
+                <a href="https://github.com/{{ github }}"
+                   target="_blank"
+                   onclick="event.stopPropagation()"
+                   class="btn btn-circle btn-outline border-neutral text-neutral-700
+                          dark:text-blue-200 dark:border-blue-300
+                          hover:bg-neutral-700 hover:text-white transition-all">
+                    <i class="fab fa-github"></i>
+                </a>
+                {% endif %}
+
+                {% if website %}
+                <a href="{{ website }}" target="_blank"
+                   onclick="event.stopPropagation()"
+                   class="btn btn-circle btn-outline border-neutral text-neutral-700
+                          dark:text-blue-200 dark:border-blue-300
+                          hover:bg-neutral-700 hover:text-white transition-all">
+                    <i class="fas fa-globe"></i>
+                </a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

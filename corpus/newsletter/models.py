@@ -2,6 +2,7 @@ from config.models import SIG
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -13,6 +14,7 @@ class Event(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField(verbose_name="Description",  null=True, blank=True)
+    details = RichTextUploadingField(blank=True, null=True)
     archive_event = models.BooleanField(default=False)
     show_in_recent = models.BooleanField(default=False)
     thumbnail = models.ImageField(
