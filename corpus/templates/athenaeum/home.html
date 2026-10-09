@@ -71,6 +71,8 @@
                                 </strong>
                                 {% if speaker.platform %}
                                     <span class="text-sm">On {{ speaker.platform }}</span>
+                                {% elif speaker.venue %}
+                                    <span class="text-sm">At {{ speaker.venue }}</span>
                                 {% endif %}
                                 {% if speaker.tentative %}
                                     <span class="badge badge-warning">Yet to be confirmed</span>
