@@ -22,7 +22,7 @@
                 <th scope="col" class="text-2xl px-6 py-4">Sigs</th>
                 <th scope="col" class="text-2xl px-6 py-4">Start Date</th>
                 <th scope="col" class="text-2xl px-6 py-4">End Date</th>
-                <th scope="col" class="text-2xl px-6 py-4">Archived?</th>
+                <th scope="col" class="text-2xl px-6 py-4">Status</th>
                 <th scope="col" class="text-2xl px-6 py-4">Link</th>
                 <th scope="col" class="text-2xl px-6 py-4">Actions</th>
               </tr>
@@ -41,7 +41,7 @@
               </td>
                 <td class="whitespace-nowrap px-6 py-4">{{ announcement.start_date }}</td>
                 <td class="whitespace-nowrap px-6 py-4">{{ announcement.end_date }}</td>
-                <td class="whitespace-nowrap px-6 py-4">{{ announcement.archive_event }}</td>
+                <td class="whitespace-nowrap px-6 py-4">{{ announcement.status|title }}</td>
                 <td class="whitespace-nowrap px-6 py-4">
                     {% if announcement.page_link %}
                         <a href="{{ announcement.page_link }}" class="btn btn-accent" target="_blank">Go to Link</a>

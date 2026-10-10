@@ -83,12 +83,12 @@ def index(request):
 
     events_count = get_event_count()
 
-    # All events with a thumbnail, newest first, for the homepage carousel.
-    # Unlike the newsletter's "Recent Highlights" carousel, this ignores the
-    # show_in_recent flag entirely.
-    carousel_events = (
-        Event.objects.exclude(thumbnail="").order_by("-start_date")
-    )
+    # Recent events with a thumbnail, newest first, for the homepage carousel.
+    carousel_events = [
+        e
+        for e in Event.objects.exclude(thumbnail="").order_by("-start_date")
+        if e.status == "recent"
+    ]
 
     return render(
         request,
