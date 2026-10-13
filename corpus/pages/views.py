@@ -87,7 +87,9 @@ def index(request):
     # Unlike the newsletter's "Recent Highlights" carousel, this ignores the
     # show_in_recent flag entirely.
     carousel_events = (
-        Event.objects.exclude(thumbnail="").order_by("-start_date")
+        Event.objects.filter(show_in_recent=True)
+        .exclude(thumbnail="")
+        .order_by("-start_date")
     )
 
     return render(
