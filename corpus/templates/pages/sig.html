@@ -56,16 +56,14 @@
           {% endif %}
         </div>
         {% endif %}
-        {% if sig.sig_image %}
           {% if sig.name == "WiE" or sig.name == "SIGHT" %}
           <div class="w-full max-w-sm mx-auto mt-10 overflow-hidden">
             <img
-              src="{{ sig.sig_image.url }}"
+              src="{% static 'img/logo/' %}{{sig_logo_image}}"
               alt="{{ sig.name }} Logo"
               class="w-full h-auto object-contain rounded-lg"
             >
           </div>
-          {% endif %}
         {% endif %}
       </div>
 
