@@ -56,7 +56,7 @@ class Event(models.Model):
         today = timezone.localdate()
         if self.end_date >= today:
             return "current"
-        # approximated as 60 days
+        # recent window is RECENT_WINDOW_DAYS days (approximately a year)
         cutoff = today - timedelta(days=RECENT_WINDOW_DAYS)
         return "recent" if self.end_date >= cutoff else "archived"
 
