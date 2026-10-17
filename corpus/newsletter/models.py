@@ -8,7 +8,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
-RECENT_WINDOW_DAYS = 60
+RECENT_WINDOW_DAYS = 365
 
 
 class Event(models.Model):

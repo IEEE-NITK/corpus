@@ -86,7 +86,7 @@ def index(request):
     # Recent events with a thumbnail, newest first, for the homepage carousel.
     carousel_events = [
         e
-        for e in Event.objects.exclude(thumbnail="").order_by("-start_date")
+        for e in Event.objects.order_by("-start_date")
         if e.status == "recent"
     ]
 

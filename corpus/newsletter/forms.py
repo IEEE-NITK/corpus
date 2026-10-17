@@ -17,6 +17,7 @@ class EventForm(CorpusModelForm):
             "page_link",
             "thumbnail",
         ]
+        labels = {"details": "Details/Report"}
         widgets = {
             "start_date": forms.DateInput(
                 attrs={"type": "date", "class": "border p-2 w-full"}
