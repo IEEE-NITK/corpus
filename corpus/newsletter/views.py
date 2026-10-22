@@ -7,6 +7,7 @@ from datetime import timedelta
 from config.models import SIG
 from django.contrib import messages
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -123,31 +124,30 @@ def calendar_view(request):
 
 @module_enabled(module_name="newsletter")
 def archived_events_view(request):
-    events_qs = Event.objects.filter(archive_event=True).order_by("-start_date") 
+    events_qs = [
+        e
+        for e in Event.objects.order_by("-start_date").prefetch_related("sigs")
+        if e.status == "archived"
+    ]
     is_admin = request.user.groups.filter(name="newsletter_admin").exists()
-    available_years = (
-        Event.objects.filter(archive_event=True)
-        .values_list("start_date__year", flat=True)
-        .distinct()
-        .order_by("-start_date__year")
-    )
+    available_years = sorted({e.start_date.year for e in events_qs}, reverse=True)
     all_sigs = SIG.objects.all().order_by("name")
     selected_year = request.GET.get("year")
     selected_sig_id = request.GET.get("sig")
     if selected_year:
         try:
             year = int(selected_year)
-            events_qs = events_qs.filter(start_date__year=year) 
+            events_qs = [e for e in events_qs if e.start_date.year == year]
         except ValueError:
             selected_year = None
     if selected_sig_id:
         try:
             sig_id = int(selected_sig_id)
-            events_qs = events_qs.filter(sigs__id=sig_id)
+            events_qs = [e for e in events_qs if any(s.id == sig_id for s in e.sigs.all())]
         except ValueError:
             selected_sig_id = None
     context = {
-        "events": events_qs.prefetch_related("sigs"),
+        "events": events_qs,
         "available_years": available_years,
         "all_sigs": all_sigs,
         "selected_year": selected_year,
@@ -158,11 +158,9 @@ def archived_events_view(request):
 
 @module_enabled(module_name="newsletter")
 def archived_event_detail(request, pk):
-    event = get_object_or_404(
-        Event.objects.prefetch_related('sigs'), 
-        pk=pk, 
-        archive_event=True
-    )
+    event = get_object_or_404(Event.objects.prefetch_related('sigs'), pk=pk)
+    if event.status != "archived":
+        raise Http404
 
     context = {
         "event": event,
@@ -172,20 +170,17 @@ def archived_event_detail(request, pk):
 
 @module_enabled(module_name="newsletter")
 def home(request):
-    today = timezone.now().date()
     is_admin = request.user.groups.filter(name="newsletter_admin").exists()
 
-    upcoming_or_non_recent = (
-        Event.objects.filter(archive_event=False)
-        .filter(Q(show_in_recent=False) | Q(start_date__gt=today))
-        .order_by("-start_date")
-    )
+    upcoming_or_non_recent = [
+        e for e in Event.objects.order_by("-start_date") if e.status == "current"
+    ]
 
-    recent_events = (
-        Event.objects.filter(archive_event=False, show_in_recent=True)
-        .exclude(thumbnail="")
-        .order_by("-start_date")
-    )
+    recent_events = [
+        e
+        for e in Event.objects.exclude(thumbnail="").order_by("-start_date")
+        if e.status == "recent"
+    ]
 
     return render(
         request,
@@ -235,18 +230,6 @@ def edit_announcement(request, pk):
         or reverse("newsletter_manage_announcements")
     )
 
-    if request.GET.get("archive") == "true":
-        event.archive_event = True
-        event.save()
-        messages.success(request, "Announcement archived successfully")
-        return redirect("newsletter_manage_announcements")
-
-    elif request.GET.get("archive") == "false":
-        event.archive_event = False
-        event.save()
-        messages.success(request, "Announcement unarchived successfully")
-        return redirect("newsletter_manage_announcements")
-
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES, instance=event)
         previous_url = request.GET.get("next") or reverse("newsletter_manage_announcements")
@@ -264,20 +247,6 @@ def edit_announcement(request, pk):
         {"form": form, "announcement": event, "previous_url" : previous_url},
     )
 
-
-@module_enabled(module_name="newsletter")
-@ensure_group_membership(group_names=["newsletter_admin"])
-def toggle_announcement(request, pk):
-    event = get_object_or_404(Event, pk=pk)
-    event.archive_event = not event.archive_event
-    event.save()
-    string = "archived" if event.archive_event else "unarchived"
-    messages.success(request, f"Announcement {string} successfully")
-    return redirect(
-        request.GET.get("next")
-        or request.POST.get("next")
-        or "newsletter_archived_events"
-    )
 
 @module_enabled(module_name="newsletter")
 @ensure_group_membership(group_names=["newsletter_admin"])
