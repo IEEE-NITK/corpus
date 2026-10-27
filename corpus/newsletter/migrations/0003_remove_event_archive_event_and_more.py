@@ -11,19 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-            migrations.SeparateDatabaseAndState(
-                state_operations=[
-                    migrations.AddField(
-                        model_name='event',
-                        name='details',
-                        field=ckeditor_uploader.fields.RichTextUploadingField(blank=True, null=True),
-                        ),
-                    ],
-                database_operations=[
-                    migrations.RunSQL(
-                        "ALTER TABLE newsletter_event ADD COLUMN IF NOT EXISTS details text NULL;",
-                        reverse_sql=migrations.RunSQL.noop,
-                        ),
-                    ],
-                ),
-            ]
+        migrations.AddField(
+            model_name='event',
+            name='details',
+            field=ckeditor_uploader.fields.RichTextUploadingField(blank=True, null=True),
+        ),
+    ]
