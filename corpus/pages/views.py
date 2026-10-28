@@ -87,7 +87,7 @@ def index(request):
     carousel_events = [
         e
         for e in Event.objects.order_by("-start_date")
-        if e.status == "recent"
+        if e.status == "recent" and e.thumbnail
     ]
 
     return render(
