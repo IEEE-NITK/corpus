@@ -25,12 +25,12 @@ class Command(BaseCommand):
                     gender="N",
                 )
                 new_user.save()
-                name_arr = item['name'].split()
+                name_arr = item["name"].split()
                 first_name = name_arr[0]
                 last_name = name_arr[-1]
-                user = User.objects.get(email=item['email'])
+                user = User.objects.get(email=item["email"])
                 user.first_name = first_name
-                user.last_name =  last_name
+                user.last_name = last_name
                 user.save()
 
                 counter = counter + 1

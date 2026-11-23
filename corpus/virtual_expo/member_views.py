@@ -69,7 +69,7 @@ def edit_report(request, report_id):
     if report.approved:
         messages.error(request, "This report is already approved.")
         return redirect("virtual_expo_members_dashboard")
- 
+
     form = ReportForm(instance=report)
 
     if request.method == "POST":

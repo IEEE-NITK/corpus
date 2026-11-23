@@ -5,6 +5,7 @@ from django.shortcuts import render
 from farewell.forms import SeniorForm
 from farewell.models import Senior
 
+
 # Create your views here
 def index(request, pk=None):
     if pk is None:

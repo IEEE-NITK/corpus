@@ -2,6 +2,7 @@ from django.db import models
 
 DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
 
+
 class SIG(models.Model):
     """
     SIG Model.
@@ -11,9 +12,15 @@ class SIG(models.Model):
     name = models.CharField(verbose_name="Name", max_length=10, unique=True)
     about = models.TextField(verbose_name="About Us", default="")
     what_we_do = models.TextField(verbose_name="What We Do", default="")
-    slug = models.SlugField(unique=True, null=True) 
+    slug = models.SlugField(unique=True, null=True)
     sig_image = models.ImageField(verbose_name="SIG Image", blank=True, null=True)
-    color = models.CharField(max_length=7, default='#6b7280', help_text="Hex color code, e.g., #fba418",null = True,blank = True)
+    color = models.CharField(
+        max_length=7,
+        default="#6b7280",
+        help_text="Hex color code, e.g., #fba418",
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return str(self.name)
@@ -90,6 +97,7 @@ class Society(models.Model):
         verbose_name = "Society"
         verbose_name_plural = "Societies"
 
+
 class ModuleConfiguration(models.Model):
     module_name = models.CharField(max_length=200, blank=False, null=False)
     module_enabled = models.BooleanField(default=False)
@@ -98,12 +106,14 @@ class ModuleConfiguration(models.Model):
     def __str__(self):
         return self.module_name
 
+
 class AlumniLogo(models.Model):
     """
     AlumniLogo Model.
     Defines image logos of companies that our Alumni are at related to each SIG.
     """
-    sigs = models.ManyToManyField('SIG', related_name='alumni_logos')
+
+    sigs = models.ManyToManyField("SIG", related_name="alumni_logos")
     name = models.CharField(verbose_name="Alumni Organization Name", max_length=100)
     image = models.ImageField(verbose_name="Logo Image", upload_to="img/alumni_logos/")
 

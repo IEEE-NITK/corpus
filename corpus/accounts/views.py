@@ -18,7 +18,6 @@ from .forms import ExecutiveMemberForm
 from .forms import UserForm
 from .models import ExecutiveMember
 
-
 # Create your views here.
 
 

@@ -13,11 +13,11 @@ gsap.from([cards[0], cards[1], cards[2], header, tagged_blogs], {
 
 });
 
-const animateCards = Array.from(cards).slice(3); 
+const animateCards = Array.from(cards).slice(3);
 
 gsap.from(animateCards, {
     scrollTrigger: {
-       
+
         trigger: "animateCards",
         toggle: "restart none none pause",
     },
@@ -26,5 +26,5 @@ gsap.from(animateCards, {
     duration: 1,
     stagger: 0.2,
     ease: 'power2.out',
-    
+
 });

@@ -68,7 +68,7 @@
 {% endfor %}
 </div>
 <h2 class="section-heading">SAC Core</h2>
-<div class="flex-container">        
+<div class="flex-container">
 {% for member in sac_core %}
     {% include "pages/profile_box.html" with user=member.user post=member.core.post.name linkedin=member.linkedin github=member.github hide_linkedin=member.hide_linkedin hide_github=member.hide_github profile_url=member.get_profile_url %}
     {% empty %}

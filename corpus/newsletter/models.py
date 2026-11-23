@@ -1,10 +1,10 @@
 from datetime import timedelta
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from config.models import SIG
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -24,14 +24,14 @@ class Event(models.Model):
     sigs = models.ManyToManyField(SIG, related_name="events", null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField()
-    description = models.TextField(verbose_name="Description",  null=True, blank=True)
+    description = models.TextField(verbose_name="Description", null=True, blank=True)
     details = RichTextUploadingField(blank=True, null=True)
     thumbnail = models.ImageField(
         upload_to="newsletter/events/thumbnails", blank=True, null=True
     )
     status_override = models.CharField(
         max_length=10,
-        choices=StatusOverride.choices, # [(val1, label1)...]
+        choices=StatusOverride.choices,  # [(val1, label1)...]
         default=StatusOverride.AUTO,
         blank=True,
         help_text="Leave Automatic unless this event must be pinned to a section.",

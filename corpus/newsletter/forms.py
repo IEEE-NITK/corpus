@@ -35,4 +35,3 @@ class EventForm(CorpusModelForm):
         # Check if end date is before start date
         if start_date and end_date and end_date < start_date:
             self.add_error("end_date", "End date cannot be before start date.")
-

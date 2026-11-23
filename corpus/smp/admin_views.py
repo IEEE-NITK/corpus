@@ -63,8 +63,10 @@ def dashboard(request):
                     ).filter(
                         sig_count=1, programmember__member__executivemember__sig=sig_obj
                     )
-            year = int(form.cleaned_data.get("year")) #get data in int form from string
-            if year != 0: # not all years
+            year = int(
+                form.cleaned_data.get("year")
+            )  # get data in int form from string
+            if year != 0:  # not all years
                 programs = programs.filter(year=year)
         except (ValueError, TypeError):
             pass

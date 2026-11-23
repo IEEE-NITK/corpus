@@ -11,6 +11,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.utils import timezone
 
 from .forms import EventForm
@@ -18,8 +19,6 @@ from .models import Event
 from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 
-from django.urls import reverse
-from django.contrib import messages
 
 # Create your views here.
 def _daterange(start_date, end_date):
@@ -35,7 +34,7 @@ def calendar_view(request):
         if not (1 <= month <= 12):
             month = today.month
             messages.error(request, "Month out of range")
-        if year < 1900 or year > today.year+100 :
+        if year < 1900 or year > today.year + 100:
             year = today.year
             messages.error(request, "Year out of range")
         first_of_month = date(year, month, 1)
@@ -101,10 +100,7 @@ def calendar_view(request):
     years = range(today.year - 5, today.year + 6)
     sig_legend = list(SIG.objects.all().order_by("name").values("name", "color"))
 
-    sig_legend.append({
-        "name": "InterSIG",
-        "color": "#000080"  
-    })
+    sig_legend.append({"name": "InterSIG", "color": "#000080"})
 
     ctx = {
         "all_cells": all_cells,
@@ -121,6 +117,7 @@ def calendar_view(request):
         "sig_legend": sig_legend,
     }
     return render(request, "newsletter/calendar.html", ctx)
+
 
 @module_enabled(module_name="newsletter")
 def archived_events_view(request):
@@ -143,7 +140,9 @@ def archived_events_view(request):
     if selected_sig_id:
         try:
             sig_id = int(selected_sig_id)
-            events_qs = [e for e in events_qs if any(s.id == sig_id for s in e.sigs.all())]
+            events_qs = [
+                e for e in events_qs if any(s.id == sig_id for s in e.sigs.all())
+            ]
         except ValueError:
             selected_sig_id = None
     context = {
@@ -152,21 +151,23 @@ def archived_events_view(request):
         "all_sigs": all_sigs,
         "selected_year": selected_year,
         "selected_sig_id": selected_sig_id,
-        "is_admin" : is_admin,
+        "is_admin": is_admin,
     }
     return render(request, "newsletter/archived_events.html", context)
 
+
 @module_enabled(module_name="newsletter")
 def archived_event_detail(request, pk):
-    event = get_object_or_404(Event.objects.prefetch_related('sigs'), pk=pk)
+    event = get_object_or_404(Event.objects.prefetch_related("sigs"), pk=pk)
     if event.status != "archived":
         raise Http404
 
     context = {
         "event": event,
     }
-    
+
     return render(request, "newsletter/archived_event_detail.html", context)
+
 
 @module_enabled(module_name="newsletter")
 def home(request):
@@ -232,7 +233,9 @@ def edit_announcement(request, pk):
 
     if request.method == "POST":
         form = EventForm(request.POST, request.FILES, instance=event)
-        previous_url = request.GET.get("next") or reverse("newsletter_manage_announcements")
+        previous_url = request.GET.get("next") or reverse(
+            "newsletter_manage_announcements"
+        )
         if form.is_valid():
             form.save()
             messages.success(request, "Announcement updated successfully")
@@ -244,7 +247,7 @@ def edit_announcement(request, pk):
     return render(
         request,
         "newsletter/edit_announcement.html",
-        {"form": form, "announcement": event, "previous_url" : previous_url},
+        {"form": form, "announcement": event, "previous_url": previous_url},
     )
 
 
