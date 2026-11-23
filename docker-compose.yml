@@ -49,12 +49,12 @@ services:
     environment:
       - ENVIRONMENT=DEVELOPMENT
       - EMAIL_PROTOCOL=console
-      
-  
+
+
   redis:
     image: redis:7.0-alpine
     restart: always
-    mem_limit: 256m   
+    mem_limit: 256m
     ports:
       - "6380:6379"
     healthcheck:
@@ -64,13 +64,13 @@ services:
       retries: 5
     networks:
       - corpus_network
-      
+
   celery:
     build:
       context: corpus
       dockerfile: dev-Dockerfile
     command: celery -A corpus worker --loglevel=info
-    mem_limit: 256m   
+    mem_limit: 256m
     volumes:
       - ./corpus:/corpus
     depends_on:

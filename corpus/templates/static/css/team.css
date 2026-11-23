@@ -56,8 +56,8 @@
 
 /* ---------- Images ---------- */
 .profile-pic {
-    width: 96px;      
-    height: 96px;     
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     object-fit: cover;
 }

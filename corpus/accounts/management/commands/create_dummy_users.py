@@ -1,8 +1,10 @@
 import random
+
+from accounts.models import ExecutiveMember
+from accounts.models import User
+from config.models import SIG
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from accounts.models import User, ExecutiveMember
-from config.models import SIG
 
 
 class Command(BaseCommand):
@@ -25,7 +27,7 @@ class Command(BaseCommand):
             return
 
         departments = [dept[0] for dept in ExecutiveMember.NITK_DEPARTMENTS]
-        reg_prefixes = ['221', '231', '241']
+        reg_prefixes = ["221", "231", "241"]
 
         total_members = options["count"]
         sig_count = len(sigs)

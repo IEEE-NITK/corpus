@@ -1,5 +1,7 @@
 from farewell.models import Senior
+
 from corpus.tasks import send_email_async
+
 
 def send_mails():
     # Get all seniors

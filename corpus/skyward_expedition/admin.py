@@ -5,7 +5,6 @@ from skyward_expedition.models import SEUser
 from skyward_expedition.models import Submission
 from skyward_expedition.models import Team
 
-
 # Register your models here.
 
 

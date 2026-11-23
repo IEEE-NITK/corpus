@@ -15,7 +15,15 @@ class CorpusUserAdmin(UserAdmin):
         (None, {"fields": ("email", "password")}),
         (
             "Personal Info",
-            {"fields": ("first_name", "last_name", "phone_no", "gender", "profile_pic")},
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "phone_no",
+                    "gender",
+                    "profile_pic",
+                )
+            },
         ),
         (
             "Permissions",
@@ -48,7 +56,14 @@ class CorpusUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ("email", "first_name", "last_name", "phone_no", "gender", "profile_pic")
+    list_display = (
+        "email",
+        "first_name",
+        "last_name",
+        "phone_no",
+        "gender",
+        "profile_pic",
+    )
     search_fields = ("email", "first_name", "last_name", "phone_no")
     ordering = ("email",)
 

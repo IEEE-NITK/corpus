@@ -21,7 +21,6 @@ from corpus.decorators import ensure_group_membership
 from corpus.decorators import module_enabled
 from corpus.utils import send_email
 
-
 # Create your views here.
 
 

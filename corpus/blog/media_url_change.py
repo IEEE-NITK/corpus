@@ -1,6 +1,6 @@
 import json
-import re
 import os
+import re
 
 # Get the directory of the script file
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,6 +12,7 @@ OUTPUT_FILE = os.path.join(SCRIPT_DIR, "blog_data_cpy3.json")
 # Regex pattern to match {% static 'path' %}
 STATIC_PATTERN = r"{%\s*static\s*'([^']+)'?\s*%}"
 REPLACEMENT = r"media\1"
+
 
 def replace_static_in_json(input_file, output_file):
     with open(input_file, "r", encoding="utf-8") as f:
@@ -28,6 +29,7 @@ def replace_static_in_json(input_file, output_file):
         json.dump(data, f, indent=4, ensure_ascii=False)
 
     print(f"Updated JSON saved to {output_file}")
+
 
 # Run the function
 replace_static_in_json(INPUT_FILE, OUTPUT_FILE)

@@ -24,9 +24,9 @@ urlpatterns = [
     ),
     path("calendar/", views.calendar_view, name="newsletter_calendar"),
     path(
-        "archive/<int:pk>/", 
-        views.archived_event_detail, 
-        name="newsletter_archived_event_detail"
+        "archive/<int:pk>/",
+        views.archived_event_detail,
+        name="newsletter_archived_event_detail",
     ),
-    path("archive/", views.archived_events_view, name="newsletter_archived_events"),  
+    path("archive/", views.archived_events_view, name="newsletter_archived_events"),
 ]

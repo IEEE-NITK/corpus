@@ -11,7 +11,7 @@
         {% for tag in tags %}
             {% if tag == required_tag %}
                 <a class="btn btn-sm btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
-            {% else %}  
+            {% else %}
                 <a class="btn btn-sm btn-outline btn-primary mx-1" href="{% url 'tagged_blog' tag.id %}">{{tag.tag_name}}</a>
             {% endif %}
         {% endfor %}

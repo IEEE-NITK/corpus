@@ -1,4 +1,5 @@
-from datetime import date,timedelta
+from datetime import date
+from datetime import timedelta
 from pyexpat.errors import messages
 
 from accounts.models import ExecutiveMember
@@ -8,17 +9,19 @@ from config.models import SIG
 from config.models import Society
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.utils import timezone
 from newsletter.models import Event
 
 from corpus.decorators import module_enabled
 
-from django.utils import timezone
-
 
 def get_active_members():
     try:
-        active_batches = ModuleConfiguration.objects.get(module_name="teampage").module_config
+        active_batches = ModuleConfiguration.objects.get(
+            module_name="teampage"
+        ).module_config
     except ModuleConfiguration.DoesNotExist:
         return None
 
@@ -40,9 +43,7 @@ def get_active_members():
 def get_alumni():
     """Return number of executive members who were in earlier batches (alumni)."""
     try:
-        config = ModuleConfiguration.objects.get(
-            module_name="teampage"
-        ).module_config
+        config = ModuleConfiguration.objects.get(module_name="teampage").module_config
     except ModuleConfiguration.DoesNotExist:
         return None
 
@@ -120,13 +121,15 @@ def sig(request, sig_name):
     societies_linked_to_sig = sig_data.societies.all()
     alumnilogos_linked_to_sig = sig_data.alumni_logos.all()
     today = timezone.now().date()
-    past_year = today-timedelta(days=365)
+    past_year = today - timedelta(days=365)
     events_past_year = sig_data.events.filter(
         start_date__range=(past_year, today)
     ).order_by("start_date")
     number_of_members = get_active_members().filter(sig=sig_data).count()
     number_of_events = events_past_year.count()
-    show_events_and_members_div = ((number_of_events != 0) or (sig_data.name != "WiE" and sig_data.name != "SIGHT"))
+    show_events_and_members_div = (number_of_events != 0) or (
+        sig_data.name != "WiE" and sig_data.name != "SIGHT"
+    )
 
     return render(
         request,
@@ -138,7 +141,7 @@ def sig(request, sig_name):
             "alumni_logos": alumnilogos_linked_to_sig,
             "no_of_members": number_of_members,
             "no_of_events": number_of_events,
-            "show_events_and_members_div":show_events_and_members_div
+            "show_events_and_members_div": show_events_and_members_div,
         },
     )
 
@@ -151,7 +154,7 @@ def team(request):
             request,
             """
             No active members found. Kindly contact the administrators.
-            """
+            """,
         )
         return redirect("index")
 

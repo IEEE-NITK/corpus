@@ -107,8 +107,8 @@
   gap: 0.2rem;
   overflow-y: auto;
   flex-grow: 1;
-  -ms-overflow-style: none;  
-  scrollbar-width: none;  
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .event-tag {

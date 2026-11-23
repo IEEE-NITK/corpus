@@ -1,8 +1,13 @@
 import random
-from datetime import date, timedelta
+from datetime import date
+from datetime import timedelta
+
+from accounts.models import Faculty
+from accounts.models import User
+from config.models import SIG
+from config.models import Society
 from django.core.management.base import BaseCommand
-from accounts.models import User, Faculty
-from config.models import SIG, Society  # adjust imports if needed
+
 
 class Command(BaseCommand):
     help = "Create 10 faculty User and Faculty model instances with dummy data."
@@ -16,7 +21,7 @@ class Command(BaseCommand):
                 self.style.ERROR("Please ensure SIGs and Posts exist before running.")
             )
             return
-        
+
         today = date.today()
         created = 0
 
@@ -33,7 +38,7 @@ class Command(BaseCommand):
                 email=email,
                 phone_no=phone_no,
                 gender=gender,
-                password="securepassword"
+                password="securepassword",
             )
 
             sig = random.choice(sigs)

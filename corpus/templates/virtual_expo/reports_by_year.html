@@ -34,12 +34,12 @@
                     <div class="group relative bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl h-full">
                         <a href="{% url 'virtual_expo_report' report_id=report.id %}" class="block">
                             <div class="relative overflow-hidden h-full group">
-                                <img src="{{ report.thumbnail.url }}" 
+                                <img src="{{ report.thumbnail.url }}"
                                     alt="Thumbnail for {{ report.title }}"
                                     class="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-110 brightness-75"/>
-                                
+
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                                
+
                                 <div>
                                     <h2 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl font-extrabold text-white text-center px-4 z-10 flex flex-col items-center gap-2">
                                         {{ report.title }}
@@ -55,7 +55,7 @@
                                         </div>
                                     </h2>
                                 </div>
-                            </div>                    
+                            </div>
                         </a>
                     </div>
                 {% endfor %}
